@@ -40,7 +40,7 @@ const OurPartners = () => {
             padding: "2rem 0rem 0rem 0rem",
           }}
         >
-          <Typography variant="h1" sx={{ fontSize: "2rem", fontWeight: "600" }}>
+          <Typography variant="h1" sx={{ fontSize: "2.2rem", fontWeight: "600" }}>
             Our Partners
           </Typography>
           <br />

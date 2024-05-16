@@ -47,7 +47,7 @@ const DubaiLeading = () => {
         <Box>
           <Typography
             variant="h1"
-            sx={{ fontSize: "1.5rem", fontWeight: "700" }}
+            sx={{ fontSize: "2.2rem", fontWeight: "700" }}
           >
             Dubai's leading Travel & Tourism Company
           </Typography>
@@ -65,7 +65,7 @@ const DubaiLeading = () => {
 {
     LeadingData.map((val, ind)=>(
         <Grid item lg={3} md={6} sm={12} xs={12} key={ind}>
-              <Box sx={{padding:'0rem 4rem', minHeight:'30vh', border:'1px solid #8c8b92', borderRadius:'10px', display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+              <Box sx={{padding:'0rem 4rem', minHeight:'30vh', border:'1px solid #f0f0f0', borderRadius:'10px', display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
                 <Box>
                   <img src={val.icon} alt="icon" />
                 </Box>

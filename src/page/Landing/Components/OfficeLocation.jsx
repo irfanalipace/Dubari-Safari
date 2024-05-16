@@ -153,7 +153,7 @@ const OfficeLocation = () => {
             padding: "2rem 0rem",
           }}
         >
-          <Typography variant="h1" sx={{ fontSize: "2rem", fontWeight: "600" }}>
+          <Typography variant="h1" sx={{ fontSize: "2.2rem", fontWeight: "600" }}>
             Located at the most prime locations in Dubai
           </Typography>
           <br />
