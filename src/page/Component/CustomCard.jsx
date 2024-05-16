@@ -4,11 +4,11 @@ import { Box, Divider, Typography, useTheme } from '@mui/material';
 import { CiStopwatch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
-const CustomCard = ({ title, description, duration, availability, price, imageUrl }) => {
+const CustomCard = ({ title, description, duration, availability, price, imageUrl, handleClick }) => {
     const theme = useTheme();
 
     return (
-        <Box sx={{
+        <Box onClick={handleClick} sx={{
             // width: 320,
             backgroundColor: '#FDF4F1',
             borderRadius: '12px',

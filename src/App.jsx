@@ -1,26 +1,29 @@
 import { ThemeProvider, StyledEngineProvider } from '@mui/material'
-import {theme} from './Theme'
+import { theme } from './Theme'
 import { SnackbarProvider } from 'notistack'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import Router from './routes'
 import './App.css'
-
+import Navbar from '../src/page/Component/Navbar'
+import Footer from '../src/page/Component/Footer'
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
         <StyledEngineProvider injectFirst>
-            <SnackbarProvider
-              autoHideDuration={3000}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right'
-              }}
-            >
-                <ErrorBoundary>
-                    <Router />
-                </ErrorBoundary>
-            </SnackbarProvider>
+          <SnackbarProvider
+            autoHideDuration={3000}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right'
+            }}
+          >
+            <ErrorBoundary>
+              <Navbar />
+              <Router />
+              <Footer />
+            </ErrorBoundary>
+          </SnackbarProvider>
         </StyledEngineProvider>
       </ThemeProvider>
     </div>
