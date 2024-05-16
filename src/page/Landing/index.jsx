@@ -1,12 +1,15 @@
 import React from 'react'
 import Header from './Header'
-import Footer from './Footer'
+import ChooseUs from './Chooseus'
+import Popular from './Popular'
+
 
 const Landing = () => {
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '50px' }}>
             <Header />
-            <Footer />
+            <ChooseUs />
+            <Popular />
         </div>
     )
 }
