@@ -153,7 +153,10 @@ const OfficeLocation = () => {
             padding: "2rem 0rem",
           }}
         >
-          <Typography variant="h1" sx={{ fontSize: "2.2rem", fontWeight: "600" }}>
+          <Typography
+            variant="h1"
+            sx={{ fontSize: "2.2rem", fontWeight: "600" }}
+          >
             Located at the most prime locations in Dubai
           </Typography>
           <br />
@@ -164,7 +167,6 @@ const OfficeLocation = () => {
 
         <Box
           sx={{
-
             paddingLeft: "5%",
             paddingRight: "5%",
             marginTop: "2rem",
@@ -177,8 +179,8 @@ const OfficeLocation = () => {
         >
           <Slider {...settings}>
             {crouselData.map((val, ind) => (
-            <Box key={ind} gap={5}>
-            <Box
+              <Box key={ind} gap={5}>
+                <Box
                   sx={{
                     marginTop: "1rem",
                     minHeight: "15rem",
@@ -201,8 +203,7 @@ const OfficeLocation = () => {
                     {val.title2}
                   </Typography>
                 </Box>
-
-            </Box>
+              </Box>
             ))}
           </Slider>
         </Box>

@@ -11,7 +11,8 @@ import {
   TextField,
   Typography,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Divider
 } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
@@ -19,6 +20,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import AllActivities from "../Landing/Components/AllActivities";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -211,8 +213,7 @@ const Navbar = () => {
 
 
 
-          {/* Other menu items */}
-          {/* ... */}
+        
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField
@@ -254,6 +255,10 @@ const Navbar = () => {
           </Button>
         </Box>
       </Drawer>
+
+<Divider/>
+
+      <AllActivities/>
     </>
   );
 };
