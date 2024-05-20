@@ -1,10 +1,15 @@
 import { Box, Grid } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Component1 from './Components/Component1'
 import PriceCard from '../Component/PriceCard'
 
 
 const GuestDetailsMain = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
+
   return (
     <>
 

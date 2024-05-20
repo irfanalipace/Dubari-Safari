@@ -1,8 +1,31 @@
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 
 const Component1 = () => {
+
+
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+
+
+  useEffect(() => {
+    fetch(
+      "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data.countries);
+        setSelectedCountry(data.userSelectValue || "");
+      });
+  }, []);
+
+  const handleChangeCountry = (event) => {
+    setSelectedCountry(event.target.value);
+  };
+
+
+
 
     const [selectedValue, setSelectedValue] = useState(30); // 30 corresponds to "Mr"
 const navigate = useNavigate()
@@ -14,6 +37,26 @@ const navigate = useNavigate()
 navigate('/payment-details')
     }
 
+
+    const textFieldStyle = {
+        marginTop: "1rem",
+        "& .MuiInputBase-root": {
+          border: "none",
+          "&:hover": {
+            borderColor: "transparent",
+          },
+          "&.Mui-focused": {
+            boxShadow: "none",
+          },
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          display: "none",
+        },
+        borderRadius: "5px",
+        backgroundColor: "#f6f7f9",
+      };
+
+
   return (
     <>
 
@@ -23,7 +66,7 @@ navigate('/payment-details')
 
 <Box>
     <Typography variant='h1' sx={{fontSize:'1.2rem', fontWeight:'600'}}>Guest Details</Typography>
-    <Typography sx={{fonSize:'1rem', color:'grey'}}>Lorem ipsum dolor sit amet.</Typography>
+    <Typography sx={{fonSize:'1rem', color:'grey'}}>Please Enter Your Guest Details</Typography>
 
 </Box>
 
@@ -39,7 +82,7 @@ navigate('/payment-details')
         // labelId="demo-simple-select-label"
         // id="demo-simple-select"
         value={selectedValue}
-        label="Mr"
+        sx={textFieldStyle}
         onChange={handleChange}
       >
         <MenuItem value={10}>Mr.</MenuItem>
@@ -59,7 +102,7 @@ navigate('/payment-details')
 <Box sx={{display:'flex', flexDirection:'column'}}>
 
 <label style={{fontSize:'1.2rem'}}>First Name</label>
-    <TextField placeholder='Title' size='small' />
+    <TextField placeholder='First Name' sx={textFieldStyle} />
 </Box>
 
 </Grid>
@@ -68,7 +111,7 @@ navigate('/payment-details')
 <Box sx={{display:'flex', flexDirection:'column'}}>
 
 <label style={{fontSize:'1.2rem'}}>Last Name</label>
-    <TextField placeholder='Title' size='small' />
+    <TextField placeholder='Last Name' sx={textFieldStyle} />
 </Box>
 
 </Grid>
@@ -77,7 +120,7 @@ navigate('/payment-details')
 <Box sx={{display:'flex', flexDirection:'column'}}>
 
 <label style={{fontSize:'1.2rem'}}>Email Address</label>
-    <TextField placeholder='Title' size='small' />
+    <TextField placeholder='Email' sx={textFieldStyle} />
 </Box>
 
 </Grid>
@@ -85,8 +128,39 @@ navigate('/payment-details')
 
 <Box sx={{display:'flex', flexDirection:'column'}}>
 
+
+
 <label style={{fontSize:'1.2rem'}}>Nationality</label>
-    <TextField placeholder='Title' size='small' />
+
+<FormControl fullWidth>
+
+      <Select
+      placeholder='Select Country'
+        labelId="country-select-label"
+        id="country-select"
+        value={selectedCountry}
+        onChange={handleChangeCountry}
+        label="Country"
+        sx={textFieldStyle}
+
+      >
+        {countries.map((country) => (
+          <MenuItem key={country.value} value={country.value}>
+            <img
+              src={country.flag}
+              alt=""
+              style={{ width: "20px", marginRight: "10px" }}
+            />
+            {country.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+
+
+
+
+    {/* <TextField placeholder='Nationality' sx={textFieldStyle} /> */}
 </Box>
 
 </Grid>
@@ -95,7 +169,7 @@ navigate('/payment-details')
 <Box sx={{display:'flex', flexDirection:'column'}}>
 
 <label style={{fontSize:'1.2rem'}}>Phone Number</label>
-    <TextField placeholder='Title' size='small' />
+    <TextField placeholder='Phone Number' sx={textFieldStyle} />
 </Box>
 
 </Grid>
@@ -123,7 +197,7 @@ navigate('/payment-details')
 <Box sx={{display:'flex', flexDirection:'column'}}>
 
 <label style={{fontSize:'1.2rem'}}>Pick up Location</label>
-    <TextField placeholder='Enter you Address'  />
+    <TextField placeholder='Enter you Address' sx={textFieldStyle} />
 </Box>
 
 </Grid>
@@ -132,7 +206,7 @@ navigate('/payment-details')
 <Box sx={{display:'flex', flexDirection:'column'}}>
 
 <label style={{fontSize:'1.2rem'}}>Note</label>
-    <TextField placeholder='Note'  />
+    <TextField placeholder='Note'  sx={textFieldStyle}/>
 </Box>
 
 </Grid>

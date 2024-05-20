@@ -1,9 +1,12 @@
 import { Grid } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PaymentDetailComponent from './Components/PaymentDeatailComponent'
 import PriceCard from '../Component/PriceCard'
 
 const PaymentDetailsMain = () => {
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
   return (
     <>
 

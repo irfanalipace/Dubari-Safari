@@ -3,6 +3,7 @@ import React from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -51,7 +52,9 @@ const Footer = () => {
               Home
             </Typography>
             <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem" }}>
-              What We Do
+              <Link to='terms-&-conditions' sx={{textDecoration:'none'}}>
+                Terms & Conditions
+              </Link>
             </Typography>
             <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem" }}>
               Services

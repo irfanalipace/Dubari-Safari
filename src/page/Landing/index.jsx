@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import ChooseUs from "./Chooseus";
 import Popular from "./Popular";
@@ -13,6 +13,12 @@ import WhatWeDo from "./Components/WhatWeDo";
 import AllActivities from "./Components/AllActivities";
 
 const Landing = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
+
+
   return (
     <>
 
@@ -25,11 +31,11 @@ const Landing = () => {
       </div>
 
 <WhatWeDo/>
-      <DubaiLeading />
-      <OurPartners />
+      {/* <DubaiLeading /> */}
+      {/* <OurPartners /> */}
       <SpecialOffer />
-      <OfficeLocation />
-  
+      {/* <OfficeLocation /> */}
+
     </>
   );
 };
