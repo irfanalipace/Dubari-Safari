@@ -9,7 +9,7 @@ const AllActivities = () => {
     {
       icon: "/activity1icon.png",
       name: "Desert Safari",
-      path: "/guest-details",
+      path: "/desert-safari",
     },
     {
       icon: "/activity2icon.png",
