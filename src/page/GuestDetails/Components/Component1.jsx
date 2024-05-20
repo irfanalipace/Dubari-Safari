@@ -1,13 +1,19 @@
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router';
 
 const Component1 = () => {
 
     const [selectedValue, setSelectedValue] = useState(30); // 30 corresponds to "Mr"
-
+const navigate = useNavigate()
     const handleChange = (event) => {
       setSelectedValue(event.target.value);
     };
+
+    const handleContinue =()=>{
+navigate('/payment-details')
+    }
+
   return (
     <>
 
@@ -137,7 +143,7 @@ const Component1 = () => {
     backgroundColor:'grey'
 }}}>Cancel</Button>
 
-<Button variant='contained' sx={{marginLeft:'2rem', padding:'0.8rem 1.5rem', textTransform:'none', fontSize:'0.8rem'}}>Save & Continue</Button>
+<Button variant='contained' sx={{marginLeft:'2rem', padding:'0.8rem 1.5rem', textTransform:'none', fontSize:'0.8rem'}} onClick={handleContinue}>Save & Continue</Button>
 
 </Box>
 

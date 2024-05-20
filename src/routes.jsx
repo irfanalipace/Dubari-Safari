@@ -2,6 +2,7 @@ import { useRoutes } from "react-router";
 import AdminLogin from "./views/Auth/Login/AdminLogin";
 import Landing from "./page/Landing";
 import GuestDetailsMain from "./page/GuestDetails/GuestDetailsMain";
+import PaymentDetailsMain from "./page/PaymentDeatils/PaymentDetailsMain";
 
 export default function Router() {
     let element = useRoutes([
@@ -13,6 +14,10 @@ export default function Router() {
         {
             path: '/guest-details',
             element: <GuestDetailsMain/>
+        },
+        {
+            path: '/payment-details',
+            element: <PaymentDetailsMain/>
         },
 
         {
