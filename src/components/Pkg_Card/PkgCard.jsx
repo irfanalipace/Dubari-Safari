@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useNavigate } from "react-router";
-const PkgCard = () => {
+const PkgCard = ({ data }) => {
   const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -38,8 +38,9 @@ const PkgCard = () => {
           </Typography>
         </Box>
         <Typography gutterBottom variant="h5" component="div">
-          Show Cruise Abu Dhabi
+          {data?.name}
         </Typography>
+        <Typography color="grey">{data?.description}</Typography>
         <Box
           sx={{
             display: "flex",

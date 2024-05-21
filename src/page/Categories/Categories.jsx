@@ -9,51 +9,53 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
-import { ArrowBack, LocalFireDepartment } from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import PkgCard from "../../components/Pkg_Card/PkgCard";
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCategories } from "../../store/actions/categoriesActions";
 import Loader from "../../components/Loader/Loader";
+
 const Categories = () => {
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = useState("");
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const theme = useTheme();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCategories())
       .then((result) => {
+        const initialCategory = result.data.payload[0];
         setCategories(result.data.payload);
-        // setLoading(false);
+        setSelectedCategory(initialCategory);
+        setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
         console.log(err, "ERRR");
       });
-  });
+  }, [dispatch]);
+
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
   const navigate = useNavigate();
   const handleBack = () => {
     navigate("/");
   };
-  const cardData = [
-    { title: "Show Cruise Dubai", del: 2650, price: 2000 },
-    { title: "ruise Dubai", del: 2650, price: 2000 },
-    { title: "Show Cruise ", del: 2650, price: 2000 },
-    { title: "Show ", del: 2650, price: 2000 },
-    { title: "Show  Dubai", del: 2650, price: 2000 },
-    { title: "Show Cruise", del: 2650, price: 2000 },
-    { title: "ruise Dubai", del: 2650, price: 2000 },
-    { title: "Show Cruise ", del: 2650, price: 2000 },
-    { title: "Show ", del: 2650, price: 2000 },
-    { title: "Show  Dubai", del: 2650, price: 2000 },
-    { title: "Show Cruise", del: 2650, price: 2000 },
-  ];
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const cardData = [{ title: "Show Cruise Dubai", del: 2650, price: 2000 }];
+
   return (
     <Page title="Categories">
       <Box sx={{ p: 10 }}>
@@ -80,7 +82,15 @@ const Categories = () => {
         </Box>
         <Box sx={{ display: "flex", mt: 6 }}>
           {loading ? (
-            <Loader />
+            <Box>
+              <Loader />
+            </Box>
+          ) : categories.length === 0 ? (
+            <Typography
+              sx={{ fontWeight: "bold", textAlign: "center", width: "100%" }}
+            >
+              No Categories Found please try again later
+            </Typography>
           ) : (
             categories.map((val, index) => (
               <Box
@@ -92,10 +102,20 @@ const Categories = () => {
                   flexDirection: "column",
                   mr: 4,
                 }}
+                onClick={() => handleCategoryClick(val)}
               >
                 <Avatar
                   src="/jeep.jpg"
-                  sx={{ height: "150px", width: "150px" }}
+                  sx={{
+                    height: "150px",
+                    width: "150px",
+                    border: `4px solid ${
+                      selectedCategory === val
+                        ? theme.palette.primary.main
+                        : "transparent"
+                    }`,
+                    cursor: "pointer",
+                  }}
                 />
                 <Typography sx={{ mt: 1, fontWeight: "bold" }}>
                   {val.name}
@@ -153,13 +173,25 @@ const Categories = () => {
           </Box>
         </Box>
         <Grid container spacing={3} sx={{ mt: 3 }}>
-          {cardData.map((val) => {
-            return (
-              <Grid item xs={12} lg={3}>
-                <PkgCard />
+          {selectedCategory?.activity?.length === 0 ? (
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: "bold",
+                textAlign: "center",
+                width: "100%",
+                mt: 3,
+              }}
+            >
+              No activities found in this category
+            </Typography>
+          ) : (
+            selectedCategory?.activity?.map((val, index) => (
+              <Grid item xs={12} lg={3} key={index}>
+                <PkgCard data={val} />
               </Grid>
-            );
-          })}
+            ))
+          )}
         </Grid>
       </Box>
     </Page>
