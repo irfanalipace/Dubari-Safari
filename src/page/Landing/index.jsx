@@ -14,8 +14,8 @@ import AllActivities from "./Components/AllActivities";
 
 const Landing = () => {
 
-  useEffect(()=>{
-    window.scrollTo(0,0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
   })
 
 
@@ -30,7 +30,7 @@ const Landing = () => {
         <Popular />
       </div>
 
-<WhatWeDo/>
+      <WhatWeDo />
       {/* <DubaiLeading /> */}
       {/* <OurPartners /> */}
       <SpecialOffer />

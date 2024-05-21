@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import CustomCard from '../Component/CustomCard';
+import { useNavigate } from 'react-router';
 
 const cardData = [
     { title: "Morning Desert Safari", description: 'Lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur ipsum dolor sit amet .', duration: '3 Hours, 5 minutes', availability: "Tomorrow", price: '$2,500', imageUrl: "/header.png" },
@@ -10,6 +11,10 @@ const cardData = [
 
 const Popular = () => {
     const theme = useTheme();
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate('/location-detail')
+    }
 
     return (
         <>
@@ -21,6 +26,7 @@ const Popular = () => {
                         {cardData.map((val, ind) => (
                             <Grid key={ind} item lg={4} xs={12} sm={12} md={6}>
                                 <CustomCard
+                                    handleClick={handleClick}
                                     title={val.title}
                                     description={val.description}
                                     duration={val.duration}
