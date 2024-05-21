@@ -21,7 +21,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -65,7 +65,10 @@ const Navbar = () => {
         }}
       >
         <Box>
-          <img src="/Logo.png" alt="Logo" />
+        <Link to='/'>
+        <img src="/Logo.png" alt="Logo" />
+
+        </Link>
         </Box>
 
         {isSmallScreen ? (
@@ -100,9 +103,38 @@ const Navbar = () => {
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <TextField
                 placeholder="Search for Experience"
-                size="small"
+size="small"
                 variant="outlined"
+
+
+                sx={{
+
+                  "& .MuiInputBase-root": {
+
+          padding: 0, // Set padding to 0
+          "&:hover": {
+            borderColor: "#f7f7f7",
+          },
+          "&.Mui-focused": {
+            boxShadow: "none",
+          },
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          color:'#f7f7f7'
+        },
+
+
+        borderRadius: "0px",
+        backgroundColor: "white",
+      }}
                 InputProps={{
+
+
+                  sx: {
+
+          padding: 0, // Ensure no padding for the input
+        },
+
                   endAdornment: (
                     <InputAdornment
                       position="end"
@@ -113,10 +145,14 @@ const Navbar = () => {
                           mr: -1.5,
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
+                          padding:'0.5rem 1rem',
+                          borderRadius:'0px 5px 5px 0px',
                           ":hover": {
                             backgroundColor: theme.palette.primary.main,
                             color: "white",
                           },
+
+
                         }}
                       >
                         <SearchOutlinedIcon
@@ -218,10 +254,15 @@ const Navbar = () => {
             <Typography>Wishlist</Typography>
           </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ShoppingCartOutlinedIcon />
-            <Typography> Cart</Typography>
-          </Box>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <ShoppingCartOutlinedIcon />
+              <Typography> Cart</Typography>
+            </Box>
+
+
+
+
+
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField
@@ -271,7 +312,7 @@ const Navbar = () => {
 
       <AllActivities />
     </>
-  );
+  );  
 };
 
 export default Navbar;

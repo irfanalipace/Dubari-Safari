@@ -129,7 +129,14 @@ const WhatWeDo = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', marginTop:'2rem' }}>
+<Box gap={2} sx={{marginTop:'1rem'}}>
+  <img src='/vector1.png' alt='vector1'/>
+  <img src='/vector2.png' alt='vector1' style={{marginLeft:'1rem'}}/>
+
+</Box>
+
+
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="Experience Dubai" />
             <Tab label="Corporate" />
