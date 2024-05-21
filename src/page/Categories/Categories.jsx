@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Page from "../../components/page";
 import {
   Avatar,
@@ -12,30 +12,35 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ArrowBack } from "@mui/icons-material";
+import { ArrowBack, LocalFireDepartment } from "@mui/icons-material";
 import PkgCard from "../../components/Pkg_Card/PkgCard";
 import { useNavigate } from "react-router";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../store/actions/categoriesActions";
+import Loader from "../../components/Loader/Loader";
 const Categories = () => {
   const [age, setAge] = React.useState("");
-
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCategories())
+      .then((result) => {
+        setCategories(result.data.payload);
+        // setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err, "ERRR");
+      });
+  });
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleBack = () => {
-    navigate('/')
-  }
-
-  const categories = [
-    { name: "Desert Safari Tours", avatar: "/jeep.jpg" },
-    { name: "City Tours", avatar: "/jeep.jpg" },
-    { name: "Show Cruise", avatar: "/jeep.jpg" },
-    { name: "Water Activities", avatar: "/jeep.jpg" },
-    { name: "Airport Transfers", avatar: "/jeep.jpg" },
-    { name: "Theme Parks", avatar: "/jeep.jpg" },
-    { name: "Hop On Hop Off Bus", avatar: "/jeep.jpg" },
-  ];
+    navigate("/");
+  };
   const cardData = [
     { title: "Show Cruise Dubai", del: 2650, price: 2000 },
     { title: "ruise Dubai", del: 2650, price: 2000 },
@@ -52,7 +57,11 @@ const Categories = () => {
   return (
     <Page title="Categories">
       <Box sx={{ p: 10 }}>
-        <Button onClick={handleBack} variant="contained" startIcon={<ArrowBack />}>
+        <Button
+          onClick={handleBack}
+          variant="contained"
+          startIcon={<ArrowBack />}
+        >
           Back to home page
         </Button>
         <Box
@@ -70,26 +79,30 @@ const Categories = () => {
           </Typography>
         </Box>
         <Box sx={{ display: "flex", mt: 6 }}>
-          {categories.map((val, index) => (
-            <Box
-              key={index}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                mr: 4,
-              }}
-            >
-              <Avatar
-                src="/jeep.jpg"
-                sx={{ height: "150px", width: "150px" }}
-              />
-              <Typography sx={{ mt: 1, fontWeight: "bold" }}>
-                {val.name}
-              </Typography>
-            </Box>
-          ))}
+          {loading ? (
+            <Loader />
+          ) : (
+            categories.map((val, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  mr: 4,
+                }}
+              >
+                <Avatar
+                  src="/jeep.jpg"
+                  sx={{ height: "150px", width: "150px" }}
+                />
+                <Typography sx={{ mt: 1, fontWeight: "bold" }}>
+                  {val.name}
+                </Typography>
+              </Box>
+            ))
+          )}
         </Box>
         <Box
           sx={{
