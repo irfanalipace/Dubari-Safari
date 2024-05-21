@@ -33,7 +33,7 @@ const Landing = () => {
 <WhatWeDo/>
       {/* <DubaiLeading /> */}
       {/* <OurPartners /> */}
-      <SpecialOffer />
+      {/* <SpecialOffer /> */}
       {/* <OfficeLocation /> */}
 
     </>
