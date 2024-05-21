@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import PkgCard from "../../components/Pkg_Card/PkgCard";
+import { useNavigate } from "react-router";
 
 const Categories = () => {
   const [age, setAge] = React.useState("");
@@ -21,6 +22,10 @@ const Categories = () => {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+  const navigate = useNavigate()
+  const handleBack = () => {
+    navigate('/')
+  }
 
   const categories = [
     { name: "Desert Safari Tours", avatar: "/jeep.jpg" },
@@ -47,7 +52,7 @@ const Categories = () => {
   return (
     <Page title="Categories">
       <Box sx={{ p: 10 }}>
-        <Button variant="contained" startIcon={<ArrowBack />}>
+        <Button onClick={handleBack} variant="contained" startIcon={<ArrowBack />}>
           Back to home page
         </Button>
         <Box
