@@ -12,7 +12,7 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
-  Divider
+  Divider,
 } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
@@ -21,12 +21,13 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const navigate = useNavigate();
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
   };
@@ -37,11 +38,11 @@ const Navbar = () => {
 
   useEffect(() => {
     // Add event listener for window resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Cleanup function to remove event listener
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -64,7 +65,10 @@ const Navbar = () => {
         }}
       >
         <Box>
-          <img src="/Logo.png" alt="Logo" />
+        <Link to='/'>
+        <img src="/Logo.png" alt="Logo" />
+
+        </Link>
         </Box>
 
         {isSmallScreen ? (
@@ -73,9 +77,17 @@ const Navbar = () => {
           </Button>
         ) : (
           <>
-            <Box width={isSmallScreen ? '100%' : '8rem'} marginBottom={isSmallScreen ? '1rem' : '0'}>
+            <Box
+              width={isSmallScreen ? "100%" : "8rem"}
+              marginBottom={isSmallScreen ? "1rem" : "0"}
+            >
               <FormControl fullWidth size="small" variant="standard">
-                <InputLabel id="demo-simple-select-label" sx={{ borderBottom: 'none' }}>What We Do</InputLabel>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ borderBottom: "none" }}
+                >
+                  What We Do
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -91,22 +103,61 @@ const Navbar = () => {
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <TextField
                 placeholder="Search for Experience"
-                size="small"
+size="small"
                 variant="outlined"
+
+
+                sx={{
+
+                  "& .MuiInputBase-root": {
+
+          padding: 0, // Set padding to 0
+          "&:hover": {
+            borderColor: "#f7f7f7",
+          },
+          "&.Mui-focused": {
+            boxShadow: "none",
+          },
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          color:'#f7f7f7'
+        },
+
+
+        borderRadius: "0px",
+        backgroundColor: "white",
+      }}
                 InputProps={{
+
+
+                  sx: {
+
+          padding: 0, // Ensure no padding for the input
+        },
+
                   endAdornment: (
-                    <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
+                    <InputAdornment
+                      position="end"
+                      style={{ padding: 0, margin: 0 }}
+                    >
                       <Button
                         sx={{
+                          mr: -1.5,
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
+                          padding:'0.5rem 1rem',
+                          borderRadius:'0px 5px 5px 0px',
                           ":hover": {
                             backgroundColor: theme.palette.primary.main,
                             color: "white",
                           },
+
+
                         }}
                       >
-                        <SearchOutlinedIcon />
+                        <SearchOutlinedIcon
+                          onClick={() => navigate("/search-results")}
+                        />
                       </Button>
                     </InputAdornment>
                   ),
@@ -149,27 +200,25 @@ const Navbar = () => {
       </Box>
 
       <Drawer anchor="left" open={openDrawer} onClose={handleDrawerClose}>
-
         <Box
-        gap={3}
+          gap={3}
           sx={{
-            padding:'2rem',
-            marginTop:'2rem',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            justifyContent:'space-between',
-            backgroundColor: 'white',
+            padding: "2rem",
+            marginTop: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            justifyContent: "space-between",
+            backgroundColor: "white",
           }}
         >
-
           {/* Close button in the top right corner */}
           <Button
             onClick={handleDrawerClose}
             sx={{
-              position: 'absolute',
-              top: '1rem',
-              right: '1rem',
+              position: "absolute",
+              top: "1rem",
+              right: "1rem",
             }}
           >
             <CloseIcon />
@@ -191,19 +240,19 @@ const Navbar = () => {
             </FormControl>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-              <HelpOutlineIcon />
-              <Typography> Eng/AED</Typography>
-            </Box>
+            <HelpOutlineIcon />
+            <Typography> Eng/AED</Typography>
+          </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <HelpOutlineIcon />
-              <Typography>Help</Typography>
-            </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <HelpOutlineIcon />
+            <Typography>Help</Typography>
+          </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <FavoriteBorderRoundedIcon />
-              <Typography>Wishlist</Typography>
-            </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <FavoriteBorderRoundedIcon />
+            <Typography>Wishlist</Typography>
+          </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <ShoppingCartOutlinedIcon />
@@ -213,17 +262,20 @@ const Navbar = () => {
 
 
 
-        
+
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField
               placeholder="Search for Experience"
               size="small"
               variant="outlined"
-              sx={{padding:0}}
+              sx={{ padding: 0 }}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
+                  <InputAdornment
+                    position="end"
+                    style={{ padding: 0, margin: 0 }}
+                  >
                     <Button
                       sx={{
                         backgroundColor: theme.palette.primary.main,
@@ -248,7 +300,7 @@ const Navbar = () => {
               backgroundColor: theme.palette.primary.main,
               padding: "0.5rem 2rem",
               textTransform: "none",
-              marginTop: '1rem',
+              marginTop: "1rem",
             }}
           >
             Sign-Up
@@ -256,11 +308,11 @@ const Navbar = () => {
         </Box>
       </Drawer>
 
-<Divider/>
+      <Divider />
 
-      <AllActivities/>
+      <AllActivities />
     </>
-  );
+  );  
 };
 
 export default Navbar;

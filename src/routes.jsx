@@ -9,6 +9,8 @@ import Contact_Us from "./page/Contact_Us/Contact_Us";
 import About_Us from "./page/About_Us/About_Us";
 import Categories from "./page/Categories/Categories";
 import DetailPage from "./page/DetailPage/DetailPage";
+import Privacy_Policy from "./page/Privacy_Policy/Privacy_Policy";
+import Search_Results from "./page/Search_Results";
 
 export default function Router() {
   let element = useRoutes([
@@ -30,8 +32,16 @@ export default function Router() {
       element: <DetailPage />,
     },
     {
+      path: "/search-results",
+      element: <Search_Results />,
+    },
+    {
       path: "/desert-safari",
       element: <Categories />,
+    },
+    {
+      path: "/privacy-policy",
+      element: <Privacy_Policy />,
     },
     {
       path: "/confirmation",

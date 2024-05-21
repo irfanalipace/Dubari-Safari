@@ -5,8 +5,10 @@ import {
   Grid,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Page from "../../components/page";
 import Overlay from "../../components/Image_Overlay/Overlay";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
@@ -14,11 +16,56 @@ import EmailIcon from "@mui/icons-material/Email";
 import PlaceIcon from "@mui/icons-material/Place";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { useDispatch } from "react-redux";
+import { send_message } from "../../store/actions/ContactUsActions";
+import { useSnackbar } from "notistack";
+import Loader from "../../components/Loader/Loader";
 const Contact_Us = () => {
+  const initalValues = {
+    first_name: "",
+    company_name: "",
+    email: "",
+    inquiry_topic: "",
+    mobile: "",
+    message: "",
+  };
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [formValues, setFormValues] = useState(initalValues);
+  const is_md = useMediaQuery(theme.breakpoints.down("lg"));
+  const is_sm = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    dispatch(send_message(formValues))
+      .then((result) => {
+        setFormValues(initalValues);
+        enqueueSnackbar(result.data.message, {
+          variant: "success",
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
   return (
     <Page title="Contact Us">
       <Overlay title="Contact Us" />
-      <Box sx={{ p: 5 }}>
+      <Box sx={{ p: is_sm ? 2 : 5 }}>
         <Typography fontWeight="bold" variant="h5" textAlign="center">
           Get In Touch
         </Typography>
@@ -26,12 +73,15 @@ const Contact_Us = () => {
           sx={{
             height: "70vh",
             mt: 5,
-            px: 5,
+            px: is_sm ? 2 : 5,
             display: "flex",
             position: "relative",
           }}
         >
-          <Box flex={1} sx={{ position: "relative" }}>
+          <Box
+            flex={1}
+            sx={{ position: "relative", display: is_md ? "none" : "block" }}
+          >
             <img
               src="/contact_detail.png"
               alt="Contact details"
@@ -70,45 +120,93 @@ const Contact_Us = () => {
             </Box>
           </Box>
           <Box flex={2} sx={{ p: 5 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} lg={6}>
-                <Txt_field label="Full Name" />
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} lg={6}>
+                  <Txt_field
+                    label="First Name"
+                    name="first_name"
+                    value={formValues.first_name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} lg={6}>
+                  <Txt_field
+                    label="Last Name"
+                    name="last_name"
+                    value={formValues.last_name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} lg={6}>
+                  <Txt_field
+                    label="Email Address"
+                    name="email"
+                    value={formValues.email}
+                    onChange={handleInputChange}
+                    required
+                    type="email"
+                  />
+                </Grid>
+                <Grid item xs={12} lg={6}>
+                  <Txt_field
+                    label="Mobile Number"
+                    name="mobile"
+                    value={formValues.mobile}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} lg={6}>
+                  <Txt_field
+                    label="Enter Company Name"
+                    name="company_name"
+                    value={formValues.company_name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} lg={6}>
+                  <Txt_field
+                    label="Topic Inquiry"
+                    name="inquiry_topic"
+                    value={formValues.inquiry_topic}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} lg={12}>
+                  <Txt_field
+                    label="Message"
+                    name="message"
+                    value={formValues.message}
+                    onChange={handleInputChange}
+                    placeholder="Write your message..."
+                    required
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} lg={6}>
-                <Txt_field label="Select Company (Optional)" select />
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Txt_field label="Select Company (Optional)" select />
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Txt_field label="Email Address" />
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Txt_field label="Topic Inquiry" select />
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Txt_field label="Mobile Number" />
-              </Grid>
-              <Grid item xs={12} lg={12}>
-                <Txt_field
-                  label="Message"
-                  placeholder="Write your message..."
-                />
-              </Grid>
-            </Grid>
-            <Box sx={{ display: "flex", mt: 5, justifyContent: "flex-end" }}>
-              <Button
-                variant="contained"
-                sx={{
-                  marginLeft: "1rem",
-                  padding: "0.8rem 1.5rem",
-                  textTransform: "none",
-                  fontSize: "0.8rem",
-                }}
-              >
-                Confirm Payment
-              </Button>
-            </Box>
+              <Box sx={{ display: "flex", mt: 5, justifyContent: "flex-end" }}>
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={{
+                      marginLeft: "1rem",
+                      padding: "0.8rem 1.5rem",
+                      textTransform: "none",
+                      fontSize: "0.8rem",
+                    }}
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                )}
+              </Box>
+            </form>
           </Box>
         </Box>
       </Box>
