@@ -4,7 +4,7 @@ import { Box, Button, Divider, Typography, useTheme } from '@mui/material';
 import { CiStopwatch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
-const CustomCard = ({ title, description, duration, availability, discountprice, actualprice, imageUrl, earnpoints }) => {
+const CustomCard = ({ title, description, duration, availability, discountprice, actualprice,handleClick, imageUrl, earnpoints }) => {
     const theme = useTheme();
 
     return (
