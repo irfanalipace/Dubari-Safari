@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import SearchCard from "./components/SearchCard";
+import SearchCard from "../../../../components/SearchCard/SearchCard";
 const RightAside = () => {
   const [age, setAge] = React.useState("");
 

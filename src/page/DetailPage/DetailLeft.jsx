@@ -9,11 +9,14 @@ import {
   Select,
   Button,
   useTheme,
+  Tooltip,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/actions/cartActions";
 const DetailLeft = ({ ac_data }) => {
   const [person, setPerson] = useState(1);
   const [date, setDate] = useState("");
@@ -166,6 +169,7 @@ const DetailLeft = ({ ac_data }) => {
               </Box>
             </Box>
           ))}
+          <ActivityCard />
         </Box>
       </Box>
     </Box>
@@ -173,3 +177,71 @@ const DetailLeft = ({ ac_data }) => {
 };
 
 export default DetailLeft;
+
+const ActivityCard = () => {
+  const dispatch = useDispatch();
+  const handleCart = () => {
+    const pkg_id = 1;
+    const quantity = 3;
+    dispatch(addToCart(pkg_id, quantity))
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "10px",
+        padding: "20px",
+        border: "1px solid #EDEDED",
+        borderRadius: "10px",
+        marginBottom: "10px",
+        backgroundColor: "#EDEDED",
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
+          This is the title
+        </Typography>
+        <Typography sx={{ fontSize: "14px", fontWeight: 600, ml: 10 }}>
+          AED 600
+        </Typography>
+      </Box>
+      <Box
+        sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+      >
+        <Box sx={{ mb: 1 }}>
+          <Tooltip title="Add to cart">
+            <Button
+              onClick={handleCart}
+              variant="contained"
+              sx={{
+                color: "white",
+                fontSize: "12px",
+              }}
+            >
+              <AddShoppingCartIcon />
+            </Button>
+          </Tooltip>
+        </Box>
+
+        <Button
+          // onClick={handleLogDetails}
+          variant="contained"
+          sx={{
+            color: "white",
+            fontSize: "12px",
+          }}
+        >
+          Book Now
+        </Button>
+      </Box>
+    </Box>
+  );
+};

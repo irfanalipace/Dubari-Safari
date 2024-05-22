@@ -13,6 +13,7 @@ import {
   useTheme,
   useMediaQuery,
   Divider,
+  Badge,
 } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
@@ -165,8 +166,21 @@ const Navbar = () => {
               <Typography>Help</Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <FavoriteBorderRoundedIcon />
+            <Box
+              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+              component={Link}
+              to="/wish-list"
+            >
+              <Badge
+                badgeContent={4}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <FavoriteBorderRoundedIcon />
+              </Badge>
               <Typography>Wishlist</Typography>
             </Box>
 

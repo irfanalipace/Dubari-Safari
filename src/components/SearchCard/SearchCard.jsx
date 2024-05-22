@@ -11,7 +11,8 @@ import React from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-const SearchCard = () => {
+import FavoriteIcon from "@mui/icons-material/Favorite";
+const SearchCard = ({ fill }) => {
   const theme = useTheme();
   return (
     <Box sx={{ mt: 3 }}>
@@ -46,7 +47,11 @@ const SearchCard = () => {
                 Atlantis Helicoptor Tour
               </Typography>
               <IconButton>
-                <FavoriteBorderIcon sx={{ fontSize: "35px " }} />
+                {fill ? (
+                  <FavoriteIcon sx={{ fontSize: "35px ", color: "red" }} />
+                ) : (
+                  <FavoriteBorderIcon sx={{ fontSize: "35px " }} />
+                )}
               </IconButton>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>

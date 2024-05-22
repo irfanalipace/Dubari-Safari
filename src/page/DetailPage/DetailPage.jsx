@@ -20,7 +20,6 @@ import {
   FaClockRotateLeft,
 } from "react-icons/fa6";
 import { BiTransfer } from "react-icons/bi";
-import { FaClockRotateLeft } from "react-icons/fa6";
 import DetailLeft from "./DetailLeft";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
@@ -53,15 +52,12 @@ const DetailPage = () => {
   }, []);
   const infoItems = [
     { icon: <CiStopwatch style={styleType} />, text: "Operating Hours" },
-    { icon: <TbBounceRight style={styleType} />, text: "Instant Confirmation" },
     {
       icon: <FaMobileScreen style={styleType} />,
       text: "Mobile Voucher Accepted",
     },
-    { icon: <RiGlobalLine style={styleType} />, text: "English / Arabic" },
     { icon: <FaUserGroup style={styleType} />, text: "Join in Group" },
     { icon: <FaUserGroup style={styleType} />, text: "Hotel Pick Up" },
-    { icon: <FaHome style={styleType} />, text: "Hotel Pick Up" },
     {
       icon: <BiTransfer style={styleType} />,
       text: "Transfer Options Available",
