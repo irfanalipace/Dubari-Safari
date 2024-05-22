@@ -12,6 +12,7 @@ import DetailPage from "./page/DetailPage/DetailPage";
 import Privacy_Policy from "./page/Privacy_Policy/Privacy_Policy";
 import Search_Results from "./page/Search_Results";
 import InvoiceDetails from "./page/InvoiceDetails/InvoiceDetails";
+import ReiewsDetail from "./page/DetailPage/ReiewsDetail";
 
 export default function Router() {
   let element = useRoutes([
@@ -73,6 +74,7 @@ export default function Router() {
       path: "/admin-login",
       element: <AdminLogin />,
     },
+
   ]);
   return element;
 }
