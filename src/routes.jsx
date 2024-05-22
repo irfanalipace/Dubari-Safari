@@ -12,6 +12,10 @@ import DetailPage from "./page/DetailPage/DetailPage";
 import Privacy_Policy from "./page/Privacy_Policy/Privacy_Policy";
 import Search_Results from "./page/Search_Results";
 import InvoiceDetails from "./page/InvoiceDetails/InvoiceDetails";
+import Login_Main from "./page/Authentication_Page/Login/Login_Main";
+import Forget_Password from "./page/Authentication_Page/Components/Forget_Password";
+import Password_Confirmation from "./page/Authentication_Page/Components/Password_Confirmation";
+import Signup_Main from "./page/Authentication_Page/Signup/Signup_Main";
 
 export default function Router() {
   let element = useRoutes([
@@ -20,6 +24,23 @@ export default function Router() {
       element: <Landing />,
     },
 
+    {
+      path: "/signup",
+      element: <Signup_Main />,
+    },
+    {
+      path: "/login",
+      element: <Login_Main />,
+    },
+    {
+      path: "/forget-password",
+      element: <Forget_Password />,
+    },
+    {
+
+    path: "/otp-authentication",
+      element: <Password_Confirmation />,
+    },
     {
       path: "/guest-details",
       element: <GuestDetailsMain />,
@@ -64,6 +85,8 @@ export default function Router() {
       path: "/payment-details",
       element: <PaymentDetailsMain />,
     },
+
+ 
 
     {
       path: "/admin-login",
