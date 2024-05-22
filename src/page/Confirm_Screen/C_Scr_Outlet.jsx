@@ -36,7 +36,6 @@ const C_Scr_Outlet = () => {
     e.preventDefault();
     const pastedValue = e.clipboardData.getData("text");
     const pastedOTP = pastedValue.slice(0, inputRefs.length);
-
     for (let i = 0; i < inputRefs.length; i++) {
       const inputRef = inputRefs[i];
       inputRef.current.value = pastedOTP[i];

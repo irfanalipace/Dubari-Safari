@@ -29,7 +29,11 @@ export default function Router() {
       element: <About_Us />,
     },
     {
-      path: "/details",
+      path: "/invoice-details",
+      element: <InvoiceDetails />,
+    },
+    {
+      path: "/details/:id",
       element: <DetailPage />,
     },
     {

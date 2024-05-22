@@ -66,7 +66,10 @@ const PkgCard = ({ data }) => {
           </Box>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
-          <Button variant="contained" onClick={() => navigate("/details")}>
+          <Button
+            variant="contained"
+            onClick={() => navigate(`/details/${data.id}`)}
+          >
             {" "}
             Book Now{" "}
           </Button>
