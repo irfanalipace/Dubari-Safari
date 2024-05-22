@@ -33,6 +33,9 @@ const Navbar = () => {
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
   };
+  const handleSignup = ()=>{
+    navigate('/signup')
+  }
 
   const handleDrawerClose = () => {
     setOpenDrawer(false);
@@ -176,6 +179,8 @@ const Navbar = () => {
             </Box>
 
             <Button
+          onClick={handleSignup}
+
               variant="contained"
               sx={{
                 backgroundColor: theme.palette.primary.main,
@@ -280,6 +285,7 @@ const Navbar = () => {
           </Box>
 
           <Button
+          onClick={handleSignup}
             variant="contained"
             sx={{
               backgroundColor: theme.palette.primary.main,
