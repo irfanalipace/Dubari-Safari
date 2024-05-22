@@ -12,3 +12,16 @@ export const getCategories = () => async (dispatch) => {
     throw err;
   }
 };
+
+export const getActivitiesById = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`single_activity/${id}`);
+    dispatch({
+      type: "GET_ACTIVITIES_BY_ID",
+      payload: res.data,
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};

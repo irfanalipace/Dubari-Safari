@@ -11,6 +11,7 @@ import Categories from "./page/Categories/Categories";
 import DetailPage from "./page/DetailPage/DetailPage";
 import Privacy_Policy from "./page/Privacy_Policy/Privacy_Policy";
 import Search_Results from "./page/Search_Results";
+import InvoiceDetails from "./page/InvoiceDetails/InvoiceDetails";
 
 export default function Router() {
   let element = useRoutes([
@@ -28,7 +29,11 @@ export default function Router() {
       element: <About_Us />,
     },
     {
-      path: "/details",
+      path: "/invoice-details",
+      element: <InvoiceDetails />,
+    },
+    {
+      path: "/details/:id",
       element: <DetailPage />,
     },
     {
