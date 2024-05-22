@@ -8,7 +8,7 @@ const CustomCard = ({ title, description, duration, availability, discountprice,
     const theme = useTheme();
 
     return (
-        <Box onClick={handleClick} sx={{
+        <Box sx={{
             // width: 320,
             // backgroundColor: '#FDF4F1',
             backgroundColor:'white',

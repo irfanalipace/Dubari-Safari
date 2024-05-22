@@ -20,8 +20,9 @@ import { useDispatch } from "react-redux";
 import { send_message } from "../../store/actions/ContactUsActions";
 import { useSnackbar } from "notistack";
 import Loader from "../../components/Loader/Loader";
+
 const Contact_Us = () => {
-  const initalValues = {
+  const initialValues = {
     first_name: "",
     company_name: "",
     email: "",
@@ -33,7 +34,7 @@ const Contact_Us = () => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
-  const [formValues, setFormValues] = useState(initalValues);
+  const [formValues, setFormValues] = useState(initialValues);
   const is_md = useMediaQuery(theme.breakpoints.down("lg"));
   const is_sm = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -50,7 +51,7 @@ const Contact_Us = () => {
     setLoading(true);
     dispatch(send_message(formValues))
       .then((result) => {
-        setFormValues(initalValues);
+        setFormValues(initialValues);
         enqueueSnackbar(result.data.message, {
           variant: "success",
         });
@@ -208,6 +209,17 @@ const Contact_Us = () => {
               </Box>
             </form>
           </Box>
+        </Box>
+        <Box sx={{ p: 5, textAlign: "center" }}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1785734046066!2d55.2797092!3d25.197199700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69350dc906f3%3A0x44af9ef3dcd6bde7!2sBook%20Dubai%20Safari!5e0!3m2!1sen!2sae!4v1716339216117!5m2!1sen!2sae"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen="true"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </Box>
       </Box>
     </Page>
