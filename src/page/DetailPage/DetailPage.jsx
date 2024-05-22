@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../components/page";
-import { Galleria } from "primereact/galleria";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   Box,
   Grid,
   Rating,
   Typography,
   useTheme,
-  Tabs,
-  Tab,
   Divider,
-  Container,
   Button,
   Collapse,
-  CardContent,
-  Card,
+  AccordionDetails,
+  Accordion,
+  AccordionSummary,
 } from "@mui/material";
 import { CiStopwatch } from "react-icons/ci";
-import { FaMobileScreen } from "react-icons/fa6";
-import { TbBounceRight } from "react-icons/tb";
-import { RiGlobalLine } from "react-icons/ri";
-import { FaUserGroup } from "react-icons/fa6";
-import { FaHome } from "react-icons/fa";
+import {
+  FaMobileScreen,
+  FaUserGroup,
+  FaClockRotateLeft,
+} from "react-icons/fa6";
 import { BiTransfer } from "react-icons/bi";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import DetailLeft from "./DetailLeft";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { getActivitiesById } from "../../store/actions/categoriesActions";
+import DetailSlider from "./DetailSLider";
+import ReiewsDetail from "./ReiewsDetail";
 
 const DetailPage = () => {
   const theme = useTheme();
@@ -37,7 +35,6 @@ const DetailPage = () => {
   const [data1, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(5);
-  const [selectedTab, setSelectedTab] = useState(0);
   const styleType = {
     color: theme.palette.primary.main,
   };
@@ -74,17 +71,6 @@ const DetailPage = () => {
       text: "Free Cancellation 12 Hours Prior",
     },
   ];
-
-  const [open, setOpen] = useState([false, false, false, false]);
-
-  const handleToggle = (index) => {
-    setOpen((prevOpen) => {
-      const newOpen = [...prevOpen];
-      newOpen[index] = !newOpen[index];
-      return newOpen;
-    });
-  };
-
   const data = [
     {
       image: "/header.png",
@@ -101,6 +87,8 @@ const DetailPage = () => {
         "Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consectetur Lorem ipsum dolor.",
     },
   ];
+
+  const [openAccordion, setOpenAccordion] = useState(null);
 
   const questionsAndAnswers = [
     {
@@ -123,233 +111,74 @@ const DetailPage = () => {
         "A component is a reusable piece of code that returns a React element to be rendered to the page.",
     },
   ];
-  const initialImages = [
-    {
-      itemImageSrc: "/cardimage.png",
-      thumbnailImageSrc: "/cardimage.png",
-      alt: "Image 1",
-    },
-    {
-      itemImageSrc: "/specialofferimage.png",
-      thumbnailImageSrc: "/specialofferimage.png",
-      alt: "Image 1",
-    },
-    {
-      itemImageSrc: "/cardimage.png",
-      thumbnailImageSrc: "/cardimage.png",
-      alt: "Image 3",
-    },
-    {
-      itemImageSrc: "/specialofferimage.png",
-      thumbnailImageSrc: "/specialofferimage.png",
-      alt: "Image 1",
-    },
-    {
-      itemImageSrc: "/cardimage.png",
-      thumbnailImageSrc: "/cardimage.png",
-      alt: "Image 1",
-    },
-    {
-      itemImageSrc: "/specialofferimage.png",
-      thumbnailImageSrc: "/specialofferimage.png",
-      alt: "Image 1",
-    },
-    {
-      itemImageSrc: "/cardimage.png",
-      thumbnailImageSrc: "/cardimage.png",
-      alt: "Image 1",
-    },
-    {
-      itemImageSrc: "/specialofferimage.png",
-      thumbnailImageSrc: "/specialofferimage.png",
-      alt: "Image 3",
-    },
-    {
-      itemImageSrc: "/cardimage.png",
-      thumbnailImageSrc: "/cardimage.png",
-      alt: "Image 2",
-    },
-  ];
 
-  const [images, setImages] = useState(initialImages);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [isHoveredLeft, setIsHoveredLeft] = useState(false);
-  const [isHoveredRight, setIsHoveredRight] = useState(false);
-
-  const responsiveOptions = [
-    {
-      breakpoint: "991px",
-      numVisible: 6,
-    },
-    {
-      breakpoint: "767px",
-      numVisible: 5,
-    },
-    {
-      breakpoint: "575px",
-      numVisible: 3,
-    },
-  ];
-
-  const itemTemplate = (item) => {
-    return (
-      <div style={{ position: "relative", width: "100%", height: "70vh" }}>
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "30px",
-            transform: "translateY(-50%)",
-            zIndex: "1",
-            cursor: "pointer",
-            backgroundColor: isHoveredLeft
-              ? theme.palette.primary.main
-              : "#F3F3F9",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-          onClick={handlePrevClick}
-          onMouseEnter={() => setIsHoveredLeft(true)}
-          onMouseLeave={() => setIsHoveredLeft(false)}
-        >
-          <FaChevronLeft style={{ fontSize: "24px", color: "white" }} />
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            right: "30px",
-            transform: "translateY(-50%)",
-            zIndex: "1",
-            cursor: "pointer",
-            backgroundColor: isHoveredRight
-              ? theme.palette.primary.main
-              : "#F3F3F9",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-          onClick={handleNextClick}
-          onMouseEnter={() => setIsHoveredRight(true)}
-          onMouseLeave={() => setIsHoveredRight(false)}
-        >
-          <FaChevronRight style={{ fontSize: "24px", color: "white" }} />
-        </div>
-        <img
-          src={item.itemImageSrc}
-          alt={item.alt}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-        <div style={{ position: "absolute", right: 50, bottom: -30 }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "white",
-              padding: "20px",
-              borderRadius: "8px",
-            }}
-          >
-            <Typography>Save Up To 3.00 Per Person</Typography>
-            <Typography>$2,500</Typography>
-            <Box>
-              <Button
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: "white",
-                }}
-              >
-                Book Now
-              </Button>
-            </Box>
-          </Box>
-        </div>
-      </div>
-    );
+  const handleAccordionChange = (panel) => (event, isExpanded) => {
+    setOpenAccordion(isExpanded ? panel : null);
   };
 
-  const thumbnailTemplate = (item, index) => {
-    const isSelected = selectedImageIndex === index;
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          cursor: "pointer",
-          borderRadius: "5px",
-          border: isSelected
-            ? `2px solid ${theme.palette.primary.main}`
-            : "none",
-        }}
-        onClick={() => handleThumbnailClick(index)}
-      >
-        <img
-          src={item.thumbnailImageSrc}
-          alt={item.alt}
-          style={{
-            height: "100px",
-            width: "120px",
-            maxWidth: "100%",
-            objectFit: "cover",
-            borderRadius: "5px",
-          }}
-        />
-      </div>
-    );
+  const colStyle = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+    width: "100%",
   };
 
-  const handleThumbnailClick = (index) => {
-    setSelectedImageIndex(index);
+  const btnStyle = {
+    textTransform: "none",
+    color: "#0D0D0D",
+    fontSize: "16px",
   };
 
-  const handlePrevClick = () => {
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
+  const [highlightedId, setHighlightedId] = useState(null);
 
-  const handleNextClick = () => {
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
 
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
+      // Add logic here to determine which section is currently in view
+      // For simplicity, let's assume each section's ID corresponds to its index in an array
+      const sectionIds = [
+        "overview",
+        "description",
+        "itinerary",
+        "whats-included",
+        "trip-instructions",
+      ];
+      let currentSectionId = null;
+
+      sectionIds.forEach((id, index) => {
+        const section = document.getElementById(id);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const offsetTop = rect.top + window.scrollY;
+          const offsetBottom = offsetTop + rect.height;
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            currentSectionId = id;
+          }
+        }
+      });
+
+      // Update the highlighted ID
+      setHighlightedId(currentSectionId);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Function to determine if a link is highlighted
+  const isHighlighted = (id) => {
+    return id === highlightedId;
   };
 
   return (
     <Page title="Detail Page">
-      <div className="card">
-        <Galleria
-          value={images}
-          activeIndex={selectedImageIndex}
-          onItemChange={(e) => setSelectedImageIndex(e.index)}
-          responsiveOptions={responsiveOptions}
-          numVisible={5}
-          circular
-          style={{ maxWidth: "100%" }}
-          item={itemTemplate}
-          thumbnail={thumbnailTemplate}
-          showThumbnails={false}
-        />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "20px 200px",
-        }}
-      >
-        {images.map((image, index) => (
-          <div key={index} style={{ margin: "0 2px" }}>
-            {thumbnailTemplate(image, index)}
-          </div>
-        ))}
-      </div>
+      <DetailSlider />
       <Box sx={{ padding: "30px" }}>
         <Grid container spacing={3}>
           <Grid item lg={8} sm={12} xs={12} md={6}>
@@ -371,7 +200,7 @@ const DetailPage = () => {
                 }}
               >
                 <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
-                  {data1?.name}
+                  Louvre Abu Dhabi
                 </Typography>
                 <Rating
                   name="simple-controlled"
@@ -382,256 +211,225 @@ const DetailPage = () => {
                 />
                 <Typography>94 Reviews</Typography>
               </Box>
-              <Box sx={{ width: "100%", marginTop: "20px" }}>
-                <Tabs value={selectedTab} onChange={handleTabChange}>
-                  <Tab label="Overview" />
-                  <Tab label="Activity Options" />
-                  <Tab label="Description" />
-                  <Tab label="Itinerary" />
-                  <Tab label="What’s Included" />
-                  <Tab label="Trip Instructions" />
-                </Tabs>
-                {selectedTab === 0 && (
-                  <Box sx={{ padding: "20px" }}>
-                    <Typography variant="body1">
-                      {data1?.description}
-                    </Typography>
-                  </Box>
-                )}
-                {selectedTab === 1 && (
-                  <Box sx={{ padding: "20px" }}>
-                    <Typography variant="body1">
-                      This is the Activity Options.
-                    </Typography>
-                  </Box>
-                )}
-                {selectedTab === 2 && (
-                  <Box sx={{ padding: "20px" }}>
-                    <Typography variant="body1">
-                      This is the Description.
-                    </Typography>
-                  </Box>
-                )}
-                {selectedTab === 3 && (
-                  <Box sx={{ padding: "20px" }}>
-                    <Typography variant="body1">
-                      This is the Itinerary.
-                    </Typography>
-                  </Box>
-                )}
-                {selectedTab === 4 && (
-                  <Box sx={{ padding: "20px" }}>
-                    <Typography variant="body1">
-                      This is the What’s Included.
-                    </Typography>
-                  </Box>
-                )}
-                {selectedTab === 5 && (
-                  <Box sx={{ padding: "20px" }}>
-                    <Typography variant="body1">
-                      This is the Trip Instructionss.
-                    </Typography>
-                  </Box>
-                )}
-              </Box>
-              <Typography
-                sx={{
-                  fontSize: "30px",
-                  fontWeight: 600,
-                  color: theme.palette.primary.main,
-                }}
-              >
-                Overview
-              </Typography>
-              <Divider sx={{ width: "100%" }} />
+
               <Box
                 sx={{
                   width: "100%",
                   marginTop: "20px",
-                  display: "flex",
-                  gap: "40px",
-                  alignItems: "center",
-                  flexWrap: "wrap",
+                  position: "sticky",
+                  top: 0,
+                  backgroundColor: "white",
+                  zIndex: 99999,
+                  padding: "20px",
                 }}
               >
-                {infoItems.map((item, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "5px",
-                    }}
-                  >
-                    {item.icon}
-                    <Typography>{item.text}</Typography>
-                  </Box>
-                ))}
-              </Box>
-              <Typography
-                sx={{
-                  fontSize: "30px",
-                  fontWeight: 600,
-                  color: theme.palette.primary.main,
-                }}
-              >
-                Your Experience
-              </Typography>
-              <Divider sx={{ width: "100%" }} />
-              <Typography>
-                This off-road activity brings you to explore the Dubai desert
-                with fun activities such as dune bashing and camel ride
-                experience.
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "30px",
-                  fontWeight: 600,
-                  color: theme.palette.primary.main,
-                }}
-              >
-                Itinerary
-              </Typography>
-              <Divider sx={{ width: "100%" }} />
-              <Typography
-                variant="body1"
-                component="div"
-                dangerouslySetInnerHTML={{ __html: data1?.itinerary }}
-              />
-              {/* <Typography>
-                <ul>
-                  <li>Pickup time 08.00-08.30 AM</li>
-                  <li>Arrival at the rest area/meeting point </li>
-                  <li>Entry into the desert</li>
-                </ul>
-              </Typography> */}
-              <Typography>
-                This off-road activity brings you to explore the Dubai desert
-                with fun activities such as dune bashing and camel ride
-                experience.
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "30px",
-                  fontWeight: 600,
-                  color: theme.palette.primary.main,
-                }}
-              >
-                What’s Included
-              </Typography>
-              <Divider sx={{ width: "100%" }} />
-              <ul>
-                <li>Hotel transfers</li>
-                <li>Professional safari driver/guide</li>
-              </ul>
-
-              <Typography
-                sx={{
-                  fontSize: "30px",
-                  fontWeight: 600,
-                  color: theme.palette.primary.main,
-                }}
-              >
-                Trip Instructions / Essentials
-              </Typography>
-              <Divider sx={{ width: "100%" }} />
-              <Box sx={{ backgroundColor: "#D9D9D9", borderRadius: "20px" }}>
-                <>
-                  {questionsAndAnswers.map((qa, index) => (
-                    <Box key={index} mb={2}>
-                      <Button
-                        // variant="outlined"
-                        sx={{ color: "black", textAlign: "start" }}
-                        onClick={() => handleToggle(index)}
-                        fullWidth
-                      >
-                        {qa.question}
-                      </Button>
-                      <Collapse in={open[index]}>
-                        <Box mt={1} p={2}>
-                          <Typography variant="body1">{qa.answer}</Typography>
-                        </Box>
-                      </Collapse>
-                    </Box>
-                  ))}
-                </>
-              </Box>
-              <Typography
-                sx={{
-                  fontSize: "30px",
-                  fontWeight: 600,
-                  color: theme.palette.primary.main,
-                }}
-              >
-                Customer Reviews
-              </Typography>
-              <Divider sx={{ width: "100%" }} />
-              <Grid container sx={{ alignItems: "center" }} spacing={5}>
-                {data.map((val, ind) => (
-                  <Grid item lg={6} md={6} sm={12} xs={12} key={ind}>
-                    <Box
+                <Box sx={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+                  <a href="#overview">
+                    <Button
                       sx={{
-                        // width: 320,
-                        backgroundColor: "white",
-                        borderRadius: "12px",
-                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                        overflow: "hidden",
-                        // margin: '0 auto',
-                        padding: "5px",
-                        textAlign: "start",
+                        ...btnStyle,
+                        color: isHighlighted("overview") ? "red" : "#0D0D0D",
                       }}
                     >
-                      <Box sx={{ position: "relative" }}>
-                        <img
-                          src={val.image}
-                          alt="Header image"
-                          style={{
-                            width: "100%",
-                            height: "30vh",
-                            borderRadius: "12px",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </Box>
-                      <Box
-                        p={2}
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "1px",
-                          alignItems: "start",
-                        }}
-                      >
-                        <Typography
-                          sx={{ fontSize: "1.5rem", fontWeight: 600 }}
-                        >
-                          {val.title}
-                        </Typography>
-                        <Typography sx={{ fontSize: "1rem", color: "#A9A9A9" }}>
-                          {val.position}
-                        </Typography>
-                        <Rating
-                          name="simple-controlled"
-                          value={value}
-                          onChange={(event, newValue) => {
-                            setValue(newValue);
-                          }}
-                        />
-                        <Typography sx={{ fontSize: "1rem", color: "#A9A9A9" }}>
-                          {val.description}
-                        </Typography>
-                      </Box>
+                      Overview
+                    </Button>
+                  </a>
+                  <a href="#description">
+                    <Button
+                      sx={{
+                        ...btnStyle,
+                        color: isHighlighted("description") ? "red" : "#0D0D0D",
+                      }}
+                    >
+                      Description
+                    </Button>
+                  </a>
+                  <a href="#itinerary">
+                    <Button
+                      sx={{
+                        ...btnStyle,
+                        color: isHighlighted("itinerary") ? "red" : "#0D0D0D",
+                      }}
+                    >
+                      Itinerary
+                    </Button>
+                  </a>
+                  <a href="#whats-included">
+                    <Button
+                      sx={{
+                        ...btnStyle,
+                        color: isHighlighted("whats-included")
+                          ? "red"
+                          : "#0D0D0D",
+                      }}
+                    >
+                      What’s Included
+                    </Button>
+                  </a>
+                  <a href="#trip-instructions">
+                    <Button
+                      sx={{
+                        ...btnStyle,
+                        color: isHighlighted("trip-instructions")
+                          ? "red"
+                          : "#0D0D0D",
+                      }}
+                    >
+                      Trip Instructions
+                    </Button>
+                  </a>
+                </Box>
+              </Box>
+
+              <div id="overview" style={colStyle}>
+                <Typography
+                  sx={{
+                    fontSize: "30px",
+                    fontWeight: 600,
+                    color: theme.palette.primary.main,
+                  }}
+                >
+                  Overview
+                </Typography>
+                <Divider sx={{ width: "100%" }} />
+                <Box
+                  sx={{
+                    width: "100%",
+                    marginTop: "20px",
+                    display: "flex",
+                    gap: "40px",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {infoItems.map((item, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "5px",
+                      }}
+                    >
+                      {item.icon}
+                      <Typography>{item.text}</Typography>
                     </Box>
-                  </Grid>
-                ))}
-              </Grid>
+                  ))}
+                </Box>
+              </div>
+
+              <div id="description" style={colStyle}>
+                <Typography
+                  sx={{
+                    fontSize: "30px",
+                    fontWeight: 600,
+                    color: theme.palette.primary.main,
+                  }}
+                >
+                  Description
+                </Typography>
+                <Divider sx={{ width: "100%" }} />
+                <Typography>
+                  This off-road activity brings you to explore the Dubai desert
+                  with fun activities such as dune bashing and camel ride
+                  experience.
+                </Typography>
+              </div>
+
+              <div id="itinerary" style={colStyle}>
+                <Typography
+                  sx={{
+                    fontSize: "30px",
+                    fontWeight: 600,
+                    color: theme.palette.primary.main,
+                  }}
+                >
+                  Itinerary
+                </Typography>
+                <Divider sx={{ width: "100%" }} />
+                <Box
+                  sx={{
+                    paddingLeft: "30px",
+                    color: "#A9A9A9",
+                    fontSize: "16px",
+                  }}
+                >
+                  <ul>
+                    <li>Pickup time 08.00-08.30 AM</li>
+                  </ul>
+                </Box>
+              </div>
+
+              <div id="whats-included" style={colStyle}>
+                <Typography
+                  sx={{
+                    fontSize: "30px",
+                    fontWeight: 600,
+                    color: theme.palette.primary.main,
+                  }}
+                >
+                  What’s Included
+                </Typography>
+                <Divider sx={{ width: "100%" }} />
+                <Box
+                  sx={{
+                    color: "#A9A9A9",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <img src="/cross.png" alt="" />
+                  <Typography>Pickup time 08.00-08.30 AM</Typography>
+                </Box>
+              </div>
+
+              <div id="trip-instructions" style={colStyle}>
+                <Typography
+                  sx={{
+                    fontSize: "30px",
+                    fontWeight: 600,
+                    color: theme.palette.primary.main,
+                  }}
+                >
+                  Trip Instructions / Essentials
+                </Typography>
+                <Divider sx={{ width: "100%" }} />
+                <Box sx={{ backgroundColor: "#D9D9D9", borderRadius: "20px" }}>
+                  {questionsAndAnswers.map((qa, index) => (
+                    <Accordion
+                      key={index}
+                      expanded={openAccordion === `panel${index}`}
+                      onChange={handleAccordionChange(`panel${index}`)}
+                      sx={{ backgroundColor: "#D9D9D9" }}
+                    >
+                      <AccordionSummary>
+                        <Typography sx={{ color: "black", textAlign: "start" }}>
+                          {qa.question}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography variant="body1">{qa.answer}</Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </Box>
+              </div>
             </Box>
           </Grid>
-          <Grid item lg={4} sm={12} xs={12} md={6}>
-            <DetailLeft ac_data={loading ? null : data1} />
+          <Grid
+            item
+            lg={4}
+            sm={12}
+            xs={12}
+            md={6}
+            sx={{ position: "sticky", top: 0 }}
+          >
+            <DetailLeft ac_data={data1} />
           </Grid>
         </Grid>
+        <ReiewsDetail />
       </Box>
     </Page>
   );

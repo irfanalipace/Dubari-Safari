@@ -135,6 +135,7 @@ const Navbar = () => {
                     >
                       <Button
                         sx={{
+                          mr: -1.5,
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
                           padding: "0.5rem 1rem",
@@ -154,7 +155,6 @@ const Navbar = () => {
                 }}
               />
             </Box>
-
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <HelpOutlineIcon />
               <Typography> Eng/AED</Typography>
