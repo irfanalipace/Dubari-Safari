@@ -21,11 +21,13 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  // const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery('(max-width:1024px)')
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const navigate = useNavigate();
   const handleDrawerOpen = () => {
@@ -78,7 +80,7 @@ const Navbar = () => {
         ) : (
           <>
             <Box
-              width={isSmallScreen ? "100%" : "8rem"}
+              width={isSmallScreen ? "100%" : "7rem"}
               marginBottom={isSmallScreen ? "1rem" : "0"}
             >
               <FormControl fullWidth size="small" variant="standard">
@@ -142,10 +144,10 @@ size="small"
                     >
                       <Button
                         sx={{
-                          mr: -1.5,
+
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
-                          padding:'0.5rem 1rem',
+                          padding:'0.5rem',
                           borderRadius:'0px 5px 5px 0px',
                           ":hover": {
                             backgroundColor: theme.palette.primary.main,
@@ -312,7 +314,7 @@ size="small"
 
       <AllActivities />
     </>
-  );  
+  );
 };
 
 export default Navbar;
