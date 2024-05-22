@@ -1,11 +1,14 @@
 import { Box, Divider, Typography, useTheme } from "@mui/material";
 import React from "react";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import {
+  CalendarMonthOutlined,
+  CalendarViewMonthOutlined,
+} from "@mui/icons-material";
 
-const PriceCard = () => {
-
-    const theme= useTheme()
-
+const PriceCard = ({ data }) => {
+  const theme = useTheme();
+  // console.log(data)
   return (
     <>
       <Box
@@ -13,19 +16,18 @@ const PriceCard = () => {
           padding: "3rem 5%",
           border: "1px solid #f0f0f0",
           borderRadius: "10px",
+          background: "#fff",
         }}
       >
         <Typography
           variant="h1"
           sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
         >
-          Morning Desert Safari
+          {data?.activity?.name}
         </Typography>
         <Divider />
 
         <Box sx={{ marginTop: "2rem" }}>
-          <Typography>25 Jul 2024</Typography>
-
           <Box
             sx={{
               display: "flex",
@@ -34,14 +36,17 @@ const PriceCard = () => {
               marginTop: "1rem",
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <PersonOutlineOutlinedIcon style={{ color: "#90a3bf" }} />
-              <Typography sx={{ color: "#90a3bf" }}> 5 x Adult</Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <PersonOutlineOutlinedIcon style={{ color: "#000" }} />
+              <Typography
+                sx={{ color: "#000", fontWeight: "bold", mt: 0.5, ml: 1 }}
+              >
+                Pax
+              </Typography>
             </Box>
 
-            <Typography sx={{ fontWeight: "600" }}>AED 0</Typography>
+            <Typography sx={{ fontWeight: "600" }}>{data.person}</Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -50,28 +55,16 @@ const PriceCard = () => {
               marginTop: "1rem",
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <PersonOutlineOutlinedIcon style={{ color: "#90a3bf" }} />
-              <Typography sx={{ color: "#90a3bf" }}> 4 x Child</Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <CalendarViewMonthOutlined style={{ color: "#000" }} />
+              <Typography
+                sx={{ color: "#000", fontWeight: "bold", mt: 0.5, ml: 1 }}
+              >
+                Date
+              </Typography>
             </Box>
 
-            <Typography sx={{ fontWeight: "600" }}>AED 0</Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: "1rem",
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <PersonOutlineOutlinedIcon style={{ color: "#90a3bf" }} />
-              <Typography sx={{ color: "#90a3bf" }}> 5 x Infant</Typography>
-            </Box>
-
-            <Typography sx={{ fontWeight: "600" }}>AED 0</Typography>
+            <Typography sx={{ fontWeight: "600" }}>{data?.date}</Typography>
           </Box>
 
           <Box
@@ -87,7 +80,6 @@ const PriceCard = () => {
             <Typography sx={{ fontWeight: "600" }}>AED 884.00</Typography>
           </Box>
 
-
           <Box
             sx={{
               display: "flex",
@@ -96,14 +88,25 @@ const PriceCard = () => {
               marginTop: "1rem",
             }}
           >
-            <Typography sx={{ color: "black", fontWeight:'600', fontSize:'1.5rem' }}>Total Amount</Typography>
+            <Typography
+              sx={{ color: "black", fontWeight: "600", fontSize: "1.5rem" }}
+            >
+              Total Amount
+            </Typography>
 
-            <Typography sx={{ fontWeight: "600", fontSize:'2rem', color:theme.palette.primary.main }}>$ 300</Typography>
+            <Typography
+              sx={{
+                fontWeight: "600",
+                fontSize: "2rem",
+                color: theme.palette.primary.main,
+              }}
+            >
+              $ 884.00
+            </Typography>
           </Box>
-          <Typography sx={{ color: "#90a3bf" }}>Overall price and includes all Tax</Typography>
-
-
-
+          <Typography sx={{ color: "#90a3bf" }}>
+            Overall price and includes all Tax
+          </Typography>
         </Box>
       </Box>
     </>

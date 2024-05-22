@@ -629,7 +629,7 @@ const DetailPage = () => {
             </Box>
           </Grid>
           <Grid item lg={4} sm={12} xs={12} md={6}>
-            <DetailLeft />
+            <DetailLeft ac_data={loading ? null : data1} />
           </Grid>
         </Grid>
       </Box>

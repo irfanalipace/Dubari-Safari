@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
-
   FormControlLabel,
   Grid,
-
   Radio,
   RadioGroup,
   TextField,
@@ -16,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const PaymentDetailComponent = () => {
   const theme = useTheme();
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [paymentMethod, setPaymentMethod] = useState("card");
 
@@ -24,9 +22,9 @@ const navigate = useNavigate()
     setPaymentMethod(event.target.value);
   };
 
-  const handleConfirm = ()=>{
-    navigate('/invoice-details')
-  }
+  const handleConfirm = () => {
+    navigate("/invoice-details");
+  };
 
   const textFieldStyle = {
     marginTop: "1rem",
@@ -53,6 +51,7 @@ const navigate = useNavigate()
           border: "1px solid #f0f0f0",
           padding: "3rem 5%",
           borderRadius: "10px",
+          background: "#fff",
         }}
       >
         <Box>
