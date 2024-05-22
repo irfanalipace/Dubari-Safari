@@ -129,7 +129,7 @@ import { Link } from "react-router-dom";
               fontSize: "0.8rem",
               width:'70%'
             }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/change-password")}
           >
             Verify & Proceed
           </Button>

@@ -16,6 +16,7 @@ import Login_Main from "./page/Authentication_Page/Login/Login_Main";
 import Forget_Password from "./page/Authentication_Page/Components/Forget_Password";
 import Password_Confirmation from "./page/Authentication_Page/Components/Password_Confirmation";
 import Signup_Main from "./page/Authentication_Page/Signup/Signup_Main";
+import Change_Password from "./page/Authentication_Page/Components/Change_Password";
 
 export default function Router() {
   let element = useRoutes([
@@ -41,6 +42,13 @@ export default function Router() {
     path: "/otp-authentication",
       element: <Password_Confirmation />,
     },
+
+    {
+
+      path: "/change-password",
+        element: <Change_Password />,
+      },
+
     {
       path: "/guest-details",
       element: <GuestDetailsMain />,
@@ -86,7 +94,7 @@ export default function Router() {
       element: <PaymentDetailsMain />,
     },
 
- 
+
 
     {
       path: "/admin-login",
