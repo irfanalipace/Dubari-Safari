@@ -13,6 +13,10 @@ import Privacy_Policy from "./page/Privacy_Policy/Privacy_Policy";
 import Search_Results from "./page/Search_Results";
 import InvoiceDetails from "./page/InvoiceDetails/InvoiceDetails";
 import WishList from "./page/Wish_List/WishList";
+import Login_Main from "./page/Authentication_Page/Login/Login_Main";
+import Forget_Password from "./page/Authentication_Page/Components/Forget_Password";
+import Password_Confirmation from "./page/Authentication_Page/Components/Password_Confirmation";
+import Signup_Main from "./page/Authentication_Page/Signup/Signup_Main";
 
 export default function Router() {
   let element = useRoutes([
@@ -21,6 +25,22 @@ export default function Router() {
       element: <Landing />,
     },
 
+    {
+      path: "/signup",
+      element: <Signup_Main />,
+    },
+    {
+      path: "/login",
+      element: <Login_Main />,
+    },
+    {
+      path: "/forget-password",
+      element: <Forget_Password />,
+    },
+    {
+      path: "/otp-authentication",
+      element: <Password_Confirmation />,
+    },
     {
       path: "/guest-details",
       element: <GuestDetailsMain />,
