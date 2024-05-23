@@ -8,7 +8,7 @@ import {
 
 const PriceCard = ({ data }) => {
   const theme = useTheme();
-  // console.log(data)
+  console.log(data)
   return (
     <>
       <Box
@@ -41,12 +41,51 @@ const PriceCard = ({ data }) => {
               <Typography
                 sx={{ color: "#000", fontWeight: "bold", mt: 0.5, ml: 1 }}
               >
-                Pax
+                Adult
               </Typography>
             </Box>
-
+            <Typography sx={{ fontWeight: "600" }}>
+              {data.person.adult}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "1rem",
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <PersonOutlineOutlinedIcon style={{ color: "#000" }} />
+              <Typography
+                sx={{ color: "#000", fontWeight: "bold", mt: 0.5, ml: 1 }}
+              >
+                Child
+              </Typography>
+            </Box>
             <Typography sx={{ fontWeight: "600" }}>
               {data.person.child}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "1rem",
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <PersonOutlineOutlinedIcon style={{ color: "#000" }} />
+              <Typography
+                sx={{ color: "#000", fontWeight: "bold", mt: 0.5, ml: 1 }}
+              >
+                Infant
+              </Typography>
+            </Box>
+            <Typography sx={{ fontWeight: "600" }}>
+              {data.person.infant}
             </Typography>
           </Box>
           <Box
@@ -79,7 +118,7 @@ const PriceCard = ({ data }) => {
           >
             <Typography sx={{ color: "#90a3bf" }}>Total</Typography>
 
-            <Typography sx={{ fontWeight: "600" }}>AED 884.00</Typography>
+            <Typography sx={{ fontWeight: "600" }}>AED {data?.totalPrice}</Typography>
           </Box>
 
           <Box
@@ -103,7 +142,7 @@ const PriceCard = ({ data }) => {
                 color: theme.palette.primary.main,
               }}
             >
-              $ 884.00
+              AED {data?.totalPrice}
             </Typography>
           </Box>
           <Typography sx={{ color: "#90a3bf" }}>

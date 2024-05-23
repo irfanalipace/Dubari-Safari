@@ -173,7 +173,7 @@ const DetailPage = () => {
       <DetailSlider />
       <Box sx={{ padding: "30px" }}>
         <Grid container spacing={3}>
-          <Grid item lg={8} sm={12} xs={12} md={6}>
+          <Grid item lg={7} sm={12} xs={12} md={6}>
             <Box
               sx={{
                 display: "flex",
@@ -408,13 +408,13 @@ const DetailPage = () => {
           </Grid>
           <Grid
             item
-            lg={4}
+            lg={5}
             sm={12}
             xs={12}
             md={6}
             sx={{ position: "sticky", top: 0 }}
           >
-            <DetailLeft ac_data={data1} />
+            <DetailLeft ac_data={data1} loading={loading} />
           </Grid>
         </Grid>
         <ReiewsDetail />

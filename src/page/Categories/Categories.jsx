@@ -30,6 +30,7 @@ const Categories = () => {
   useEffect(() => {
     dispatch(getCategories())
       .then((result) => {
+        // console.log(result, 'jj')
         const initialCategory = result.data.payload[0];
         setCategories(result.data.payload);
         setSelectedCategory(initialCategory);
@@ -56,6 +57,7 @@ const Categories = () => {
 
   const cardData = [{ title: "Show Cruise Dubai", del: 2650, price: 2000 }];
 
+  console.log(categories, 'jj')
   return (
     <Page title="Categories">
       <Box sx={{ p: 10 }}>
@@ -105,15 +107,14 @@ const Categories = () => {
                 onClick={() => handleCategoryClick(val)}
               >
                 <Avatar
-                  src="/jeep.jpg"
+                  src={val.image}
                   sx={{
                     height: "150px",
                     width: "150px",
-                    border: `4px solid ${
-                      selectedCategory === val
-                        ? theme.palette.primary.main
-                        : "transparent"
-                    }`,
+                    border: `4px solid ${selectedCategory === val
+                      ? theme.palette.primary.main
+                      : "transparent"
+                      }`,
                     cursor: "pointer",
                   }}
                 />

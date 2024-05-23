@@ -9,6 +9,7 @@ import { Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useNavigate } from "react-router";
 const PkgCard = ({ data }) => {
+  // console.log(data.packages[0].price, 'jk')
   const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -53,14 +54,14 @@ const PkgCard = ({ data }) => {
           </Typography>
           <Box>
             <Typography sx={{ fontSize: "15px", color: "grey" }}>
-              <del>$3,500</del>
+              {/* <del>$3,500</del> */}
               <Typography
                 color="primary"
                 display="inline"
                 fontWeight="bold"
                 sx={{ ml: 1 }}
               >
-                2,500
+                {data?.packages[0]?.price}
               </Typography>
             </Typography>
           </Box>
