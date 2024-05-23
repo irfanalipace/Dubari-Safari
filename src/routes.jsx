@@ -12,10 +12,12 @@ import DetailPage from "./page/DetailPage/DetailPage";
 import Privacy_Policy from "./page/Privacy_Policy/Privacy_Policy";
 import Search_Results from "./page/Search_Results";
 import InvoiceDetails from "./page/InvoiceDetails/InvoiceDetails";
+import WishList from "./page/Wish_List/WishList";
 import Login_Main from "./page/Authentication_Page/Login/Login_Main";
 import Forget_Password from "./page/Authentication_Page/Components/Forget_Password";
 import Password_Confirmation from "./page/Authentication_Page/Components/Password_Confirmation";
 import Signup_Main from "./page/Authentication_Page/Signup/Signup_Main";
+import ReiewsDetail from "./page/DetailPage/ReiewsDetail";
 import Change_Password from "./page/Authentication_Page/Components/Change_Password";
 
 export default function Router() {
@@ -38,16 +40,14 @@ export default function Router() {
       element: <Forget_Password />,
     },
     {
-
-    path: "/otp-authentication",
+      path: "/otp-authentication",
       element: <Password_Confirmation />,
     },
 
     {
-
       path: "/change-password",
-        element: <Change_Password />,
-      },
+      element: <Change_Password />,
+    },
 
     {
       path: "/guest-details",
@@ -58,7 +58,11 @@ export default function Router() {
       element: <About_Us />,
     },
     {
-      path: "/details",
+      path: "/invoice-details",
+      element: <InvoiceDetails />,
+    },
+    {
+      path: "/details/:id",
       element: <DetailPage />,
     },
     {
@@ -94,11 +98,13 @@ export default function Router() {
       element: <PaymentDetailsMain />,
     },
 
-
-
     {
       path: "/admin-login",
       element: <AdminLogin />,
+    },
+    {
+      path: "/wish-list",
+      element: <WishList />,
     },
   ]);
   return element;

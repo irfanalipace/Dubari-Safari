@@ -17,6 +17,7 @@ import Side_Image from "../Components/Side_Image";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../store/actions/authActions";
+import Loader from "../../../components/Loader/Loader";
 
 const Login_Main = () => {
   const initialValues = {
@@ -26,7 +27,7 @@ const Login_Main = () => {
 
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -43,6 +44,7 @@ const Login_Main = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     dispatch(userLogin(formValues))
       .then((result) => {
         if (result.success) {
@@ -53,11 +55,12 @@ const Login_Main = () => {
       }
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
   };
 
-  
+
   return (
     <>
       <Box>
@@ -92,81 +95,88 @@ const Login_Main = () => {
                     your Journey platform.
                   </Typography>
                 </Box>
-
-                <Box sx={{ width: "100%", marginTop: "3rem" }}>
-                  <Box sx={{ textAlign: "start" }}>
-                    <label>Email</label>
-                    <TextField
-                      fullWidth
-                      sx={{ marginTop: "0.3rem" }}
-                      size="small"
-                      name="email"
-                      value={formValues.email}
-                      onChange={handleChange}
-                      label="Email"
-                    />
-                  </Box>
-                  <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
-                    <label>Password</label>
-                    <TextField
-                      name="password"
-                      value={formValues.password}
-                      onChange={handleChange}
-                      fullWidth
-                      sx={{ marginTop: "0.3rem" }}
-                      size="small"
-                      type={showPassword ? "text" : "password"}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
-                              edge="end"
-                            >
-                              {showPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginTop: "1rem",
-                    }}
-                  >
-                    <FormGroup>
-                      <FormControlLabel
-                        control={<Checkbox />}
-                        label="Remember me"
+                <form onSubmit={handleSubmit}>
+                  <Box sx={{ width: "100%", marginTop: "3rem" }}>
+                    <Box sx={{ textAlign: "start" }}>
+                      <TextField
+                        type="email"
+                        required
+                        fullWidth
+                        sx={{ marginTop: "0.3rem" }}
+                        size="small"
+                        name="email"
+                        value={formValues.email}
+                        onChange={handleChange}
+                        label="Email"
                       />
-                    </FormGroup>
-                    <Link
-                      to="/forget-password"
-                      style={{ textDecoration: "none" }}
+                    </Box>
+                    <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+                      <TextField
+                        required
+                        label="Password"
+                        name="password"
+                        value={formValues.password}
+                        onChange={handleChange}
+                        fullWidth
+                        sx={{ marginTop: "0.3rem" }}
+                        size="small"
+                        type={showPassword ? "text" : "password"}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginTop: "1rem",
+                      }}
                     >
-                      <Typography sx={{ color: theme.palette.primary.main }}>
-                        Forget Password
-                      </Typography>
-                    </Link>
+                      <FormGroup>
+                        <FormControlLabel
+                          control={<Checkbox />}
+                          label="Remember me"
+                        />
+                      </FormGroup>
+                      <Link
+                        to="/forget-password"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Typography sx={{ color: theme.palette.primary.main }}>
+                          Forget Password
+                        </Typography>
+                      </Link>
+                    </Box>
+                    {loading ? (
+                      <Loader />
+                    ) : (
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ width: "100%", padding: "0.5rem 0rem" }}
+                      >
+                        Sign in
+                      </Button>
+                    )}
                   </Box>
-                  <Button
-                    onClick={handleSubmit}
-                    variant="contained"
-                    sx={{ width: "100%", padding: "0.5rem 0rem" }}
-                  >
-                    Sign in
-                  </Button>
-                </Box>
+                </form>
 
                 <Typography
                   sx={{ marginTop: "1rem", color: "grey", fontSize: "0.9rem" }}

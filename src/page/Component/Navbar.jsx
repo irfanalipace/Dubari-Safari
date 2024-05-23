@@ -13,6 +13,7 @@ import {
   useTheme,
   useMediaQuery,
   Divider,
+  Badge,
 } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
@@ -26,7 +27,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const theme = useTheme();
   // const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const isSmallScreen = useMediaQuery('(max-width:1024px)')
+  const isSmallScreen = useMediaQuery("(max-width:1024px)");
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const navigate = useNavigate();
@@ -70,10 +71,9 @@ const Navbar = () => {
         }}
       >
         <Box>
-        <Link to='/'>
-        <img src="/Logo.png" alt="Logo" />
-
-        </Link>
+          <Link to="/">
+            <img src="/Logo.png" alt="Logo" />
+          </Link>
         </Box>
 
         {isSmallScreen ? (
@@ -108,37 +108,29 @@ const Navbar = () => {
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <TextField
                 placeholder="Search for Experience"
-size="small"
+                size="small"
                 variant="outlined"
-
-
                 sx={{
-
                   "& .MuiInputBase-root": {
+                    padding: 0, // Set padding to 0
+                    "&:hover": {
+                      borderColor: "#f7f7f7",
+                    },
+                    "&.Mui-focused": {
+                      boxShadow: "none",
+                    },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    color: "#f7f7f7",
+                  },
 
-          padding: 0, // Set padding to 0
-          "&:hover": {
-            borderColor: "#f7f7f7",
-          },
-          "&.Mui-focused": {
-            boxShadow: "none",
-          },
-        },
-        "& .MuiOutlinedInput-notchedOutline": {
-          color:'#f7f7f7'
-        },
-
-
-        borderRadius: "0px",
-        backgroundColor: "white",
-      }}
+                  borderRadius: "0px",
+                  backgroundColor: "white",
+                }}
                 InputProps={{
-
-
                   sx: {
-
-          padding: 0, // Ensure no padding for the input
-        },
+                    padding: 0, // Ensure no padding for the input
+                  },
 
                   endAdornment: (
                     <InputAdornment
@@ -147,17 +139,15 @@ size="small"
                     >
                       <Button
                         sx={{
-
+                          mr: -1.5,
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
-                          padding:'0.5rem',
-                          borderRadius:'0px 5px 5px 0px',
+                          padding: "0.5rem 1rem",
+                          borderRadius: "0px 5px 5px 0px",
                           ":hover": {
                             backgroundColor: theme.palette.primary.main,
                             color: "white",
                           },
-
-
                         }}
                       >
                         <SearchOutlinedIcon
@@ -169,7 +159,6 @@ size="small"
                 }}
               />
             </Box>
-
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <HelpOutlineIcon />
               <Typography> Eng/AED</Typography>
@@ -180,8 +169,21 @@ size="small"
               <Typography>Help</Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <FavoriteBorderRoundedIcon />
+            <Box
+              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+              component={Link}
+              to="/wish-list"
+            >
+              <Badge
+                badgeContent={4}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <FavoriteBorderRoundedIcon />
+              </Badge>
               <Typography>Wishlist</Typography>
             </Box>
 
@@ -261,15 +263,10 @@ size="small"
             <Typography>Wishlist</Typography>
           </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <ShoppingCartOutlinedIcon />
-              <Typography> Cart</Typography>
-            </Box>
-
-
-
-
-
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <ShoppingCartOutlinedIcon />
+            <Typography> Cart</Typography>
+          </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField

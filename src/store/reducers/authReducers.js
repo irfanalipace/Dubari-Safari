@@ -7,14 +7,14 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SUCCESS": {
-      localStorage.setItem("token", action.payload.data.token);
-      // console.log(action.payload.data);
+    case "LOGIN_SUCCESS": {
+      localStorage.setItem("token", action?.payload?.payload?.token);
+      // console.log(action.payload.payload, "ACTIONNNNNNNNNNNNNNNNN");
       return {
         ...state,
-        ...action.payload.data,
-        token: action.payload.data.token,
-        user: action.payload.data.user,
+        ...action.payload.payload,
+        token: action.payload.payload.token,
+        user: action.payload.payload.user,
         isAuthenticated: true,
       };
     }
