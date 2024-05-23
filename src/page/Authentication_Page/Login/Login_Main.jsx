@@ -45,19 +45,19 @@ const Login_Main = () => {
     e.preventDefault();
     dispatch(userLogin(formValues))
       .then((result) => {
-
-        alert('User Logged in successfully')
-        setFormValues(initialValues);
-
-        navigate("/");
-
-
+        if (result.success) {
+          setFormValues(initialValues)
+          navigate('/')
+      } else {
+          setErrors('error');
+      }
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  
   return (
     <>
       <Box>

@@ -159,7 +159,7 @@ const Signup_Main = () => {
                                         />
                                     </Box>
 
-                                    {/* <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+                                    <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
                                         <label>Visa Status</label>
                                         <TextField
                                             name="visa_status"
@@ -169,9 +169,9 @@ const Signup_Main = () => {
                                             sx={{ marginTop: "0.3rem" }}
                                             size='small'
                                         />
-                                    </Box> */}
+                                    </Box>
 
-                                    <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+                                    {/* <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
                                         <label>Visa Status</label>
                                         <TextField
                                             select
@@ -185,9 +185,9 @@ const Signup_Main = () => {
                                             <MenuItem value="student">Student</MenuItem>
                                             <MenuItem value="work">Work</MenuItem>
                                             <MenuItem value="tourist">Tourist</MenuItem>
-                                            {/* Add other visa status options as needed */}
+
                                         </TextField>
-                                    </Box>
+                                    </Box> */}
 
                                     <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
                                         <label>Password</label>
