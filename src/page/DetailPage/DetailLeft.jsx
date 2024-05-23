@@ -36,9 +36,9 @@ const DetailLeft = ({ ac_data }) => {
       const data = {
         date: date,
         person: {
-          adult,
-          child,
-          infant,
+          adult: adult,
+          child: child,
+          infant: infant,
         },
         activity: ac_data,
       };
@@ -246,7 +246,7 @@ const DetailLeft = ({ ac_data }) => {
               </Box>
               <Box>
                 <Button
-                  onClick={handleSelectClick}
+                  onClick={handleLogDetails}
                   variant="contained"
                   sx={{
                     color: "white",

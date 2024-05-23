@@ -5,6 +5,7 @@ import PriceCard from "../Component/PriceCard";
 import { useLocation } from "react-router";
 import StepperComp from "./Components/StepperComp";
 import P_Detail_New from "./Components/P_Detail_New";
+import Component1 from "../GuestDetails/Components/Component1";
 
 const PaymentDetailsMain = () => {
   const { state } = useLocation();
@@ -20,7 +21,8 @@ const PaymentDetailsMain = () => {
         </Grid>
         <Grid item lg={8} md={12} sm={12} xs={12}>
           {/* <PaymentDetailComponent /> */}
-          <P_Detail_New />
+          {/* <P_Detail_New /> */}
+          <Component1 />
         </Grid>
         <Grid item lg={4} md={12} sm={12} xs={12}>
           <PriceCard data={state} />

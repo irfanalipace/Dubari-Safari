@@ -45,7 +45,9 @@ const PriceCard = ({ data }) => {
               </Typography>
             </Box>
 
-            <Typography sx={{ fontWeight: "600" }}>{data.person}</Typography>
+            <Typography sx={{ fontWeight: "600" }}>
+              {data.person.child}
+            </Typography>
           </Box>
           <Box
             sx={{
