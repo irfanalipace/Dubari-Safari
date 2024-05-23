@@ -18,6 +18,7 @@ import Forget_Password from "./page/Authentication_Page/Components/Forget_Passwo
 import Password_Confirmation from "./page/Authentication_Page/Components/Password_Confirmation";
 import Signup_Main from "./page/Authentication_Page/Signup/Signup_Main";
 import ReiewsDetail from "./page/DetailPage/ReiewsDetail";
+import Change_Password from "./page/Authentication_Page/Components/Change_Password";
 
 export default function Router() {
   let element = useRoutes([
@@ -42,6 +43,12 @@ export default function Router() {
       path: "/otp-authentication",
       element: <Password_Confirmation />,
     },
+
+    {
+      path: "/change-password",
+      element: <Change_Password />,
+    },
+
     {
       path: "/guest-details",
       element: <GuestDetailsMain />,

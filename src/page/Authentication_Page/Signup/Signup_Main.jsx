@@ -8,7 +8,8 @@ import {
     useTheme,
     IconButton,
     InputAdornment,
-   
+    MenuItem,
+
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -158,7 +159,7 @@ const Signup_Main = () => {
                                         />
                                     </Box>
 
-                                    <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+                                    {/* <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
                                         <label>Visa Status</label>
                                         <TextField
                                             name="visa_status"
@@ -168,6 +169,24 @@ const Signup_Main = () => {
                                             sx={{ marginTop: "0.3rem" }}
                                             size='small'
                                         />
+                                    </Box> */}
+
+                                    <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+                                        <label>Visa Status</label>
+                                        <TextField
+                                            select
+                                            name="visa_status"
+                                            value={formValues.visa_status}
+                                            onChange={handleChange}
+                                            fullWidth
+                                            sx={{ marginTop: "0.3rem" }}
+                                            size='small'
+                                        >
+                                            <MenuItem value="student">Student</MenuItem>
+                                            <MenuItem value="work">Work</MenuItem>
+                                            <MenuItem value="tourist">Tourist</MenuItem>
+                                            {/* Add other visa status options as needed */}
+                                        </TextField>
                                     </Box>
 
                                     <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
