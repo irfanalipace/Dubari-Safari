@@ -18,6 +18,7 @@ import { useNavigate } from "react-router";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions/cartActions";
+
 const DetailLeft = ({ ac_data }) => {
   const [date, setDate] = useState("");
   const [showDropdowns, setShowDropdowns] = useState(false);
