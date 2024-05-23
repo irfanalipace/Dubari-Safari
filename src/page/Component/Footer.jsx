@@ -211,6 +211,72 @@ const Footer = () => {
                 <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
                   Corporate
                 </Typography>
+                <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/blogs"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Blogs
+                </MuiLink>
+              </Typography>
+
+              <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/where-to-find-us"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Where to find us
+                </MuiLink>
+              </Typography>
+
+              <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/help"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Help
+                </MuiLink>
+              </Typography>
+
               </Box>
             </Grid>
             <Grid item lg={1.8} md={1.8} sm={12} xs={12}>
@@ -233,7 +299,7 @@ const Footer = () => {
               >
                 <MuiLink
                   component={Link}
-                  to="terms-&-conditions"
+                  to="/terms-&-conditions"
                   sx={{
 
                     textDecoration: "none",

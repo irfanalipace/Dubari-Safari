@@ -47,16 +47,19 @@ const Login_Main = () => {
     setLoading(true);
     dispatch(userLogin(formValues))
       .then((result) => {
-        // alert("User Logged in successfully");
-        setFormValues(initialValues);
-        setLoading(false);
-        // navigate("/");
+        if (result.success) {
+          setFormValues(initialValues)
+          navigate('/')
+      } else {
+          setErrors('error');
+      }
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
   };
+
 
   return (
     <>

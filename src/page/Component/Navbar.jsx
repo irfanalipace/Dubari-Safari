@@ -139,10 +139,10 @@ const Navbar = () => {
                     >
                       <Button
                         sx={{
-                          mr: -1.5,
+
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
-                          padding: "0.5rem 1rem",
+                          padding: "0.5rem",
                           borderRadius: "0px 5px 5px 0px",
                           ":hover": {
                             backgroundColor: theme.palette.primary.main,
@@ -187,8 +187,22 @@ const Navbar = () => {
               <Typography>Wishlist</Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center", cursor:'pointer' }}
+ component={Link}
+              to="/cart"
+            >
+
+            <Badge
+                badgeContent={1}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
               <ShoppingCartOutlinedIcon />
+
+              </Badge>
               <Typography> Cart</Typography>
             </Box>
 
@@ -258,15 +272,42 @@ const Navbar = () => {
             <Typography>Help</Typography>
           </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <FavoriteBorderRoundedIcon />
-            <Typography>Wishlist</Typography>
-          </Box>
+          <Box
+              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+              component={Link}
+              to="/wish-list"
+            >
+              <Badge
+                badgeContent={4}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <FavoriteBorderRoundedIcon />
+              </Badge>
+              <Typography>Wishlist</Typography>
+            </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ShoppingCartOutlinedIcon />
-            <Typography> Cart</Typography>
-          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", cursor:'pointer' }}
+ component={Link}
+              to="/cart"
+            >
+
+            <Badge
+                badgeContent={1}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+              <ShoppingCartOutlinedIcon />
+
+              </Badge>
+              <Typography> Cart</Typography>
+            </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField

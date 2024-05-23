@@ -19,6 +19,11 @@ import Password_Confirmation from "./page/Authentication_Page/Components/Passwor
 import Signup_Main from "./page/Authentication_Page/Signup/Signup_Main";
 import ReiewsDetail from "./page/DetailPage/ReiewsDetail";
 import Change_Password from "./page/Authentication_Page/Components/Change_Password";
+import CartMain from "./page/ViewCart/CartMain";
+import BlogsMain from "./page/Blogs/BlogsMain";
+import WhereFindMain from "./page/WhereToFind/WhereFindMain";
+import ManageProfileMain from "./page/ManageProfile/ManageProfileMain";
+import HelpPageMain from "./page/Help_Page/HelpPageMain";
 
 export default function Router() {
   let element = useRoutes([
@@ -94,6 +99,22 @@ export default function Router() {
       element: <Contact_Us />,
     },
     {
+      path: "/blogs",
+      element: <BlogsMain />,
+    },
+    {
+      path: "/help",
+      element: <HelpPageMain />,
+    },
+    {
+      path: "/where-to-find-us",
+      element: <WhereFindMain />,
+    },
+    {
+      path: "/manage-profile",
+      element: <ManageProfileMain />,
+    },
+    {
       path: "/payment-details",
       element: <PaymentDetailsMain />,
     },
@@ -105,6 +126,10 @@ export default function Router() {
     {
       path: "/wish-list",
       element: <WishList />,
+    },
+    {
+      path: "/cart",
+      element: <CartMain />,
     },
   ]);
   return element;

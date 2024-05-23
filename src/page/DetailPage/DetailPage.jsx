@@ -51,6 +51,7 @@ const DetailPage = () => {
         });
     })();
   }, []);
+  
   const infoItems = [
     { icon: <CiStopwatch style={styleType} />, text: "Operating Hours" },
     {

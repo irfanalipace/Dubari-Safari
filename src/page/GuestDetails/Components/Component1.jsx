@@ -66,7 +66,6 @@ const Component1 = () => {
           border: "1px solid #f0f0f0",
           padding: "3rem 5%",
           borderRadius: "10px",
-          background: "#fff",
         }}
       >
         <Box>
@@ -166,7 +165,6 @@ const Component1 = () => {
           padding: "3rem 5%",
           borderRadius: "10px",
           marginTop: "2rem",
-          background: "#fff",
         }}
       >
         <Box>
