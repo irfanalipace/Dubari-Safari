@@ -41,6 +41,7 @@ const DetailPage = () => {
     (() => {
       dispatch(getActivitiesById(id))
         .then((result) => {
+          console.log(result, 'hhhh')
           setData(result.data.payload);
           setLoading(false);
         })
@@ -131,8 +132,6 @@ const DetailPage = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
 
-      // Add logic here to determine which section is currently in view
-      // For simplicity, let's assume each section's ID corresponds to its index in an array
       const sectionIds = [
         "overview",
         "description",
@@ -155,19 +154,16 @@ const DetailPage = () => {
         }
       });
 
-      // Update the highlighted ID
       setHighlightedId(currentSectionId);
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // Function to determine if a link is highlighted
   const isHighlighted = (id) => {
     return id === highlightedId;
   };
@@ -215,7 +211,7 @@ const DetailPage = () => {
                   position: "sticky",
                   top: 0,
                   backgroundColor: "white",
-                  zIndex: 99999,
+                  // zIndex: 99999,
                   padding: "20px",
                 }}
               >
@@ -327,9 +323,7 @@ const DetailPage = () => {
                 </Typography>
                 <Divider sx={{ width: "100%" }} />
                 <Typography>
-                  This off-road activity brings you to explore the Dubai desert
-                  with fun activities such as dune bashing and camel ride
-                  experience.
+                  {data1.description}
                 </Typography>
               </div>
 
@@ -350,11 +344,9 @@ const DetailPage = () => {
                     color: "#A9A9A9",
                     fontSize: "16px",
                   }}
-                >
-                  <ul>
-                    <li>Pickup time 08.00-08.30 AM</li>
-                  </ul>
-                </Box>
+                  dangerouslySetInnerHTML={{ __html: data1.itinerary }}
+                />
+
               </div>
 
               <div id="whats-included" style={colStyle}>
@@ -370,15 +362,15 @@ const DetailPage = () => {
                 <Divider sx={{ width: "100%" }} />
                 <Box
                   sx={{
+                    paddingLeft: "30px",
                     color: "#A9A9A9",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
+                    fontSize: "16px",
                   }}
-                >
-                  <img src="/cross.png" alt="" />
-                  <Typography>Pickup time 08.00-08.30 AM</Typography>
-                </Box>
+
+                  dangerouslySetInnerHTML={{
+                    __html: data1.whats_included
+                  }}
+                />
               </div>
 
               <div id="trip-instructions" style={colStyle}>

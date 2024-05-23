@@ -11,6 +11,7 @@ import {
   useTheme,
   Tooltip,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
@@ -18,21 +19,38 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions/cartActions";
 const DetailLeft = ({ ac_data }) => {
-  const [person, setPerson] = useState(1);
   const [date, setDate] = useState("");
+  const [showDropdowns, setShowDropdowns] = useState(false);
+  const [adult, setAdult] = useState(1);
+  const [child, setChild] = useState(0);
+  const [infant, setInfant] = useState(0);
+  const [accordionExpanded, setAccordionExpanded] = useState(false);
+
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+
   const handleLogDetails = () => {
     if (!date) {
       enqueueSnackbar("Please Select Date", { variant: "error" });
     } else {
       const data = {
         date: date,
-        person: person,
+        person: {
+          adult,
+          child,
+          infant,
+        },
         activity: ac_data,
       };
-      // console.log(data);
       navigate("/payment-details", { state: data });
+    }
+  };
+
+  const handleSelectClick = () => {
+    if (!date) {
+      enqueueSnackbar("Please Select Date", { variant: "error" });
+    } else {
+      setAccordionExpanded(true);
     }
   };
 
@@ -43,18 +61,18 @@ const DetailLeft = ({ ac_data }) => {
       price: "AED 1,200",
       per: "Per Adult",
     },
-    {
-      title: "Evening Desert Safari",
-      type: "Private",
-      price: "AED 900",
-      per: "Per Adult",
-    },
-    {
-      title: "Morning Desert Safari",
-      type: "Sharing",
-      price: "AED 600",
-      per: "Per Adult",
-    },
+    // {
+    //     title: "Evening Desert Safari",
+    //     type: "Private",
+    //     price: "AED 900",
+    //     per: "Per Adult",
+    // },
+    // {
+    //     title: "Morning Desert Safari",
+    //     type: "Sharing",
+    //     price: "AED 600",
+    //     per: "Per Adult",
+    // },
   ];
 
   return (
@@ -100,28 +118,99 @@ const DetailLeft = ({ ac_data }) => {
           />
         </Box>
         <Box sx={{ padding: "0px 20px", width: "90%" }}>
-          <InputLabel>Person</InputLabel>
           <FormControl
             fullWidth
             sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
           >
-            <Select
-              value={person}
-              onChange={(e) => setPerson(e.target.value)}
-              placeholder="Add Person"
+            <Button
+              fullWidth
+              onClick={() => setShowDropdowns(!showDropdowns)}
               sx={{
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
+                backgroundColor: "#EDEDED",
+                borderRadius: "7px",
+                textTransform: "none",
+                "&:hover": {
+                  backgroundColor: "#EDEDED",
                 },
               }}
             >
-              <MenuItem value={1}>1 Person</MenuItem>
-              <MenuItem value={2}>2 Persons</MenuItem>
-              <MenuItem value={3}>3 Persons</MenuItem>
-              <MenuItem value={4}>4 Persons</MenuItem>
-            </Select>
+              Select Person
+            </Button>
           </FormControl>
         </Box>
+        {showDropdowns && (
+          <>
+            <Box sx={{ padding: "0px 20px", width: "90%" }}>
+              <InputLabel>Adult</InputLabel>
+              <FormControl
+                fullWidth
+                sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
+              >
+                <Select
+                  value={adult}
+                  onChange={(e) => setAdult(e.target.value)}
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                  }}
+                >
+                  {[...Array(5).keys()].map((num) => (
+                    <MenuItem key={num + 1} value={num + 1}>
+                      {num + 1}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ padding: "0px 20px", width: "90%" }}>
+              <InputLabel>Child</InputLabel>
+              <FormControl
+                fullWidth
+                sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
+              >
+                <Select
+                  value={child}
+                  onChange={(e) => setChild(e.target.value)}
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                  }}
+                >
+                  {[...Array(5).keys()].map((num) => (
+                    <MenuItem key={num} value={num}>
+                      {num}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ padding: "0px 20px", width: "90%" }}>
+              <InputLabel>Infant</InputLabel>
+              <FormControl
+                fullWidth
+                sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
+              >
+                <Select
+                  value={infant}
+                  onChange={(e) => setInfant(e.target.value)}
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                  }}
+                >
+                  {[...Array(5).keys()].map((num) => (
+                    <MenuItem key={num} value={num}>
+                      {num}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          </>
+        )}
         <Divider sx={{ width: "100%" }} />
         <Box sx={{ padding: "20px", width: "90%" }}>
           {data.map((item, index) => (
@@ -157,21 +246,21 @@ const DetailLeft = ({ ac_data }) => {
               </Box>
               <Box>
                 <Button
-                  onClick={handleLogDetails}
+                  onClick={handleSelectClick}
                   variant="contained"
                   sx={{
                     color: "white",
                     fontSize: "12px",
                   }}
                 >
-                  Book Now
+                  Select
                 </Button>
               </Box>
             </Box>
           ))}
-          <ActivityCard />
         </Box>
       </Box>
+      <ActivityCard />
     </Box>
   );
 };
