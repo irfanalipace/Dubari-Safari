@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Page from "../../components/page";
 import { Box, Button, Typography } from "@mui/material";
 import Overlay from "../../components/Image_Overlay/Overlay";
 import { ArrowForward } from "@mui/icons-material";
 const About_Us = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
   return (
     <Page title="About Us">
       <Overlay title="About Us" />

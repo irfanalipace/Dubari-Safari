@@ -1,10 +1,20 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import BlogCard from './Components/BlogCard'
-
+import Page from '../../components/page'
 const BlogsMain = () => {
+
+  useEffect(()=>{
+window.scrollTo(0,0)
+  },[])
+
   return (
     <>
+    <Page title="Our Blogs">
+
+
+
+
 
 <Box
         sx={{
@@ -48,7 +58,8 @@ const BlogsMain = () => {
 
 
 <BlogCard/>
-
+</Page>
+ 
 
     </>
   )

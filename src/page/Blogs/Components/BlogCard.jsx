@@ -68,31 +68,38 @@ const BlogCard = () => {
 {
     blogData.map((val, ind)=>(
         <Grid item lg={4} md={6} sm={12} xs={12}>
-<Card sx={{ maxWidth: 345, backgroundColor:'#fdf4f1', width:'100%' }} key={ind}>
-      <CardMedia
-      component={'img'}
-        sx={{ height:'auto', width:'100%', objectFit:'cover' }}
-        image={val.blogimg}
-        title="Blog Image"
-      />
-      <CardContent>
+        <Box key={ind}>
+<Box sx={{backgroundColor:'#fdf4f1', }}>
 
-        <Button sx={{backgroundColor:'green', borderRadius:'20px', color:'white', fontSize:'0.7rem'}} variant='contained'>{val.date}</Button>
+<Box>
+<img src={val.blogimg} alt='' width={'100%'} style={{objectFit:'cover'}}/>
+</Box>
 
-        <Typography gutterBottom variant="h5" component="div" sx={{marginTop:'1rem', fontWeight:'600', fontSize:'1.2rem'}}>
-       {val.title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{fontSize:'0.9rem'}}>
-       {val.description}
-        </Typography>
-      </CardContent>
-      <CardActions sx={{display:'flex', justifyContent:'end', alignItems:'end', padding:'1rem'}}>
+<Box padding='1rem 2rem'>
+<Button sx={{backgroundColor:'green', borderRadius:'20px', color:'white', fontSize:'0.7rem'}} variant='contained'>{val.date}</Button>
 
-        <Button size="small" variant='contained'>Read More <ArrowForwardIcon/></Button>
-      </CardActions>
-    </Card>
+<Typography gutterBottom variant="h5" component="div" sx={{marginTop:'1rem', fontWeight:'600', fontSize:'1.2rem'}}>
+{val.title}
+</Typography>
+<Typography variant="body2" color="text.secondary" sx={{fontSize:'0.9rem'}}>
+{val.description}
+</Typography>
+
+<Box sx={{display:'flex', alignItems:'end', justifyContent:'end', marginTop:'1rem'}}>
+<Button size="small" variant='contained' sx={{textTransform:'none'}}>Read More <ArrowForwardIcon/></Button>
+
+</Box>
+
+</Box>
 
 
+</Box>
+
+
+
+
+
+        </Box>
 </Grid>
     ))
 }

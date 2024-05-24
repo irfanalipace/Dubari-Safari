@@ -1,11 +1,17 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import MainComponent from './Components/MainComponent'
-
+import Page from '../../components/page'
 const WhereFindMain = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+      },[])
+
   return (
     <>
 
+<Page title="Where to find us">
 
 <Box
         sx={{
@@ -50,6 +56,7 @@ const WhereFindMain = () => {
 <MainComponent/>
 
 
+</Page>
     </>
   )
 }

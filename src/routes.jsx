@@ -24,7 +24,7 @@ import BlogsMain from "./page/Blogs/BlogsMain";
 import WhereFindMain from "./page/WhereToFind/WhereFindMain";
 import ManageProfileMain from "./page/ManageProfile/ManageProfileMain";
 import HelpPageMain from "./page/Help_Page/HelpPageMain";
-
+import TermsConditions from "./page/TermsConditions/TermsConditions";
 export default function Router() {
   let element = useRoutes([
     {
@@ -39,6 +39,10 @@ export default function Router() {
     {
       path: "/login",
       element: <Login_Main />,
+    },
+    {
+      path: "/manage-profile",
+      element: <ManageProfileMain />,
     },
     {
       path: "/forget-password",
@@ -130,6 +134,10 @@ export default function Router() {
     {
       path: "/cart",
       element: <CartMain />,
+    },
+    {
+      path: "/terms-&-conditions",
+      element: <TermsConditions />,
     },
   ]);
   return element;

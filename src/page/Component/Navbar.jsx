@@ -14,6 +14,8 @@ import {
   useMediaQuery,
   Divider,
   Badge,
+  Link as MuiLink,
+  Avatar,
 } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
@@ -23,37 +25,59 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const theme = useTheme();
+  const authh = useSelector((state) => state.auth.isAuthenticated)
   // const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const isSmallScreen = useMediaQuery("(max-width:1024px)");
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const navigate = useNavigate();
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+  const [tokenAvailable, setTokenAvailable] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setTokenAvailable(token);
+  }, []);
+
+  const handleMenuItemClick = (value) => {
+    if (value === "Logout") {
+      localStorage.removeItem("token");
+      setTokenAvailable(false);
+    } else if (value === "Manage Profile") {
+      navigate("/manage-profile");
+    }
+    setSelectedValue("");
+  };
+
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
   };
-  const handleSignup = ()=>{
-    navigate('/signup')
-  }
+  const handleSignup = () => {
+    navigate("/signup");
+  };
 
   const handleDrawerClose = () => {
     setOpenDrawer(false);
   };
 
   useEffect(() => {
-    // Add event listener for window resize
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function to remove event listener
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   const handleResize = () => {
-    // Close drawer when screen size becomes larger
     if (!isSmallScreen) {
       setOpenDrawer(false);
     }
@@ -139,7 +163,6 @@ const Navbar = () => {
                     >
                       <Button
                         sx={{
-
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
                           padding: "0.5rem",
@@ -164,67 +187,194 @@ const Navbar = () => {
               <Typography> Eng/AED</Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <HelpOutlineIcon />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "cener",
+                marginTop: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/help"
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  <HelpOutlineIcon />
+                  Help
+                </MuiLink>
+              </Typography>
+            </Box>
+            {/* <Box
+              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+              component={Link}
+              to="/help"
+            >
+
+
+
               <Typography>Help</Typography>
+            </Box> */}
+
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "cener",
+                marginTop: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <Badge
+                  badgeContent={4}
+                  color="primary"
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
+                  <MuiLink
+                    component={Link}
+                    to="/wish-list"
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      textDecoration: "none",
+                      color: "inherit",
+                      "&:hover": { textDecoration: "none" },
+                    }}
+                  >
+                    <FavoriteBorderRoundedIcon />
+                    Wishlist
+                  </MuiLink>
+                </Badge>
+              </Typography>
             </Box>
 
             <Box
-              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-              component={Link}
-              to="/wish-list"
-            >
-              <Badge
-                badgeContent={4}
-                color="primary"
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-              >
-                <FavoriteBorderRoundedIcon />
-              </Badge>
-              <Typography>Wishlist</Typography>
-            </Box>
-
-            <Box sx={{ display: "flex", alignItems: "center", cursor:'pointer' }}
- component={Link}
-              to="/cart"
-            >
-
-            <Badge
-                badgeContent={1}
-                color="primary"
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-              >
-              <ShoppingCartOutlinedIcon />
-
-              </Badge>
-              <Typography> Cart</Typography>
-            </Box>
-
-            <Button
-          onClick={handleSignup}
-
-              variant="contained"
               sx={{
-                backgroundColor: theme.palette.primary.main,
-                padding: "0.5rem 2rem",
-                textTransform: "none",
+                display: "flex",
+                alignItems: "cener",
+                marginTop: "1rem",
+                cursor: "pointer",
               }}
             >
-              Sign-Up
-            </Button>
+              <Typography
+                sx={{
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <Badge
+                  badgeContent={4}
+                  color="primary"
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
+                  <MuiLink
+                    component={Link}
+                    to="/cart"
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      textDecoration: "none",
+                      color: "inherit",
+                      "&:hover": { textDecoration: "none" },
+                    }}
+                  >
+                    <ShoppingCartOutlinedIcon />
+                    Cart
+                  </MuiLink>
+                </Badge>
+              </Typography>
+            </Box>
+
+            {tokenAvailable ? (
+              <Box>
+                <FormControl sx={{ padding: 0 }}>
+                  <Select
+                    sx={{
+                      outline: "none",
+                      "&:focus": {
+                        outline: "none",
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        border: "none", // Remove the outline border
+                      },
+                    }}
+                    value={selectedValue}
+                    onChange={handleChange}
+                    displayEmpty
+                    inputProps={{ "aria-label": "Select user" }}
+                    style={{ minWidth: "120px", padding: 0 }}
+                    renderValue={(selected) => (
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Avatar
+                          alt=""
+                          src="/avatar.jpg"
+                          sx={{ marginRight: "8px" }}
+                        />
+                        Profile
+                      </Box>
+                    )}
+                  >
+                    <MenuItem
+                      value="Manage Profile"
+                      onClick={() => handleMenuItemClick("Manage Profile")}
+                    >
+                      Manage Profile
+                    </MenuItem>
+                    <MenuItem
+                      value="Logout"
+                      onClick={() => handleMenuItemClick("Logout")}
+                    >
+                      Logout
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            ) : (
+              <Button
+                onClick={handleSignup}
+                variant="contained"
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  padding: "0.5rem 2rem",
+                  textTransform: "none",
+                }}
+              >
+                Sign-Up
+              </Button>
+            )}
           </>
         )}
       </Box>
 
       <Drawer anchor="left" open={openDrawer} onClose={handleDrawerClose}>
         <Box
-          gap={3}
+          gap={2}
           sx={{
             padding: "2rem",
             marginTop: "2rem",
@@ -264,18 +414,65 @@ const Navbar = () => {
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <HelpOutlineIcon />
-            <Typography> Eng/AED</Typography>
-          </Box>
-
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <HelpOutlineIcon />
-            <Typography>Help</Typography>
+            <Typography sx={{fontSize:'1.2rem'}}> Eng/AED</Typography>
           </Box>
 
           <Box
+            sx={{
+              display: "flex",
+              alignItems: "cener",
+
+              cursor: "pointer",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "1.2rem",
+
+                textTransform: "none",
+              }}
+            >
+              <MuiLink
+                component={Link}
+                to="/help"
+                sx={{
+                  alignItems: "center",
+                  display: "flex",
+                  textDecoration: "none",
+                  color: "inherit",
+                  "&:hover": { textDecoration: "none" },
+                }}
+              >
+                <HelpOutlineIcon />
+                Help
+              </MuiLink>
+            </Typography>
+          </Box>
+          {/* <Box
               sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
               component={Link}
-              to="/wish-list"
+              to="/help"
+            >
+
+
+
+              <Typography>Help</Typography>
+            </Box> */}
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "cener",
+
+              cursor: "pointer",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "1.2rem",
+
+                textTransform: "none",
+              }}
             >
               <Badge
                 badgeContent={4}
@@ -285,72 +482,175 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <FavoriteBorderRoundedIcon />
+                <MuiLink
+                  component={Link}
+                  to="/wish-list"
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  <FavoriteBorderRoundedIcon />
+                  Wishlist
+                </MuiLink>
               </Badge>
-              <Typography>Wishlist</Typography>
-            </Box>
+            </Typography>
+          </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center", cursor:'pointer' }}
- component={Link}
-              to="/cart"
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "cener",
+
+              cursor: "pointer",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "1.2rem",
+                textTransform: "none",
+              }}
             >
-
-            <Badge
-                badgeContent={1}
+              <Badge
+                badgeContent={4}
                 color="primary"
                 anchorOrigin={{
                   vertical: "top",
                   horizontal: "left",
                 }}
               >
-              <ShoppingCartOutlinedIcon />
-
+                <MuiLink
+                  component={Link}
+                  to="/cart"
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  <ShoppingCartOutlinedIcon />
+                  Cart
+                </MuiLink>
               </Badge>
-              <Typography> Cart</Typography>
-            </Box>
-
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <TextField
-              placeholder="Search for Experience"
-              size="small"
-              variant="outlined"
-              sx={{ padding: 0 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment
-                    position="end"
-                    style={{ padding: 0, margin: 0 }}
+            </Typography>
+          </Box>
+          {authh ? (
+              <Box>
+                <FormControl sx={{ padding: 0 }}>
+                  <Select
+                    sx={{
+                      outline: "none",
+                      "&:focus": {
+                        outline: "none",
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        border: "none", // Remove the outline border
+                      },
+                    }}
+                    value={selectedValue}
+                    onChange={handleChange}
+                    displayEmpty
+                    inputProps={{ "aria-label": "Select user" }}
+                    style={{ minWidth: "120px", padding: 0 }}
+                    renderValue={(selected) => (
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Avatar
+                          alt=""
+                          src="/avatar.jpg"
+                          sx={{ marginRight: "8px" }}
+                        />
+                        Profile
+                      </Box>
+                    )}
                   >
-                    <Button
-                      sx={{
-                        backgroundColor: theme.palette.primary.main,
-                        color: "white",
-                        ":hover": {
+                    <MenuItem
+                      value="Manage Profile"
+                      onClick={() => handleMenuItemClick("Manage Profile")}
+                    >
+                      Manage Profile
+                    </MenuItem>
+                    <MenuItem
+                      value="Logout"
+                      onClick={() => handleMenuItemClick("Logout")}
+                    >
+                      Logout
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            ) : (
+              <Button
+                onClick={handleSignup}
+                variant="contained"
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  padding: "0.5rem 2rem",
+                  textTransform: "none",
+                }}
+              >
+                Sign-Up
+              </Button>
+            )}
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <TextField
+                placeholder="Search for Experience"
+                size="small"
+                variant="outlined"
+                sx={{
+                  "& .MuiInputBase-root": {
+                    padding: 0, // Set padding to 0
+                    "&:hover": {
+                      borderColor: "#f7f7f7",
+                    },
+                    "&.Mui-focused": {
+                      boxShadow: "none",
+                    },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    color: "#f7f7f7",
+                  },
+
+                  borderRadius: "0px",
+                  backgroundColor: "white",
+                }}
+                InputProps={{
+                  sx: {
+                    padding: 0, // Ensure no padding for the input
+                  },
+
+                  endAdornment: (
+                    <InputAdornment
+                      position="end"
+                      style={{ padding: 0, margin: 0 }}
+                    >
+                      <Button
+                        sx={{
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
-                        },
-                      }}
-                    >
-                      <SearchOutlinedIcon />
-                    </Button>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box>
+                          padding: "0.5rem",
+                          borderRadius: "0px 5px 5px 0px",
+                          ":hover": {
+                            backgroundColor: theme.palette.primary.main,
+                            color: "white",
+                          },
+                        }}
+                      >
+                        <SearchOutlinedIcon
+                          onClick={() => navigate("/search-results")}
+                        />
+                      </Button>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
 
-          <Button
-          onClick={handleSignup}
-            variant="contained"
-            sx={{
-              backgroundColor: theme.palette.primary.main,
-              padding: "0.5rem 2rem",
-              textTransform: "none",
-              marginTop: "1rem",
-            }}
-          >
-            Sign-Up
-          </Button>
+
         </Box>
       </Drawer>
 

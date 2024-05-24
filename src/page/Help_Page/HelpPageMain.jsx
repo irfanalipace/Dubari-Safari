@@ -1,56 +1,61 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import Page from "../../components/page";
 
 const HelpPageMain = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    const helpcarddata=[
-        {
-            icon:'/bookingicon.png',
-            title:'Booking',
-            description:` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  const helpcarddata = [
+    {
+      icon: "/bookingicon.png",
+      title: "Booking",
+      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`
-        },
-        {
-            icon:'/paymenticon.png',
-            title:'Booking',
-            description:` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            labore repellat?`,
+    },
+    {
+      icon: "/paymenticon.png",
+      title: "Payment",
+      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`
-        },
-        {
-            icon:'/refunds.png',
-            title:'Booking',
-            description:` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            labore repellat?`,
+    },
+    {
+      icon: "/refunds.png",
+      title: "Cancellation & Refunds",
+      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`
-        },
-        {
-            icon:'/modification.png',
-            title:'Booking',
-            description:` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            labore repellat?`,
+    },
+    {
+      icon: "/modification.png",
+      title: "Booking Modification",
+      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`
-        },
-        {
-            icon:'/cashbacks.png',
-            title:'Booking',
-            description:` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            labore repellat?`,
+    },
+    {
+      icon: "/cashbacks.png",
+      title: "Coupons & Cashbacks",
+      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`
-        },
-        {
-            icon:'/bookingicon.png',
-            title:'Booking',
-            description:` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            labore repellat?`,
+    },
+    {
+      icon: "/quries.png",
+      title: "General Queries",
+      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`
-        },
-    ]
-
+            labore repellat?`,
+    },
+  ];
 
   return (
     <>
+
+<Page title="Help">
       <Box
         sx={{
           backgroundColor: "#ffc0b3",
@@ -154,33 +159,112 @@ const HelpPageMain = () => {
       <Box sx={{ padding: "3rem 10%" }}>
         <Box>
           <Grid container spacing={4}>
+            {helpcarddata.map((val, ind) => (
+              <Grid item lg={4} md={6} sm={12} xs={12}>
+                <Box
+                  sx={{
+                    border: "1px solid #ebebeb",
+                    padding: "2rem 1rem",
+                    borderRadius: "15px",
+                    textAlign: "center",
+                    minHeight: "12rem",
+                  }}
+                >
+                  <Box>
+                    <img src={val.icon} alt="icon" />
+                  </Box>
 
-{helpcarddata.map((val, ind)=>(
-    <Grid item lg={4} md={6} sm={12} xs={12}>
+                  <Typography
+                    variant="h1"
+                    sx={{
+                      fontSize: "1.5rem",
+                      fontWeight: "600",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {val.title}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: "0.9rem",
+                      color: "grey",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {val.description}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "3rem",
+          }}
+        >
+          <Typography variant="h1" sx={{fontSize:'2rem', fontWeight:'600'}}>Can't find what you're looking for?</Typography>
+
+          <Box
+            sx={{ display: "flex", alignItems: "center", marginTop: "2rem" }}
+            gap={3}
+          >
             <Box
               sx={{
                 border: "1px solid #ebebeb",
-                padding: "2rem 1rem",
-                borderRadius:'15px',
-                textAlign: "center",
+                borderRadius: "15px",
+                padding: "2rem 4rem",
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <Box>
-                <img src={val.icon} alt="icon" />
+                <img src="/chatico.png" alt="Altttt" />
               </Box>
 
-              <Typography variant="h1" sx={{fontSize:'1.5rem', fontWeight:'600', marginTop:'0.5rem'}}>{val.title}</Typography>
-              <Typography variant="body1" sx={{fontSize:'0.9rem', color:'grey', marginTop:'0.5rem'}}>
-                {val.description}
+              <Typography
+                variant="h1"
+                sx={{ fontSize: "1.3rem", fontWeight: "700" }}
+              >
+                Chat With Us
               </Typography>
             </Box>
-            </Grid>
-))}
 
+            <Box
+              sx={{
+                border: "1px solid #ebebeb",
+                borderRadius: "15px",
+                padding: "2rem 4rem",
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Box>
+                <img src="/contacticon.png" alt="Altttt" />
+              </Box>
 
-          </Grid>
+              <Typography
+                variant="h1"
+                sx={{ fontSize: "1.3rem", fontWeight: "700" }}
+              >
+                Contact Us
+              </Typography>
+            </Box>
+          </Box>
         </Box>
       </Box>
+    </Page>
+
     </>
   );
 };

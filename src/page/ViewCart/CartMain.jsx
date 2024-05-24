@@ -38,6 +38,7 @@ const dispatch = useDispatch()
   }, []);
 
 
+console.log(allCart[0], 'all Cart data fro map')
 
 
   return (
