@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/actions/cartActions";
 
 const DetailLeft = ({ ac_data, loading }) => {
     const [date, setDate] = useState("");
@@ -9,7 +11,7 @@ const DetailLeft = ({ ac_data, loading }) => {
     const [adult, setAdult] = useState(1);
     const [child, setChild] = useState(0);
     const [infant, setInfant] = useState(0);
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
@@ -44,6 +46,28 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
+    const handleCart = (p_id, q) => {
+        dispatch(addToCart(p_id, q))
+            .then((result) => {
+                console.log(result);
+                enqueueSnackbar("Added to cart successfully", { variant: "success" });
+            })
+            .catch((err) => {
+                console.log(err);
+                enqueueSnackbar("Failed to add to cart", { variant: "error" });
+            });
+    };
+
+
+    const stylesEll = {
+        fontSize: "14px",
+        fontWeight: 600,
+        maxWidth: "100px",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+
+    };
     return (
         <Box
             sx={{
@@ -188,6 +212,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                     ) : (
                         ac_data?.packages?.map((item, index) => {
+                            console.log(ac_data, 'item')
                             const totalPrice = calculateTotalPrice(item.price);
                             let total = 0;
                             if (item.category === 'sharing') {
@@ -195,6 +220,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                             } else {
                                 total = totalPrice;
                             }
+                            const quantity = adult + child + infant;
                             return (
                                 <Box
                                     key={index}
@@ -211,7 +237,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     }}
                                 >
                                     <Box>
-                                        <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
+                                        <Typography sx={stylesEll}>
                                             {item.title}
                                         </Typography>
                                         <Typography sx={{ fontSize: "14px", color: "#777" }}>
@@ -234,11 +260,10 @@ const DetailLeft = ({ ac_data, loading }) => {
                                                 Per Adult
                                             </Typography>
                                         )}
-
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total)}
+                                            onClick={() => handleCart(ac_data.id, 1)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
@@ -265,7 +290,6 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 </Box>
                             );
                         })
-
                     )}
                 </Box>
             </Box>
@@ -274,6 +298,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 };
 
 export default DetailLeft;
+
 
 
 

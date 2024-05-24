@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Grid, Button, Modal, Box, IconButton } from '@mui/material';
+import { Grid, Button, Modal, Box, IconButton, useTheme, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { FaLongArrowAltLeft } from "react-icons/fa";
+import { useNavigate } from 'react-router';
 
 const DetailSlider = () => {
+    const navigate = useNavigate()
+    const theme = useTheme()
     const initialImages = [
         { itemImageSrc: '/specialofferimage.png', alt: 'Image 1' },
         { itemImageSrc: '/specialofferimage.png', alt: 'Image 2' },
@@ -19,12 +23,20 @@ const DetailSlider = () => {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
+    const handleBack = () => {
+        navigate('/')
+    }
     return (
         <div>
             <Grid container spacing={1}>
-                <Grid item xs={8}>
+                <Grid item xs={8} sx={{ position: 'relative' }}>
                     <img src={initialImages[0].itemImageSrc} alt={initialImages[0].alt} style={{ width: '100%', borderRadius: "5px" }} />
+                    <Box sx={{ position: 'absolute', top: 50, left: 50 }}>
+
+                        <Button onClick={handleBack} variant='standard' sx={{
+                            fontSize: '14px', backgroundColor: '#F3F3F3', borderRadius: '5px', padding: '10px', color: 'black', textTransform: 'none'
+                        }}><FaLongArrowAltLeft /> &nbsp;&nbsp; Back to Homepage</Button>
+                    </Box>
                 </Grid>
                 <Grid item xs={4} sx={{ position: 'relative' }}>
                     <Grid container direction="column" spacing={1}>
@@ -34,10 +46,27 @@ const DetailSlider = () => {
                         <Grid item>
                             <img src={initialImages[2].itemImageSrc} alt={initialImages[2].alt} style={{ width: '100%', borderRadius: "5px" }} />
                         </Grid>
-                        <Box sx={{ position: 'absolute', bottom: "20px", right: '10%' }}>
-                            <Button variant="contained" color="primary" onClick={handleOpen} style={{ width: '100%', borderRadius: "20px", textTransform: 'none' }}>
+                        <Box sx={{ position: 'absolute', top: 50, right: 50 }}>
+                            <Button variant="standard" onClick={handleOpen} style={{ width: '100%', borderRadius: "20px", textTransform: 'none', backgroundColor: '#F3F3F3', color: theme.palette.primary.main, fontWeight: 600 }}>
                                 See All Photos
                             </Button>
+                        </Box>
+                        <Box sx={{ position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                            <Typography sx={{ fontWeight: 600 }}>Save Up To 3.00 Per Person</Typography>
+                            <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, textAlign: 'right' }}>$2,500</Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        color: "white",
+                                        fontSize: "12px",
+                                        textTransform: 'none'
+                                    }}
+                                >
+                                    Book Now
+                                </Button>
+                            </Box>
+
                         </Box>
                     </Grid>
                 </Grid>

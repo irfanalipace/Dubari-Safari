@@ -1,5 +1,4 @@
-import api from "../../utils/Api";
-
+import api from "../../utils/Api"
 export const addToCart = (p_id, q) => async (dispatch) => {
   const body = {
     package_id: p_id,

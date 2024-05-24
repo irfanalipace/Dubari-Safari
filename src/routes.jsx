@@ -19,6 +19,8 @@ import Password_Confirmation from "./page/Authentication_Page/Components/Passwor
 import Signup_Main from "./page/Authentication_Page/Signup/Signup_Main";
 import ReiewsDetail from "./page/DetailPage/ReiewsDetail";
 import Change_Password from "./page/Authentication_Page/Components/Change_Password";
+import History from "./page/history/History";
+import Booking from "./page/booking/Booking";
 
 export default function Router() {
   let element = useRoutes([
@@ -105,6 +107,14 @@ export default function Router() {
     {
       path: "/wish-list",
       element: <WishList />,
+    },
+    {
+      path: "/history",
+      element: <History />,
+    },
+    {
+      path: "/all-booking",
+      element: <Booking />,
     },
   ]);
   return element;
