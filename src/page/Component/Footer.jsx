@@ -178,9 +178,34 @@ const Footer = () => {
                   About us
                 </MuiLink>
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
-                Careers
+
+
+
+              <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/where-to-find-us"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Where to find us
+                </MuiLink>
               </Typography>
+
+
+
+
               <Typography
                 sx={{
                   color:'grey',
@@ -269,28 +294,7 @@ const Footer = () => {
                 </MuiLink>
               </Typography>
 
-              <Typography
-                sx={{
-                  color:'grey',
-                  fontSize: "1rem",
-                  marginBottom: "0.9rem",
-                  textTransform: "none",
-                }}
-              >
-                <MuiLink
-                  component={Link}
-                  to="/where-to-find-us"
-                  sx={{
-
-                    textDecoration: "none",
-                    color: "inherit",
-                    "&:hover": { textDecoration: "none" },
-                  }}
-                >
-                  Where to find us
-                </MuiLink>
-              </Typography>
-
+              
 
               </Box>
             </Grid>

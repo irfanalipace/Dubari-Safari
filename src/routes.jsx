@@ -134,9 +134,12 @@ export default function Router() {
       path: "/wish-list",
       element: <WishList />,
     },
+{
+  path: "/cart",
+  element: <CartMain />,
+},
     {
-      path: "/cart",
-      element: <CartMain />,
+
       path: "/history",
       element: <History />,
     },
