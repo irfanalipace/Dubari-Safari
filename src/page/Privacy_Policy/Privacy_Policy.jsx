@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Overlay from "../../components/Image_Overlay/Overlay";
 import {
   CH_Box_Text,
@@ -9,6 +9,13 @@ import {
 } from "./components/TextComponents";
 import Page from "../../components/page";
 const Privacy_Policy = () => {
+
+  useEffect(()=>{
+
+    window.scrollTo(0,0)
+  },[])
+
+
   const texts = [
     "Processing the booking request.",
     "To verify the final costs of the services provided.",

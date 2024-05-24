@@ -12,22 +12,29 @@ import {
   InputAdornment,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Side_Image from "../Components/Side_Image";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../store/actions/authActions";
 import Loader from "../../../components/Loader/Loader";
-
+import { useSnackbar } from "notistack";
+import { FaGoogle } from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaApple } from "react-icons/fa";
+import Page from "../../../components/page";
 const Login_Main = () => {
   const initialValues = {
     email: "",
     password: "",
   };
-
+const navigate = useNavigate()
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -46,20 +53,30 @@ const Login_Main = () => {
     e.preventDefault();
     setLoading(true);
     dispatch(userLogin(formValues))
-      .then((result) => {
-        // alert("User Logged in successfully");
-        setFormValues(initialValues);
-        setLoading(false);
-        // navigate("/");
+      .then((res) => {
+        enqueueSnackbar(res.data.message, { variant: "success" });
+
+        // alert(res.data.message, 'response')
+        setFormValues(initialValues)
+        navigate('/')
+
+
+
+
       })
       .catch((err) => {
         setLoading(false);
+      enqueueSnackbar('Please enter valid email password', { variant: "error" });
+
         console.log(err);
       });
   };
 
+
   return (
     <>
+<Page title="Login">
+
       <Box>
         <Grid container spacing={3}>
           <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -71,6 +88,7 @@ const Login_Main = () => {
                   alignItems: "center",
                   flexDirection: "column",
                   textAlign: "center",
+                  width:'100%'
                 }}
               >
                 <Box>
@@ -91,6 +109,7 @@ const Login_Main = () => {
                     Please input your information in the fields below to enter
                     your Journey platform.
                   </Typography>
+                </Box>
                 </Box>
                 <form onSubmit={handleSubmit}>
                   <Box sx={{ width: "100%", marginTop: "3rem" }}>
@@ -176,19 +195,21 @@ const Login_Main = () => {
                 </form>
 
                 <Typography
-                  sx={{ marginTop: "1rem", color: "grey", fontSize: "0.9rem" }}
+                  sx={{ marginTop: "1rem", color: "grey", fontSize: "0.9rem", textAlign:'center' }}
                 >
                   or sign in with
                 </Typography>
+<Box sx={{display:'flex', justifyContent:'space-evenly', alignItems:'center'}}>
 
-                <Button
+<Button
                   variant="contained"
                   sx={{
                     marginTop: "1rem",
+                    padding:'0.5rem 0rem',
                     backgroundColor: "transparent",
-                    color: "black",
+                    color: theme.palette.primary.main,
                     textTransform: "none",
-                    width: "100%",
+
                     border: "1px solid #ff5532",
                     boxShadow: "none",
                     ":hover": {
@@ -196,17 +217,18 @@ const Login_Main = () => {
                     },
                   }}
                 >
-                  Google
+                  <FaGoogle style={{fontSize:'1rem'}}/>
                 </Button>
 
                 <Button
-                  variant="contained"
+                 variant="contained"
                   sx={{
                     marginTop: "1rem",
+                    padding:'0.5rem 0rem',
                     backgroundColor: "transparent",
-                    color: "black",
+                    color: theme.palette.primary.main,
                     textTransform: "none",
-                    width: "100%",
+
                     border: "1px solid #ff5532",
                     boxShadow: "none",
                     ":hover": {
@@ -214,17 +236,18 @@ const Login_Main = () => {
                     },
                   }}
                 >
-                  Facebook
+                  <FaFacebookSquare style={{fontSize:'1rem'}}/>
                 </Button>
 
                 <Button
-                  variant="contained"
+                   variant="contained"
                   sx={{
                     marginTop: "1rem",
+                    padding:'0.5rem 0rem',
                     backgroundColor: "transparent",
-                    color: "black",
+                    color: theme.palette.primary.main,
                     textTransform: "none",
-                    width: "100%",
+
                     border: "1px solid #ff5532",
                     boxShadow: "none",
                     ":hover": {
@@ -232,14 +255,17 @@ const Login_Main = () => {
                     },
                   }}
                 >
-                  Iphone
+                  <FaApple style={{fontSize:'1rem'}}/>
                 </Button>
+</Box>
 
                 <Box
                   sx={{
                     marginTop: "1rem",
                     display: "flex",
-                    alignItems: "center",
+                    textAlign:'center',
+
+justifyContent:'center',                    alignItems: "center",
                   }}
                 >
                   <Typography sx={{ fontSize: "0.9rem" }}>
@@ -257,7 +283,7 @@ const Login_Main = () => {
                   </Link>
                 </Box>
               </Box>
-            </Box>
+
           </Grid>
 
           <Grid
@@ -275,6 +301,7 @@ const Login_Main = () => {
           </Grid>
         </Grid>
       </Box>
+</Page>
     </>
   );
 };

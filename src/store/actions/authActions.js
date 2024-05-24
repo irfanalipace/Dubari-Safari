@@ -4,6 +4,8 @@ export const userRegister = (formValues) => async (dispatch) => {
   try {
     const res = await api.post("user/register", formValues);
 
+    console.log('Response from API:', res);
+
     return res;
   } catch (err) {
     throw err;

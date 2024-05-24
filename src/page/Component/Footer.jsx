@@ -157,14 +157,50 @@ const Footer = () => {
               >
                 About Us
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
-                About Us
+              <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/about"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  About us
+                </MuiLink>
               </Typography>
               <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
                 Careers
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
-                Contact Us
+              <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/contact-us"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Contact Us
+                </MuiLink>
               </Typography>
             </Grid>
 
@@ -211,6 +247,51 @@ const Footer = () => {
                 <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
                   Corporate
                 </Typography>
+                <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/blogs"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Blogs
+                </MuiLink>
+              </Typography>
+
+              <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/where-to-find-us"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Where to find us
+                </MuiLink>
+              </Typography>
+
+
               </Box>
             </Grid>
             <Grid item lg={1.8} md={1.8} sm={12} xs={12}>
@@ -233,7 +314,7 @@ const Footer = () => {
               >
                 <MuiLink
                   component={Link}
-                  to="terms-&-conditions"
+                  to="/terms-&-conditions"
                   sx={{
 
                     textDecoration: "none",
@@ -244,9 +325,28 @@ const Footer = () => {
                   Terms & Conditions
                 </MuiLink>
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
-                Privacy Policy
+              <Typography
+                sx={{
+                  color:'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/privacy-policy"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Privacy Policy
+                </MuiLink>
               </Typography>
+
               <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
                 Cookie Policy
               </Typography>

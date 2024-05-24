@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import Page from "../../components/page";
 const TermsConditions = () => {
   const theme = useTheme();
   useEffect(()=>{
@@ -10,6 +10,10 @@ const TermsConditions = () => {
 
   return (
     <>
+
+<Page title='Terms & Conditions'>
+
+
       <Box
         sx={{
           backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.1) 30.2%, rgba(0,0,0,0.1) 90.9%),url(${"/bgimage.png"})`,
@@ -301,6 +305,8 @@ const TermsConditions = () => {
           </Typography>
         </Box>
       </Box>
+</Page>
+
     </>
   );
 };

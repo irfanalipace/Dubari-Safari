@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Page from "../../components/page";
 import Overlay from "../../components/Image_Overlay/Overlay";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
@@ -37,6 +37,10 @@ const Contact_Us = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const is_md = useMediaQuery(theme.breakpoints.down("lg"));
   const is_sm = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

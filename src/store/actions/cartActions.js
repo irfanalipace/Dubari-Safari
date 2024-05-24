@@ -16,3 +16,15 @@ export const addToCart = (p_id, q) => async (dispatch) => {
     throw err;
   }
 };
+
+
+
+export const getCart = () => async (dispatch) => {
+
+  try {
+    const res = await api.get("user/cart",);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};

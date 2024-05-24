@@ -26,6 +26,7 @@ import { useDispatch } from "react-redux";
 import { getActivitiesById } from "../../store/actions/categoriesActions";
 import DetailSlider from "./DetailSLider";
 import ReiewsDetail from "./ReiewsDetail";
+import RelatedData from "./RelatedData";
 
 const DetailPage = () => {
   const theme = useTheme();
@@ -51,6 +52,7 @@ const DetailPage = () => {
         });
     })();
   }, []);
+
   const infoItems = [
     { icon: <CiStopwatch style={styleType} />, text: "Operating Hours" },
     {
@@ -419,6 +421,8 @@ const DetailPage = () => {
         </Grid>
         <ReiewsDetail />
       </Box>
+
+      <RelatedData ac_data={data1}/>
     </Page>
   );
 };
