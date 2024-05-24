@@ -42,7 +42,7 @@ const DetailPage = () => {
     (() => {
       dispatch(getActivitiesById(id))
         .then((result) => {
-          console.log(result, 'hhhh')
+          // console.log(result, 'hhhh')
           setData(result.data.payload);
           setLoading(false);
         })
@@ -422,7 +422,7 @@ const DetailPage = () => {
         <ReiewsDetail />
       </Box>
 
-      <RelatedData ac_data={data1}/>
+      <RelatedData ac_data={data1} />
     </Page>
   );
 };
