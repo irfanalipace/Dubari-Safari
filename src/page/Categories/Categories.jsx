@@ -57,7 +57,7 @@ const Categories = () => {
 
   const cardData = [{ title: "Show Cruise Dubai", del: 2650, price: 2000 }];
 
-  console.log(categories, 'jj')
+  // console.log(categories, 'jj')
   return (
     <Page title="Categories">
       <Box sx={{ p: 10 }}>

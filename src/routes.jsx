@@ -24,6 +24,8 @@ import BlogsMain from "./page/Blogs/BlogsMain";
 import WhereFindMain from "./page/WhereToFind/WhereFindMain";
 import ManageProfileMain from "./page/ManageProfile/ManageProfileMain";
 import HelpPageMain from "./page/Help_Page/HelpPageMain";
+import History from "./page/history/History";
+import Booking from "./page/booking/Booking";
 
 export default function Router() {
   let element = useRoutes([
@@ -130,6 +132,12 @@ export default function Router() {
     {
       path: "/cart",
       element: <CartMain />,
+      path: "/history",
+      element: <History />,
+    },
+    {
+      path: "/all-booking",
+      element: <Booking />,
     },
   ]);
   return element;
