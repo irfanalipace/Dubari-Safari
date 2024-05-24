@@ -11,6 +11,15 @@ import { useNavigate } from "react-router";
 const PkgCard = ({ data }) => {
   // console.log(data.packages[0].price, 'jk')
   const navigate = useNavigate();
+  const descriptionStyle = {
+    // display: 'block',
+    display: '-webkit-box',
+    overflow: 'hidden',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    textOverflow: 'ellipsis',
+    color: 'grey'
+  };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -41,7 +50,7 @@ const PkgCard = ({ data }) => {
         <Typography gutterBottom variant="h5" component="div">
           {data?.name}
         </Typography>
-        <Typography color="grey">{data?.description}</Typography>
+        <Typography sx={descriptionStyle}>{data?.description}</Typography>
         <Box
           sx={{
             display: "flex",

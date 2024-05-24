@@ -25,6 +25,9 @@ import WhereFindMain from "./page/WhereToFind/WhereFindMain";
 import ManageProfileMain from "./page/ManageProfile/ManageProfileMain";
 import HelpPageMain from "./page/Help_Page/HelpPageMain";
 import TermsConditions from "./page/TermsConditions/TermsConditions";
+import History from "./page/history/History";
+import Booking from "./page/booking/Booking";
+
 export default function Router() {
   let element = useRoutes([
     {
@@ -134,6 +137,12 @@ export default function Router() {
     {
       path: "/cart",
       element: <CartMain />,
+      path: "/history",
+      element: <History />,
+    },
+    {
+      path: "/all-booking",
+      element: <Booking />,
     },
     {
       path: "/terms-&-conditions",
