@@ -30,13 +30,20 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const theme = useTheme();
   const authh = useSelector((state) => state.auth.isAuthenticated)
-  // const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const isSmallScreen = useMediaQuery("(max-width:1024px)");
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const navigate = useNavigate();
 
   const [selectedValue, setSelectedValue] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  useEffect(() => {
+    const storedKeyword = localStorage.getItem("searchKeyword");
+    if (storedKeyword) {
+      setSearchKeyword(storedKeyword);
+    }
+  }, []);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -54,6 +61,12 @@ const Navbar = () => {
       setTokenAvailable(false);
     } else if (value === "Manage Profile") {
       navigate("/manage-profile");
+    }
+    else if (value === "Booking") {
+      navigate("/all-booking");
+    }
+    else if (value === "History") {
+      navigate("/history");
     }
     setSelectedValue("");
   };
@@ -82,6 +95,34 @@ const Navbar = () => {
       setOpenDrawer(false);
     }
   };
+
+  const handleSearchClick = () => {
+
+    localStorage.setItem("searchKeyword", searchKeyword);
+    navigate(`/search-results`);
+  };
+
+  useEffect(() => {
+    localStorage.removeItem("searchKeyword");
+    setSearchKeyword("");
+
+  }, []);
+
+  const handleSearchChange = (event) => {
+    const keyword = event.target.value;
+    setSearchKeyword(keyword);
+    localStorage.setItem("searchKeyword", keyword);
+
+  };
+  useEffect(() => {
+
+    if (location.pathname !== "/search-results") {
+      setSearchKeyword("");
+      localStorage.removeItem("searchKeyword");
+    }
+  }, [location.pathname]);
+
+console.log(searchKeyword, 'Search')
 
   return (
     <>
@@ -134,9 +175,16 @@ const Navbar = () => {
                 placeholder="Search for Experience"
                 size="small"
                 variant="outlined"
+                value={searchKeyword}
+                onChange={handleSearchChange}
+                onKeyDown={(event) => {
+    if (event.key === 'Enter') {
+      handleSearchClick();
+    }
+  }}
                 sx={{
                   "& .MuiInputBase-root": {
-                    padding: 0, // Set padding to 0
+                    padding: 0,
                     "&:hover": {
                       borderColor: "#f7f7f7",
                     },
@@ -147,20 +195,15 @@ const Navbar = () => {
                   "& .MuiOutlinedInput-notchedOutline": {
                     color: "#f7f7f7",
                   },
-
                   borderRadius: "0px",
                   backgroundColor: "white",
                 }}
                 InputProps={{
                   sx: {
-                    padding: 0, // Ensure no padding for the input
+                    padding: 0,
                   },
-
                   endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      style={{ padding: 0, margin: 0 }}
-                    >
+                    <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
                       <Button
                         sx={{
                           backgroundColor: theme.palette.primary.main,
@@ -172,10 +215,9 @@ const Navbar = () => {
                             color: "white",
                           },
                         }}
+                        onClick={handleSearchClick}
                       >
-                        <SearchOutlinedIcon
-                          onClick={() => navigate("/search-results")}
-                        />
+                        <SearchOutlinedIcon />
                       </Button>
                     </InputAdornment>
                   ),
@@ -347,6 +389,20 @@ const Navbar = () => {
                       Manage Profile
                     </MenuItem>
                     <MenuItem
+                      value="Booking"
+                      onClick={() => handleMenuItemClick("Booking")}
+                    >
+                      Booking
+                    </MenuItem>
+
+                    <MenuItem
+                      value="History"
+                      onClick={() => handleMenuItemClick("History")}
+                    >
+                      History
+                    </MenuItem>
+
+                    <MenuItem
                       value="Logout"
                       onClick={() => handleMenuItemClick("Logout")}
                     >
@@ -515,7 +571,7 @@ const Navbar = () => {
               }}
             >
               <Badge
-                badgeContent={4}
+                badgeContent={1}
                 color="primary"
                 anchorOrigin={{
                   vertical: "top",
@@ -574,6 +630,21 @@ const Navbar = () => {
                     >
                       Manage Profile
                     </MenuItem>
+
+                    <MenuItem
+                      value="Booking"
+                      onClick={() => handleMenuItemClick("Booking")}
+                    >
+                      Booking
+                    </MenuItem>
+
+                    <MenuItem
+                      value="History"
+                      onClick={() => handleMenuItemClick("History")}
+                    >
+                      History
+                    </MenuItem>
+
                     <MenuItem
                       value="Logout"
                       onClick={() => handleMenuItemClick("Logout")}
@@ -597,13 +668,20 @@ const Navbar = () => {
               </Button>
             )}
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <TextField
+            <TextField
                 placeholder="Search for Experience"
                 size="small"
                 variant="outlined"
+                value={searchKeyword}
+                onChange={handleSearchChange}
+                onKeyDown={(event) => {
+    if (event.key === 'Enter') {
+      handleSearchClick();
+    }
+  }}
                 sx={{
                   "& .MuiInputBase-root": {
-                    padding: 0, // Set padding to 0
+                    padding: 0,
                     "&:hover": {
                       borderColor: "#f7f7f7",
                     },
@@ -614,20 +692,15 @@ const Navbar = () => {
                   "& .MuiOutlinedInput-notchedOutline": {
                     color: "#f7f7f7",
                   },
-
                   borderRadius: "0px",
                   backgroundColor: "white",
                 }}
                 InputProps={{
                   sx: {
-                    padding: 0, // Ensure no padding for the input
+                    padding: 0,
                   },
-
                   endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      style={{ padding: 0, margin: 0 }}
-                    >
+                    <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
                       <Button
                         sx={{
                           backgroundColor: theme.palette.primary.main,
@@ -639,10 +712,9 @@ const Navbar = () => {
                             color: "white",
                           },
                         }}
+                        onClick={handleSearchClick}
                       >
-                        <SearchOutlinedIcon
-                          onClick={() => navigate("/search-results")}
-                        />
+                        <SearchOutlinedIcon />
                       </Button>
                     </InputAdornment>
                   ),
