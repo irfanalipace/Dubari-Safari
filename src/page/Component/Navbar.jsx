@@ -124,6 +124,8 @@ const Navbar = () => {
 
 console.log(searchKeyword, 'Search')
 
+const wishListLength = localStorage.getItem("wishListLength");
+
   return (
     <>
       <Box
@@ -287,7 +289,7 @@ console.log(searchKeyword, 'Search')
                 }}
               >
                 <Badge
-                  badgeContent={4}
+                  badgeContent={wishListLength}
                   color="primary"
                   anchorOrigin={{
                     vertical: "top",

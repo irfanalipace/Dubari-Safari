@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -11,17 +11,27 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useDispatch } from "react-redux";
+import { getCategories } from "../../../../../store/actions/categoriesActions";
 
-const sectionNames = [
-  { main: "Section 1 Main", sub: ["Sub 1", "Sub 2", "Sub 3"] },
-  { main: "Section 2 Main", sub: ["Sub A", "Sub B", "Sub C"] },
-  { main: "Section 3 Main", sub: ["Sub X", "Sub Y", "Sub Z"] },
-];
+const AccordionComp = ({ title, onCategorySelect }) => {
+  const dispatch = useDispatch();
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [expandedSections, setExpandedSections] = useState([]);
 
-const AccordionComp = ({ title }) => {
-  const [expandedSections, setExpandedSections] = useState(
-    Array(sectionNames.length).fill(false)
-  );
+  useEffect(() => {
+    dispatch(getCategories())
+      .then((result) => {
+        setCategories(result.data.payload);
+        setLoading(false);
+        setExpandedSections(Array(result.data.payload.length).fill(false));
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err, "ERRR");
+      });
+  }, [dispatch]);
 
   const handleCheckboxChange = (index) => (event) => {
     const newExpandedSections = [...expandedSections];
@@ -29,15 +39,20 @@ const AccordionComp = ({ title }) => {
     setExpandedSections(newExpandedSections);
   };
 
-  const handleDropDown = (index) => () => {
+  const handleDropDown = (index, category) => () => {
     const newExpandedSections = [...expandedSections];
     newExpandedSections[index] = !newExpandedSections[index];
     setExpandedSections(newExpandedSections);
+    onCategorySelect(category.id, null); // Pass category_id with no subcategory_id
   };
 
-  const renderDetails = (index, sectionName) => (
+  const handleSubcategorySelect = (category, subcategory) => () => {
+    onCategorySelect(category.id, subcategory.id); // Pass both category_id and subcategory_id
+  };
+
+  const renderDetails = (index, category) => (
     <AccordionDetails key={index}>
-      <Box onClick={handleDropDown(index)}>
+      <Box onClick={handleDropDown(index, category)}>
         <Box
           sx={{
             display: "flex",
@@ -47,7 +62,7 @@ const AccordionComp = ({ title }) => {
         >
           <FormControlLabel
             control={<Checkbox onChange={handleCheckboxChange(index)} />}
-            label={sectionName.main}
+            label={category.name}
           />
           <ExpandMoreIcon
             sx={{
@@ -59,11 +74,11 @@ const AccordionComp = ({ title }) => {
 
       <Collapse in={expandedSections[index]} timeout="auto" unmountOnExit>
         <Box sx={{ ml: 2, display: "flex", flexDirection: "column" }}>
-          {sectionName.sub.map((label, idx) => (
+          {category.sub_category.map((subCategory, idx) => (
             <FormControlLabel
               key={idx}
-              control={<Checkbox />}
-              label={label}
+              control={<Checkbox onChange={handleSubcategorySelect(category, subCategory)} />}
+              label={subCategory.name}
             />
           ))}
         </Box>
@@ -81,7 +96,7 @@ const AccordionComp = ({ title }) => {
         <Typography fontWeight="bold">{title}</Typography>
       </AccordionSummary>
       <Divider />
-      {sectionNames.map((section, index) => renderDetails(index, section))}
+      {categories.map((category, index) => renderDetails(index, category))}
     </Accordion>
   );
 };

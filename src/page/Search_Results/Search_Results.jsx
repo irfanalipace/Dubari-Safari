@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Page from "../../components/page";
 import { Box, Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
@@ -13,6 +13,15 @@ const Search_Results = () => {
   const handleBackClick = () => {
     navigate("/");
   };
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+
+  const handleCategorySelect = (categoryId, subcategoryId) => {
+    setSelectedCategory(categoryId);
+    setSelectedSubcategory(subcategoryId);
+  };
+
   return (
     <Page title="Search Results">
       <Box sx={{ p: 5 }}>
@@ -21,10 +30,10 @@ const Search_Results = () => {
         </Button>
         <Box sx={{ display: "flex", mt: 4, gap: 4 }}>
           <Box flex={1}>
-            <LeftAside />
+            <LeftAside onCategorySelect={handleCategorySelect}/>
           </Box>
           <Box flex={3}>
-            <RightAside/>
+            <RightAside selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory}/>
           </Box>
         </Box>
       </Box>
