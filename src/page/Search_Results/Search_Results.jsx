@@ -4,11 +4,19 @@ import { Box, Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import LeftAside from "./components/LeftAside";
 import RightAside from "./components/RightAside";
+import { useLocation, useNavigate } from "react-router";
 const Search_Results = () => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate("/");
+  };
   return (
     <Page title="Search Results">
       <Box sx={{ p: 5 }}>
-        <Button variant="contained" startIcon={<ArrowBack />}>
+        <Button variant="contained" startIcon={<ArrowBack />} onClick={handleBackClick}>
           Back to homepage
         </Button>
         <Box sx={{ display: "flex", mt: 4, gap: 4 }}>
@@ -16,7 +24,7 @@ const Search_Results = () => {
             <LeftAside />
           </Box>
           <Box flex={3}>
-            <RightAside />
+            <RightAside/>
           </Box>
         </Box>
       </Box>

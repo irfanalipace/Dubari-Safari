@@ -19,7 +19,7 @@ const AllActivities = () => {
         console.log(err, "ERRR");
       });
   }, [dispatch]);
-  // console.log(categories, 'dd')
+
 
 
   return (

@@ -12,8 +12,11 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-const SearchCard = ({ fill }) => {
+const SearchCard = ({ fill, filteredActivities }) => {
   const theme = useTheme();
+
+  console.log(filteredActivities, 'card data')
+
   return (
     <Box sx={{ mt: 3 }}>
       <Card sx={{ p: 2, background: "#FDF4F1" }}>

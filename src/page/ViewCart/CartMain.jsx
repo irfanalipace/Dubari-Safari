@@ -38,7 +38,7 @@ const dispatch = useDispatch()
   }, []);
 
 
-console.log(allCart[0], 'all Cart data fro map')
+console.log(allCart[0], 'all Cart data from map')
 
 
   return (
@@ -51,7 +51,7 @@ console.log(allCart[0], 'all Cart data fro map')
             startIcon={<ArrowBack />}
             onClick={handleBack}
           >
-            Back to Listing
+            Back to Home
           </Button>
           <Typography
             variant="h1"

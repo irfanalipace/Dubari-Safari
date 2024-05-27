@@ -294,7 +294,7 @@ const Footer = () => {
                 </MuiLink>
               </Typography>
 
-              
+
 
               </Box>
             </Grid>
