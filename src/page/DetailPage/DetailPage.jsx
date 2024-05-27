@@ -172,7 +172,7 @@ const DetailPage = () => {
 
   return (
     <Page title="Detail Page">
-      <DetailSlider />
+      <DetailSlider data1={data1} />
       <Box sx={{ padding: "30px" }}>
         <Grid container spacing={3}>
           <Grid item lg={7} sm={12} xs={12} md={6}>

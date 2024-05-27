@@ -9,6 +9,8 @@ import { Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useNavigate } from "react-router";
 const PkgCard = ({ data }) => {
+  const base = 'https://dubaisafari.saeedantechpvt.com/'
+  console.log(data, 'dada')
   // console.log(data.packages[0].price, 'jk')
   const navigate = useNavigate();
   const descriptionStyle = {
@@ -24,7 +26,7 @@ const PkgCard = ({ data }) => {
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 240, borderRadius: "8px" }}
-        image="/jeep.jpg"
+        image={`${base}${data?.image_url}`}
         title="green iguana"
       />
       <CardContent>

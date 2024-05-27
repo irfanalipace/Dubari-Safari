@@ -27,6 +27,7 @@ import HelpPageMain from "./page/Help_Page/HelpPageMain";
 import TermsConditions from "./page/TermsConditions/TermsConditions";
 import History from "./page/history/History";
 import Booking from "./page/booking/Booking";
+import BlogDetail from "./page/Blogs/BlogDetail";
 
 export default function Router() {
   let element = useRoutes([
@@ -110,6 +111,10 @@ export default function Router() {
       element: <BlogsMain />,
     },
     {
+      path: "/blog-detail/:id",
+      element: <BlogDetail />,
+    },
+    {
       path: "/help",
       element: <HelpPageMain />,
     },
@@ -137,6 +142,9 @@ export default function Router() {
     {
       path: "/cart",
       element: <CartMain />,
+    },
+    {
+
       path: "/history",
       element: <History />,
     },

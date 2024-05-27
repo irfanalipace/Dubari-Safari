@@ -4,7 +4,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 
-const DetailSlider = () => {
+const DetailSlider = ({ data1 }) => {
+    console.log(data1, 'fff')
+    const base = 'https://dubaisafari.saeedantechpvt.com/';
     const navigate = useNavigate()
     const theme = useTheme()
     const initialImages = [
@@ -26,11 +28,13 @@ const DetailSlider = () => {
     const handleBack = () => {
         navigate('/')
     }
+    const img = data1?.activity_images;
+    console.log(img, 'jjj')
     return (
         <div>
             <Grid container spacing={1}>
                 <Grid item xs={8} sx={{ position: 'relative' }}>
-                    <img src={initialImages[0].itemImageSrc} alt={initialImages[0].alt} style={{ width: '100%', borderRadius: "5px" }} />
+                    <img src={`${base}${img?.[0]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '100vh', objectFit: 'cover' }} />
                     <Box sx={{ position: 'absolute', top: 50, left: 50 }}>
 
                         <Button onClick={handleBack} variant='standard' sx={{
@@ -41,10 +45,10 @@ const DetailSlider = () => {
                 <Grid item xs={4} sx={{ position: 'relative' }}>
                     <Grid container direction="column" spacing={1}>
                         <Grid item>
-                            <img src={initialImages[1].itemImageSrc} alt={initialImages[1].alt} style={{ width: '100%', borderRadius: "5px" }} />
+                            <img src={`${base}${img?.[1]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '50vh', objectFit: 'cover' }} />
                         </Grid>
                         <Grid item>
-                            <img src={initialImages[2].itemImageSrc} alt={initialImages[2].alt} style={{ width: '100%', borderRadius: "5px" }} />
+                            <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '50vh', objectFit: 'cover' }} />
                         </Grid>
                         <Box sx={{ position: 'absolute', top: 50, right: 50 }}>
                             <Button variant="standard" onClick={handleOpen} style={{ width: '100%', borderRadius: "20px", textTransform: 'none', backgroundColor: '#F3F3F3', color: theme.palette.primary.main, fontWeight: 600 }}>
@@ -87,9 +91,9 @@ const DetailSlider = () => {
                         <CloseIcon />
                     </IconButton>
                     <Grid container spacing={1}>
-                        {initialImages.map((image, index) => (
+                        {data1?.activity_images?.map((image, index) => (
                             <Grid item xs={4} key={index}>
-                                <img src={image.itemImageSrc} alt={image.alt} style={{ width: '100%', height: '30vh', objectFit: 'cover' }} />
+                                <img src={`${base}${image.image_url}`} lt={image.alt} style={{ width: '100%', height: '30vh', objectFit: 'cover' }} />
                             </Grid>
                         ))}
                     </Grid>

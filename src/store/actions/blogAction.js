@@ -12,3 +12,16 @@ export const getAllBlogs = () => async (dispatch) => {
         throw err;
     }
 };
+
+export const getBlogBID = (id) => async (dispatch) => {
+    try {
+        const res = await api.get(`show/blog/${id}`);
+        dispatch({
+            type: "GET_BLOG_BY_ID",
+            payload: res.data,
+        });
+        return res;
+    } catch (err) {
+        throw err;
+    }
+};

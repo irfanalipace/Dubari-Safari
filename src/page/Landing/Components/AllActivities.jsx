@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getCategories } from '../../../store/actions/categoriesActions'
+import { getCategories } from '../../../store/actions/categoriesActions';
 
 const AllActivities = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
-  const [categories, setCategory] = useState([])
+  const [categories, setCategory] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     dispatch(getCategories())
       .then((result) => {
@@ -19,8 +22,10 @@ const AllActivities = () => {
         console.log(err, "ERRR");
       });
   }, [dispatch]);
-  // console.log(categories, 'dd')
 
+  if (location.pathname === '/desert-safari') {
+    return null;
+  }
 
   return (
     <Box sx={{ padding: "1rem 5%" }}>
@@ -28,17 +33,20 @@ const AllActivities = () => {
         <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
           All Activities
         </Typography>
-
-        {categories.map((val, ind) => (
-          <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
-            <Button
-              sx={{ textTransform: "none", color: "grey" }}
-              onClick={() => navigate('/desert-safari')}
-            >
-              {val.name}
-            </Button>
-          </Box>
-        ))}
+        {!loading && categories.map((val, ind) => {
+          const categoryPath = `/${val.name.toLowerCase().replace(/\s+/g, '-')}`;
+          return (
+            <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
+              <img src={val.image} alt="" style={{ height: '25px', width: '25px', borderRadius: '50%' }} />
+              <Button
+                sx={{ textTransform: "none", color: "grey" }}
+                onClick={() => navigate('/desert-safari')}
+              >
+                {val.name}
+              </Button>
+            </Box>
+          );
+        })}
       </Box>
     </Box>
   );

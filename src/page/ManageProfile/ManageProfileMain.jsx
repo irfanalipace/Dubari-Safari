@@ -61,7 +61,7 @@ const ManageProfileMain = () => {
     fileInputRef.current.click();
   };
 
-  const handleFileChange = (event) => {};
+  const handleFileChange = (event) => { };
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -311,10 +311,10 @@ const ManageProfileMain = () => {
           </Grid>
 
 
-<Box sx={{display:'flex', justifyContent:'end', alignItems:'end', mt:2}}>
-<Button variant="contained" sx={{justifyContent:'end', textTransform:'none', fontSize:'1.1rem', padding:'0.5rem 2rem'}}>Update Password</Button>
+          <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end', mt: 2 }}>
+            <Button variant="contained" sx={{ justifyContent: 'end', textTransform: 'none', fontSize: '1.1rem', padding: '0.5rem 2rem' }}>Update Password</Button>
 
-</Box>
+          </Box>
 
         </Box>
       </Box>
