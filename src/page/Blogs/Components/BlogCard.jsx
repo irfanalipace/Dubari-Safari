@@ -14,8 +14,11 @@ const BlogCard = () => {
     const [blog, setBlog] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        window.scroll(0, 0)
-    }, [])
+        if (typeof window !== 'undefined') {
+            window.scroll(0, 0);
+        }
+    }, []);
+
 
     useEffect(() => {
         (async () => {
@@ -62,7 +65,7 @@ const BlogCard = () => {
                             <Box>
                                 <Box sx={{ backgroundColor: '#fdf4f1' }}>
                                     <Box>
-                                        <img src={`${base}${val.banner_image_url}`} alt='' width={'100%'} style={{ objectFit: 'cover' }} />
+                                        <img src={`${base}${val.banner_image_url}`} alt='' style={{ objectFit: 'cover', width: '100%', height: '30vh' }} />
                                     </Box>
                                     <Box padding='1rem 2rem'>
                                         <Button sx={{ backgroundColor: 'green', borderRadius: '20px', color: 'white', fontSize: '0.7rem' }} variant='contained'>

@@ -29,6 +29,7 @@ import History from "./page/history/History";
 import Booking from "./page/booking/Booking";
 import BlogDetail from "./page/Blogs/BlogDetail";
 import Gift from "./page/gift/Gift";
+import Reviews from "./page/reviews/Reviews";
 
 export default function Router() {
   let element = useRoutes([
@@ -161,6 +162,11 @@ export default function Router() {
       path: "/view-gift",
       element: <Gift />,
     },
+    {
+      path: "/feedback",
+      element: <Reviews />,
+    },
+
   ]);
   return element;
 }

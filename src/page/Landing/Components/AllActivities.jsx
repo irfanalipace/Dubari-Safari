@@ -11,6 +11,15 @@ const AllActivities = () => {
   const [categories, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const data = [
+    { name: 'Desert Safari', image: '/activity1icon.png' },
+    { name: 'Sightseeing', image: '/activity2icon.png' },
+    { name: 'Adventure', image: '/activity3icon.png' },
+    { name: 'Attractions & Experiences', image: '/activity4icon.png' },
+    { name: 'Cruising & Yachting', image: '/activity5icon.png' },
+    { name: 'Transportation', image: '/activity6icon.png' },
+  ]
+
   useEffect(() => {
     dispatch(getCategories())
       .then((result) => {
@@ -33,11 +42,11 @@ const AllActivities = () => {
         <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
           All Activities
         </Typography>
-        {!loading && categories.map((val, ind) => {
+        {!loading && data.map((val, ind) => {
           const categoryPath = `/${val.name.toLowerCase().replace(/\s+/g, '-')}`;
           return (
             <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
-              <img src={val.image} alt="" style={{ height: '25px', width: '25px', borderRadius: '50%' }} />
+              <img src={val.image} alt="" style={{}} />
               <Button
                 sx={{ textTransform: "none", color: "grey" }}
                 onClick={() => navigate('/desert-safari')}

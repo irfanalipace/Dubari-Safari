@@ -1,11 +1,40 @@
+import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Page from "../../components/page";
+import { SendHelp } from "../../store/actions/helpAction";
+import { enqueueSnackbar } from "notistack";
 
 const HelpPageMain = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const [email, setEmail] = useState("");
+  const [bookingRefNo, setBookingRefNo] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = async () => {
+    const formValues = {
+      email,
+      booking_ref_no: bookingRefNo,
+      description,
+    };
+
+    try {
+      const res = await dispatch(SendHelp(formValues));
+      // console.log(res, 'ff')
+      enqueueSnackbar(res.data.message, { variant: "success" })
+      setEmail("");
+      setBookingRefNo("");
+      setDescription("");
+    } catch (error) {
+      enqueueSnackbar('Failed to send help request', { variant: "error" })
+      console.error("Failed to send help request:", error);
+    }
+  };
 
   const helpcarddata = [
     {
@@ -54,27 +83,22 @@ const HelpPageMain = () => {
 
   return (
     <>
-
       <Page title="Help">
         <Box
           sx={{
             backgroundColor: "#ffc0b3",
             height: "50vh",
-            // width: "100%",
           }}
         >
           <Box
             sx={{
               color: "white",
-
               minHeight: "50vh",
               display: "flex",
               textAlign: "center",
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
-              // paddingLeft: "5%",
-              // paddingRight: "5%",
             }}
           >
             <Box minHeight={"3rem"} width="70%">
@@ -94,7 +118,8 @@ const HelpPageMain = () => {
               <Box sx={{ display: "flex", justifyContent: 'space-between', gap: '30px' }}>
                 <Box sx={{ textAlign: "", width: '110%' }}>
                   <TextField
-                    name="visa_status"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     fullWidth
                     sx={{
                       "& .MuiInputBase-root": {
@@ -118,7 +143,8 @@ const HelpPageMain = () => {
                 </Box>
                 <Box sx={{ textAlign: "", width: '110%' }}>
                   <TextField
-                    name="visa_status"
+                    value={bookingRefNo}
+                    onChange={(e) => setBookingRefNo(e.target.value)}
                     fullWidth
                     sx={{
                       "& .MuiInputBase-root": {
@@ -142,7 +168,8 @@ const HelpPageMain = () => {
                 </Box>
                 <Box sx={{ textAlign: "start", width: '150%' }}>
                   <TextField
-                    name="visa_status"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     fullWidth
                     sx={{
                       "& .MuiInputBase-root": {
@@ -160,7 +187,7 @@ const HelpPageMain = () => {
                       borderRadius: "5px",
                       backgroundColor: "#f6f7f9",
                     }}
-                    placeholder="Enter You Description"
+                    placeholder="Enter Your Description"
                     size="small"
                   />
                 </Box>
@@ -172,6 +199,7 @@ const HelpPageMain = () => {
                     padding: "0rem 0rem",
                     textTransform: "none",
                   }}
+                  onClick={handleSubmit}
                 >
                   Get Help
                 </Button>
@@ -184,7 +212,7 @@ const HelpPageMain = () => {
           <Box>
             <Grid container spacing={4}>
               {helpcarddata.map((val, ind) => (
-                <Grid item lg={4} md={6} sm={12} xs={12}>
+                <Grid item lg={4} md={6} sm={12} xs={12} key={ind}>
                   <Box
                     sx={{
                       border: "1px solid #ebebeb",
@@ -288,7 +316,6 @@ const HelpPageMain = () => {
           </Box>
         </Box>
       </Page>
-
     </>
   );
 };

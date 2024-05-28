@@ -18,6 +18,10 @@ const BlogDetail = () => {
     const [data, setData] = useState(null)
 
     useEffect(() => {
+        window.scroll(0, 0)
+    }, [])
+
+    useEffect(() => {
         dispatch(getBlogBID(id))
             .then((result) => {
                 setData(result.data.payload)
@@ -43,7 +47,12 @@ const BlogDetail = () => {
 
     return (
         <>
-            <Box
+            <Box sx={{ padding: '0px 50px' }}>
+                <Button variant='contained' onClick={handleBack} sx={{
+                    textTransform: 'none', backgroundColor: '#F3F3F3', color: 'black', padding: '10px 20px'
+                }}><FaArrowLeftLong /> &nbsp; Back to HomePage</Button>
+            </Box>
+            {/* <Box
                 sx={{
                     backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.1) 30.2%, rgba(0,0,0,0.1) 90.9%),url(${base}${data.banner_image_url})`,
                     backgroundPosition: "center",
@@ -86,14 +95,10 @@ const BlogDetail = () => {
                         >
                             {data?.description}
                         </Typography> */}
-                    </Box>
-                    <Box sx={{ position: 'absolute', top: 50, left: 50 }}>
-                        <Button variant='contained' onClick={handleBack} sx={{
-                            textTransform: 'none', backgroundColor: '#F3F3F3', color: 'black', padding: '10px 20px'
-                        }}><FaArrowLeftLong /> &nbsp; Back to HomePage</Button>
-                    </Box>
-                </Box>
-            </Box>
+            {/* </Box> */}
+
+            {/* // </Box> */}
+            {/* // </Box> */}
             <Box sx={{ padding: '60px' }}>
                 <Button sx={{ backgroundColor: 'green', borderRadius: '20px', color: 'white', fontSize: '0.7rem' }} variant='contained'>
                     {moment(data.created_at).format('DD MMM YYYY')}

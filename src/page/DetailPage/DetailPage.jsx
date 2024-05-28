@@ -38,9 +38,9 @@ const DetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(5);
 
-  useEffect(()=>{
-    window.scrollTo(0,0)
-  },[])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
 
   const styleType = {
@@ -149,7 +149,7 @@ const DetailPage = () => {
       const scrollPosition = window.scrollY;
 
       const sectionIds = [
-        "overview",
+        // "overview",
         "description",
         "itinerary",
         "whats-included",
@@ -232,7 +232,7 @@ const DetailPage = () => {
                 }}
               >
                 <Box sx={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-                  <a href="#overview">
+                  {/* <a href="#overview">
                     <Button
                       sx={{
                         ...btnStyle,
@@ -241,7 +241,7 @@ const DetailPage = () => {
                     >
                       Overview
                     </Button>
-                  </a>
+                  </a> */}
                   <a href="#description">
                     <Button
                       sx={{
@@ -290,7 +290,7 @@ const DetailPage = () => {
               </Box>
 
               <div id="overview" style={colStyle}>
-                <Typography
+                {/* <Typography
                   sx={{
                     fontSize: "30px",
                     fontWeight: 600,
@@ -298,7 +298,7 @@ const DetailPage = () => {
                   }}
                 >
                   Overview
-                </Typography>
+                </Typography> */}
                 <Divider sx={{ width: "100%" }} />
                 <Box
                   sx={{
@@ -351,7 +351,7 @@ const DetailPage = () => {
                     color: theme.palette.primary.main,
                   }}
                 >
-                  Itinerary
+                  Highlights
                 </Typography>
                 <Divider sx={{ width: "100%" }} />
                 <Box
@@ -373,7 +373,7 @@ const DetailPage = () => {
                     color: theme.palette.primary.main,
                   }}
                 >
-                  What’s Included
+                  Itinerary
                 </Typography>
                 <Divider sx={{ width: "100%" }} />
                 <Box

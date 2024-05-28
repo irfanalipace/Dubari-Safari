@@ -39,22 +39,22 @@ const WhatWeDo = () => {
   };
 
 
-  const tab1data=[
+  const tab1data = [
     {
-        headerimage:'/header.png',
-        title:'title1',
-        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
+      headerimage: '/header.png',
+      title: 'title1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
     },
     {
-        headerimage:'/header.png',
-        title:'title1',
-        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
+      headerimage: '/header.png',
+      title: 'title1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
 
     },
     {
-        headerimage:'/header.png',
-        title:'title1',
-        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
+      headerimage: '/header.png',
+      title: 'title1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
 
     },
     // {
@@ -71,22 +71,22 @@ const WhatWeDo = () => {
     // },
   ]
 
-  const tab2data=[
+  const tab2data = [
     {
-        headerimage:'/cardimage.png',
-        title:' Tab 2 title1',
-        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
+      headerimage: '/cardimage.png',
+      title: ' Tab 2 title1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
     },
     {
-        headerimage:'/cardimage.png',
-        title:'Tab 2 title1',
-        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
+      headerimage: '/cardimage.png',
+      title: 'Tab 2 title1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
 
     },
     {
-        headerimage:'/cardimage.png',
-        title:'Tab 2 title1',
-        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
+      headerimage: '/cardimage.png',
+      title: 'Tab 2 title1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, saepe.'
 
     },
     // {
@@ -110,7 +110,7 @@ const WhatWeDo = () => {
       <Box
 
         sx={{
-      backgroundColor:'#f8f8f8',
+          backgroundColor: '#f8f8f8',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -129,30 +129,30 @@ const WhatWeDo = () => {
           </Typography>
         </Box>
 
-<Box gap={2} sx={{marginTop:'1rem'}}>
-  <img src='/vector1.png' alt='vector1'/>
-  <img src='/vector2.png' alt='vector1' style={{marginLeft:'1rem'}}/>
+        <Box gap={2} sx={{ marginTop: '1rem' }}>
+          <img src='/vector1.png' alt='vector1' />
+          <img src='/vector2.png' alt='vector1' style={{ marginLeft: '1rem' }} />
 
-</Box>
+        </Box>
 
 
         <Box sx={{ borderBottom: 1, borderColor: 'divider', }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="Experience Dubai" />
-            <Tab label="Corporate" />
+            <Tab label="Experience" />
+            <Tab label="Activities" />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
 
 
 
-          <Tab1Card tab1data={tab1data}/>
+          <Tab1Card tab1data={tab1data} />
 
 
 
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-        <Tab2Card tab2data={tab2data}/>
+          <Tab2Card tab2data={tab2data} />
 
         </CustomTabPanel>
       </Box>

@@ -17,12 +17,12 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
 
-const LeftSideComponents = ({allCart}) => {
+const LeftSideComponents = ({ allCart }) => {
 
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const theme = useTheme();
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
   console.log(allCart[0], 'all cart on left side')
 
   const calculateTotalGuests = (adult, child, infant) => {
@@ -36,7 +36,7 @@ const dispatch = useDispatch()
       .then((res) => {
         // setLoading(false);
         // enqueueSnackbar("Activity Removed", { variant: "success" });
-alert('deleted')
+        alert('deleted')
 
         // setWishList((prevWishList) => prevWishList.filter(item => item.activity_id !== id));
 
@@ -53,53 +53,53 @@ alert('deleted')
     <>
       <Box sx={{ mt: 3 }}>
 
-{allCart.map((val, index)=>(
-  <Card sx={{ p: 2, background: "#FDF4F1" }} key={index}>
-          <Box
-            sx={{
-              display: "flex",
-              minHeight: "30vh",
-              gap: 4,
-            }}
-          >
-            <Box flex={2}>
-              <img
-                src="/jeep.jpg"
-                style={{
-                  width: "100%",
-                  borderRadius: "10px",
-                  height: "260px",
-                  objectFit: "cover",
-                }}
-              />
-            </Box>
-            <Box flex={4}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Typography fontWeight="bold" variant="h6">
-                  {val.package.title}
-                </Typography>
+        {allCart.map((val, index) => (
+          <Card sx={{ p: 2, background: "#FDF4F1" }} key={index}>
+            <Box
+              sx={{
+                display: "flex",
+                minHeight: "30vh",
+                gap: 4,
+              }}
+            >
+              <Box flex={2}>
+                <img
+                  src="/jeep.jpg"
+                  style={{
+                    width: "100%",
+                    borderRadius: "10px",
+                    height: "260px",
+                    objectFit: "cover",
+                  }}
+                />
               </Box>
-              <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                <Typography sx={{ ml: 1, color: "grey" }}>
-                  Package Type :   {val.package.highlight}
+              <Box flex={4}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography fontWeight="bold" variant="h6">
+                    {val.package.title}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                  <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
+                  <Typography sx={{ ml: 1, color: "grey" }}>
+                    Package Type :   {val.package.highlight}
 
-                </Typography>
-              </Box>
+                  </Typography>
+                </Box>
 
-              <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
-                <Typography sx={{ ml: 1, color: "grey" }}>
-                  Tour Date : {val.tour_date}
-                </Typography>
-              </Box>
-              <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                  <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
+                  <Typography sx={{ ml: 1, color: "grey" }}>
+                    Tour Date : {val.tour_date}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                   <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
                   <Typography sx={{ ml: 1, color: "grey" }}>
                     1 {val.package.category} car up to{" "}
@@ -113,47 +113,47 @@ alert('deleted')
                 </Box>
 
 
-              <Box sx={{ my: 2 }}>
-                <Typography
-                  sx={{
-                    color: theme.palette.primary.main,
-                    fontSize: "1.2rem",
-                    fontWeight: "600",
-                  }}
-                >
-                  Cancelation is not Allowed
-                </Typography>
-              </Box>
+                <Box sx={{ my: 2 }}>
+                  <Typography
+                    sx={{
+                      color: theme.palette.primary.main,
+                      fontSize: "1.2rem",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Cancelation is not Allowed
+                  </Typography>
+                </Box>
 
-              <Divider />
-              <Box sx={{ display: "flex", justifyContent: "space-between", marginTop:'1rem' }}>
-                <Button sx={{ textTransform: "none", color: "black" }} onClick={() => handleDelete(val.id)}>
+                <Divider />
+                <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
+                  <Button sx={{ textTransform: "none", color: "black" }} onClick={() => handleDelete(val.id)}>
 
-                  <DeleteOutlineOutlinedIcon /> Delete
-                </Button>
-                <Button sx={{ textTransform: "none", color: "black" }}>
-                                  <IoSyncOutline
-                    style={{ fontSize: "1.5rem", fontWeight: "800" }}
-                  />
-                  Update
-                </Button>
-                <Button sx={{ fontSize:'0.8rem', textTransform: "none", color: "black" }}>
-                  Please Login to use Promocode
-                </Button>
-                <Typography
-                  sx={{
-                    fontSize: "1.5rem",
-                    fontWeight: "700",
-                    color: theme.palette.primary.main,
-                  }}
-                >
-                  {val.price}
-                </Typography>
+                    <DeleteOutlineOutlinedIcon /> Delete
+                  </Button>
+                  <Button sx={{ textTransform: "none", color: "black" }}>
+                    <IoSyncOutline
+                      style={{ fontSize: "1.5rem", fontWeight: "800" }}
+                    />
+                    Update
+                  </Button>
+                  <Button sx={{ fontSize: '0.8rem', textTransform: "none", color: "black" }}>
+                    Please Login to use Promocode
+                  </Button>
+                  <Typography
+                    sx={{
+                      fontSize: "1.5rem",
+                      fontWeight: "700",
+                      color: theme.palette.primary.main,
+                    }}
+                  >
+                    {val.price}
+                  </Typography>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Card>
-))}
+          </Card>
+        ))}
       </Box>
     </>
   );

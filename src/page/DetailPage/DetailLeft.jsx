@@ -16,7 +16,7 @@ const DetailLeft = ({ ac_data, loading }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme()
-// const {date} = useParams()
+    // const {date} = useParams()
     const handleLogDetails = (totalPrice, p_id, q, date, price) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
@@ -55,9 +55,9 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
-    const handleCart = ( p_id, q,total, date,) => {
+    const handleCart = (p_id, q, total, date,) => {
 
-        return dispatch(addToCart( p_id, q,total, date,))
+        return dispatch(addToCart(p_id, q, total, date,))
             .then((result) => {
                 console.log(result);
                 enqueueSnackbar("Added to cart successfully", { variant: "success" });
@@ -77,7 +77,7 @@ const DetailLeft = ({ ac_data, loading }) => {
         overflow: "hidden",
         textOverflow: "ellipsis",
     };
-console.log(ac_data, 'hdgadjdkl')
+    console.log(ac_data, 'hdgadjdkl')
     return (
         <Box
             sx={{
@@ -260,14 +260,14 @@ console.log(ac_data, 'hdgadjdkl')
                                         </Typography>
                                         {item.category === 'sharing' && (
                                             <Typography sx={{ fontSize: "12px", color: "#777" }}>
-                                                Per Adult: {item.adult_price}
+                                                Per Group: {item.adult_price}
                                                 <br />
                                                 Per Child: {item.child_price}
                                             </Typography>
                                         )}
                                         {item.category === 'private' && (
                                             <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                                                Per Adult
+                                                Per Group
                                             </Typography>
                                         )}
                                     </Box>
@@ -286,7 +286,7 @@ console.log(ac_data, 'hdgadjdkl')
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date,total )}
+                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, total)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
