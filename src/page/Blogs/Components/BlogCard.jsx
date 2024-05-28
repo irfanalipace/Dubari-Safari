@@ -13,6 +13,9 @@ const BlogCard = () => {
     const dispatch = useDispatch();
     const [blog, setBlog] = useState([]);
     const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        window.scroll(0, 0)
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -30,6 +33,16 @@ const BlogCard = () => {
     const handleDetail = () => {
         navigate('/blog-detail');
     }
+
+    const descriptionStyle = {
+        // display: 'block',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical',
+        textOverflow: 'ellipsis',
+        color: 'grey'
+    };
 
     return (
         <Box sx={{ padding: '4rem 5%' }}>
@@ -58,7 +71,7 @@ const BlogCard = () => {
                                         <Typography gutterBottom variant="h5" component="div" sx={{ marginTop: '1rem', fontWeight: '600', fontSize: '1.2rem' }}>
                                             {val.title}
                                         </Typography>
-                                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.9rem' }}>
+                                        <Typography variant="body2" color="text.secondary" sx={descriptionStyle}>
                                             {val.description}
                                         </Typography>
                                         <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'end', marginTop: '1rem' }}>

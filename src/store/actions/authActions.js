@@ -24,3 +24,16 @@ export const userLogin = (formValues) => async (dispatch) => {
     throw err;
   }
 };
+
+export const updateProfile = (formValues) => async (dispatch) => {
+  try {
+    const res = await api.post("user/update/profile", formValues);
+    dispatch({
+      type: "UPDATE_SUCCESS",
+      payload: res.data,
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};

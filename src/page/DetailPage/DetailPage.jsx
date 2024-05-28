@@ -13,6 +13,8 @@ import {
   Accordion,
   AccordionSummary,
 } from "@mui/material";
+
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { CiStopwatch } from "react-icons/ci";
 import {
   FaMobileScreen,
@@ -44,6 +46,11 @@ const DetailPage = () => {
   const styleType = {
     color: theme.palette.primary.main,
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   useEffect(() => {
     (() => {
       dispatch(getActivitiesById(id))
@@ -76,6 +83,7 @@ const DetailPage = () => {
       text: "Free Cancellation 12 Hours Prior",
     },
   ];
+
   const data = [
     {
       image: "/header.png",
@@ -393,20 +401,23 @@ const DetailPage = () => {
                 </Typography>
                 <Divider sx={{ width: "100%" }} />
                 <Box sx={{ backgroundColor: "#D9D9D9", borderRadius: "20px" }}>
-                  {questionsAndAnswers.map((qa, index) => (
+                  {data1?.instructions?.map((qa, index) => (
                     <Accordion
                       key={index}
                       expanded={openAccordion === `panel${index}`}
                       onChange={handleAccordionChange(`panel${index}`)}
                       sx={{ backgroundColor: "#D9D9D9" }}
                     >
-                      <AccordionSummary>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        IconButtonProps={{ edge: 'start' }}
+                      >
                         <Typography sx={{ color: "black", textAlign: "start" }}>
-                          {qa.question}
+                          {qa.instruction_title}
                         </Typography>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Typography variant="body1">{qa.answer}</Typography>
+                        <Typography variant="body1">{qa.instruction_description}</Typography>
                       </AccordionDetails>
                     </Accordion>
                   ))}
