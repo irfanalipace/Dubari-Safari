@@ -1,10 +1,15 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FiGift } from "react-icons/fi";
 import GiftDetail from './GiftDetail';
 
 
 const Gift = () => {
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    })
+
     return (
         <>
             <Box sx={{ backgroundColor: "#ffc0b3", height: '50vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', gap: "10px" }}>

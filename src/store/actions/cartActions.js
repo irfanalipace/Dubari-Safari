@@ -1,12 +1,15 @@
 import api from "../../utils/Api"
 
-export const addToCart = (p_id, q, price, date) => async (dispatch) => {
+export const addToCart = (p_id, q, total, date,) => async (dispatch) => {
   const body = {
     package_id: p_id,
     quantity: q,
-    tour_date:date,
-    price:price
+    price: total,
+    tour_date: date,
+
   };
+
+
   try {
     const res = await api.post("user/cart", body);
     dispatch({
@@ -25,6 +28,18 @@ export const getCart = () => async (dispatch) => {
 
   try {
     const res = await api.get("user/cart",);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+
+export const deleteCart = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`user/card/${id}`);
+
     return res;
   } catch (err) {
     throw err;

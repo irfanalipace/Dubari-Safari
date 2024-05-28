@@ -18,8 +18,10 @@ import { Link } from "react-router-dom";
 import DoneIcon from "@mui/icons-material/Done";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const RightSideComponents = () => {
+const RightSideComponents = ({allCart}) => {
   const theme = useTheme();
+
+
 
   const faq = [
     {
@@ -41,6 +43,8 @@ const RightSideComponents = () => {
 
   ];
 
+
+
   return (
     <>
 
@@ -52,8 +56,11 @@ const RightSideComponents = () => {
           borderRadius: "10px",
           background: "#fff",
         }}
+
       >
-        <Box
+
+{allCart.map((val, ind)=>(
+  <Box key={ind}
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -76,7 +83,7 @@ const RightSideComponents = () => {
                 marginBottom: "0.5rem",
               }}
             >
-              $300
+              $ {val.price}
             </Typography>
             <Typography
               variant="h1"
@@ -86,6 +93,8 @@ const RightSideComponents = () => {
             </Typography>
           </Box>
         </Box>
+
+))}
 
         <Divider />
 
@@ -139,7 +148,7 @@ const RightSideComponents = () => {
               <Typography
                 sx={{ color: "green", fontWeight: "600", marginTop: "1rem" }}
               >
-                {" "}
+              
                 Best Price Gurantee
               </Typography>
             </Box>
@@ -175,3 +184,4 @@ const RightSideComponents = () => {
 };
 
 export default RightSideComponents;
+

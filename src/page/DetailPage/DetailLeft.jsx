@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions/cartActions";
 import { FiGift } from "react-icons/fi";
@@ -16,12 +16,12 @@ const DetailLeft = ({ ac_data, loading }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme()
-
-    const handleLogDetails = (totalPrice, p_id, q) => {
+// const {date} = useParams()
+    const handleLogDetails = (totalPrice, p_id, q, date, price) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
-            handleCart(p_id, q)
+            handleCart(p_id, q, date, price)
                 .then(() => {
                     const data = {
                         date: date,
@@ -55,8 +55,9 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
-    const handleCart = (p_id, q) => {
-        return dispatch(addToCart(p_id, q))
+    const handleCart = ( p_id, q,total, date,) => {
+
+        return dispatch(addToCart( p_id, q,total, date,))
             .then((result) => {
                 console.log(result);
                 enqueueSnackbar("Added to cart successfully", { variant: "success" });
@@ -76,7 +77,7 @@ const DetailLeft = ({ ac_data, loading }) => {
         overflow: "hidden",
         textOverflow: "ellipsis",
     };
-
+console.log(ac_data, 'hdgadjdkl')
     return (
         <Box
             sx={{
@@ -272,7 +273,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleCart(ac_data.id, 1, total, date)}
+                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
@@ -285,7 +286,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1)}
+                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date,total )}
                                             variant="contained"
                                             sx={{
                                                 color: "white",

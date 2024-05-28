@@ -67,7 +67,7 @@ console.log(allCart[0], 'all Cart data from map')
               </Box>
             </Box>
             <Box flex={1}>
-              <RightSideComponents />
+              <RightSideComponents allCart={allCart}/>
             </Box>
           </Box>
         </Box>
