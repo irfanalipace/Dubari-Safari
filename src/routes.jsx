@@ -28,6 +28,7 @@ import TermsConditions from "./page/TermsConditions/TermsConditions";
 import History from "./page/history/History";
 import Booking from "./page/booking/Booking";
 import BlogDetail from "./page/Blogs/BlogDetail";
+import Gift from "./page/gift/Gift";
 
 export default function Router() {
   let element = useRoutes([
@@ -155,6 +156,10 @@ export default function Router() {
     {
       path: "/terms-&-conditions",
       element: <TermsConditions />,
+    },
+    {
+      path: "/view-gift",
+      element: <Gift />,
     },
   ]);
   return element;

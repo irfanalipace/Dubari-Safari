@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress } from "@mui/material";
+import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions/cartActions";
+import { FiGift } from "react-icons/fi";
 
 const DetailLeft = ({ ac_data, loading }) => {
     const [date, setDate] = useState("");
@@ -14,21 +15,29 @@ const DetailLeft = ({ ac_data, loading }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+    const theme = useTheme()
 
-    const handleLogDetails = (totalPrice) => {
+    const handleLogDetails = (totalPrice, p_id, q) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
-            const data = {
-                date: date,
-                person: {
-                    adult: adult,
-                    child: child,
-                    infant: infant,
-                },
-                totalPrice: totalPrice,
-            };
-            navigate("/payment-details", { state: data });
+            handleCart(p_id, q)
+                .then(() => {
+                    const data = {
+                        date: date,
+                        person: {
+                            adult: adult,
+                            child: child,
+                            infant: infant,
+                        },
+                        totalPrice: totalPrice,
+                    };
+                    navigate("/payment-details", { state: data });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    enqueueSnackbar("Failed to add to cart", { variant: "error" });
+                });
         }
     };
 
@@ -47,7 +56,7 @@ const DetailLeft = ({ ac_data, loading }) => {
     };
 
     const handleCart = (p_id, q) => {
-        dispatch(addToCart(p_id, q))
+        return dispatch(addToCart(p_id, q))
             .then((result) => {
                 console.log(result);
                 enqueueSnackbar("Added to cart successfully", { variant: "success" });
@@ -55,9 +64,9 @@ const DetailLeft = ({ ac_data, loading }) => {
             .catch((err) => {
                 console.log(err);
                 enqueueSnackbar("Failed to add to cart", { variant: "error" });
+                throw err;
             });
     };
-
 
     const stylesEll = {
         fontSize: "14px",
@@ -66,8 +75,8 @@ const DetailLeft = ({ ac_data, loading }) => {
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
-
     };
+
     return (
         <Box
             sx={{
@@ -276,7 +285,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total)}
+                                            onClick={() => handleLogDetails(total, ac_data.id, 1)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
@@ -292,12 +301,17 @@ const DetailLeft = ({ ac_data, loading }) => {
                         })
                     )}
                 </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
+                    <FiGift style={{ color: theme.palette.primary.main }} />
+                    <Button onClick={() => navigate('/view-gift')} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
+                </Box>
             </Box>
         </Box>
     );
 };
 
 export default DetailLeft;
+
 
 
 
