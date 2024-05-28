@@ -1,8 +1,11 @@
 import api from "../../utils/Api"
-export const addToCart = (p_id, q) => async (dispatch) => {
+
+export const addToCart = (p_id, q, price, date) => async (dispatch) => {
   const body = {
     package_id: p_id,
     quantity: q,
+    tour_date:date,
+    price:price
   };
   try {
     const res = await api.post("user/cart", body);

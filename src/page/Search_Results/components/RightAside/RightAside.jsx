@@ -12,6 +12,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { addToWishList, getWishList } from "../../../../store/actions/wishListActions";
 import { useSnackbar } from "notistack";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useNavigate } from "react-router";
 
 
 const RightAside = ({ selectedCategory, selectedSubcategory }) => {
@@ -24,7 +25,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory }) => {
   const [age, setAge] = useState("");
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
-
+const navigate = useNavigate()
   const storedKeyword = localStorage.getItem("searchKeyword");
   useEffect(() => {
     if (storedKeyword) {
@@ -153,7 +154,7 @@ const isActivityInWishlist = (activityId) => {
 </Box>
       ) : (
         filteredActivities.map((val, ind) => (
-          <Box sx={{ mt: 3 }} key={ind}>
+          <Box sx={{ mt: 3 }} key={ind} onClick={() => navigate(`/details/${val.id}`)}>
             <Card sx={{ p: 2, background: "#FDF4F1" }}>
               <Box
                 sx={{

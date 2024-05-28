@@ -35,6 +35,12 @@ const DetailPage = () => {
   const [data1, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(5);
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
+
   const styleType = {
     color: theme.palette.primary.main,
   };

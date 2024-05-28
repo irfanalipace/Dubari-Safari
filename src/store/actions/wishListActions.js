@@ -31,3 +31,5 @@ export const deleteWishList = (activityId) => async (dispatch) => {
     throw err;
   }
 };
+
+

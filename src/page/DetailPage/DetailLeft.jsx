@@ -15,10 +15,14 @@ const DetailLeft = ({ ac_data, loading }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
-    const handleLogDetails = (totalPrice) => {
+    const handleLogDetails = (packageId, price) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
+            const totalAdultPrice = price * adult;
+            const totalChildPrice = price * child;
+            const totalPrice = totalAdultPrice + totalChildPrice;
+
             const data = {
                 date: date,
                 person: {
@@ -27,6 +31,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                     infant: infant,
                 },
                 totalPrice: totalPrice,
+                packageId: packageId
             };
             navigate("/payment-details", { state: data });
         }
@@ -46,8 +51,8 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
-    const handleCart = (p_id, q) => {
-        dispatch(addToCart(p_id, q))
+    const handleCart = (p_id, q, price, date ) => {
+        dispatch(addToCart(p_id, q, price, date))
             .then((result) => {
                 console.log(result);
                 enqueueSnackbar("Added to cart successfully", { variant: "success" });
@@ -58,7 +63,6 @@ const DetailLeft = ({ ac_data, loading }) => {
             });
     };
 
-
     const stylesEll = {
         fontSize: "14px",
         fontWeight: 600,
@@ -66,8 +70,10 @@ const DetailLeft = ({ ac_data, loading }) => {
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
-
     };
+
+    console.log(date, 'date selected');
+
     return (
         <Box
             sx={{
@@ -263,7 +269,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleCart(ac_data.id, 1)}
+                                            onClick={() => handleCart(ac_data.id, 1, total, date)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",

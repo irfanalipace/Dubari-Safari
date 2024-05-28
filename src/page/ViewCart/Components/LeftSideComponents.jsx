@@ -70,7 +70,7 @@ const LeftSideComponents = ({allCart}) => {
               <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                 <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
                 <Typography sx={{ ml: 1, color: "grey" }}>
-                  Tour Date : 23 May 2024
+                  Tour Date : {val.tour_date}
                 </Typography>
               </Box>
 

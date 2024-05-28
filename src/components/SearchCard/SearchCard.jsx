@@ -13,12 +13,14 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteWishList, getWishList } from "../../store/actions/wishListActions";
 import Loader from "../Loader/Loader";
+import { useSnackbar } from "notistack";
 
 const SearchCard = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [wishList, setWishList] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     dispatch(getWishList())
@@ -43,10 +45,16 @@ const SearchCard = () => {
   };
 
   const handleDelete = (id) => {
+    setLoading(true);
     dispatch(deleteWishList(id))
       .then((res) => {
-        alert(res.data.message);
-        dispatch(getWishList());
+        setLoading(false);
+        enqueueSnackbar("Activity Removed", { variant: "success" });
+
+
+        setWishList((prevWishList) => prevWishList.filter(item => item.activity_id !== id));
+
+        localStorage.setItem("wishListLength", wishList.length - 1);
       })
       .catch((err) => {
         console.error(err);
@@ -92,7 +100,7 @@ const SearchCard = () => {
                       {val.activity.name}
                     </Typography>
 
-                    <IconButton onClick={() => handleDelete(val.id)}>
+                    <IconButton onClick={() => handleDelete(val.activity_id)}>
                       <FavoriteIcon sx={{ fontSize: "35px", color: "red" }} />
                     </IconButton>
                   </Box>
@@ -157,4 +165,3 @@ const SearchCard = () => {
 };
 
 export default SearchCard;
-
