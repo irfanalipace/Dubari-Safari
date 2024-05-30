@@ -18,6 +18,7 @@ import { useNavigate } from "react-router";
 
 
 const LeftSideComponents = ({allCart}) => {
+  const base = 'https://dubaisafari.saeedantechpvt.com/'
 
 const navigate = useNavigate()
 
@@ -32,6 +33,9 @@ const dispatch = useDispatch()
 
   const handleDelete = (id) => {
     // setLoading(true);
+
+    console.log(id, 'cart id')
+
     dispatch(deleteCart(id))
       .then((res) => {
         // setLoading(false);
@@ -44,6 +48,7 @@ alert('deleted')
       })
       .catch((err) => {
         console.error(err);
+
       });
   };
 
@@ -64,7 +69,7 @@ alert('deleted')
           >
             <Box flex={2}>
               <img
-                src="/jeep.jpg"
+                src={`${base}${val.image}`}
                 style={{
                   width: "100%",
                   borderRadius: "10px",

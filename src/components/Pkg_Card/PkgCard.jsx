@@ -9,6 +9,7 @@ import { Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useNavigate } from "react-router";
 const PkgCard = ({ data }) => {
+  
   const base = 'https://dubaisafari.saeedantechpvt.com/'
   console.log(data, 'dada')
   // console.log(data.packages[0].price, 'jk')
