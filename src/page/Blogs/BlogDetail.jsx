@@ -52,53 +52,7 @@ const BlogDetail = () => {
                     textTransform: 'none', backgroundColor: '#F3F3F3', color: 'black', padding: '10px 20px'
                 }}><FaArrowLeftLong /> &nbsp; Back to HomePage</Button>
             </Box>
-            {/* <Box
-                sx={{
-                    backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.1) 30.2%, rgba(0,0,0,0.1) 90.9%),url(${base}${data.banner_image_url})`,
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    height: "50vh",
-                    width: "100%",
-                }}
-            >
-                <Box
-                    sx={{
-                        color: "white",
-                        position: "relative",
-                        minHeight: "60vh",
-                        display: "flex",
-                        textAlign: "center",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        paddingLeft: "5%",
-                        paddingRight: "5%",
-                    }}
-                >
-                    <Box minHeight={"8rem"}>
-                        <Typography
-                            sx={{
-                                cursor: "pointer",
-                                fontSize: "2.5rem",
-                                fontWeight: "600",
-                            }}
-                        >
-                            {data?.title}
-                        </Typography>
-                        {/* <Typography
-                            sx={{
-                                cursor: "pointer",
-                                fontSize: "1.5rem",
-                                fontWeight: "500",
-                            }}
-                        >
-                            {data?.description}
-                        </Typography> */}
-            {/* </Box> */}
 
-            {/* // </Box> */}
-            {/* // </Box> */}
             <Box sx={{ padding: '60px' }}>
                 <Button sx={{ backgroundColor: 'green', borderRadius: '20px', color: 'white', fontSize: '0.7rem' }} variant='contained'>
                     {moment(data.created_at).format('DD MMM YYYY')}
@@ -126,18 +80,36 @@ const BlogDetail = () => {
                 </Box>
                 {data?.contents?.map((val, ind) => (
                     <Box key={ind} sx={{ display: 'flex', flexDirection: 'column', gap: "20px", padding: '30px 0px' }}>
-
                         <Box sx={{ display: 'flex', alignItems: 'start', gap: '50px' }}>
-                            <Box flex={2} >
-                                <Typography sx={{ fontSize: '24px', fontWeight: 600 }}>{val.title}</Typography>
-                                <Typography sx={{ color: "#506273", fontSize: '1rem' }}>
-                                    {val.description}
-                                </Typography>
-                            </Box>
-                            <Box flex={1.5}><img src={`${base}${val.image}`} alt="" style={{ width: '100%', height: '60vh', objectFit: 'cover', borderRadius: '5px' }} /></Box>
+                            {ind % 2 === 0 ? (
+                                <>
+                                    <Box flex={2}>
+                                        <Typography sx={{ fontSize: '24px', fontWeight: 600 }}>{val.title}</Typography>
+                                        <Typography sx={{ color: "#506273", fontSize: '1rem' }}>
+                                            {val.description}
+                                        </Typography>
+                                    </Box>
+                                    <Box flex={1.5}>
+                                        <img src={`${base}${val.image}`} alt="" style={{ width: '100%', height: '60vh', objectFit: 'cover', borderRadius: '5px' }} />
+                                    </Box>
+                                </>
+                            ) : (
+                                <>
+                                    <Box flex={1.5}>
+                                        <img src={`${base}${val.image}`} alt="" style={{ width: '100%', height: '60vh', objectFit: 'cover', borderRadius: '5px' }} />
+                                    </Box>
+                                    <Box flex={2}>
+                                        <Typography sx={{ fontSize: '24px', fontWeight: 600 }}>{val.title}</Typography>
+                                        <Typography sx={{ color: "#506273", fontSize: '1rem' }}>
+                                            {val.description}
+                                        </Typography>
+                                    </Box>
+                                </>
+                            )}
                         </Box>
                     </Box>
                 ))}
+
                 <Typography sx={{ fontSize: '30px', color: '#FF5532', fontWeight: 700 }}>FAQ's</Typography>
                 {data?.faqs?.map((val, ind) => (
                     <Box key={ind} sx={{ display: 'flex', flexDirection: 'column', gap: "20px", padding: '30px 0px' }}>

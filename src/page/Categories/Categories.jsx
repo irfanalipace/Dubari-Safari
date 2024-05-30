@@ -28,6 +28,10 @@ const Categories = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    window.scroll(0, 0)
+  }, [])
+
+  useEffect(() => {
     dispatch(getCategories())
       .then((result) => {
         // console.log(result, 'jj')

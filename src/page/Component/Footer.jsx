@@ -40,7 +40,7 @@ const Footer = () => {
               </Typography>
 
               <Typography sx={{ fontSize: "0.9rem" }}>
-              Subscribe to the newsletter and stay up to date...
+                Subscribe to the newsletter and stay up to date...
               </Typography>
             </Grid>
 
@@ -119,10 +119,10 @@ const Footer = () => {
           <Grid container spacing={5} alignItems={"start"}>
             <Grid item lg={3} md={3} sm={12} xs={12}>
               <Box>
-              <Link to='/'>
-              <img src="/Logo.png" alt="footer Logo" />
+                <Link to='/'>
+                  <img src="/Logo.png" alt="footer Logo" />
 
-              </Link>
+                </Link>
               </Box>
               <Typography
                 variant="h3"
@@ -159,7 +159,7 @@ const Footer = () => {
               </Typography>
               <Typography
                 sx={{
-                  color:'grey',
+                  color: 'grey',
                   fontSize: "1rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
@@ -183,7 +183,7 @@ const Footer = () => {
 
               <Typography
                 sx={{
-                  color:'grey',
+                  color: 'grey',
                   fontSize: "1rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
@@ -208,7 +208,7 @@ const Footer = () => {
 
               <Typography
                 sx={{
-                  color:'grey',
+                  color: 'grey',
                   fontSize: "1rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
@@ -227,6 +227,27 @@ const Footer = () => {
                   Contact Us
                 </MuiLink>
               </Typography>
+              <Typography
+                sx={{
+                  color: 'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/guidline"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Guidelines
+                </MuiLink>
+              </Typography>
             </Grid>
 
             <Grid item lg={1.8} md={1.8} sm={12} xs={12}>
@@ -239,11 +260,11 @@ const Footer = () => {
               >
                 Services
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
+              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                 Things To Do
               </Typography>
 
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
+              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                 UAE Visa
               </Typography>
             </Grid>
@@ -266,33 +287,33 @@ const Footer = () => {
                 >
                   What We Do
                 </Typography>
-                <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
+                <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                   Experience Dubai
                 </Typography>
-                <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
+                <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                   Corporate
                 </Typography>
                 <Typography
-                sx={{
-                  color:'grey',
-                  fontSize: "1rem",
-                  marginBottom: "0.9rem",
-                  textTransform: "none",
-                }}
-              >
-                <MuiLink
-                  component={Link}
-                  to="/blogs"
                   sx={{
-
-                    textDecoration: "none",
-                    color: "inherit",
-                    "&:hover": { textDecoration: "none" },
+                    color: 'grey',
+                    fontSize: "1rem",
+                    marginBottom: "0.9rem",
+                    textTransform: "none",
                   }}
                 >
-                  Blogs
-                </MuiLink>
-              </Typography>
+                  <MuiLink
+                    component={Link}
+                    to="/blogs"
+                    sx={{
+
+                      textDecoration: "none",
+                      color: "inherit",
+                      "&:hover": { textDecoration: "none" },
+                    }}
+                  >
+                    Blogs
+                  </MuiLink>
+                </Typography>
 
 
 
@@ -310,7 +331,7 @@ const Footer = () => {
               </Typography>
               <Typography
                 sx={{
-                  color:'grey',
+                  color: 'grey',
                   fontSize: "1rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
@@ -331,7 +352,7 @@ const Footer = () => {
               </Typography>
               <Typography
                 sx={{
-                  color:'grey',
+                  color: 'grey',
                   fontSize: "1rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
@@ -351,10 +372,10 @@ const Footer = () => {
                 </MuiLink>
               </Typography>
 
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
+              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                 Cookie Policy
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color:'grey' }}>
+              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                 Site Map
               </Typography>
             </Grid>

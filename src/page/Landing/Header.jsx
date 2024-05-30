@@ -6,6 +6,9 @@ const Header = () => {
     const navigate = useNavigate()
     const theme = useTheme()
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+    const handleLearn = () => {
+        navigate('/desert-safari')
+    }
     return (
         <Box
             sx={{
@@ -31,7 +34,7 @@ const Header = () => {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui eum non amet similique cumque obcaecati earum odit vero adipisci, fuga maxime sint deserunt saepe assumenda fugiat veniam harum, distinctio voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui
             </Typography>
             <Box>
-                <Button variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '15px 30px', textTransform: 'none', fontSize: '16px', fontWeight: 700 }}>Learn More</Button>
+                <Button onClick={handleLearn} variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '15px 30px', textTransform: 'none', fontSize: '16px', fontWeight: 700 }}>Learn More</Button>
             </Box>
             <Box sx={{ position: 'absolute', bottom: 20, left: 30, display: 'flex', alignItems: 'center', zIndex: 9999 }}>
                 <Button onClick={() => navigate('/feedback')} variant='contained' sx={{

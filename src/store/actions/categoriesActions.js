@@ -29,7 +29,21 @@ export const getActivitiesById = (id) => async (dispatch) => {
 export const getActivities = () => async (dispatch) => {
   try {
     const res = await api.get("all_activity");
-   
+
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const Send_Gift = (body) => async (dispatch) => {
+  try {
+    const res = await api.post("user/send/giftCard", body);
+    dispatch({
+      type: "SEND_GIFT",
+      payload: res.data,
+    });
     return res;
   } catch (err) {
     throw err;

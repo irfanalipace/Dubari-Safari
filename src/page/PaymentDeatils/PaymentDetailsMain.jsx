@@ -14,7 +14,7 @@ const PaymentDetailsMain = () => {
     window.scrollTo(0, 0);
   });
   return (
-    <Box sx={{ background: "#F1F1F1", mt: 2 }}>
+    <Box sx={{ background: "#FFF", mt: 2 }}>
       <Grid container spacing={3} sx={{ padding: "2rem 5%" }}>
         <Grid item xs={12} lg={12}>
           <StepperComp />

@@ -6,9 +6,9 @@ export const addToCart = (p_id, q, total, date, adult, child, infant) => async (
     quantity: q,
     price: total,
     tour_date: date,
-adult:adult,
-child:child,
-infant:infant
+    adult: adult,
+    child: child,
+    infant: infant
 
   };
 

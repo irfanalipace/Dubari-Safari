@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -6,7 +7,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -25,6 +25,7 @@ const LeftSideComponents = ({ allCart }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(true); // State to track loading
+
   const calculateTotalGuests = (adult, child, infant) => {
     return adult + child + infant;
   };
@@ -57,21 +58,14 @@ const LeftSideComponents = ({ allCart }) => {
 
           return (
             <Card sx={{ p: 2, background: "#FDF4F1" }} key={index}>
-              <Box
-                sx={{
-                  minHeight: "30vh",
-                  gap: 4,
-                }}
-              >
+              <Box sx={{ minHeight: "30vh", gap: 4 }}>
                 <Box
                   sx={{
                     display: "flex",
                     minHeight: "30vh",
-
                     gap: 4,
                   }}
-                onClick={() => handleNavigate(val.package.activity_id)}
-
+                  onClick={() => handleNavigate(val.package.activity_id)}
                 >
                   <Box flex={2}>
                     <img
@@ -136,57 +130,51 @@ const LeftSideComponents = ({ allCart }) => {
                       </Box>
                     </Box>
                   </Box>
-                  </Box>
+                </Box>
 
-
-                <Box sx={{display:'flex'}}>
-
-<Box flex={2}>
-
-</Box>
-
-<Box flex={4}>
-    <Divider />
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginTop: "1rem",
-                    }}
-                  >
-                    <Button
-                      sx={{ textTransform: "none", color: "black" }}
-                      onClick={() => handleDelete(val.id)}
-                    >
-                      <DeleteOutlineOutlinedIcon /> Delete
-                    </Button>
-                    <Button sx={{ textTransform: "none", color: "black" }}>
-                      <IoSyncOutline
-                        style={{ fontSize: "1.5rem", fontWeight: "800" }}
-                      />
-                      Update
-                    </Button>
-                    <Button
+                <Box sx={{ display: 'flex' }}>
+                  <Box flex={2}></Box>
+                  <Box flex={4}>
+                    <Divider />
+                    <Box
                       sx={{
-                        fontSize: "0.8rem",
-                        textTransform: "none",
-                        color: "black",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "1rem",
                       }}
                     >
-                      Please Login to use Promocode
-                    </Button>
-                    <Typography
-                      sx={{
-                        fontSize: "1.5rem",
-                        fontWeight: "700",
-                        color: theme.palette.primary.main,
-                      }}
-                    >
-                      {val.price}
-                    </Typography>
+                      <Button
+                        sx={{ textTransform: "none", color: "black" }}
+                        onClick={() => handleDelete(val.id)}
+                      >
+                        <DeleteOutlineOutlinedIcon /> Delete
+                      </Button>
+                      <Button sx={{ textTransform: "none", color: "black" }}>
+                        <IoSyncOutline
+                          style={{ fontSize: "1.5rem", fontWeight: "800" }}
+                        />
+                        Update
+                      </Button>
+                      <Button
+                        sx={{
+                          fontSize: "0.8rem",
+                          textTransform: "none",
+                          color: "black",
+                        }}
+                      >
+                        Please Login to use Promocode
+                      </Button>
+                      <Typography
+                        sx={{
+                          fontSize: "1.5rem",
+                          fontWeight: "700",
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        {val.price}
+                      </Typography>
+                    </Box>
                   </Box>
-</Box>
-
                 </Box>
               </Box>
             </Card>

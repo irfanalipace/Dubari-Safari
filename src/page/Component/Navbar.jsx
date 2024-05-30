@@ -7,7 +7,7 @@ import {
   InputAdornment,
   InputLabel,
   MenuItem,
-  Select,
+  Popover,
   TextField,
   Typography,
   useTheme,
@@ -16,6 +16,7 @@ import {
   Badge,
   Link as MuiLink,
   Avatar,
+  Select,
 } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
@@ -26,6 +27,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { IoIosBicycle } from "react-icons/io";
+import { FaChevronRight } from "react-icons/fa6";
+import { PiBuildingsBold } from "react-icons/pi";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -40,6 +44,8 @@ const Navbar = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
   useEffect(() => {
     const storedKeyword = localStorage.getItem("searchKeyword");
     if (storedKeyword) {
@@ -50,6 +56,7 @@ const Navbar = () => {
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+
   const [tokenAvailable, setTokenAvailable] = useState(false);
 
   useEffect(() => {
@@ -63,11 +70,9 @@ const Navbar = () => {
       setTokenAvailable(false);
     } else if (value === "Manage Profile") {
       navigate("/manage-profile");
-    }
-    else if (value === "Booking") {
+    } else if (value === "Booking") {
       navigate("/all-booking");
-    }
-    else if (value === "History") {
+    } else if (value === "History") {
       navigate("/history");
     }
     setSelectedValue("");
@@ -76,6 +81,7 @@ const Navbar = () => {
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
   };
+
   const handleSignup = () => {
     navigate("/signup");
   };
@@ -99,7 +105,6 @@ const Navbar = () => {
   };
 
   const handleSearchClick = () => {
-
     localStorage.setItem("searchKeyword", searchKeyword);
     navigate(`/search-results`);
   };
@@ -107,26 +112,48 @@ const Navbar = () => {
   useEffect(() => {
     localStorage.removeItem("searchKeyword");
     setSearchKeyword("");
-
   }, []);
 
   const handleSearchChange = (event) => {
     const keyword = event.target.value;
     setSearchKeyword(keyword);
     localStorage.setItem("searchKeyword", keyword);
-
   };
-  useEffect(() => {
 
+  useEffect(() => {
     if (location.pathname !== "/search-results") {
       setSearchKeyword("");
       localStorage.removeItem("searchKeyword");
     }
   }, [location.pathname]);
 
-console.log(searchKeyword, 'Search')
+  const wishListLength = localStorage.getItem("wishListLength");
 
-const wishListLength = localStorage.getItem("wishListLength");
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openPopover = Boolean(anchorEl);
+
+  const data = [
+    { name: 'Desert Safari' },
+    { name: 'Sightseeing' },
+    { name: 'Adventure' },
+    { name: 'Attraction & Experiences' },
+    { name: 'Cruising & Yachting' },
+    { name: 'Transportation' },
+  ];
+  const data1 = [
+    { name: 'Things to do' },
+    { name: 'UAE Visa' },
+
+  ];
+
+  // const ss = useSelector((state) => console.log(state, 'ssssssss'))
 
   return (
     <>
@@ -159,19 +186,116 @@ const wishListLength = localStorage.getItem("wishListLength");
                 <InputLabel
                   id="demo-simple-select-label"
                   sx={{ borderBottom: "none" }}
+                  onMouseEnter={handlePopoverOpen}
+                  onMouseLeave={handlePopoverClose}
                 >
                   What We Do
                 </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  label="Age"
-                >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
               </FormControl>
+
+              <Popover
+                id="mouse-over-popover"
+                sx={{
+                  pointerEvents: "none",
+                }}
+                open={openPopover}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Box
+                  p={2}
+                  sx={{ display: "flex" }}
+                  onMouseEnter={handlePopoverOpen}
+                  onMouseLeave={handlePopoverClose}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                      padding: '10px 30px'
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+
+                      }}
+                    >
+                      <IoIosBicycle
+                        size={25}
+                        style={{ color: theme.palette.primary.main }}
+                      />
+                      <Typography sx={{ fontSize: "16px", fontWeight: 600 }}>
+                        Things To Do
+                      </Typography>
+                      <FaChevronRight
+                        size={20}
+                        style={{ color: theme.palette.primary.main }}
+                      />
+                    </Box>
+                    <Divider />
+                    {data.map((val, ind) => (
+                      <Typography
+                        key={ind}
+                        onClick={() => navigate("/desert-safari")}
+                      >
+                        {val.name}
+                      </Typography>
+                    ))}
+                  </Box>
+                  <Box sx={{ borderLeft: '1px solid #DCDCDC', marginTop: '55px' }}></Box>
+                  <Box sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                    padding: '10px 30px',
+
+                  }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+
+                      }}
+                    >
+                      <PiBuildingsBold
+                        size={25}
+                        style={{ color: theme.palette.primary.main }}
+                      />
+                      <Typography sx={{ fontSize: "16px", fontWeight: 600 }}>
+                        Experience Dubai
+                      </Typography>
+                      <FaChevronRight
+                        size={20}
+                        style={{ color: theme.palette.primary.main }}
+                      />
+                    </Box>
+                    <Divider />
+                    {data1.map((val, ind) => (
+                      <Typography
+                        key={ind}
+                        onClick={() => navigate("/desert-safari")}
+                      >
+                        {val.name}
+                      </Typography>
+                    ))}
+                  </Box>
+
+                </Box>
+              </Popover>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -182,10 +306,10 @@ const wishListLength = localStorage.getItem("wishListLength");
                 value={searchKeyword}
                 onChange={handleSearchChange}
                 onKeyDown={(event) => {
-    if (event.key === 'Enter') {
-      handleSearchClick();
-    }
-  }}
+                  if (event.key === "Enter") {
+                    handleSearchClick();
+                  }
+                }}
                 sx={{
                   "& .MuiInputBase-root": {
                     padding: 0,
@@ -207,7 +331,10 @@ const wishListLength = localStorage.getItem("wishListLength");
                     padding: 0,
                   },
                   endAdornment: (
-                    <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
+                    <InputAdornment
+                      position="end"
+                      style={{ padding: 0, margin: 0 }}
+                    >
                       <Button
                         sx={{
                           backgroundColor: theme.palette.primary.main,
@@ -236,7 +363,7 @@ const wishListLength = localStorage.getItem("wishListLength");
             <Box
               sx={{
                 display: "flex",
-                alignItems: "cener",
+                alignItems: "center",
                 marginTop: "1rem",
                 cursor: "pointer",
               }}
@@ -264,21 +391,11 @@ const wishListLength = localStorage.getItem("wishListLength");
                 </MuiLink>
               </Typography>
             </Box>
-            {/* <Box
-              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-              component={Link}
-              to="/help"
-            >
-
-
-
-              <Typography>Help</Typography>
-            </Box> */}
 
             <Box
               sx={{
                 display: "flex",
-                alignItems: "cener",
+                alignItems: "center",
                 marginTop: "1rem",
                 cursor: "pointer",
               }}
@@ -310,7 +427,7 @@ const wishListLength = localStorage.getItem("wishListLength");
                     }}
                   >
                     <FavoriteBorderRoundedIcon />
-                    Wishlist
+                    Wish List
                   </MuiLink>
                 </Badge>
               </Typography>
@@ -319,7 +436,7 @@ const wishListLength = localStorage.getItem("wishListLength");
             <Box
               sx={{
                 display: "flex",
-                alignItems: "cener",
+                alignItems: "center",
                 marginTop: "1rem",
                 cursor: "pointer",
               }}
@@ -332,7 +449,7 @@ const wishListLength = localStorage.getItem("wishListLength");
                 }}
               >
                 <Badge
-                  badgeContent={4}
+                  badgeContent={0}
                   color="primary"
                   anchorOrigin={{
                     vertical: "top",
@@ -357,77 +474,87 @@ const wishListLength = localStorage.getItem("wishListLength");
               </Typography>
             </Box>
 
-            {tokenAvailable ? (
-              <Box>
-                <FormControl sx={{ padding: 0 }}>
-                  <Select
-                    sx={{
-                      outline: "none",
-                      "&:focus": {
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              {authh ? (
+                <Box>
+                  <FormControl sx={{ padding: 0 }}>
+                    <Select
+                      sx={{
                         outline: "none",
-                      },
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        border: "none", // Remove the outline border
-                      },
-                    }}
-                    value={selectedValue}
-                    onChange={handleChange}
-                    displayEmpty
-                    inputProps={{ "aria-label": "Select user" }}
-                    style={{ minWidth: "120px", padding: 0 }}
-                    renderValue={(selected) => (
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Avatar
-                          alt=""
-                          src={userProfileImage}
-                          sx={{ marginRight: "8px" }}
-                        />
-                        Profile
-                      </Box>
-                    )}
-                  >
-                    <MenuItem
-                      value="Manage Profile"
-                      onClick={() => handleMenuItemClick("Manage Profile")}
+                        "&:focus": {
+                          outline: "none",
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          border: "none", // Remove the outline border
+                        },
+                      }}
+                      value={selectedValue}
+                      onChange={handleChange}
+                      displayEmpty
+                      inputProps={{ "aria-label": "Select user" }}
+                      style={{ minWidth: "120px", padding: 0 }}
+                      renderValue={(selected) => (
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                          <Avatar
+                            alt=""
+                            src="/avatar.jpg"
+                            sx={{ marginRight: "8px" }}
+                          />
+                          Profile
+                        </Box>
+                      )}
                     >
-                      Manage Profile
-                    </MenuItem>
-                    <MenuItem
-                      value="Booking"
-                      onClick={() => handleMenuItemClick("Booking")}
-                    >
-                      Booking
-                    </MenuItem>
+                      <MenuItem
+                        value="Manage Profile"
+                        onClick={() => handleMenuItemClick("Manage Profile")}
+                      >
+                        Manage Profile
+                      </MenuItem>
 
-                    <MenuItem
-                      value="History"
-                      onClick={() => handleMenuItemClick("History")}
-                    >
-                      History
-                    </MenuItem>
+                      <MenuItem
+                        value="Booking"
+                        onClick={() => handleMenuItemClick("Booking")}
+                      >
+                        Booking
+                      </MenuItem>
 
-                    <MenuItem
-                      value="Logout"
-                      onClick={() => handleMenuItemClick("Logout")}
-                    >
-                      Logout
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            ) : (
-              <Button
-                onClick={handleSignup}
-                variant="contained"
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  padding: "0.5rem 2rem",
-                  textTransform: "none",
-                }}
-              >
-                Sign-Up
-              </Button>
-            )}
+                      <MenuItem
+                        value="History"
+                        onClick={() => handleMenuItemClick("History")}
+                      >
+                        History
+                      </MenuItem>
+
+                      <MenuItem
+                        value="Logout"
+                        onClick={() => handleMenuItemClick("Logout")}
+                      >
+                        Logout
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              ) : (
+                <Button
+                  onClick={handleSignup}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: theme.palette.primary.main,
+                    padding: "0.5rem 2rem",
+                    textTransform: "none",
+                  }}
+                >
+                  Sign-Up
+                </Button>
+              )}
+            </Box>
           </>
         )}
       </Box>
@@ -474,7 +601,7 @@ const wishListLength = localStorage.getItem("wishListLength");
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <HelpOutlineIcon />
-            <Typography sx={{fontSize:'1.2rem'}}> Eng/AED</Typography>
+            <Typography sx={{ fontSize: '1.2rem' }}> Eng/AED</Typography>
           </Box>
 
           <Box
@@ -600,138 +727,136 @@ const wishListLength = localStorage.getItem("wishListLength");
             </Typography>
           </Box>
           {authh ? (
-              <Box>
-                <FormControl sx={{ padding: 0 }}>
-                  <Select
-                    sx={{
+            <Box>
+              <FormControl sx={{ padding: 0 }}>
+                <Select
+                  sx={{
+                    outline: "none",
+                    "&:focus": {
                       outline: "none",
-                      "&:focus": {
-                        outline: "none",
-                      },
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        border: "none", // Remove the outline border
-                      },
-                    }}
-                    value={selectedValue}
-                    onChange={handleChange}
-                    displayEmpty
-                    inputProps={{ "aria-label": "Select user" }}
-                    style={{ minWidth: "120px", padding: 0 }}
-                    renderValue={(selected) => (
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Avatar
-                          alt=""
-                          src="/avatar.jpg"
-                          sx={{ marginRight: "8px" }}
-                        />
-                        Profile
-                      </Box>
-                    )}
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none", // Remove the outline border
+                    },
+                  }}
+                  value={selectedValue}
+                  onChange={handleChange}
+                  displayEmpty
+                  inputProps={{ "aria-label": "Select user" }}
+                  style={{ minWidth: "120px", padding: 0 }}
+                  renderValue={(selected) => (
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Avatar
+                        alt=""
+                        src="/avatar.jpg"
+                        sx={{ marginRight: "8px" }}
+                      />
+                      Profile
+                    </Box>
+                  )}
+                >
+                  <MenuItem
+                    value="Manage Profile"
+                    onClick={() => handleMenuItemClick("Manage Profile")}
                   >
-                    <MenuItem
-                      value="Manage Profile"
-                      onClick={() => handleMenuItemClick("Manage Profile")}
-                    >
-                      Manage Profile
-                    </MenuItem>
+                    Manage Profile
+                  </MenuItem>
 
-                    <MenuItem
-                      value="Booking"
-                      onClick={() => handleMenuItemClick("Booking")}
-                    >
-                      Booking
-                    </MenuItem>
+                  <MenuItem
+                    value="Booking"
+                    onClick={() => handleMenuItemClick("Booking")}
+                  >
+                    Booking
+                  </MenuItem>
 
-                    <MenuItem
-                      value="History"
-                      onClick={() => handleMenuItemClick("History")}
-                    >
-                      History
-                    </MenuItem>
+                  <MenuItem
+                    value="History"
+                    onClick={() => handleMenuItemClick("History")}
+                  >
+                    History
+                  </MenuItem>
 
-                    <MenuItem
-                      value="Logout"
-                      onClick={() => handleMenuItemClick("Logout")}
-                    >
-                      Logout
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            ) : (
-              <Button
-                onClick={handleSignup}
-                variant="contained"
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  padding: "0.5rem 2rem",
-                  textTransform: "none",
-                }}
-              >
-                Sign-Up
-              </Button>
-            )}
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <MenuItem
+                    value="Logout"
+                    onClick={() => handleMenuItemClick("Logout")}
+                  >
+                    Logout
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          ) : (
+            <Button
+              onClick={handleSignup}
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.primary.main,
+                padding: "0.5rem 2rem",
+                textTransform: "none",
+              }}
+            >
+              Sign-Up
+            </Button>
+          )}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField
-                placeholder="Search for Experience"
-                size="small"
-                variant="outlined"
-                value={searchKeyword}
-                onChange={handleSearchChange}
-                onKeyDown={(event) => {
-    if (event.key === 'Enter') {
-      handleSearchClick();
-    }
-  }}
-                sx={{
-                  "& .MuiInputBase-root": {
-                    padding: 0,
-                    "&:hover": {
-                      borderColor: "#f7f7f7",
-                    },
-                    "&.Mui-focused": {
-                      boxShadow: "none",
-                    },
+              placeholder="Search for Experience"
+              size="small"
+              variant="outlined"
+              value={searchKeyword}
+              onChange={handleSearchChange}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  handleSearchClick();
+                }
+              }}
+              sx={{
+                "& .MuiInputBase-root": {
+                  padding: 0,
+                  "&:hover": {
+                    borderColor: "#f7f7f7",
                   },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    color: "#f7f7f7",
+                  "&.Mui-focused": {
+                    boxShadow: "none",
                   },
-                  borderRadius: "0px",
-                  backgroundColor: "white",
-                }}
-                InputProps={{
-                  sx: {
-                    padding: 0,
-                  },
-                  endAdornment: (
-                    <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
-                      <Button
-                        sx={{
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  color: "#f7f7f7",
+                },
+                borderRadius: "0px",
+                backgroundColor: "white",
+              }}
+              InputProps={{
+                sx: {
+                  padding: 0,
+                },
+                endAdornment: (
+                  <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
+                    <Button
+                      sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        color: "white",
+                        padding: "0.5rem",
+                        borderRadius: "0px 5px 5px 0px",
+                        ":hover": {
                           backgroundColor: theme.palette.primary.main,
                           color: "white",
-                          padding: "0.5rem",
-                          borderRadius: "0px 5px 5px 0px",
-                          ":hover": {
-                            backgroundColor: theme.palette.primary.main,
-                            color: "white",
-                          },
-                        }}
-                        onClick={handleSearchClick}
-                      >
-                        <SearchOutlinedIcon />
-                      </Button>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Box>
+                        },
+                      }}
+                      onClick={handleSearchClick}
+                    >
+                      <SearchOutlinedIcon />
+                    </Button>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
 
 
         </Box>
       </Drawer>
-
       <Divider />
-
       <AllActivities />
     </>
   );
