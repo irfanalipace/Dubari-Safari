@@ -30,6 +30,7 @@ import Booking from "./page/booking/Booking";
 import BlogDetail from "./page/Blogs/BlogDetail";
 import Gift from "./page/gift/Gift";
 import Reviews from "./page/reviews/Reviews";
+import GuidLine from "./page/guidline/GuidLine";
 
 export default function Router() {
   let element = useRoutes([
@@ -165,6 +166,10 @@ export default function Router() {
     {
       path: "/feedback",
       element: <Reviews />,
+    },
+    {
+      path: "/guidline",
+      element: <GuidLine />,
     },
 
   ]);

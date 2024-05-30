@@ -8,11 +8,15 @@ import {
   Select,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { IoIosPeople } from "react-icons/io";
+import { BiSolidMessageSquareDetail } from "react-icons/bi";
 
 const Component1 = () => {
+  const theme = useTheme()
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -72,12 +76,13 @@ const Component1 = () => {
         <Box>
           <Typography
             variant="h1"
-            sx={{ fontSize: "1.2rem", fontWeight: "600" }}
+            sx={{ fontSize: "1.2rem", fontWeight: "600", display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            Guest Details
+            <IoIosPeople size={35} style={{ color: theme.palette.primary.main }} />
+            Lead Passenger Details
           </Typography>
           <Typography sx={{ fonSize: "1rem", color: "grey" }}>
-            Please Enter Your Guest Details
+            Please Enter Your Passenger Details
           </Typography>
         </Box>
 
@@ -157,6 +162,12 @@ const Component1 = () => {
               <TextField placeholder="Phone Number" sx={textFieldStyle} />
             </Box>
           </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <label style={{ fontSize: "1.2rem" }}>Special Request</label>
+              <TextField placeholder="Phone Number" sx={textFieldStyle} />
+            </Box>
+          </Grid>
         </Grid>
       </Box>
 
@@ -172,15 +183,15 @@ const Component1 = () => {
         <Box>
           <Typography
             variant="h1"
-            sx={{ fontSize: "1.2rem", fontWeight: "600" }}
+            sx={{ fontSize: "1.2rem", fontWeight: "600", display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            Morning Desert Safari
+            <BiSolidMessageSquareDetail size={35} style={{ color: theme.palette.primary.main }} />
+            Extra Details
           </Typography>
           <Typography sx={{ fonSize: "1rem", color: "grey" }}>
             Please Enter your Extra Details
           </Typography>
         </Box>
-
         <Grid container spacing={4} sx={{ marginTop: "1rem" }}>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -190,13 +201,59 @@ const Component1 = () => {
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <label style={{ fontSize: "1.2rem" }}>Note</label>
+              <label style={{ fontSize: "1.2rem" }}>Louvre Museum Day Pass - Dated - Without Transfers</label>
               <TextField placeholder="Note" sx={textFieldStyle} />
             </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', mt: 2 }}>
+              <input type="checkbox" name="checkbox" id="" />
+              <Typography sx={{ color: theme.palette.primary.main }}>Apply Earned Points -  2500</Typography>
+            </Box>
           </Grid>
-        </Grid>
 
-        <Box sx={{ marginTop: "2rem" }} gap={5}>
+        </Grid>
+      </Box>
+      <Box
+        sx={{
+          border: `1px solid ${theme.palette.primary.main}`,
+          padding: "3rem 5%",
+          borderRadius: "10px",
+          marginTop: "2rem",
+          background: "#fff",
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}
+      >
+        <Typography sx={{ fontSize: '24px', fontWeight: 700 }}>Choose a Payment Method</Typography>
+        <Typography sx={{ fontSize: '16px', fontWeight: 400, color: '#90A3BF' }}>Please enter your Payment Details</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+            <input type="radio" name="paymentMethod" id="creditCard" />
+            <Typography sx={{ fontWeight: 600 }}>Credit Card</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+            <input type="radio" name="paymentMethod" id="debitCard" />
+            <Typography sx={{ fontWeight: 600 }}>Debit Card</Typography>
+          </Box>
+
+        </Box>
+        <Typography><span style={{ color: theme.palette.primary.main, fontWeight: 600 }}>Note:</span>&nbsp; In the next step you will be redirected to your banks website to verify yourself. </Typography>
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end', mt: 2 }}>
+        <Button variant="contained" sx={{ textTransform: 'none', padding: '10px 40px', backgroundColor: theme.palette.primary.main, color: 'white' }}>
+          Pay Now
+        </Button>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: "10px", mt: 2 }}>
+        <input type="checkbox" name="" id="" />
+        <Typography>Buy Clickiny Pay Now, You agree that you read and understand our <span style={{ color: theme.palette.primary.main }}> Terms & Condition</span></Typography>
+      </Box>
+    </>
+  );
+};
+
+export default Component1;
+{/* <Box sx={{ marginTop: "2rem" }} gap={5}>
           <Button
             variant="contained"
             sx={{
@@ -225,10 +282,4 @@ const Component1 = () => {
           >
             Save & Continue
           </Button>
-        </Box>
-      </Box>
-    </>
-  );
-};
-
-export default Component1;
+        </Box> */}

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions/cartActions";
 import { FiGift } from "react-icons/fi";
+import { Send_Gift } from "../../store/actions/categoriesActions";
 
 const DetailLeft = ({ ac_data, loading }) => {
     const [date, setDate] = useState("");
@@ -41,6 +42,26 @@ const DetailLeft = ({ ac_data, loading }) => {
         }
     };
 
+
+    const handleGift = async (activity_id, discount_price, recipient_email) => {
+        const body = {
+            activity_id: activity_id,
+            discount_price: discount_price,
+            recipient_email: recipient_email
+        };
+        // console.log(body, 'llll')
+        try {
+            const res = await dispatch(Send_Gift(body));
+            enqueueSnackbar("Gift sent successfully", { variant: "success" });
+            navigate('/view-gift')
+            return res;
+        } catch (err) {
+            console.log(err);
+            enqueueSnackbar("Failed to send gift", { variant: "error" });
+            throw err;
+        }
+    };
+
     const handleSelectClick = () => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
@@ -55,9 +76,8 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
-    const handleCart = ( p_id, q,total, date,adult, child, infant) => {
-
-        return dispatch(addToCart( p_id, q,total, date, adult, child, infant))
+    const handleCart = (p_id, q, total, date, adult, child, infant) => {
+        return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
             .then((result) => {
                 console.log(result);
                 enqueueSnackbar("Added to cart successfully", { variant: "success" });
@@ -286,7 +306,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, total)}
+                                            onClick={() => handleLogDetails(total, ac_data.id, 1, total, date)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
@@ -304,7 +324,8 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
                     <FiGift style={{ color: theme.palette.primary.main }} />
-                    <Button onClick={() => navigate('/view-gift')} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
+                    <Button onClick={() => handleGift(ac_data.id, ac_data.
+                        discount_offer, 'hi')} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
                 </Box>
             </Box>
         </Box>

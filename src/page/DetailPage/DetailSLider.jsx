@@ -26,7 +26,7 @@ const DetailSlider = ({ data1 }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleBack = () => {
-        navigate('/')
+        navigate('/desert-safari')
     }
     const img = data1?.activity_images;
     console.log(img, 'jjj')
