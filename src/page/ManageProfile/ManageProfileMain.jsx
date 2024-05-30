@@ -16,11 +16,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { updateProfile } from "../../store/actions/authActions";
+import { updatePassword, updateProfile } from "../../store/actions/authActions";
+import { useSnackbar } from "notistack";
 
 const ManageProfileMain = () => {
-  const [formValues, setFormValues] = useState({
-    title: 30, // Default value for "Mr"
+  const initialValues = {
+    title: 30,
     first_name: "",
     last_name: "",
     email: "",
@@ -32,12 +33,16 @@ const ManageProfileMain = () => {
     current_password: "",
     new_password: "",
     confirm_password: "",
-  });
+  }
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [formValues, setFormValues] = useState(initialValues);
 
   const [countries, setCountries] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,12 +72,25 @@ const ManageProfileMain = () => {
     }));
   };
 
+
   const handleFileChange = (e) => {
-    setFormValues((prevState) => ({
-      ...prevState,
-      profile_image: e.target.files[0],
-    }));
+    const { name, files } = e.target;
+    if (name === "profile_image" && files.length > 0) {
+      const selectedFile = files[0];
+
+      console.log(selectedFile, 'Selected file from input ');
+
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        profile_image: selectedFile,
+      }));
+      setSelectedImage(URL.createObjectURL(selectedFile));
+    }
   };
+
+  console.log(formValues, 'form valuessssssss');
+
+
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
@@ -91,12 +109,40 @@ const ManageProfileMain = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await dispatch(updateProfile(formValues));
-      console.log("Profile updated successfully", response);
-      // Handle success, maybe redirect or show a message
+      const { profile_image, ...otherValues } = formValues;
+      const formData = new FormData();
+      formData.append('profile_image', profile_image);
+      Object.entries(otherValues).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      const response = await dispatch(updateProfile(formData));
+
+      enqueueSnackbar('Profile updated successfully', { variant: "success" });
+setFormValues(initialValues)
+
     } catch (error) {
-      console.error("Error updating profile", error);
-      // Handle error, maybe show an error message
+      enqueueSnackbar('Error updating profile', { variant: "error" });
+
+    }
+  };
+
+  const handleSubmitPassword = async (e) => {
+    e.preventDefault();
+    if (formValues.password !== formValues.confirm_password) {
+      enqueueSnackbar("Password do not match", { variant: "error" });
+
+      setErrors({ confirm_password: "Passwords do not match" });
+      return;
+    }
+
+    try {
+      const response = await dispatch(updatePassword(formValues));
+
+      enqueueSnackbar('Password Updated Successflly', { variant: "success" });
+setFormValues(initialValues)
+    } catch (error) {
+      enqueueSnackbar('Error updating Password', { variant: "error" });
+
     }
   };
 
@@ -135,28 +181,29 @@ const ManageProfileMain = () => {
         Manage My Account
       </Typography>
 
-      <Box sx={{ display: "flex", alignItems: "center", marginTop: "1rem" }} gap={4}>
-        <Box sx={{ width: "8rem", height: "8rem" }}>
-          <Avatar sx={{ width: "100%", height: "100%" }} />
-        </Box>
-        <Box>
-          <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
-          <Button
-            variant="contained"
-            onClick={handleButtonClick}
-            sx={{ textTransform: "none" }}
-          >
-            Upload Photo
-          </Button>
-        </Box>
-      </Box>
-
       <form onSubmit={handleSubmit}>
+        <Box sx={{ display: "flex", alignItems: "center", marginTop: "1rem" }} gap={4}>
+          <Box sx={{ width: "8rem", height: "8rem" }}>
+            <Avatar sx={{ width: "100%", height: "100%" }} src={selectedImage} />
+          </Box>
+          <Box>
+            <input
+              type="file"
+name='profile_image'
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <Button
+              variant="contained"
+              onClick={handleButtonClick}
+              sx={{ textTransform: "none" }}
+            >
+              Upload Photo
+            </Button>
+          </Box>
+        </Box>
+
         <Grid container spacing={4} sx={{ margin: "1rem 0rem" }}>
           <Grid item lg={4} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -199,7 +246,7 @@ const ManageProfileMain = () => {
               />
             </Box>
           </Grid>
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+          {/* <Grid item lg={4} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Email Address</label>
               <TextField
@@ -210,7 +257,7 @@ const ManageProfileMain = () => {
                 onChange={handleChange}
               />
             </Box>
-          </Grid>
+          </Grid> */}
           <Grid item lg={4} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Nationality</label>
@@ -261,9 +308,8 @@ const ManageProfileMain = () => {
                   sx={textFieldStyle}
                   onChange={handleChange}
                 >
-                  <MenuItem value="Tourist">Tourist</MenuItem>
-                  <MenuItem value="Citizen">Citizen</MenuItem>
-                  <MenuItem value="Student">Student</MenuItem>
+                  <MenuItem value="tourist">Tourist</MenuItem>
+                  <MenuItem value="UAE residence">UAE Residence</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -324,11 +370,11 @@ const ManageProfileMain = () => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>New Password</label>
               <TextField
-                name="new_password"
+                name="password"
                 placeholder="New Password"
                 sx={textFieldStyle}
                 type={showPassword ? "text" : "password"}
-                value={formValues.new_password}
+                value={formValues.password}
                 onChange={handleChange}
                 InputProps={{
                   endAdornment: (
@@ -379,7 +425,7 @@ const ManageProfileMain = () => {
           <Button
             variant="contained"
             sx={{ justifyContent: 'end', textTransform: 'none', fontSize: '1.1rem', padding: '0.5rem 2rem' }}
-            onClick={handleSubmit}
+            onClick={handleSubmitPassword}
           >
             Update Password
           </Button>

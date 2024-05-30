@@ -29,6 +29,8 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const theme = useTheme();
+  const userProfileImage = useSelector((state) => state.auth.user);
+  console.log(userProfileImage, 'imageeee')
   const authh = useSelector((state) => state.auth.isAuthenticated)
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -377,7 +379,7 @@ const wishListLength = localStorage.getItem("wishListLength");
                       <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Avatar
                           alt=""
-                          src="/avatar.jpg"
+                          src={userProfileImage}
                           sx={{ marginRight: "8px" }}
                         />
                         Profile

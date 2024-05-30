@@ -239,7 +239,7 @@ const isActivityInWishlist = (activityId) => {
                     }}
                   >
                     <Typography variant="h6" color="green">
-                      Available Today
+                      Cancellation Before : {val.cancellation_duration} hours
                     </Typography>
                     <Typography variant="h4" fontWeight="bold">
                       $2500

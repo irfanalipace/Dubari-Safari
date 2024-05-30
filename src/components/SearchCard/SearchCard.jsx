@@ -63,9 +63,13 @@ const SearchCard = () => {
 
   return (
     <>
-      {loading ? ( // Render loader if loading is true
-        <Loader />
-      ) : (
+       {loading ? ( // Conditional rendering based on loading state
+          <Loader />
+          ) : wishList.length === 0 ? ( // Check if allCart is empty
+            <Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh", marginTop:'4rem' }}>
+              No Activity is Added yet
+            </Typography>
+          ) : (
         wishList.map((val, ind) => (
           <Box sx={{ mt: 3 }} key={ind}>
             <Card sx={{ p: 2, background: "#FDF4F1" }}>

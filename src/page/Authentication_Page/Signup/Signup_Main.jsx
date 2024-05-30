@@ -76,7 +76,7 @@ const Signup_Main = () => {
 
     dispatch(userRegister(updatedFormValues))
       .then((res) => {
-        alert(res.data.message, "response");
+
         setFormValues(res.data.payload);
 
         enqueueSnackbar("User Registered Successfully", { variant: "success" });
@@ -87,8 +87,7 @@ const Signup_Main = () => {
       })
       .catch((err) => {
         setLoading(false);
-        // console.log(res.data.payload, 'payloaddddddd')
-        console.log(err.message, "errorrrrrr");
+       
         enqueueSnackbar(err.message, { variant: "error" });
       });
   };

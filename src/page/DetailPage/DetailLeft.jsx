@@ -33,6 +33,8 @@ const DetailLeft = ({ ac_data, loading }) => {
                         totalPrice: totalPrice,
                     };
                     navigate("/payment-details", { state: data });
+                    enqueueSnackbar("Package Booked", { variant: "success" });
+
                 })
                 .catch((err) => {
                     console.log(err);
@@ -55,9 +57,12 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
-    const handleCart = ( p_id, q,total, date,adult, child, infant) => {
-
-        return dispatch(addToCart( p_id, q,total, date, adult, child, infant))
+    const handleCart = (p_id, q, total, date, adult, child, infant) => {
+        if (!date) {
+            enqueueSnackbar("Please Select Date", { variant: "error" });
+            return Promise.reject(new Error("Date not selected"));
+        }
+        return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
             .then((result) => {
                 console.log(result);
                 enqueueSnackbar("Added to cart successfully", { variant: "success" });
@@ -68,6 +73,9 @@ const DetailLeft = ({ ac_data, loading }) => {
                 throw err;
             });
     };
+
+
+
 
     const stylesEll = {
         fontSize: "14px",
@@ -312,75 +320,3 @@ const DetailLeft = ({ ac_data, loading }) => {
 };
 
 export default DetailLeft;
-
-
-
-
-
-// const ActivityCard = () => {
-//   const dispatch = useDispatch();
-//   const handleCart = () => {
-//     const pkg_id = 1;
-//     const quantity = 3;
-//     dispatch(addToCart(pkg_id, quantity))
-//       .then((result) => {
-//         console.log(result);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-//   return (
-//     <Box
-//       sx={{
-//         display: "flex",
-//         alignItems: "center",
-//         justifyContent: "space-between",
-//         gap: "10px",
-//         padding: "20px",
-//         border: "1px solid #EDEDED",
-//         borderRadius: "10px",
-//         marginBottom: "10px",
-//         backgroundColor: "#EDEDED",
-//       }}
-//     >
-//       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-//         <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
-//           This is the title
-//         </Typography>
-//         <Typography sx={{ fontSize: "14px", fontWeight: 600, ml: 10 }}>
-//           AED 600
-//         </Typography>
-//       </Box>
-//       <Box
-//         sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
-//       >
-//         <Box sx={{ mb: 1 }}>
-//           <Tooltip title="Add to cart">
-//             <Button
-//               onClick={handleCart}
-//               variant="contained"
-//               sx={{
-//                 color: "white",
-//                 fontSize: "12px",
-//               }}
-//             >
-//               <AddShoppingCartIcon />
-//             </Button>
-//           </Tooltip>
-//         </Box>
-
-//         <Button
-//           // onClick={handleLogDetails}
-//           variant="contained"
-//           sx={{
-//             color: "white",
-//             fontSize: "12px",
-//           }}
-//         >
-//           Book Now
-//         </Button>
-//       </Box>
-//     </Box>
-//   );
-// };

@@ -29,6 +29,7 @@ import { getActivitiesById } from "../../store/actions/categoriesActions";
 import DetailSlider from "./DetailSLider";
 import ReiewsDetail from "./ReiewsDetail";
 import RelatedData from "./RelatedData";
+import Loader from "../../components/Loader/Loader";
 
 const DetailPage = () => {
   const theme = useTheme();
@@ -47,9 +48,7 @@ const DetailPage = () => {
     color: theme.palette.primary.main,
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+
 
   useEffect(() => {
     (() => {
@@ -58,6 +57,7 @@ const DetailPage = () => {
           // console.log(result, 'hhhh')
           setData(result.data.payload);
           setLoading(false);
+
         })
         .catch((err) => {
           console.log(err);
@@ -82,7 +82,34 @@ const DetailPage = () => {
       icon: <FaClockRotateLeft style={styleType} />,
       text: "Free Cancellation 12 Hours Prior",
     },
+    {
+      icon: <FaClockRotateLeft style={styleType} />,
+      text: "Instant Confirmation",
+    },
   ];
+
+  // const renderIconsFromFeatures = () => {
+  //   const iconsToShow = [];
+  //   data1.features.forEach(feature => {
+  //     const matchedItem = infoItems.find(item => item.text === feature);
+  //     if (matchedItem) {
+  //       iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
+  //     }
+  //   });
+  //   return iconsToShow;
+  // };
+
+  const renderIconsFromFeatures = () => {
+    const iconsToShow = [];
+    data1.features.forEach(feature => {
+      const matchedItems = infoItems.filter(item => item.text === feature);
+      matchedItems.forEach(matchedItem => {
+        iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
+      });
+    });
+    return iconsToShow;
+  };
+
 
   const data = [
     {
@@ -186,7 +213,19 @@ const DetailPage = () => {
 
   return (
     <Page title="Detail Page">
-      <DetailSlider data1={data1} />
+
+{
+  loading? (
+
+    <>
+      <Box sx={{display:'flex', justifyContent:'center', alignItems:'center', height:'50vh'}}>
+      <Loader/>
+      </Box>
+    </>
+
+  ):(
+<>
+<DetailSlider data1={data1} />
       <Box sx={{ padding: "30px" }}>
         <Grid container spacing={3}>
           <Grid item lg={7} sm={12} xs={12} md={6}>
@@ -310,20 +349,16 @@ const DetailPage = () => {
                     flexWrap: "wrap",
                   }}
                 >
-                  {infoItems.map((item, index) => (
-                    <Box
-                      key={index}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "5px",
-                      }}
-                    >
-                      {item.icon}
-                      <Typography>{item.text}</Typography>
-                    </Box>
-                  ))}
+
+{renderIconsFromFeatures().map((item, index) => (
+    <Box key={index} sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+      {item.icon}
+      <Typography>{item.text}</Typography>
+    </Box>
+  ))}
+
+
+
                 </Box>
               </div>
 
@@ -440,6 +475,16 @@ const DetailPage = () => {
       </Box>
 
       <RelatedData ac_data={data1} />
+</>
+  )
+}
+
+
+
+
+
+
+
     </Page>
   );
 };

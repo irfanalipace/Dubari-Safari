@@ -1,5 +1,5 @@
 import { ArrowBack } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Page from "../../components/page";
@@ -7,39 +7,39 @@ import LeftSideComponents from "./Components/LeftSideComponents";
 import RightSideComponents from "./Components/RightSideComponents";
 import { getCart } from "../../store/actions/cartActions";
 import { useDispatch } from "react-redux";
-
+import Loader from "../../components/Loader/Loader";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 const CartMain = () => {
   const navigate = useNavigate();
   const [allCart, setAllCart] = useState([]);
-const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true); // Added loading state
+  const dispatch = useDispatch();
+const theme = useTheme()
   const handleBack = () => {
     navigate("/");
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
-
+  }, []);
 
   const getAllCart = async () => {
     dispatch(getCart())
       .then((res) => {
         const allCartData = res.data.payload;
-        console.log(allCartData, 'cart data')
+        console.log(allCartData, "cart data");
         setAllCart(allCartData);
+        setLoading(false); // Set loading to false after data fetch
       })
       .catch((err) => {
         console.error(err);
+        setLoading(false); // Set loading to false on error
       });
   };
 
   useEffect(() => {
     getAllCart();
   }, []);
-
-
-console.log(allCart[0], 'all Cart data from map')
-
 
   return (
     <>
@@ -60,16 +60,28 @@ console.log(allCart[0], 'all Cart data from map')
             Shopping Cart
           </Typography>
 
-          <Box sx={{ display: "flex", mt: 2, gap: 4 }}>
-            <Box flex={2}>
-              <Box>
-                <LeftSideComponents allCart={allCart}/>
+          {loading ? ( // Conditional rendering based on loading state
+          <Loader />
+          ) : allCart.length === 0 ? ( // Check if allCart is empty
+            <Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh" }}>
+             <Box>
+
+              <ShoppingCartIcon sx={{fontSize:'10rem', color:theme.palette.primary.main}}/>
+              
+             </Box>
+            </Typography>
+          ) : (
+            <Box sx={{ display: "flex", mt: 2, gap: 4 }}>
+              <Box flex={2}>
+                <Box>
+                  <LeftSideComponents allCart={allCart} />
+                </Box>
+              </Box>
+              <Box flex={1}>
+                <RightSideComponents allCart={allCart} />
               </Box>
             </Box>
-            <Box flex={1}>
-              <RightSideComponents allCart={allCart}/>
-            </Box>
-          </Box>
+          )}
         </Box>
       </Page>
     </>

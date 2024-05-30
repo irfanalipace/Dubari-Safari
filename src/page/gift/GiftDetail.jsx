@@ -2,10 +2,11 @@ import { Box, Button, FormControl, FormControlLabel, Grid, MenuItem, Radio, Radi
 import React, { useState } from 'react'
 import { center } from '../../components/Box/styles'
 import { useNavigate } from 'react-router';
+import ReCaptcha from '../../components/Recaptcha/ReCaptcha';
 
 const GiftDetail = () => {
 
-    const [selectedValue, setSelectedValue] = useState(''); // 30 corresponds to "Mr"
+    const [selectedValue, setSelectedValue] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -148,8 +149,11 @@ const GiftDetail = () => {
 
 
 </Grid>
+
+
 <Box mt={3}>
-  <img src='/recaptcha.png' alt='recaptcha'/>
+  {/* <img src='/recaptcha.png' alt='recaptcha'/> */}
+  <ReCaptcha/>
 </Box>
 
 
