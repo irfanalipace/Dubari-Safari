@@ -1,11 +1,14 @@
 import api from "../../utils/Api"
 
-export const addToCart = (p_id, q, total, date,) => async (dispatch) => {
+export const addToCart = (p_id, q, total, date, adult, child, infant) => async (dispatch) => {
   const body = {
     package_id: p_id,
     quantity: q,
     price: total,
     tour_date: date,
+adult:adult,
+child:child,
+infant:infant
 
   };
 
@@ -38,7 +41,7 @@ export const getCart = () => async (dispatch) => {
 
 export const deleteCart = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`user/card/${id}`);
+    const res = await api.delete(`user/cart/${id}`);
 
     return res;
   } catch (err) {

@@ -17,7 +17,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
 
-const LeftSideComponents = ({ allCart }) => {
+const LeftSideComponents = ({allCart}) => {
+  const base = 'https://dubaisafari.saeedantechpvt.com/'
 
   const navigate = useNavigate()
 
@@ -32,6 +33,9 @@ const LeftSideComponents = ({ allCart }) => {
 
   const handleDelete = (id) => {
     // setLoading(true);
+
+    console.log(id, 'cart id')
+
     dispatch(deleteCart(id))
       .then((res) => {
         // setLoading(false);
@@ -44,6 +48,7 @@ const LeftSideComponents = ({ allCart }) => {
       })
       .catch((err) => {
         console.error(err);
+
       });
   };
 
@@ -53,25 +58,37 @@ const LeftSideComponents = ({ allCart }) => {
     <>
       <Box sx={{ mt: 3 }}>
 
-        {allCart.map((val, index) => (
-          <Card sx={{ p: 2, background: "#FDF4F1" }} key={index}>
-            <Box
-              sx={{
-                display: "flex",
-                minHeight: "30vh",
-                gap: 4,
-              }}
-            >
-              <Box flex={2}>
-                <img
-                  src="/jeep.jpg"
-                  style={{
-                    width: "100%",
-                    borderRadius: "10px",
-                    height: "260px",
-                    objectFit: "cover",
-                  }}
-                />
+{allCart.map((val, index)=>(
+  <Card sx={{ p: 2, background: "#FDF4F1" }} key={index}>
+          <Box
+            sx={{
+              display: "flex",
+              minHeight: "30vh",
+              gap: 4,
+            }}
+          >
+            <Box flex={2}>
+              <img
+                src={`${base}${val.image}`}
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  height: "260px",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+            <Box flex={4}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography fontWeight="bold" variant="h6">
+                  {val.package.title}
+                </Typography>
               </Box>
               <Box flex={4}>
                 <Box

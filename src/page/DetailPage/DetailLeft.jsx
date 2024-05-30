@@ -55,9 +55,9 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
-    const handleCart = (p_id, q, total, date,) => {
+    const handleCart = ( p_id, q,total, date,adult, child, infant) => {
 
-        return dispatch(addToCart(p_id, q, total, date,))
+        return dispatch(addToCart( p_id, q,total, date, adult, child, infant))
             .then((result) => {
                 console.log(result);
                 enqueueSnackbar("Added to cart successfully", { variant: "success" });
