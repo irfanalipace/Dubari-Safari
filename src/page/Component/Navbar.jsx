@@ -482,7 +482,7 @@ const Navbar = () => {
                 cursor: "pointer",
               }}
             >
-              {authh ? (
+              {tokenAvailable ? (
                 <Box>
                   <FormControl sx={{ padding: 0 }}>
                     <Select

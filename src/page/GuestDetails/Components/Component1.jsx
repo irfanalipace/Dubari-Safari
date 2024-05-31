@@ -229,19 +229,16 @@ const Component1 = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
             <input type="radio" name="paymentMethod" id="creditCard" />
-            <Typography sx={{ fontWeight: 600 }}>Credit Card</Typography>
+            <Typography sx={{ fontWeight: 600 }}>Credit / Debit Card</Typography>
           </Box>
-          <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-            <input type="radio" name="paymentMethod" id="debitCard" />
-            <Typography sx={{ fontWeight: 600 }}>Debit Card</Typography>
-          </Box>
+
 
         </Box>
         <Typography><span style={{ color: theme.palette.primary.main, fontWeight: 600 }}>Note:</span>&nbsp; In the next step you will be redirected to your banks website to verify yourself. </Typography>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end', mt: 2 }}>
         <Button variant="contained" sx={{ textTransform: 'none', padding: '10px 40px', backgroundColor: theme.palette.primary.main, color: 'white' }}>
-          Pay Now
+          Proceed to payment
         </Button>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: "10px", mt: 2 }}>

@@ -25,7 +25,7 @@ const DetailLeft = ({ ac_data, loading }) => {
             handleCart(p_id, q, date, price)
                 .then(() => {
                     const data = {
-                        date: date,
+                        date: price,
                         person: {
                             adult: adult,
                             child: child,

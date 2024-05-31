@@ -8,7 +8,7 @@ import {
 
 const PriceCard = ({ data }) => {
   const theme = useTheme();
-  console.log(data)
+  console.log(data, 'll')
   return (
     <>
       <Box
