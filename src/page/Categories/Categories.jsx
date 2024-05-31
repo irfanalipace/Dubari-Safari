@@ -14,40 +14,65 @@ import {
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import PkgCard from "../../components/Pkg_Card/PkgCard";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../store/actions/categoriesActions";
 import Loader from "../../components/Loader/Loader";
 
 const Categories = () => {
-  const [age, setAge] = useState("");
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [sortCriteria, setSortCriteria] = useState("recommended");
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [filteredActivities, setFilteredActivities] = useState([]);
   const theme = useTheme();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
-    window.scroll(0, 0)
-  }, [])
+    window.scroll(0, 0);
+  }, []);
 
   useEffect(() => {
     dispatch(getCategories())
       .then((result) => {
-        // console.log(result, 'jj')
-        const initialCategory = result.data.payload[0];
-        setCategories(result.data.payload);
-        setSelectedCategory(initialCategory);
+        const initialCategories = result.data.payload;
+        setCategories(initialCategories);
+        const categoryIdFromState = location.state?.categoryId;
+        if (categoryIdFromState) {
+          const initialCategory = initialCategories.find(
+            (category) => category.id === categoryIdFromState
+          );
+          setSelectedCategory(initialCategory);
+        } else {
+          setSelectedCategory(initialCategories[0]);
+        }
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
         console.log(err, "ERRR");
       });
-  }, [dispatch]);
+  }, [dispatch, location.state]);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      const activities = selectedCategory.activity || [];
+      console.log(activities, 'abc')
+      if (selectedSubCategory) {
+        const filtered = activities.filter(activity =>
+          activity.sub_category?.some(sub => sub.name === selectedSubCategory)
+        );
+        setFilteredActivities(filtered);
+      } else {
+        setFilteredActivities(activities);
+      }
+    }
+  }, [selectedCategory, selectedSubCategory]);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setSortCriteria(event.target.value);
   };
 
   const navigate = useNavigate();
@@ -57,11 +82,42 @@ const Categories = () => {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
+    setSelectedSubCategory(null); // Reset selected sub-category when a new category is selected
   };
 
-  const cardData = [{ title: "Show Cruise Dubai", del: 2650, price: 2000 }];
+  const handleSubCategoryChange = (event) => {
+    setSelectedSubCategory(event.target.value);
+  };
 
-  // console.log(categories, 'jj')
+  const sortActivities = (activities, criteria) => {
+    switch (criteria) {
+      case "A-Z":
+        return [...activities].sort((a, b) => a.name.localeCompare(b.name));
+      case "Z-A":
+        return [...activities].sort((a, b) => b.name.localeCompare(a.name));
+      case "Low to high price":
+        return [...activities].sort((a, b) => {
+          const priceA = a.packages[0]?.price ?? a.packages[0]?.adult_price ?? 0;
+          const priceB = b.packages[0]?.price ?? b.packages[0]?.adult_price ?? 0;
+          return priceA - priceB;
+        });
+      case "High to low price":
+        return [...activities].sort((a, b) => {
+          const priceA = a.packages[0]?.price ?? a.packages[0]?.adult_price ?? 0;
+          const priceB = b.packages[0]?.price ?? b.packages[0]?.adult_price ?? 0;
+          return priceB - priceA;
+        });
+      default:
+        return activities;
+    }
+  };
+
+  const filteredSubCategories = selectedCategory?.sub_category?.map((subCategory) => subCategory.name) || [];
+
+  const sortedActivities = sortCriteria
+    ? sortActivities(filteredActivities, sortCriteria)
+    : filteredActivities;
+
   return (
     <Page title="Categories">
       <Box sx={{ p: 10 }}>
@@ -143,42 +199,47 @@ const Categories = () => {
           >
             Things to do in Abu Dhabi
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", flex: 1, gap: "10px" }}>
             <Typography fontWeight="bold" sx={{ whiteSpace: "nowrap", mr: 2 }}>
               Sort result by
             </Typography>
-            <FormControl fullWidth sx={{ mr: 2 }}>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <InputLabel id="demo-simple-select-label">Recommended</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
-                label="Age"
+                value={sortCriteria}
+                label="Sort By"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value="recommended">Recommended</MenuItem>
+                <MenuItem value="A-Z">A-Z</MenuItem>
+                <MenuItem value="Z-A">Z-A</MenuItem>
+                <MenuItem value="Low to high price">Low to high price</MenuItem>
+                <MenuItem value="High to low price">High to low price</MenuItem>
               </Select>
             </FormControl>
+            {filteredSubCategories.length > 0 && (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Sub Categories</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={selectedSubCategory}
+                  onChange={handleSubCategoryChange}
+                >
+                  {filteredSubCategories.map((subCategory, index) => (
+                    <MenuItem key={index} value={subCategory}>
+                      {subCategory}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
           </Box>
         </Box>
         <Grid container spacing={3} sx={{ mt: 3 }}>
-          {selectedCategory?.activity?.length === 0 ? (
+          {sortedActivities.length === 0 ? (
             <Typography
               variant="h5"
               sx={{
@@ -191,9 +252,9 @@ const Categories = () => {
               No activities found in this category
             </Typography>
           ) : (
-            selectedCategory?.activity?.map((val, index) => (
+            sortedActivities.map((val, index) => (
               <Grid item xs={12} lg={3} key={index}>
-                <PkgCard data={val} />
+                <PkgCard data={val} categories={categories} ind={index} />
               </Grid>
             ))
           )}

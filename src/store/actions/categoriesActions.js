@@ -49,3 +49,16 @@ export const Send_Gift = (body) => async (dispatch) => {
     throw err;
   }
 };
+
+export const Booking = (body) => async (dispatch) => {
+  try {
+    const res = await api.post("booking", body);
+    dispatch({
+      type: "BOOKING",
+      payload: res.data,
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};

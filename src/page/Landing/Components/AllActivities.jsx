@@ -11,14 +11,14 @@ const AllActivities = () => {
   const [categories, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const data = [
-    { name: 'Desert Safari', image: '/activity1icon.png' },
-    { name: 'Sightseeing', image: '/activity2icon.png' },
-    { name: 'Adventure', image: '/activity3icon.png' },
-    { name: 'Attractions & Experiences', image: '/activity4icon.png' },
-    { name: 'Cruising & Yachting', image: '/activity5icon.png' },
-    { name: 'Transportation', image: '/activity6icon.png' },
-  ]
+  const categoryImages = {
+    'Desert Safari': '/activity1icon.png',
+    'Sightseeing': '/activity2icon.png',
+    'Adventure': '/activity3icon.png',
+    'Attractions & Experiences': '/activity4icon.png',
+    'Cruising & Yachting': '/activity5icon.png',
+    'Transportation': '/activity6icon.png'
+  };
 
   useEffect(() => {
     dispatch(getCategories())
@@ -42,14 +42,16 @@ const AllActivities = () => {
         <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
           All Activities
         </Typography>
-        {!loading && data.map((val, ind) => {
+        {!loading && categories.map((val, ind) => {
           const categoryPath = `/${val.name.toLowerCase().replace(/\s+/g, '-')}`;
+          const imageSrc = categoryImages[val.name] || '/defaultIcon.png';
+
           return (
             <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
-              <img src={val.image} alt="" style={{}} />
+              <img src={imageSrc} alt={val.name} style={{ width: '30px', height: '30px' }} />
               <Button
                 sx={{ textTransform: "none", color: "grey" }}
-                onClick={() => navigate('/desert-safari')}
+                onClick={() => navigate('/desert-safari', { state: { categoryId: val.id } })}
               >
                 {val.name}
               </Button>

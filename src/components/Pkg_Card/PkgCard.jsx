@@ -8,48 +8,34 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useNavigate } from "react-router";
-const PkgCard = ({ data }) => {
 
-  const base = 'https://dubaisafari.saeedantechpvt.com/'
-  console.log(data, 'dada')
-  // console.log(data.packages[0].price, 'jk')
+const PkgCard = ({ data, categories, ind }) => {
+  const base = 'https://dubaisafari.saeedantechpvt.com/';
   const navigate = useNavigate();
+
   const descriptionStyle = {
-    // display: 'block',
     display: '-webkit-box',
     overflow: 'hidden',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
     textOverflow: 'ellipsis',
     color: 'grey'
   };
+
+  const category = categories.find(category => category.id === data.category_id);
+  const subCategory = category?.sub_category ? category.sub_category[ind]?.name : '';
+  // console.log(data, 'ac')
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card onClick={() => navigate(`/details/${data.id}`)} sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}>
       <CardMedia
         sx={{ height: 240, borderRadius: "8px" }}
         image={`${base}${data?.image_url}`}
         title="green iguana"
       />
       <CardContent>
-        <Box
-          sx={{
-            background: "#fff",
-            borderRadius: "20px",
-            mt: -4,
-            mb: 4,
-            p: 1.15,
-            boxShadow: 3,
-            width: "60%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <StarIcon sx={{ color: "red", mr: 1 }} />
-          <Typography fontSize="17px">4.0 (23)</Typography>
-          <Typography fontSize="19px" sx={{ ml: 1 }}>
-            😒❤️
-          </Typography>
-        </Box>
+        <Typography color="textSecondary" component="div">
+          {subCategory}
+        </Typography>
         <Typography gutterBottom variant="h5" component="div">
           {data?.name}
         </Typography>
@@ -66,14 +52,8 @@ const PkgCard = ({ data }) => {
           </Typography>
           <Box>
             <Typography sx={{ fontSize: "15px", color: "grey" }}>
-              {/* <del>$3,500</del> */}
-              <Typography
-                color="primary"
-                display="inline"
-                fontWeight="bold"
-                sx={{ ml: 1 }}
-              >
-                {data?.packages[0]?.price}
+              <Typography color="primary" display="inline" fontWeight="bold" sx={{ ml: 1 }}>
+                {data?.packages[0]?.price !== null ? data?.packages[0]?.price : data?.packages[0]?.adult_price}
               </Typography>
             </Typography>
           </Box>
