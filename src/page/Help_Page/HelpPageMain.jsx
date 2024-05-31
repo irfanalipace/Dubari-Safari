@@ -83,7 +83,7 @@ const HelpPageMain = () => {
 
   return (
     <>
-      <Page title="Help">
+      <Page title="Help | Arabia Horizon">
         <Box
           sx={{
             backgroundColor: "#ffc0b3",
@@ -166,7 +166,7 @@ const HelpPageMain = () => {
                     size="small"
                   />
                 </Box>
-                <Box sx={{ textAlign: "start", width: '150%' }}>
+                {/* <Box sx={{ textAlign: "start", width: '150%' }}>
                   <TextField
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -190,7 +190,7 @@ const HelpPageMain = () => {
                     placeholder="Enter Your Description"
                     size="small"
                   />
-                </Box>
+                </Box> */}
 
                 <Button
                   variant="contained"

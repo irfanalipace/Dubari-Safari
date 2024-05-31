@@ -16,10 +16,18 @@ const Search_Results = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(50000000);
 
   const handleCategorySelect = (categoryId, subcategoryId) => {
     setSelectedCategory(categoryId);
     setSelectedSubcategory(subcategoryId);
+  };
+
+
+  const handleBudgetChange = (min, max) => {
+    setMinPrice(min);
+    setMaxPrice(max);
   };
 
   return (
@@ -30,10 +38,10 @@ const Search_Results = () => {
         </Button>
         <Box sx={{ display: "flex", mt: 4, gap: 4 }}>
           <Box flex={1}>
-            <LeftAside onCategorySelect={handleCategorySelect}/>
+            <LeftAside onCategorySelect={handleCategorySelect} onBudgetChange={handleBudgetChange}/>
           </Box>
           <Box flex={3}>
-            <RightAside selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory}/>
+            <RightAside selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} minPrice={minPrice} maxPrice={maxPrice}/>
           </Box>
         </Box>
       </Box>

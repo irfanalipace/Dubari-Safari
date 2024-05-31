@@ -88,17 +88,6 @@ const DetailPage = () => {
     },
   ];
 
-  // const renderIconsFromFeatures = () => {
-  //   const iconsToShow = [];
-  //   data1.features.forEach(feature => {
-  //     const matchedItem = infoItems.find(item => item.text === feature);
-  //     if (matchedItem) {
-  //       iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
-  //     }
-  //   });
-  //   return iconsToShow;
-  // };
-
   const renderIconsFromFeatures = () => {
     const iconsToShow = [];
     data1.features.forEach(feature => {
@@ -107,8 +96,54 @@ const DetailPage = () => {
         iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
       });
     });
+    if (data1.duration) {
+      iconsToShow.push({ icon: <FaClockRotateLeft style={styleType} />, text: `Duration : ${data1.duration}` });
+    }
+
+    if (data1.cancellation_duration) {
+      iconsToShow.push({ icon: <FaClockRotateLeft style={styleType} />, text: `Free Cancellation ${data1.cancellation_duration} Hours Prior` });
+    }
+
     return iconsToShow;
   };
+
+
+
+
+  // const renderIconsFromFeatures = () => {
+  //   const iconsToShow = [];
+  //   data1.features.forEach(feature => {
+  //     const matchedItems = infoItems.filter(item => item.text === feature);
+  //     matchedItems.forEach(matchedItem => {
+  //       iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
+  //     });
+  //   });
+
+
+  //   const operatingHoursItem = infoItems.find(item => item.text === "Operating Hours");
+  //   const freeCancellationItem = infoItems.find(item => item.text === "Free Cancellation 12 Hours Prior");
+
+  //   if (operatingHoursItem) {
+  //     iconsToShow.push({ icon: operatingHoursItem.icon, text: operatingHoursItem.text });
+  //   }
+
+  //   if (freeCancellationItem) {
+  //     iconsToShow.push({ icon: freeCancellationItem.icon, text: freeCancellationItem.text });
+  //   }
+
+  //   return iconsToShow;
+  // };
+// ------------------------------------------------------
+  // const renderIconsFromFeatures = () => {
+  //   const iconsToShow = [];
+  //   data1.features.forEach(feature => {
+  //     const matchedItems = infoItems.filter(item => item.text === feature);
+  //     matchedItems.forEach(matchedItem => {
+  //       iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
+  //     });
+  //   });
+  //   return iconsToShow;
+  // };
 
 
   const data = [

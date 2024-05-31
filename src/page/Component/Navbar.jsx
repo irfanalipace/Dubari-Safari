@@ -34,8 +34,8 @@ import { PiBuildingsBold } from "react-icons/pi";
 const Navbar = () => {
   const theme = useTheme();
   const userProfileImage = useSelector((state) => state.auth.user);
-  console.log(userProfileImage, 'imageeee')
-  const authh = useSelector((state) => state.auth.isAuthenticated)
+  console.log(userProfileImage, "imageeee");
+  const authh = useSelector((state) => state.auth.isAuthenticated);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -140,18 +140,14 @@ const Navbar = () => {
   const openPopover = Boolean(anchorEl);
 
   const data = [
-    { name: 'Desert Safari' },
-    { name: 'Sightseeing' },
-    { name: 'Adventure' },
-    { name: 'Attraction & Experiences' },
-    { name: 'Cruising & Yachting' },
-    { name: 'Transportation' },
+    { name: "Desert Safari" },
+    { name: "Sightseeing" },
+    { name: "Adventure" },
+    { name: "Attraction & Experiences" },
+    { name: "Cruising & Yachting" },
+    { name: "Transportation" },
   ];
-  const data1 = [
-    { name: 'Things to do' },
-    { name: 'UAE Visa' },
-
-  ];
+  const data1 = [{ name: "Things to do" }, { name: "UAE Visa" }];
 
   // const ss = useSelector((state) => console.log(state, 'ssssssss'))
 
@@ -160,7 +156,7 @@ const Navbar = () => {
       <Box
         sx={{
           backgroundColor: "white",
-          padding: "1rem 5%",
+          padding: "0.8rem 5%",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -180,14 +176,14 @@ const Navbar = () => {
           <>
             <Box
               width={isSmallScreen ? "100%" : "7rem"}
-              marginBottom={isSmallScreen ? "1rem" : "0"}
-            >
+              marginBottom={isSmallScreen ? "1rem" : "1rem"}>
               <FormControl fullWidth size="small" variant="standard">
                 <InputLabel
                   id="demo-simple-select-label"
                   sx={{ borderBottom: "none" }}
                   onMouseEnter={handlePopoverOpen}
                   onMouseLeave={handlePopoverClose}
+
                 >
                   What We Do
                 </InputLabel>
@@ -195,9 +191,7 @@ const Navbar = () => {
 
               <Popover
                 id="mouse-over-popover"
-                sx={{
-                  pointerEvents: "none",
-                }}
+                sx={{ pointerEvents: "none" }}
                 open={openPopover}
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -214,15 +208,15 @@ const Navbar = () => {
                 <Box
                   p={2}
                   sx={{ display: "flex" }}
-                  onMouseEnter={handlePopoverOpen}
-                  onMouseLeave={handlePopoverClose}
+                  onMouseEnter={handlePopoverOpen} // Keep popover open
+                  onMouseLeave={handlePopoverClose} // Close popover when mouse leaves
                 >
                   <Box
                     sx={{
                       display: "flex",
                       flexDirection: "column",
                       gap: "20px",
-                      padding: '10px 30px'
+                      padding: "10px 30px",
                     }}
                   >
                     <Box
@@ -230,7 +224,6 @@ const Navbar = () => {
                         display: "flex",
                         gap: "10px",
                         alignItems: "center",
-
                       }}
                     >
                       <IoIosBicycle
@@ -255,20 +248,22 @@ const Navbar = () => {
                       </Typography>
                     ))}
                   </Box>
-                  <Box sx={{ borderLeft: '1px solid #DCDCDC', marginTop: '55px' }}></Box>
-                  <Box sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                    padding: '10px 30px',
-
-                  }}>
+                  <Box
+                    sx={{ borderLeft: "1px solid #DCDCDC", marginTop: "55px" }}
+                  ></Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                      padding: "10px 30px",
+                    }}
+                  >
                     <Box
                       sx={{
                         display: "flex",
                         gap: "10px",
                         alignItems: "center",
-
                       }}
                     >
                       <PiBuildingsBold
@@ -293,9 +288,9 @@ const Navbar = () => {
                       </Typography>
                     ))}
                   </Box>
-
                 </Box>
               </Popover>
+
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -478,11 +473,11 @@ const Navbar = () => {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                marginTop: "1rem",
+
                 cursor: "pointer",
               }}
             >
-              {authh ? (
+              {tokenAvailable ? (
                 <Box>
                   <FormControl sx={{ padding: 0 }}>
                     <Select
@@ -601,7 +596,7 @@ const Navbar = () => {
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <HelpOutlineIcon />
-            <Typography sx={{ fontSize: '1.2rem' }}> Eng/AED</Typography>
+            <Typography sx={{ fontSize: "1.2rem" }}> Eng/AED</Typography>
           </Box>
 
           <Box
@@ -806,7 +801,7 @@ const Navbar = () => {
               value={searchKeyword}
               onChange={handleSearchChange}
               onKeyDown={(event) => {
-                if (event.key === 'Enter') {
+                if (event.key === "Enter") {
                   handleSearchClick();
                 }
               }}
@@ -831,7 +826,10 @@ const Navbar = () => {
                   padding: 0,
                 },
                 endAdornment: (
-                  <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
+                  <InputAdornment
+                    position="end"
+                    style={{ padding: 0, margin: 0 }}
+                  >
                     <Button
                       sx={{
                         backgroundColor: theme.palette.primary.main,
@@ -852,8 +850,6 @@ const Navbar = () => {
               }}
             />
           </Box>
-
-
         </Box>
       </Drawer>
       <Divider />

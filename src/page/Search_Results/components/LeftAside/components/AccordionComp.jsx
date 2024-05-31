@@ -14,11 +14,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../../../../store/actions/categoriesActions";
 
-const AccordionComp = ({ title, onCategorySelect }) => {
+const AccordionComp = ({ title, onCategorySelect, defaultExpanded }) => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedSections, setExpandedSections] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
   useEffect(() => {
     dispatch(getCategories())
@@ -34,20 +36,27 @@ const AccordionComp = ({ title, onCategorySelect }) => {
   }, [dispatch]);
 
   const handleCheckboxChange = (index) => (event) => {
-    const newExpandedSections = [...expandedSections];
-    newExpandedSections[index] = event.target.checked;
+    const newExpandedSections = Array(categories.length).fill(false);
+    newExpandedSections[index] = true;
     setExpandedSections(newExpandedSections);
+
+    const category = categories[index];
+    setSelectedCategory(category.id);
+    setSelectedSubcategory(null);
+    onCategorySelect(category.id, null);
   };
 
   const handleDropDown = (index, category) => () => {
     const newExpandedSections = [...expandedSections];
     newExpandedSections[index] = !newExpandedSections[index];
     setExpandedSections(newExpandedSections);
-    onCategorySelect(category.id, null); // Pass category_id with no subcategory_id
+    onCategorySelect(category.id, null);
   };
 
   const handleSubcategorySelect = (category, subcategory) => () => {
-    onCategorySelect(category.id, subcategory.id); // Pass both category_id and subcategory_id
+    setSelectedCategory(category.id);
+    setSelectedSubcategory(subcategory.id);
+    onCategorySelect(category.id, subcategory.id);
   };
 
   const renderDetails = (index, category) => (
@@ -61,7 +70,12 @@ const AccordionComp = ({ title, onCategorySelect }) => {
           }}
         >
           <FormControlLabel
-            control={<Checkbox onChange={handleCheckboxChange(index)} />}
+            control={
+              <Checkbox
+                checked={selectedCategory === category.id}
+                onChange={handleCheckboxChange(index)}
+              />
+            }
             label={category.name}
           />
           <ExpandMoreIcon
@@ -77,7 +91,12 @@ const AccordionComp = ({ title, onCategorySelect }) => {
           {category.sub_category.map((subCategory, idx) => (
             <FormControlLabel
               key={idx}
-              control={<Checkbox onChange={handleSubcategorySelect(category, subCategory)} />}
+              control={
+                <Checkbox
+                  checked={selectedSubcategory === subCategory.id}
+                  onChange={handleSubcategorySelect(category, subCategory)}
+                />
+              }
               label={subCategory.name}
             />
           ))}
@@ -87,9 +106,9 @@ const AccordionComp = ({ title, onCategorySelect }) => {
   );
 
   return (
-    <Accordion>
+    <Accordion defaultExpanded={defaultExpanded}>
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
+        expandIcon={<ExpandMoreIcon style={{ color: "black" }} />}
         aria-controls="panel1-content"
         id="panel1-header"
       >

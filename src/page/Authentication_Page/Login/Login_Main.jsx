@@ -77,7 +77,7 @@ const navigate = useNavigate()
     <>
 <Page title="Login">
 
-      <Box>
+      <Box mt={2}>
         <Grid container spacing={3}>
           <Grid item lg={6} md={6} sm={12} xs={12}>
             <Box sx={{ padding: "2rem 8rem" }}>

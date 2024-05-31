@@ -43,7 +43,7 @@ const theme = useTheme()
 
   return (
     <>
-      <Page title="Cart">
+      <Page title="Cart | Arabia Horizon">
         <Box sx={{ padding: "1rem 5%" }}>
           <Button
             variant="outlined"
@@ -67,7 +67,7 @@ const theme = useTheme()
              <Box>
 
               <ShoppingCartIcon sx={{fontSize:'10rem', color:theme.palette.primary.main}}/>
-              
+
              </Box>
             </Typography>
           ) : (

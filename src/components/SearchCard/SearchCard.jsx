@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   IconButton,
+  Modal,
   Rating,
   Typography,
   useTheme,
@@ -63,8 +64,12 @@ const SearchCard = () => {
 
   return (
     <>
-       {loading ? ( // Conditional rendering based on loading state
-          <Loader />
+       {loading ? (
+
+<Box sx={{display:'flex', justifyContent:'center', alignItems:'center', height:'30vh'}}>
+<Loader />
+
+</Box>
           ) : wishList.length === 0 ? ( // Check if allCart is empty
             <Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh", marginTop:'4rem' }}>
               No Activity is Added yet
@@ -154,9 +159,12 @@ const SearchCard = () => {
                     <Typography variant="h6" color="green">
                       Available Today
                     </Typography>
-                    <Typography variant="h4" fontWeight="bold">
-                      $2500
-                    </Typography>
+                    {val.activity.packages.map(pkg => (
+            <Typography variant="h4" fontWeight="bold" fontSize={'1.5rem'} key={pkg.id}>
+              AED : {pkg.price}
+            </Typography>
+          ))}
+
                   </Box>
                 </Box>
               </Box>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
@@ -18,6 +18,14 @@ const DetailLeft = ({ ac_data, loading }) => {
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme()
     // const {date} = useParams()
+
+    useEffect(() => {
+        // Set the current date as the initial date
+        const currentDate = new Date().toISOString().split("T")[0];
+        setDate(currentDate);
+    }, []);
+
+
     const handleLogDetails = (totalPrice, p_id, q, date, price) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });

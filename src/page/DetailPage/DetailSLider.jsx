@@ -32,23 +32,25 @@ const DetailSlider = ({ data1 }) => {
     console.log(img, 'jjj')
     return (
         <div>
-            <Grid container spacing={1}>
+            <Grid container spacing={0.5}>
                 <Grid item xs={8} sx={{ position: 'relative' }}>
                     <img src={`${base}${img?.[0]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '80vh', objectFit: 'cover' }} />
                     <Box sx={{ position: 'absolute', top: 50, left: 50 }}>
 
                         <Button onClick={handleBack} variant='standard' sx={{
-                            fontSize: '14px', backgroundColor: '#F3F3F3', borderRadius: '5px', padding: '10px', color: 'black', textTransform: 'none'
+                            fontSize: '14px', backgroundColor: '#F3F3F3', borderRadius: '5px', padding: '10px', color: 'black', textTransform: 'none', ':hover':{
+                                backgroundColor:'#F3F3F3'
+                            }
                         }}><FaLongArrowAltLeft /> &nbsp;&nbsp; Back to Homepage</Button>
                     </Box>
                 </Grid>
                 <Grid item xs={4} sx={{ position: 'relative' }}>
-                    <Grid container direction="column" spacing={1}>
+                    <Grid container direction="column" spacing={0}>
                         <Grid item>
                             <img src={`${base}${img?.[1]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '40vh', objectFit: 'cover' }} />
                         </Grid>
                         <Grid item>
-                            <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '38vh', objectFit: 'cover' }} />
+                            <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '39vh', objectFit: 'cover' }} />
                         </Grid>
                         <Box sx={{ position: 'absolute', top: 50, right: 50 }}>
                             <Button variant="standard" onClick={handleOpen} style={{ width: '100%', borderRadius: "20px", textTransform: 'none', backgroundColor: '#F3F3F3', color: theme.palette.primary.main, fontWeight: 600 }}>

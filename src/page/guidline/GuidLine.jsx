@@ -1,7 +1,10 @@
 import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const GuidLine = () => {
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    })
     const data1 = [
         {
             title: 'How to Book',

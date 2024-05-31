@@ -1,4 +1,12 @@
-import { Box, Button, Card, IconButton, Rating, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  IconButton,
+  Rating,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,13 +17,15 @@ import { getActivities } from "../../../../store/actions/categoriesActions";
 import Loader from "../../../../components/Loader/Loader";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { addToWishList, getWishList } from "../../../../store/actions/wishListActions";
+import {
+  addToWishList,
+  getWishList,
+} from "../../../../store/actions/wishListActions";
 import { useSnackbar } from "notistack";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router";
 
-
-const RightAside = ({ selectedCategory, selectedSubcategory }) => {
+const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice  }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [wishList, setWishList] = useState([]);
@@ -25,7 +35,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory }) => {
   const [age, setAge] = useState("");
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const storedKeyword = localStorage.getItem("searchKeyword");
   useEffect(() => {
     if (storedKeyword) {
@@ -47,31 +57,62 @@ const navigate = useNavigate()
       });
   }, [dispatch]);
 
+
+
   useEffect(() => {
-    filterActivities(keyword, selectedCategory, selectedSubcategory); // Pass category and subcategory to the filter function
-  }, [keyword, activities, selectedCategory, selectedSubcategory]);
+    filterActivities(keyword, selectedCategory, selectedSubcategory);
+  }, [keyword, activities, selectedCategory, selectedSubcategory, minPrice, maxPrice]);
 
   const filterActivities = (keyword, selectedCategory, selectedSubcategory) => {
-    // Filter activities based on keyword, category, and subcategory
     let filteredResults = activities.filter((activity) => {
       const isMatchedKeyword = activity.name.toLowerCase().includes(keyword.toLowerCase());
       const isMatchedCategory = selectedCategory ? activity.category_id === selectedCategory : true;
       const isMatchedSubcategory = selectedSubcategory ? activity.subcategory_id === selectedSubcategory : true;
-      return isMatchedKeyword && isMatchedCategory && isMatchedSubcategory;
+      const passesPriceRange = activity.packages.some(pkg => {
+        const price = activity.packages[0].category === "private" ? activity.packages[0].price : activity.packages[0].adult_price;
+        return price >= minPrice && price <= maxPrice;
+      });
+      return isMatchedKeyword || isMatchedCategory || isMatchedSubcategory || passesPriceRange;
+      // return isMatchedKeyword && isMatchedCategory && isMatchedSubcategory && passesPriceRange;
+
     });
-
-    if ((selectedCategory || selectedSubcategory) && filteredResults.length === 0) {
-      // If no activities match the selected category or subcategory
-      setFilteredActivities([]);
-      return;
-    }
-
     setFilteredActivities(filteredResults);
   };
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    const value = event.target.value;
+
+    if (value === "accending-order") {
+      const accendingSortedActivities = [...filteredActivities].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setFilteredActivities(accendingSortedActivities);
+    } else if (value === "decending-order") {
+      const decendingSortedActivities = [...filteredActivities].sort((b, a) =>
+        a.name.localeCompare(b.name)
+      );
+      setFilteredActivities(decendingSortedActivities);
+    } else if (value === "highest-price") {
+      const highestPriceSortedActivities = [...filteredActivities].sort((b, a) =>
+        a.packages.reduce((max, pkg) => Math.max(max, pkg.price), 0) -
+        b.packages.reduce((max, pkg) => Math.max(max, pkg.price), 0)
+      );
+      setFilteredActivities(highestPriceSortedActivities);
+    } else if (value === "lowest-price") {
+      const lowestPriceSortedActivities = [...filteredActivities].sort((a, b) =>
+        b.packages.reduce((min, pkg) => Math.min(min, pkg.price), Infinity) -
+        a.packages.reduce((min, pkg) => Math.min(min, pkg.price), Infinity)
+      );
+      setFilteredActivities(lowestPriceSortedActivities);
+    } else {
+
+      setFilteredActivities(activities);
+    }
+
+    setAge(value);
   };
+
+
 
   const truncateDescription = (description) => {
     const words = description.split(" ");
@@ -83,41 +124,30 @@ const navigate = useNavigate()
   };
 
   const handleFavoriteClick = (activityId) => {
-
-    console.log(activityId, 'iddddddd')
+    console.log(activityId, "iddddddd");
 
     dispatch(addToWishList(activityId))
-    .then((result) => {
-
-      enqueueSnackbar("Added to Wishlist", { variant: "success" });
-
-
-    })
-    .catch((err) => {
-      console.log(err, "Error");
-          });
-
+      .then((result) => {
+        enqueueSnackbar("Added to Wishlist", { variant: "success" });
+      })
+      .catch((err) => {
+        console.log(err, "Error");
+      });
   };
 
+  useEffect(() => {
+    dispatch(getWishList())
+      .then((result) => {
+        setWishList(result.data.payload);
+      })
+      .catch((err) => {
+        console.log(err, "Error fetching wishlist");
+      });
+  }, [dispatch]);
 
-
-
-useEffect(()=>{
-  dispatch(getWishList())
-  .then((result) => {
-    setWishList(result.data.payload);
-
-  })
-  .catch((err) => {
-    console.log(err, "Error fetching categories");
-
-  });
-},[dispatch])
-
-const isActivityInWishlist = (activityId) => {
-  return wishList.some((item) => item.activity_id === activityId);
-};
-
+  const isActivityInWishlist = (activityId) => {
+    return wishList.some((item) => item.activity_id === activityId);
+  };
 
   return (
     <Box>
@@ -140,21 +170,36 @@ const isActivityInWishlist = (activityId) => {
             label="Recommended"
             onChange={handleChange}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={'recommended'}>Recommended</MenuItem>
+            <MenuItem value={"highest-price"}>Highest Price</MenuItem>
+            <MenuItem value={"lowest-price"}>Lowest Price</MenuItem>
+            <MenuItem value={"accending-order"}>A to Z</MenuItem>
+            <MenuItem value={"decending-order"}>Z to A</MenuItem>
           </Select>
         </FormControl>
       </Box>
       {loading ? (
         <Loader />
       ) : filteredActivities.length === 0 ? (
-<Box sx={{display:'flex', ustifyContent:'center', alignItems:'center', height:'50vh',}}>
-<Typography variant="h5" sx={{paddingLeft:'20rem'}}>No Activity Available</Typography>
-</Box>
+        <Box
+          sx={{
+            display: "flex",
+            ustifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
+          <Typography variant="h5" sx={{ paddingLeft: "20rem" }}>
+            No Activity Available
+          </Typography>
+        </Box>
       ) : (
         filteredActivities.map((val, ind) => (
-          <Box sx={{ mt: 3 }} key={ind} onClick={() => navigate(`/details/${val.id}`)}>
+          <Box
+            sx={{ mt: 3 }}
+            key={ind}
+            onClick={() => navigate(`/details/${val.id}`)}
+          >
             <Card sx={{ p: 2, background: "#FDF4F1" }}>
               <Box
                 sx={{
@@ -186,15 +231,26 @@ const isActivityInWishlist = (activityId) => {
                       {val.name}
                     </Typography>
 
-                    <IconButton onClick={() => handleFavoriteClick(val.id)}>
+                    {/* <IconButton onClick={() => handleFavoriteClick(val.id)}>
                       {isActivityInWishlist(val.id) ? (
                         <FavoriteIcon sx={{ fontSize: "35px", color: "red" }} />
                       ) : (
                         <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
                       )}
-                    </IconButton>
-                  </Box>
+                    </IconButton> */}
 
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <IconButton onClick={() => handleFavoriteClick(val.id)}>
+                        {isActivityInWishlist(val.id) ? (
+                          <FavoriteIcon
+                            sx={{ fontSize: "35px", color: "red" }}
+                          />
+                        ) : (
+                          <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
+                        )}
+                      </IconButton>
+                    </div>
+                  </Box>
 
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Rating
@@ -241,9 +297,14 @@ const isActivityInWishlist = (activityId) => {
                     <Typography variant="h6" color="green">
                       Cancellation Before : {val.cancellation_duration} hours
                     </Typography>
-                    <Typography variant="h4" fontWeight="bold">
-                      $2500
-                    </Typography>
+
+                    {val.packages && val.packages.length > 0 && (
+                        <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
+                          {val.packages[0].category === "private" ?
+                            `AED ${val.packages[0].price}` :
+                            `AED ${val.packages[0].adult_price}`}
+                        </Typography>
+                      )}
                   </Box>
                 </Box>
               </Box>

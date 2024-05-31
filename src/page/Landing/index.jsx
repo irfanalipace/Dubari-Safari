@@ -11,7 +11,7 @@ import OfficeLocation from "./Components/OfficeLocation";
 import OurPartners from "./Components/OurPartners";
 import WhatWeDo from "./Components/WhatWeDo";
 import AllActivities from "./Components/AllActivities";
-
+import Page from "../../components/page";
 const Landing = () => {
 
   useEffect(() => {
@@ -22,21 +22,24 @@ const Landing = () => {
   return (
     <>
 
+<Page title='Arabia Horizon | No 1 Tour Company in Dubai '>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
+<div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
 
-        <Header />
+<Header />
 
-        <ChooseUs />
-        <Popular />
-      </div>
+<ChooseUs />
+<Popular />
+</div>
 
-      <WhatWeDo />
-      {/* <DubaiLeading /> */}
-      {/* <OurPartners /> */}
-      {/* <SpecialOffer /> */}
-      {/* <OfficeLocation /> */}
+<WhatWeDo />
+{/* <DubaiLeading /> */}
+{/* <OurPartners /> */}
+{/* <SpecialOffer /> */}
+{/* <OfficeLocation /> */}
 
+
+</Page>
     </>
   );
 };
