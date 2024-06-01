@@ -19,7 +19,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux"; // Import useSelector
 
-const RightSideComponents = ({ allCart }) => {
+const RightSideComponents = ({ allCart, totalPrice }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated); // Get the authentication status from Redux
@@ -54,9 +54,8 @@ const RightSideComponents = ({ allCart }) => {
           background: "#fff",
         }}
       >
-        {allCart.map((val, ind) => (
-          <Box
-            key={ind}
+<Box
+
             sx={{
               display: "flex",
               justifyContent: "space-between",
@@ -67,7 +66,10 @@ const RightSideComponents = ({ allCart }) => {
               variant="h1"
               sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
             >
-              Total (10 Activity)
+            {/* Total ({allCart.length} Activit{allCart.length !== 1 ? 'ies' : ''}) */}
+            Total ({allCart.length} Activit{allCart.length !== 1 ? 'ies' : ''})
+
+              {/* Total (10 Activity) */}
             </Typography>
             <Box>
               <Typography
@@ -79,7 +81,7 @@ const RightSideComponents = ({ allCart }) => {
                   marginBottom: "0.5rem",
                 }}
               >
-                $ {val.price}
+               AED :  {totalPrice}
               </Typography>
               <Typography
                 variant="h1"
@@ -89,7 +91,6 @@ const RightSideComponents = ({ allCart }) => {
               </Typography>
             </Box>
           </Box>
-        ))}
 
         <Divider />
 
@@ -109,7 +110,7 @@ const RightSideComponents = ({ allCart }) => {
           >
             Explore more activities
           </Button>
-{/* 
+{/*
           {!isAuthenticated && (
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
               <Typography>

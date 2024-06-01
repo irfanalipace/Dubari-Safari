@@ -14,6 +14,8 @@ const CartMain = () => {
   const [allCart, setAllCart] = useState([]);
   const [loading, setLoading] = useState(true); // Added loading state
   const dispatch = useDispatch();
+  const [totalPrice, setTotalPrice] = useState(0); // Added state for total price
+
 const theme = useTheme()
   const handleBack = () => {
     navigate("/");
@@ -74,11 +76,11 @@ const theme = useTheme()
             <Box sx={{ display: "flex", mt: 2, gap: 4 }}>
               <Box flex={2}>
                 <Box>
-                  <LeftSideComponents allCart={allCart} />
+                  <LeftSideComponents allCart={allCart} setTotalPrice={setTotalPrice} setAllCart={setAllCart}/>
                 </Box>
               </Box>
               <Box flex={1}>
-                <RightSideComponents allCart={allCart} />
+                <RightSideComponents allCart={allCart} totalPrice={totalPrice} />
               </Box>
             </Box>
           )}

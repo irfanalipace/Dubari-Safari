@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -13,22 +13,33 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { IoSyncOutline } from "react-icons/io5";
 import { deleteCart, getCart } from "../../../store/actions/cartActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useSnackbar } from "notistack";
 
-const LeftSideComponents = ({ allCart }) => {
-  const base = "https://dubaisafari.saeedantechpvt.com";
+const LeftSideComponents = ({ setTotalPrice  }) => {
 
+  const base = "https://dubaisafari.saeedantechpvt.com";
   const navigate = useNavigate();
   const theme = useTheme();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(true); // State to track loading
+  const [loading, setLoading] = useState(true);
+
+  const allCart = useSelector((state) => state.cart.cart.payload);
 
   const calculateTotalGuests = (adult, child, infant) => {
     return adult + child + infant;
   };
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const total = allCart.reduce((sum, item) => sum + item.price, 0);
+    setTotalPrice(total);
+  }, [allCart, setTotalPrice]);
 
   const handleDelete = (id) => {
     setLoading(true);
@@ -36,10 +47,11 @@ const LeftSideComponents = ({ allCart }) => {
     dispatch(deleteCart(id))
       .then((res) => {
         setLoading(false);
-
+dispatch(getCart())
         enqueueSnackbar("Activity Removed", { variant: "success" });
-        const updatedCart = allCart.filter(item => item.id !== id);
-        setAllCart(updatedCart);
+
+        // const updatedCart = allCart.filter(item => item.id !== id);
+        // setAllCart(updatedCart);
       })
       .catch((err) => {
         console.error(err);
@@ -57,7 +69,7 @@ const LeftSideComponents = ({ allCart }) => {
           const image = val.package.activity.activity_images[0]?.filename;
 
           return (
-            <Card sx={{ p: 2, background: "#FDF4F1" }} key={index}>
+            <Card sx={{ p: 2, background: "#FDF4F1", mb:4 }} key={index} >
               <Box sx={{ minHeight: "30vh", gap: 4 }}>
                 <Box
                   sx={{

@@ -28,7 +28,7 @@ export const userLogin = (formValues) => async (dispatch) => {
 export const updateProfile = (formValues) => async (dispatch) => {
   try {
     const res = await api.post("user/update/profile", formValues);
-    
+
     return res;
   } catch (err) {
     throw err;
@@ -47,3 +47,16 @@ export const updatePassword = (formValues) => async (dispatch) => {
     throw err;
   }
 };
+
+export const logout = () => async (dispatch) => {
+  try {
+
+    dispatch({
+      type: "SUCCESS_LOGOUT"
+    });
+  } catch (err) {
+    console.error("Logout failed:", err);
+    throw err;
+  }
+};
+

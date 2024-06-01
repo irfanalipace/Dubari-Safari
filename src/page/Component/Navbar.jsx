@@ -26,16 +26,25 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoIosBicycle } from "react-icons/io";
 import { FaChevronRight } from "react-icons/fa6";
 import { PiBuildingsBold } from "react-icons/pi";
+import { logout } from "../../store/actions/authActions";
 
 const Navbar = () => {
   const theme = useTheme();
-  const userProfileImage = useSelector((state) => state.auth.user);
-  console.log(userProfileImage, "imageeee");
+  const userData = useSelector((state) => state.auth.user);
+  console.log(userData, "imageeee");
   const authh = useSelector((state) => state.auth.isAuthenticated);
+
+  const cartData = useSelector((state) => state.cart.cart.payload);
+  const cartItemCount = cartData.length;
+  // const wishlistData = useSelector((state) => state.wishlist.wishlist.payload);
+  // const wishlistCount = wishlistData.length;
+
+
+  console.log(authh, 'authhhhhhhh')
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -58,7 +67,7 @@ const Navbar = () => {
   };
 
   const [tokenAvailable, setTokenAvailable] = useState(false);
-
+const dispatch = useDispatch()
   useEffect(() => {
     const token = localStorage.getItem("token");
     setTokenAvailable(token);
@@ -66,8 +75,13 @@ const Navbar = () => {
 
   const handleMenuItemClick = (value) => {
     if (value === "Logout") {
-      localStorage.removeItem("token");
-      setTokenAvailable(false);
+      // localStorage.removeItem("token");
+      // setTokenAvailable(false);
+
+
+      dispatch(logout())
+
+
     } else if (value === "Manage Profile") {
       navigate("/manage-profile");
     } else if (value === "Booking") {
@@ -404,6 +418,8 @@ const Navbar = () => {
               >
                 <Badge
                   badgeContent={wishListLength}
+                  // badgeContent={wishlistCount}
+
                   color="primary"
                   anchorOrigin={{
                     vertical: "top",
@@ -444,7 +460,8 @@ const Navbar = () => {
                 }}
               >
                 <Badge
-                  badgeContent={0}
+                  // badgeContent={0}
+                  badgeContent={cartItemCount}
                   color="primary"
                   anchorOrigin={{
                     vertical: "top",
@@ -477,7 +494,7 @@ const Navbar = () => {
                 cursor: "pointer",
               }}
             >
-              {tokenAvailable ? (
+              {authh ? (
                 <Box>
                   <FormControl sx={{ padding: 0 }}>
                     <Select
@@ -502,7 +519,7 @@ const Navbar = () => {
                             src="/avatar.jpg"
                             sx={{ marginRight: "8px" }}
                           />
-                          Profile
+                          {userData.first_name}
                         </Box>
                       )}
                     >
@@ -746,7 +763,7 @@ const Navbar = () => {
                         src="/avatar.jpg"
                         sx={{ marginRight: "8px" }}
                       />
-                      Profile
+                      {userData.name}
                     </Box>
                   )}
                 >

@@ -23,6 +23,8 @@ const SearchCard = () => {
   const [loading, setLoading] = useState(true); // State to track loading
   const { enqueueSnackbar } = useSnackbar();
 
+  // const wisListData = useSelector((state)=>state.wishlist.wishlist.payload)
+
   useEffect(() => {
     dispatch(getWishList())
       .then((result) => {
@@ -159,11 +161,20 @@ const SearchCard = () => {
                     <Typography variant="h6" color="green">
                       Available Today
                     </Typography>
-                    {val.activity.packages.map(pkg => (
+                    {/* {val.activity.packages.map(pkg => (
             <Typography variant="h4" fontWeight="bold" fontSize={'1.5rem'} key={pkg.id}>
               AED : {pkg.price}
             </Typography>
-          ))}
+          ))} */}
+
+
+          {val.activity.packages && val.activity.packages.length > 0 && (
+                        <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
+                          {val.activity.packages[0].category === "private" ?
+                            `AED ${val.activity.packages[0].price}` :
+                            `AED ${val.activity.packages[0].adult_price}`}
+                        </Typography>
+                      )}
 
                   </Box>
                 </Box>

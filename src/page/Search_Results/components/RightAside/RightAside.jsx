@@ -108,11 +108,15 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
     } else if (value === "lowest-price") {
       const lowestPriceSortedActivities = [...filteredActivities].sort((a, b) => {
         const aPrice = a.packages.reduce((min, pkg) => {
-          const price = pkg.category === "private" ? pkg.price : pkg.adult_price;
+          // const price = pkg.category === "private" ? pkg.price : pkg.adult_price;
+          const price = pkg.category === "sharing" ? pkg.adult_price : pkg.price;
+         
           return Math.min(min, price);
         }, Infinity);
         const bPrice = b.packages.reduce((min, pkg) => {
-          const price = pkg.category === "sharing" ? pkg.adult_price : pkg.price;
+          const price = pkg.category === "private" ? pkg.price : pkg.adult_price;
+
+          // const price = pkg.category === "sharing" ? pkg.adult_price : pkg.price;
           return Math.min(min, price);
         }, Infinity);
         return aPrice - bPrice;
