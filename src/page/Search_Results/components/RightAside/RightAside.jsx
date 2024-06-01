@@ -72,8 +72,8 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
         const price = activity.packages[0].category === "private" ? activity.packages[0].price : activity.packages[0].adult_price;
         return price >= minPrice && price <= maxPrice;
       });
-      return isMatchedKeyword || isMatchedCategory || isMatchedSubcategory || passesPriceRange;
-      // return isMatchedKeyword && isMatchedCategory && isMatchedSubcategory && passesPriceRange;
+      // return isMatchedKeyword || isMatchedCategory || isMatchedSubcategory || passesPriceRange;
+      return isMatchedKeyword && isMatchedCategory && isMatchedSubcategory && passesPriceRange;
 
     });
     setFilteredActivities(filteredResults);

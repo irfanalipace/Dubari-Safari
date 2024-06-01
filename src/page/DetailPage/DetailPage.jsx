@@ -204,6 +204,7 @@ const DetailPage = () => {
     fontSize: "16px",
   };
 
+  console.log(data1, 'single ac data')
   const [highlightedId, setHighlightedId] = useState(null);
 
   useEffect(() => {
@@ -258,41 +259,43 @@ const DetailPage = () => {
             </Box>
           </>
 
-        ) : (
-          <>
-            <DetailSlider data1={data1} />
-            <Box sx={{ padding: "30px" }}>
-              <Grid container spacing={3}>
-                <Grid item lg={7} sm={12} xs={12} md={6}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "start",
-                      justifyContent: "center",
-                      gap: "20px",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "10px",
-                      }}
-                    >
-                      <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
-                        Louvre Abu Dhabi
-                      </Typography>
-                      <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                      />
-                      <Typography>94 Reviews</Typography>
-                    </Box>
+  ):(
+<>
+<DetailSlider data1={data1} />
+      <Box sx={{ padding: "30px" }}>
+        <Grid container spacing={3}>
+          <Grid item lg={7} sm={12} xs={12} md={6}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "start",
+                justifyContent: "center",
+                gap: "20px",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
+
+                            <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
+{data1.name}
+</Typography>
+
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+                <Typography>94 Reviews</Typography>
+              </Box>
 
                     <Box
                       sx={{
