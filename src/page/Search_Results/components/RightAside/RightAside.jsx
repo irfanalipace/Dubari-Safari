@@ -93,19 +93,32 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
       );
       setFilteredActivities(decendingSortedActivities);
     } else if (value === "highest-price") {
-      const highestPriceSortedActivities = [...filteredActivities].sort((b, a) =>
-        a.packages.reduce((max, pkg) => Math.max(max, pkg.price), 0) -
-        b.packages.reduce((max, pkg) => Math.max(max, pkg.price), 0)
-      );
+      const highestPriceSortedActivities = [...filteredActivities].sort((a, b) => {
+        const aPrice = a.packages.reduce((max, pkg) => {
+          const price = pkg.category === "private" ? pkg.price : pkg.adult_price;
+          return Math.max(max, price);
+        }, 0);
+        const bPrice = b.packages.reduce((max, pkg) => {
+          const price = pkg.category === "sharing" ? pkg.adult_price : pkg.price;
+          return Math.max(max, price);
+        }, 0);
+        return bPrice - aPrice;
+      });
       setFilteredActivities(highestPriceSortedActivities);
     } else if (value === "lowest-price") {
-      const lowestPriceSortedActivities = [...filteredActivities].sort((a, b) =>
-        b.packages.reduce((min, pkg) => Math.min(min, pkg.price), Infinity) -
-        a.packages.reduce((min, pkg) => Math.min(min, pkg.price), Infinity)
-      );
+      const lowestPriceSortedActivities = [...filteredActivities].sort((a, b) => {
+        const aPrice = a.packages.reduce((min, pkg) => {
+          const price = pkg.category === "private" ? pkg.price : pkg.adult_price;
+          return Math.min(min, price);
+        }, Infinity);
+        const bPrice = b.packages.reduce((min, pkg) => {
+          const price = pkg.category === "sharing" ? pkg.adult_price : pkg.price;
+          return Math.min(min, price);
+        }, Infinity);
+        return aPrice - bPrice;
+      });
       setFilteredActivities(lowestPriceSortedActivities);
     } else {
-
       setFilteredActivities(activities);
     }
 
