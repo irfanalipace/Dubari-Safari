@@ -204,6 +204,7 @@ const DetailPage = () => {
     fontSize: "16px",
   };
 
+  console.log(data1, 'single ac data')
   const [highlightedId, setHighlightedId] = useState(null);
 
   useEffect(() => {
@@ -281,9 +282,11 @@ const DetailPage = () => {
                   gap: "10px",
                 }}
               >
-                <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
-                  Louvre Abu Dhabi
-                </Typography>
+
+                            <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
+{data1.name}
+</Typography>
+
                 <Rating
                   name="simple-controlled"
                   value={value}
