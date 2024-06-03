@@ -181,7 +181,7 @@ const dispatch = useDispatch()
           alignItems: "center",
           position: location.pathname === "/" ? "sticky" : "static",
           top: 0,
-          zIndex: 1000,
+          zIndex: 10000,
         }}
       >
         <Box>
