@@ -1,4 +1,5 @@
 import api from "../../utils/Api";
+import Cookies from "js-cookie";
 
 export const getCategories = () => async (dispatch) => {
   try {
@@ -50,8 +51,29 @@ export const Send_Gift = (body) => async (dispatch) => {
   }
 };
 
+
 export const Booking = (body) => async (dispatch) => {
   try {
+    const { first_name, last_name, email, activity_name, title, nationality, phone, date, adult, child, infant, total_amount, pickup_location, note, status } = body;
+
+    Cookies.set('bookingDetails', JSON.stringify({
+      first_name,
+      last_name,
+      email,
+      activity_name,
+      title,
+      nationality,
+      phone,
+      date,
+      adult,
+      child,
+      infant,
+      total_amount,
+      pickup_location,
+      note,
+      status
+    }), { expires: 1 });
+
     const res = await api.post("booking", body);
     dispatch({
       type: "BOOKING",

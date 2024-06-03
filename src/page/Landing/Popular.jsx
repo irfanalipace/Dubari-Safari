@@ -6,87 +6,95 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const cardData = [
     {
-        earnpoints:'Earn R points',
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
 
-       {
-        earnpoints:'Earn R points',
+    {
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
 
-       {
-        earnpoints:'Earn R points',
+    {
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
-       {
-        earnpoints:'Earn R points',
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
+    {
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
-       {
-        earnpoints:'Earn R points',
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
+    {
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
-       {
-        earnpoints:'Earn R points',
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
+    {
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
-       {
-        earnpoints:'Earn R points',
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
+    {
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
-       {
-        earnpoints:'Earn R points',
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
+    {
+        earnpoints: 'Earn R points',
         title: "Morning Desert Safari",
 
-     duration: '3 Hours, 5 minutes',
-      availability: "Tomorrow",
+        duration: '3 Hours, 5 minutes',
+        availability: "Tomorrow",
 
-       discountprice: '$3,500',
-       actualprice:'$2,500',
-       imageUrl: "/header.png" },
+        discountprice: '$3,500',
+        actualprice: '$2,500',
+        imageUrl: "/header.png"
+    },
 
 
 
@@ -110,7 +118,7 @@ const Popular = () => {
                             <Grid key={ind} item lg={3} xs={12} sm={12} md={6}>
                                 <CustomCard
                                     handleClick={handleClick}
-                                earnpoints={val.earnpoints}
+                                    earnpoints={val.earnpoints}
                                     title={val.title}
                                     discountprice={val.discountprice}
                                     actualprice={val.actualprice}
@@ -121,7 +129,7 @@ const Popular = () => {
                         ))}
                     </Grid>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
-                        <Button variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', borderRadius:'20px', textTransform: 'none', fontSize: '1rem', fontWeight: 700 }}>See All <ArrowForwardIcon/> </Button>
+                        <Button variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', borderRadius: '20px', textTransform: 'none', fontSize: '1rem', fontWeight: 700 }}>See All <ArrowForwardIcon /> </Button>
                     </Box>
                 </Box>
             </Box>

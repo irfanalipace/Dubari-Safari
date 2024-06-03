@@ -16,7 +16,7 @@ const CartMain = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0); // Added state for total price
 
-const theme = useTheme()
+  const theme = useTheme()
   const handleBack = () => {
     navigate("/");
   };
@@ -47,14 +47,14 @@ const theme = useTheme()
     <>
       <Page title="Cart | Arabia Horizon">
         <Box sx={{ padding: "1rem 5%" }}>
-          <Button
+          {/* <Button
             variant="outlined"
             sx={{ textTransform: "none" }}
             startIcon={<ArrowBack />}
             onClick={handleBack}
           >
             Back to Home
-          </Button>
+          </Button> */}
           <Typography
             variant="h1"
             sx={{ fontSize: "1.5rem", fontWeight: "700", mt: 3 }}
@@ -63,20 +63,20 @@ const theme = useTheme()
           </Typography>
 
           {loading ? ( // Conditional rendering based on loading state
-          <Loader />
+            <Loader />
           ) : allCart.length === 0 ? ( // Check if allCart is empty
-            <Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh" }}>
-             <Box>
+            <Typography variant="h1" sx={{ fontSize: '2rem', fontWeight: '700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh" }}>
+              <Box>
 
-              <ShoppingCartIcon sx={{fontSize:'10rem', color:theme.palette.primary.main}}/>
+                <ShoppingCartIcon sx={{ fontSize: '10rem', color: theme.palette.primary.main }} />
 
-             </Box>
+              </Box>
             </Typography>
           ) : (
             <Box sx={{ display: "flex", mt: 2, gap: 4 }}>
               <Box flex={2}>
                 <Box>
-                  <LeftSideComponents allCart={allCart} setTotalPrice={setTotalPrice} setAllCart={setAllCart}/>
+                  <LeftSideComponents allCart={allCart} setTotalPrice={setTotalPrice} setAllCart={setAllCart} />
                 </Box>
               </Box>
               <Box flex={1}>

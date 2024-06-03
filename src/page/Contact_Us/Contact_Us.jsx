@@ -38,8 +38,8 @@ const Contact_Us = () => {
   const is_md = useMediaQuery(theme.breakpoints.down("lg"));
   const is_sm = useMediaQuery(theme.breakpoints.down("md"));
 
-  useEffect(()=>{
-    window.scrollTo(0,0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
   })
 
   const handleInputChange = (e) => {
@@ -164,7 +164,7 @@ const Contact_Us = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} lg={6}>
+                {/* <Grid item xs={12} lg={6}>
                   <Txt_field
                     label="Enter Company Name"
                     name="company_name"
@@ -172,7 +172,7 @@ const Contact_Us = () => {
                     onChange={handleInputChange}
                     required
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} lg={6}>
                   <Txt_field
                     label="Topic Inquiry"
@@ -182,7 +182,7 @@ const Contact_Us = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} lg={12}>
+                <Grid item xs={12} lg={6}>
                   <Txt_field
                     label="Message"
                     name="message"

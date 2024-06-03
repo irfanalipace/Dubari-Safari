@@ -27,16 +27,16 @@ const Header = () => {
                 position: 'relative'
             }}
         >
-            <Typography sx={{ fontSize: '48px', fontWeight: 700 }}>
+            <Typography sx={{ fontSize: '48px', fontWeight: 700, fontFamily: 'GT Eesti Display Trial, sans-serif' }}>
                 UFC Flight Night In Abu Dubai
             </Typography>
-            <Typography sx={{ fontSize: '18px', width: isSmall ? '100%' : '60%' }}>
+            <Typography sx={{ fontSize: '18px', width: isSmall ? '100%' : '60%', fontFamily: 'GT Eesti Display Trial, sans-serif' }}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui eum non amet similique cumque obcaecati earum odit vero adipisci, fuga maxime sint deserunt saepe assumenda fugiat veniam harum, distinctio voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui
             </Typography>
             <Box>
                 <Button onClick={handleLearn} variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '15px 30px', textTransform: 'none', fontSize: '16px', fontWeight: 700 }}>Learn More</Button>
             </Box>
-            <Box sx={{ position: 'absolute', bottom: 20, left: 30, display: 'flex', alignItems: 'center', zIndex: 9999 }}>
+            <Box sx={{ position: 'fixed', bottom: 20, left: 30, display: 'flex', alignItems: 'center', zIndex: 9999 }}>
                 <Button onClick={() => navigate('/feedback')} variant='contained' sx={{
                     backgroundColor: '#FBD107',
                     textTransform: 'none',
@@ -50,7 +50,7 @@ const Header = () => {
                     Feedback
                 </Button>
             </Box>
-        </Box>
+        </Box >
     );
 };
 

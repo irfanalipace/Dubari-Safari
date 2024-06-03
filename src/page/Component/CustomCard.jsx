@@ -1,10 +1,11 @@
 // CustomCard.js
-import React from "react";
-import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, Divider, Rating, Typography, useTheme } from "@mui/material";
 import { CiStopwatch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
 const CustomCard = ({
+
   title,
   description,
   duration,
@@ -16,7 +17,7 @@ const CustomCard = ({
   handleClick,
 }) => {
   const theme = useTheme();
-
+  const [value, setValue] = useState(5);
   return (
     <Box
       onClick={handleClick}
@@ -42,7 +43,7 @@ const CustomCard = ({
             objectFit: "cover",
           }}
         />
-        <Box
+        {/* <Box
           sx={{
             position: "absolute",
             bottom: -12,
@@ -53,7 +54,7 @@ const CustomCard = ({
           }}
         >
           4.0(23)😊
-        </Box>
+        </Box> */}
         <Box
           sx={{
             position: "absolute",
@@ -103,11 +104,18 @@ const CustomCard = ({
         <Box
           sx={{
             display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "end",
+            alignItems: "center",
+            justifyContent: "space-between",
             textTransform: "none",
           }}
         >
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
           <Button variant="contained">Book Now</Button>
         </Box>
       </Box>

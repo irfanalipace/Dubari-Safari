@@ -14,11 +14,23 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { IoIosPeople } from "react-icons/io";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { Booking } from '../../../store/actions/categoriesActions';
 
-const Component1 = () => {
-  const theme = useTheme()
+const Component1 = ({ data }) => {
+  const theme = useTheme();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [formValues, setFormValues] = useState({
+    title: "Mr",
+    first_name: "",
+    last_name: "",
+    email: "",
+    nationality: "",
+    phone: "",
+    pickup_location: "",
+    note: "",
+  });
 
   useEffect(() => {
     fetch(
@@ -33,15 +45,30 @@ const Component1 = () => {
 
   const handleChangeCountry = (event) => {
     setSelectedCountry(event.target.value);
+    setFormValues({ ...formValues, nationality: event.target.value });
   };
 
-  const [selectedValue, setSelectedValue] = useState(30); // 30 corresponds to "Mr"
-  const navigate = useNavigate();
   const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleContinue = () => {
+  const navigate = useNavigate();
+
+  const handleProceedToPayment = () => {
+    const bookingDetails = {
+      ...formValues,
+      activity_name: "Snorkeling",
+      date: data?.date,
+      adult: data?.person?.adult,
+      child: data?.person?.child,
+      infant: data?.person?.infant,
+      total_amount: data?.totalPrice,
+      status: "pending",
+      payment: 'fail'
+    };
+
+    dispatch(Booking(bookingDetails));
     navigate("/payment-details");
   };
 
@@ -63,6 +90,8 @@ const Component1 = () => {
     backgroundColor: "#f6f7f9",
   };
 
+  const dispatch = useDispatch();
+
   return (
     <>
       <Box
@@ -78,10 +107,9 @@ const Component1 = () => {
             variant="h1"
             sx={{ fontSize: "1.2rem", fontWeight: "600", display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <IoIosPeople size={35} style={{ color: theme.palette.primary.main }} />
             Lead Passenger Details
           </Typography>
-          <Typography sx={{ fonSize: "1rem", color: "grey" }}>
+          <Typography sx={{ fontSize: "1rem", color: "grey" }}>
             Please Enter Your Passenger Details
           </Typography>
         </Box>
@@ -92,38 +120,52 @@ const Component1 = () => {
               <label>Title</label>
               <FormControl fullWidth>
                 <Select
-                  // labelId="demo-simple-select-label"
-                  // id="demo-simple-select"
-                  value={selectedValue}
+                  value={formValues.title}
+                  name="title"
                   sx={textFieldStyle}
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Mr.</MenuItem>
-                  <MenuItem value={20}>Miss</MenuItem>
-                  <MenuItem value={30}>Mr</MenuItem>
+                  <MenuItem value="Mr">Mr.</MenuItem>
+                  <MenuItem value="Miss">Miss</MenuItem>
+                  <MenuItem value="Mrs">Mrs</MenuItem>
                 </Select>
               </FormControl>
-
-              {/* <label style={{fontSize:'1.2rem'}}>Title</label>
-    <TextField placeholder='Title' size='small' /> */}
             </Box>
           </Grid>
           <Grid item lg={6} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>First Name</label>
-              <TextField placeholder="First Name" sx={textFieldStyle} />
+              <TextField
+                placeholder="First Name"
+                sx={textFieldStyle}
+                name="first_name"
+                value={formValues.first_name}
+                onChange={handleChange}
+              />
             </Box>
           </Grid>
           <Grid item lg={6} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Last Name</label>
-              <TextField placeholder="Last Name" sx={textFieldStyle} />
+              <TextField
+                placeholder="Last Name"
+                sx={textFieldStyle}
+                name="last_name"
+                value={formValues.last_name}
+                onChange={handleChange}
+              />
             </Box>
           </Grid>
           <Grid item lg={6} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Email Address</label>
-              <TextField placeholder="Email" sx={textFieldStyle} />
+              <TextField
+                placeholder="Email"
+                sx={textFieldStyle}
+                name="email"
+                value={formValues.email}
+                onChange={handleChange}
+              />
             </Box>
           </Grid>
           <Grid item lg={6} md={12} sm={12} xs={12}>
@@ -152,20 +194,30 @@ const Component1 = () => {
                   ))}
                 </Select>
               </FormControl>
-
-              {/* <TextField placeholder='Nationality' sx={textFieldStyle} /> */}
             </Box>
           </Grid>
           <Grid item lg={6} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Phone Number</label>
-              <TextField placeholder="Phone Number" sx={textFieldStyle} />
+              <TextField
+                placeholder="Phone Number"
+                sx={textFieldStyle}
+                name="phone"
+                value={formValues.phone}
+                onChange={handleChange}
+              />
             </Box>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Special Request</label>
-              <TextField placeholder="Phone Number" sx={textFieldStyle} />
+              <TextField
+                placeholder="Special Request"
+                sx={textFieldStyle}
+                name="note"
+                value={formValues.note}
+                onChange={handleChange}
+              />
             </Box>
           </Grid>
         </Grid>
@@ -188,7 +240,7 @@ const Component1 = () => {
             <BiSolidMessageSquareDetail size={35} style={{ color: theme.palette.primary.main }} />
             Extra Details
           </Typography>
-          <Typography sx={{ fonSize: "1rem", color: "grey" }}>
+          <Typography sx={{ fontSize: "1rem", color: "grey" }}>
             Please Enter your Extra Details
           </Typography>
         </Box>
@@ -196,20 +248,31 @@ const Component1 = () => {
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Pick up Location</label>
-              <TextField placeholder="Enter you Address" sx={textFieldStyle} />
+              <TextField
+                placeholder="Enter your Address"
+                sx={textFieldStyle}
+                name="pickup_location"
+                value={formValues.pickup_location}
+                onChange={handleChange}
+              />
             </Box>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Louvre Museum Day Pass - Dated - Without Transfers</label>
-              <TextField placeholder="Note" sx={textFieldStyle} />
+              <TextField
+                placeholder="Note"
+                sx={textFieldStyle}
+                name="note"
+                value={formValues.note}
+                onChange={handleChange}
+              />
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', mt: 2 }}>
               <input type="checkbox" name="checkbox" id="" />
               <Typography sx={{ color: theme.palette.primary.main }}>Apply Earned Points -  2500</Typography>
             </Box>
           </Grid>
-
         </Grid>
       </Box>
       <Box
@@ -231,52 +294,20 @@ const Component1 = () => {
             <input type="radio" name="paymentMethod" id="creditCard" />
             <Typography sx={{ fontWeight: 600 }}>Credit / Debit Card</Typography>
           </Box>
-
-
         </Box>
-        <Typography><span style={{ color: theme.palette.primary.main, fontWeight: 600 }}>Note:</span>&nbsp; In the next step you will be redirected to your banks website to verify yourself. </Typography>
+        <Typography><span style={{ color: theme.palette.primary.main, fontWeight: 600 }}>Note:</span>&nbsp; In the next step you will be redirected to your bank's website to verify yourself. </Typography>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end', mt: 2 }}>
-        <Button variant="contained" sx={{ textTransform: 'none', padding: '10px 40px', backgroundColor: theme.palette.primary.main, color: 'white' }}>
+        <Button onClick={handleProceedToPayment} variant="contained" sx={{ textTransform: 'none', padding: '10px 40px', backgroundColor: theme.palette.primary.main, color: 'white' }}>
           Proceed to payment
         </Button>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: "10px", mt: 2 }}>
         <input type="checkbox" name="" id="" />
-        <Typography>Buy Clickiny Pay Now, You agree that you read and understand our <span style={{ color: theme.palette.primary.main }}> Terms & Condition</span></Typography>
+        <Typography>By clicking "Pay Now", you agree that you have read and understand our <span style={{ color: theme.palette.primary.main }}>Terms & Conditions</span></Typography>
       </Box>
     </>
   );
 };
 
 export default Component1;
-{/* <Box sx={{ marginTop: "2rem" }} gap={5}>
-          <Button
-            variant="contained"
-            sx={{
-              padding: "0.8rem 3rem",
-              backgroundColor: "grey",
-              color: "white",
-              textTransform: "none",
-              fontSize: "0.8rem",
-              ":hover": {
-                backgroundColor: "grey",
-              },
-            }}
-          >
-            Cancel
-          </Button>
-
-          <Button
-            variant="contained"
-            sx={{
-              marginLeft: "2rem",
-              padding: "0.8rem 1.5rem",
-              textTransform: "none",
-              fontSize: "0.8rem",
-            }}
-            onClick={handleContinue}
-          >
-            Save & Continue
-          </Button>
-        </Box> */}

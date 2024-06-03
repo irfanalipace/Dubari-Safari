@@ -94,7 +94,7 @@ const MainComponent = () => {
               ))}
             </Grid> */}
 
-              <Typography sx={{ marginTop: '2rem', color: 'black', fontSize: '1.1rem', fontWeight: '600' }}>MAP</Typography>
+              {/* <Typography sx={{ marginTop: '2rem', color: 'black', fontSize: '1.1rem', fontWeight: '600' }}>MAP</Typography> */}
               <Box sx={{ p: 1, textAlign: "center", }}>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1785734046066!2d55.2797092!3d25.197199700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69350dc906f3%3A0x44af9ef3dcd6bde7!2sBook%20Dubai%20Safari!5e0!3m2!1sen!2sae!4v1716339216117!5m2!1sen!2sae"

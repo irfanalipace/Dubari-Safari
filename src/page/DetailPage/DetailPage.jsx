@@ -133,7 +133,7 @@ const DetailPage = () => {
 
   //   return iconsToShow;
   // };
-// ------------------------------------------------------
+  // ------------------------------------------------------
   // const renderIconsFromFeatures = () => {
   //   const iconsToShow = [];
   //   data1.features.forEach(feature => {
@@ -259,43 +259,43 @@ const DetailPage = () => {
             </Box>
           </>
 
-  ):(
-<>
-<DetailSlider data1={data1} />
-      <Box sx={{ padding: "30px" }}>
-        <Grid container spacing={3}>
-          <Grid item lg={7} sm={12} xs={12} md={6}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "start",
-                justifyContent: "center",
-                gap: "20px",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-              >
+        ) : (
+          <>
+            <DetailSlider data1={data1} />
+            <Box sx={{ padding: "30px" }}>
+              <Grid container spacing={3}>
+                <Grid item lg={7} sm={12} xs={12} md={6}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "start",
+                      justifyContent: "center",
+                      gap: "20px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "10px",
+                      }}
+                    >
 
-                            <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
-{data1.name}
-</Typography>
+                      <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
+                        {data1.name}
+                      </Typography>
 
-                <Rating
-                  name="simple-controlled"
-                  value={value}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
-                />
-                <Typography>94 Reviews</Typography>
-              </Box>
+                      <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                      />
+                      <Typography>94 Reviews</Typography>
+                    </Box>
 
                     <Box
                       sx={{
@@ -430,7 +430,7 @@ const DetailPage = () => {
                       <Box
                         sx={{
                           paddingLeft: "30px",
-                          color: "#A9A9A9",
+                          color: "black",
                           fontSize: "16px",
                         }}
                         dangerouslySetInnerHTML={{ __html: data1.itinerary }}
@@ -452,7 +452,7 @@ const DetailPage = () => {
                       <Box
                         sx={{
                           paddingLeft: "30px",
-                          color: "#A9A9A9",
+                          color: "black",
                           fontSize: "16px",
                         }}
 
@@ -473,13 +473,13 @@ const DetailPage = () => {
                         Trip Instructions / Essentials
                       </Typography>
                       <Divider sx={{ width: "100%" }} />
-                      <Box sx={{ backgroundColor: "#D9D9D9", borderRadius: "20px" }}>
+                      <Box sx={{ backgroundColor: "#F0F0F0", borderRadius: "20px" }}>
                         {data1?.instructions?.map((qa, index) => (
                           <Accordion
                             key={index}
                             expanded={openAccordion === `panel${index}`}
                             onChange={handleAccordionChange(`panel${index}`)}
-                            sx={{ backgroundColor: "#D9D9D9" }}
+                            sx={{ backgroundColor: "#F0F0F0" }}
                           >
                             <AccordionSummary
                               expandIcon={<ExpandMoreIcon />}

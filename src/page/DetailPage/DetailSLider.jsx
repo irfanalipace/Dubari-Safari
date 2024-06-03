@@ -38,10 +38,10 @@ const DetailSlider = ({ data1 }) => {
                     <Box sx={{ position: 'absolute', top: 50, left: 50 }}>
 
                         <Button onClick={handleBack} variant='standard' sx={{
-                            fontSize: '14px', backgroundColor: '#F3F3F3', borderRadius: '5px', padding: '10px', color: 'black', textTransform: 'none', ':hover':{
-                                backgroundColor:'#F3F3F3'
+                            fontSize: '14px', backgroundColor: '#F3F3F3', borderRadius: '5px', padding: '10px', color: 'black', textTransform: 'none', ':hover': {
+                                backgroundColor: '#F3F3F3'
                             }
-                        }}><FaLongArrowAltLeft /> &nbsp;&nbsp; Back to Homepage</Button>
+                        }}><FaLongArrowAltLeft /> &nbsp;&nbsp; Back</Button>
                     </Box>
                 </Grid>
                 <Grid item xs={4} sx={{ position: 'relative' }}>
@@ -62,12 +62,12 @@ const DetailSlider = ({ data1 }) => {
 
 
                             {data1.packages && data1.packages.length > 0 && (
-                        <Typography fontWeight="bold" color={theme.palette.primary.main} textAlign={'right'}>
-                          {data1.packages[0].category === "private" ?
-                            `$ ${data1.packages[0].price}` :
-                            `$ ${data1.packages[0].adult_price}`}
-                        </Typography>
-                      )}
+                                <Typography fontWeight="bold" color={theme.palette.primary.main} textAlign={'right'}>
+                                    {data1.packages[0].category === "private" ?
+                                        `$ ${data1.packages[0].price}` :
+                                        `$ ${data1.packages[0].adult_price}`}
+                                </Typography>
+                            )}
 
 
 

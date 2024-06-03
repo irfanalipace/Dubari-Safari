@@ -47,11 +47,11 @@ const BlogDetail = () => {
 
     return (
         <>
-            <Box sx={{ padding: '0px 50px' }}>
+            {/* <Box sx={{ padding: '0px 50px' }}>
                 <Button variant='contained' onClick={handleBack} sx={{
                     textTransform: 'none', backgroundColor: '#F3F3F3', color: 'black', padding: '10px 20px'
                 }}><FaArrowLeftLong /> &nbsp; Back to HomePage</Button>
-            </Box>
+            </Box> */}
 
             <Box sx={{ padding: '60px' }}>
                 <Button sx={{ backgroundColor: 'green', borderRadius: '20px', color: 'white', fontSize: '0.7rem' }} variant='contained'>

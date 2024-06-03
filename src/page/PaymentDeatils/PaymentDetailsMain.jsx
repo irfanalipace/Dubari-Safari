@@ -9,7 +9,7 @@ import Component1 from "../GuestDetails/Components/Component1";
 
 const PaymentDetailsMain = () => {
   const { state } = useLocation();
-  // console.log(state);
+  console.log(state, 'state ays');
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -22,7 +22,7 @@ const PaymentDetailsMain = () => {
         <Grid item lg={8} md={12} sm={12} xs={12}>
           {/* <PaymentDetailComponent /> */}
           {/* <P_Detail_New /> */}
-          <Component1 />
+          <Component1 data={state}/>
         </Grid>
         <Grid item lg={4} md={12} sm={12} xs={12}>
           <PriceCard data={state} />

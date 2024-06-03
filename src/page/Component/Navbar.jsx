@@ -39,7 +39,7 @@ const Navbar = () => {
   const authh = useSelector((state) => state.auth.isAuthenticated);
 
   const cartData = useSelector((state) => state.cart.cart.payload);
-  const cartItemCount = cartData.length;
+  const cartItemCount = cartData?.length;
   // const wishlistData = useSelector((state) => state.wishlist.wishlist.payload);
   // const wishlistCount = wishlistData.length;
 
@@ -67,7 +67,7 @@ const Navbar = () => {
   };
 
   const [tokenAvailable, setTokenAvailable] = useState(false);
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
   useEffect(() => {
     const token = localStorage.getItem("token");
     setTokenAvailable(token);
@@ -178,7 +178,7 @@ const dispatch = useDispatch()
       >
         <Box>
           <Link to="/">
-            <img src="/Logo.png" alt="Logo" />
+            <img src="/mainLogo.png" alt="Logo" style={{ height: '70px', width: '70px' }} />
           </Link>
         </Box>
 
