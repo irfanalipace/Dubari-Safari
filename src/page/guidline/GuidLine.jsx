@@ -1,6 +1,6 @@
 import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import React, { useEffect } from 'react';
-
+import Page from '../../components/page';
 const GuidLine = () => {
     useEffect(()=>{
         window.scrollTo(0,0)
@@ -92,9 +92,10 @@ const GuidLine = () => {
 
     return (
         <>
-            <Box sx={{
+          <Page title='Guidelines'>
+          <Box sx={{
                 position: 'relative',
-                height: '30vh',
+                height: '25vh',
                 backgroundColor: 'black',
                 backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.1) 30.2%, rgba(0,0,0,0.1) 90.9%),url(${"/bgimage.png"})`,
                 backgroundPosition: "center",
@@ -166,6 +167,7 @@ const GuidLine = () => {
                     </Box>
                 ))}
             </Box>
+          </Page>
         </>
     )
 }

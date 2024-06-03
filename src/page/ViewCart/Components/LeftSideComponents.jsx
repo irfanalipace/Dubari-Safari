@@ -183,7 +183,7 @@ dispatch(getCart())
                           color: theme.palette.primary.main,
                         }}
                       >
-                        {val.price}
+                        $ {val.price}
                       </Typography>
                     </Box>
                   </Box>

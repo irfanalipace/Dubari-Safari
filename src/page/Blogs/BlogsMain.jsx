@@ -19,7 +19,7 @@ const BlogsMain = () => {
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "none",
-            height: "50vh",
+            height: "25vh",
             width: "100%",
           }}
         >
@@ -27,7 +27,7 @@ const BlogsMain = () => {
             sx={{
               color: "white",
 
-              minHeight: "60vh",
+              minHeight: "30vh",
               display: "flex",
               textAlign: "center",
               justifyContent: "center",
@@ -37,7 +37,7 @@ const BlogsMain = () => {
               paddingRight: "5%",
             }}
           >
-            <Box minHeight={"8rem"}>
+            <Box minHeight={"5rem"}>
               <Typography
 
                 sx={{

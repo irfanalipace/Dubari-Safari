@@ -81,7 +81,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
                   marginBottom: "0.5rem",
                 }}
               >
-               AED :  {totalPrice}
+               $ :  {totalPrice}
               </Typography>
               <Typography
                 variant="h1"

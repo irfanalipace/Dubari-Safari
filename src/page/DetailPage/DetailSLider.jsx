@@ -64,8 +64,8 @@ const DetailSlider = ({ data1 }) => {
                             {data1.packages && data1.packages.length > 0 && (
                         <Typography fontWeight="bold" color={theme.palette.primary.main} textAlign={'right'}>
                           {data1.packages[0].category === "private" ?
-                            `AED ${data1.packages[0].price}` :
-                            `AED ${data1.packages[0].adult_price}`}
+                            `$ ${data1.packages[0].price}` :
+                            `$ ${data1.packages[0].adult_price}`}
                         </Typography>
                       )}
 

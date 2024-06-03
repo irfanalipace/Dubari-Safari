@@ -21,7 +21,7 @@ const TermsConditions = () => {
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "none",
-          height: "50vh",
+          height: "25vh",
           width: "100%",
         }}
       >
@@ -29,7 +29,7 @@ const TermsConditions = () => {
           sx={{
             color: "white",
 
-            minHeight: "60vh",
+            minHeight: "30vh",
             display: "flex",
             textAlign: "center",
             justifyContent: "center",
@@ -39,7 +39,7 @@ const TermsConditions = () => {
             paddingRight: "5%",
           }}
         >
-          <Box minHeight={"8rem"}>
+          <Box minHeight={"5rem"}>
             <Typography
               className="workline"
               sx={{
@@ -55,7 +55,7 @@ const TermsConditions = () => {
       </Box>
 
       <Box sx={{ padding: "3rem 5%" }}>
-        <Typography
+        {/* <Typography
           variant="h1"
           sx={{
             fontSize: "2rem",
@@ -64,7 +64,7 @@ const TermsConditions = () => {
           }}
         >
           Terms & Conditions
-        </Typography>
+        </Typography> */}
 
         <Typography sx={{ color: "grey", marginTop: "1rem" }}>
           Thank you for choosing our tour packages. By booking a trip through

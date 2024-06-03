@@ -163,7 +163,7 @@ const SearchCard = () => {
                     </Typography>
                     {/* {val.activity.packages.map(pkg => (
             <Typography variant="h4" fontWeight="bold" fontSize={'1.5rem'} key={pkg.id}>
-              AED : {pkg.price}
+              $ : {pkg.price}
             </Typography>
           ))} */}
 
@@ -171,8 +171,8 @@ const SearchCard = () => {
           {val.activity.packages && val.activity.packages.length > 0 && (
                         <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
                           {val.activity.packages[0].category === "private" ?
-                            `AED ${val.activity.packages[0].price}` :
-                            `AED ${val.activity.packages[0].adult_price}`}
+                            `$ ${val.activity.packages[0].price}` :
+                            `$ ${val.activity.packages[0].adult_price}`}
                         </Typography>
                       )}
 

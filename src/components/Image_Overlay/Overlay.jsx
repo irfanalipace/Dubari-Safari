@@ -5,7 +5,7 @@ const Overlay = ({ title }) => {
   return (
     <Box
       sx={{
-        height: "40vh",
+        height: "25vh",
         backgroundImage: "url(/pic.png)",
         backgroundSize: "cover",
         backgroundPosition: "center",

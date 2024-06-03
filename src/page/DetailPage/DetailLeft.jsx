@@ -293,7 +293,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
-                                            {`AED ${total}`}
+                                            {`$ ${total}`}
                                         </Typography>
                                         {item.category === 'sharing' && (
                                             <Typography sx={{ fontSize: "12px", color: "#777" }}>

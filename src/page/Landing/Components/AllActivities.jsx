@@ -12,8 +12,11 @@ const AllActivities = () => {
   const [loading, setLoading] = useState(true);
 
   const categoryImages = {
-    'Desert Safari': '/activity1icon.png',
-    'Sightseeing': '/activity2icon.png',
+    // 'Desert Safari': '/activity1icon.png',
+
+    'Desert Safari': '/ac1.svg',
+
+    'Sightseeing': '/activity2.svg',
     'Adventure': '/activity3icon.png',
     'Attractions & Experiences': '/activity4icon.png',
     'Cruising & Yachting': '/activity5icon.png',

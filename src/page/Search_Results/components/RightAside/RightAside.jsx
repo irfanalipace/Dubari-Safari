@@ -110,7 +110,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
         const aPrice = a.packages.reduce((min, pkg) => {
           // const price = pkg.category === "private" ? pkg.price : pkg.adult_price;
           const price = pkg.category === "sharing" ? pkg.adult_price : pkg.price;
-         
+
           return Math.min(min, price);
         }, Infinity);
         const bPrice = b.packages.reduce((min, pkg) => {
@@ -318,8 +318,8 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                     {val.packages && val.packages.length > 0 && (
                         <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
                           {val.packages[0].category === "private" ?
-                            `AED ${val.packages[0].price}` :
-                            `AED ${val.packages[0].adult_price}`}
+                            `$ ${val.packages[0].price}` :
+                            `$ ${val.packages[0].adult_price}`}
                         </Typography>
                       )}
                   </Box>

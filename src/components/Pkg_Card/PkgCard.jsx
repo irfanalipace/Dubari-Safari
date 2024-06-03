@@ -53,7 +53,7 @@ const PkgCard = ({ data, categories, ind }) => {
           <Box>
             <Typography sx={{ fontSize: "15px", color: "grey" }}>
               <Typography color="primary" display="inline" fontWeight="bold" sx={{ ml: 1 }}>
-                {data?.packages[0]?.price !== null ? data?.packages[0]?.price : data?.packages[0]?.adult_price}
+                $ {data?.packages[0]?.price !== null ? data?.packages[0]?.price : data?.packages[0]?.adult_price}
               </Typography>
             </Typography>
           </Box>

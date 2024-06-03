@@ -38,7 +38,7 @@ const Privacy_Policy = () => {
     <Page title="Privacy Policy">
       <Overlay title="Privacy Policy" />
       <Box sx={{ p: 5 }}>
-        <Heading>Privacy Policy</Heading>
+        {/* <Heading>Privacy Policy</Heading> */}
         <Paragraph>
           Pacific Adventures Tourism LLC collects information about its
           customers both during the order process and as customers navigate the
