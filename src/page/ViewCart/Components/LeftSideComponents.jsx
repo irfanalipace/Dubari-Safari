@@ -32,6 +32,7 @@ const LeftSideComponents = ({ setTotalPrice  }) => {
     return adult + child + infant;
   };
 
+  
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);

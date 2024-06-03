@@ -43,6 +43,7 @@ const theme = useTheme()
     getAllCart();
   }, []);
 
+
   return (
     <>
       <Page title="Cart | Arabia Horizon">

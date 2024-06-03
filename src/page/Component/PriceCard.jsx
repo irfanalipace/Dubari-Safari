@@ -5,12 +5,18 @@ import {
   CalendarMonthOutlined,
   CalendarViewMonthOutlined,
 } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 const PriceCard = ({ data }) => {
   const theme = useTheme();
+
   console.log(data, 'll')
+
+
   return (
     <>
+
+
       <Box
         sx={{
           padding: "3rem 5%",
@@ -45,7 +51,7 @@ const PriceCard = ({ data }) => {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: "600" }}>
-              {data.person.adult}
+              {data?.person?.adult}
             </Typography>
           </Box>
           <Box
@@ -65,7 +71,7 @@ const PriceCard = ({ data }) => {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: "600" }}>
-              {data.person.child}
+              {data?.person?.child}
             </Typography>
           </Box>
           <Box
@@ -85,7 +91,7 @@ const PriceCard = ({ data }) => {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: "600" }}>
-              {data.person.infant}
+              {data?.person?.infant}
             </Typography>
           </Box>
           <Box

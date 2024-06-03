@@ -48,7 +48,7 @@ const AllActivities = () => {
       <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
         All Activities
       </Typography>
-      {!loading && staticCategories.map((val, ind) => {
+      {staticCategories.map((val, ind) => {
         {/* const categoryId = categoryMap[val.name]; */}
         return (
           <Box key={ind} sx={{ display: "flex", alignItems: "center" }}>

@@ -4,6 +4,11 @@ import CustomCard from '../Component/CustomCard';
 import { useNavigate } from 'react-router';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+
+
+
+
+
 const cardData = [
     {
         earnpoints:'Earn R points',
