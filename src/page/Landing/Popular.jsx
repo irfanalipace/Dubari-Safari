@@ -5,10 +5,6 @@ import { useNavigate } from 'react-router';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
-
-
-
-
 const cardData = [
     {
         earnpoints: 'Earn R points',
@@ -104,6 +100,9 @@ const cardData = [
 
 
 ];
+
+
+
 
 const Popular = () => {
     const theme = useTheme();

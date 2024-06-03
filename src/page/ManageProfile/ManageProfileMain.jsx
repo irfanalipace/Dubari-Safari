@@ -144,7 +144,7 @@ setFormValues(initialValues)
       enqueueSnackbar('Error updating Password', { variant: "error" });
 
     }
-  };
+  };    
 
   const textFieldStyle = {
     marginTop: "1rem",
