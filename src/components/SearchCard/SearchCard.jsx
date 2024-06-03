@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
+  Button,
   Card,
+  Grid,
   IconButton,
   Modal,
   Rating,
@@ -15,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteWishList, getWishList } from "../../store/actions/wishListActions";
 import Loader from "../Loader/Loader";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router";
 
 const SearchCard = () => {
   const theme = useTheme();
@@ -63,6 +66,7 @@ const SearchCard = () => {
         console.error(err);
       });
   };
+  const navigate = useNavigate()
 
   return (
     <>
@@ -73,9 +77,36 @@ const SearchCard = () => {
 
 </Box>
           ) : wishList.length === 0 ? ( // Check if allCart is empty
-            <Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh", marginTop:'4rem' }}>
-              No Activity is Added yet
-            </Typography>
+
+           <Box sx={{minHeight: "25vh", width:'100%',}}>
+
+<Box sx={{display:'flex', justifyContent:'center', alignItems:'center',}}>
+  <Grid container sx={{padding:'1rem 20%'}}>
+  <Grid item lg={6} md={6} sm={12} xs={12}>
+<Box sx={{display:'flex',justifyContent:'center', alignItems:'center', padding:'2rem'}}>
+  <img src='/wishlist.JPG' alt="image" width={'100%'}/>
+</Box>
+  </Grid>
+
+  <Grid item lg={6} md={6} sm={12} xs={12}>
+<Box>
+<Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh", marginTop:'4rem'}}>
+  Your Wishlist is empty
+</Typography>
+<Button variant="contained" sx={{textTransform:'none',}} onClick={()=>{
+  navigate('/desert-safari')
+}}>Explore More</Button>
+</Box>
+
+  </Grid>
+
+
+  </Grid>
+</Box>
+
+
+           </Box>
+
           ) : (
         wishList.map((val, ind) => (
           <Box sx={{ mt: 3 }} key={ind}>

@@ -163,14 +163,15 @@ const Categories = () => {
                   alignItems: "center",
                   flexDirection: "column",
                   mr: 4,
+
                 }}
                 onClick={() => handleCategoryClick(val)}
               >
                 <Avatar
                   src={val.image}
                   sx={{
-                    height: "150px",
-                    width: "150px",
+                    height: "100px",
+                    width: "100px",
                     border: `4px solid ${selectedCategory === val
                       ? theme.palette.primary.main
                       : "transparent"
@@ -178,7 +179,7 @@ const Categories = () => {
                     cursor: "pointer",
                   }}
                 />
-                <Typography sx={{ mt: 1, fontWeight: "bold" }}>
+                <Typography sx={{ mt: 1, fontWeight: "bold", fontSize:'0.9rem' }}>
                   {val.name}
                 </Typography>
               </Box>

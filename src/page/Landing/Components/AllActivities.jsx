@@ -8,25 +8,27 @@ const AllActivities = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const [categories, setCategory] = useState([]);
+  const [categoryMap, setCategoryMap] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const categoryImages = {
-    // 'Desert Safari': '/activity1icon.png',
-
-    'Desert Safari': '/ac1.svg',
-
-    'Sightseeing': '/activity2.svg',
-    'Adventure': '/activity3icon.png',
-    'Attractions & Experiences': '/activity4icon.png',
-    'Cruising & Yachting': '/activity5icon.png',
-    'Transportation': '/activity6icon.png'
-  };
+  const staticCategories = [
+    { name: 'Desert Safari', image: '/ac1.svg' },
+    { name: 'Sightseeing', image: '/activity2.svg' },
+    { name: 'Adventure', image: '/activity3.svg' },
+    { name: 'Attractions & Experiences', image: '/activity4.svg' },
+    { name: 'Cruising & Yachting', image: '/activity5.svg' },
+    { name: 'Transportation', image: '/activity6.svg' },
+  ];
 
   useEffect(() => {
     dispatch(getCategories())
       .then((result) => {
-        setCategory(result.data.payload);
+        const categories = result.data.payload;
+        const categoryMap = categories.reduce((acc, category) => {
+          acc[category.name] = category.id;
+          return acc;
+        }, {});
+        setCategoryMap(categoryMap);
         setLoading(false);
       })
       .catch((err) => {
@@ -40,29 +42,54 @@ const AllActivities = () => {
   }
 
   return (
-    <Box sx={{ padding: "1rem 5%" }}>
-      <Box sx={{ display: "flex", alignItems: "center" }} gap={3}>
-        <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
-          All Activities
-        </Typography>
-        {!loading && categories.map((val, ind) => {
-          const categoryPath = `/${val.name.toLowerCase().replace(/\s+/g, '-')}`;
-          const imageSrc = categoryImages[val.name] || '/defaultIcon.png';
 
-          return (
-            <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
-              <img src={imageSrc} alt={val.name} style={{ width: '30px', height: '30px' }} />
-              <Button
-                sx={{ textTransform: "none", color: "grey" }}
-                onClick={() => navigate('/desert-safari', { state: { categoryId: val.id } })}
-              >
-                {val.name}
-              </Button>
-            </Box>
-          );
-        })}
-      </Box>
+    <Box sx={{ padding: "1rem 5%" }}>
+    <Box sx={{ display: "flex", alignItems: "center" }} gap={3}>
+      <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
+        All Activities
+      </Typography>
+      {!loading && staticCategories.map((val, ind) => {
+        {/* const categoryId = categoryMap[val.name]; */}
+        return (
+          <Box key={ind} sx={{ display: "flex", alignItems: "center" }}>
+            <img src={val.image} alt={val.name} style={{ width: '20px', height: '20px' }} />
+            <Button
+              sx={{ textTransform: "none", color: "grey" }}
+              onClick={() => navigate('/desert-safari')}
+
+            >
+              {val.name}
+            </Button>
+          </Box>
+        );
+      })}
     </Box>
+  </Box>
+
+
+    // <Box sx={{ padding: "1rem 5%" }}>
+    //   <Box sx={{ display: "flex", alignItems: "center" }} gap={3}>
+    //     <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
+    //       All Activities
+    //     </Typography>
+    //     {!loading && staticCategories.map((val, ind) => {
+    //       const categoryId = categoryMap[val.name];
+    //       return (
+    //         <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
+    //           <img src={val.image} alt={val.name} style={{ width: '30px', height: '30px' }} />
+    //           <Button
+    //             sx={{ textTransform: "none", color: "grey" }}
+    //             onClick={() => navigate('/desert-safari', { state: { categoryId } })}
+    //             disabled={!categoryId}
+    //           >
+    //             {val.name}
+    //           </Button>
+    //         </Box>
+    //       );
+    //     })}
+    //   </Box>
+    // </Box>
+
   );
 };
 

@@ -25,7 +25,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosBicycle } from "react-icons/io";
 import { FaChevronRight } from "react-icons/fa6";
@@ -39,7 +39,7 @@ const Navbar = () => {
   const authh = useSelector((state) => state.auth.isAuthenticated);
 
   const cartData = useSelector((state) => state.cart.cart.payload);
-  const cartItemCount = cartData.length;
+  const cartItemCount = cartData?.length;
   // const wishlistData = useSelector((state) => state.wishlist.wishlist.payload);
   // const wishlistCount = wishlistData.length;
 
@@ -141,6 +141,8 @@ const dispatch = useDispatch()
     }
   }, [location.pathname]);
 
+
+
   const wishListLength = localStorage.getItem("wishListLength");
 
   const handlePopoverOpen = (event) => {
@@ -165,6 +167,9 @@ const dispatch = useDispatch()
 
   // const ss = useSelector((state) => console.log(state, 'ssssssss'))
 
+  if (location.pathname !== "/") {
+
+  }
   return (
     <>
       <Box
@@ -174,6 +179,9 @@ const dispatch = useDispatch()
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          position: location.pathname === "/" ? "sticky" : "static",
+          top: 0,
+          zIndex: 1000,
         }}
       >
         <Box>

@@ -65,13 +65,26 @@ const theme = useTheme()
           {loading ? ( // Conditional rendering based on loading state
           <Loader />
           ) : allCart.length === 0 ? ( // Check if allCart is empty
-            <Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh" }}>
+           <Box sx={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+           {/* <Typography variant="h1" sx={{ fontSize:'2rem', fontWeight:'700', display: "flex", justifyContent: "center", alignItems: "center", minHeight: "25vh" }}>
              <Box>
-
               <ShoppingCartIcon sx={{fontSize:'10rem', color:theme.palette.primary.main}}/>
-
              </Box>
-            </Typography>
+            </Typography> */}
+
+
+            <Typography sx={{fontSize:'1.5rem',mb:4, fontWeight:'700'}}>Your Cart is Empty</Typography>
+
+<Button variant="contained"
+sx={{textTransform:'none'}}
+onClick={()=>{
+navigate('/desert-safari')
+}}
+>
+Explore More
+
+</Button>
+           </Box>
           ) : (
             <Box sx={{ display: "flex", mt: 2, gap: 4 }}>
               <Box flex={2}>
