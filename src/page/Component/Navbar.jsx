@@ -25,7 +25,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AllActivities from "../Landing/Components/AllActivities";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosBicycle } from "react-icons/io";
 import { FaChevronRight } from "react-icons/fa6";
@@ -34,8 +34,9 @@ import { logout } from "../../store/actions/authActions";
 
 const Navbar = () => {
   const theme = useTheme();
+  const base='https://dubaisafari.saeedantechpvt.com/'
   const userData = useSelector((state) => state.auth.user);
-  console.log(userData, "imageeee");
+  console.log(userData, "User Data from BE");
   const authh = useSelector((state) => state.auth.isAuthenticated);
 
   const cartData = useSelector((state) => state.cart.cart.payload);
@@ -43,8 +44,7 @@ const Navbar = () => {
   // const wishlistData = useSelector((state) => state.wishlist.wishlist.payload);
   // const wishlistCount = wishlistData.length;
 
-
-  console.log(authh, 'authhhhhhhh')
+  // console.log(authh, "authhhhhhhh");
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -67,7 +67,7 @@ const Navbar = () => {
   };
 
   const [tokenAvailable, setTokenAvailable] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("token");
     setTokenAvailable(token);
@@ -78,10 +78,7 @@ const Navbar = () => {
       // localStorage.removeItem("token");
       // setTokenAvailable(false);
 
-
-      dispatch(logout())
-
-
+      dispatch(logout());
     } else if (value === "Manage Profile") {
       navigate("/manage-profile");
     } else if (value === "Booking") {
@@ -165,6 +162,8 @@ const Navbar = () => {
 
   // const ss = useSelector((state) => console.log(state, 'ssssssss'))
 
+  if (location.pathname !== "/") {
+  }
   return (
     <>
       <Box
@@ -174,6 +173,9 @@ const Navbar = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          position: location.pathname === "/" ? "sticky" : "static",
+          top: 0,
+          zIndex: 10000,
         }}
       >
         <Box>
@@ -190,40 +192,44 @@ const Navbar = () => {
           <>
             <Box
               width={isSmallScreen ? "100%" : "7rem"}
-              marginBottom={isSmallScreen ? "1rem" : "1rem"}>
+              marginBottom={isSmallScreen ? "1rem" : "1rem"}
+              sx={{
+                position: "relative",
+                "&:hover > .dropdown-menu": {
+                  display: "block",
+                  opacity: 1,
+                },
+
+              }}
+            >
               <FormControl fullWidth size="small" variant="standard">
                 <InputLabel
                   id="demo-simple-select-label"
-                  sx={{ borderBottom: "none" }}
-                  onMouseEnter={handlePopoverOpen}
-                  onMouseLeave={handlePopoverClose}
-
+                  sx={{ borderBottom: "none", cursor: "pointer" }}
                 >
                   What We Do
                 </InputLabel>
               </FormControl>
 
-              <Popover
-                id="mouse-over-popover"
-                sx={{ pointerEvents: "none" }}
-                open={openPopover}
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
+              <Box
+                className="dropdown-menu"
+                sx={{
+                  display: "none",
+                  position: "absolute",
+                  top: "100%",
+                  left: 0,
+                  backgroundColor: "white",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                  zIndex: 1,
+                  width: "max-content",
+                  padding: "1rem",
+                  mt: 3,
                 }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                onClose={handlePopoverClose}
-                disableRestoreFocus
               >
                 <Box
-                  p={2}
-                  sx={{ display: "flex" }}
-                  onMouseEnter={handlePopoverOpen} // Keep popover open
-                  onMouseLeave={handlePopoverClose} // Close popover when mouse leaves
+                  sx={{
+                    display: "flex",
+                  }}
                 >
                   <Box
                     sx={{
@@ -244,7 +250,13 @@ const Navbar = () => {
                         size={25}
                         style={{ color: theme.palette.primary.main }}
                       />
-                      <Typography sx={{ fontSize: "16px", fontWeight: 600 }}>
+                      <Typography
+                        sx={{
+                          cursor: "pointer",
+                          fontSize: "16px",
+                          fontWeight: 600,
+                        }}
+                      >
                         Things To Do
                       </Typography>
                       <FaChevronRight
@@ -256,6 +268,7 @@ const Navbar = () => {
                     {data.map((val, ind) => (
                       <Typography
                         key={ind}
+                        sx={{ cursor: "pointer" }}
                         onClick={() => navigate("/desert-safari")}
                       >
                         {val.name}
@@ -296,15 +309,17 @@ const Navbar = () => {
                     {data1.map((val, ind) => (
                       <Typography
                         key={ind}
+                        sx={{ cursor: "pointer" }}
                         onClick={() => navigate("/desert-safari")}
                       >
                         {val.name}
                       </Typography>
                     ))}
                   </Box>
-                </Box>
-              </Popover>
 
+
+                </Box>
+              </Box>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -516,7 +531,7 @@ const Navbar = () => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                           <Avatar
                             alt=""
-                            src="/avatar.jpg"
+                            src={userData ? `${base}${userData.profile_image}` : ""}
                             sx={{ marginRight: "8px" }}
                           />
                           {userData.first_name}

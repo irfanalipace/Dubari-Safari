@@ -22,26 +22,57 @@ import { useSelector } from "react-redux"; // Import useSelector
 const RightSideComponents = ({ allCart, totalPrice }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated); // Get the authentication status from Redux
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  console.log(allCart, "all cartttt");
 
   const faq = [
     {
       qestion: "Can I edit my booking after 1 book",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
+      answer:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
     },
     {
       qestion: "How long do items stay saved in cart ?",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
+      answer:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
     },
     {
       qestion: "Is my Payment Secure?",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
+      answer:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
     },
     {
       qestion: "Is there a booking fee ?",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
+      answer:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae odit fuga porro laboriosam eveniet voluptate temporibus id veniam modi.",
     },
   ];
+
+  // const handleCheckout= ()=>{
+  //   navigate('/payment-details', { state: { totalPrice: totalPrice } })
+  // }
+
+  const handleCheckout = () => {
+    const lastCartItem = allCart[allCart.length - 1];
+    console.log(lastCartItem, "last cart data");
+
+    const { adult, child, infant, tour_date } = lastCartItem;
+
+
+
+    navigate("/payment-details", {
+      state: {
+        totalPrice: totalPrice,
+        person: {
+          adult: adult,
+          child: child,
+          infant: infant,
+      },
+        date: tour_date,
+      },
+    });
+  };
 
   return (
     <>
@@ -54,43 +85,41 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           background: "#fff",
         }}
       >
-<Box
-
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            variant="h1"
+            sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
           >
+            {/* Total ({allCart.length} Activit{allCart.length !== 1 ? 'ies' : ''}) */}
+            Total ({allCart.length} Activit{allCart.length !== 1 ? "ies" : ""})
+            {/* Total (10 Activity) */}
+          </Typography>
+          <Box>
             <Typography
               variant="h1"
-              sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
+              sx={{
+                color: theme.palette.primary.main,
+                fontSize: "2rem",
+                fontWeight: "600",
+                marginBottom: "0.5rem",
+              }}
             >
-            {/* Total ({allCart.length} Activit{allCart.length !== 1 ? 'ies' : ''}) */}
-            Total ({allCart.length} Activit{allCart.length !== 1 ? 'ies' : ''})
-
-              {/* Total (10 Activity) */}
+              $ : {totalPrice}
             </Typography>
-            <Box>
-              <Typography
-                variant="h1"
-                sx={{
-                  color: theme.palette.primary.main,
-                  fontSize: "2rem",
-                  fontWeight: "600",
-                  marginBottom: "0.5rem",
-                }}
-              >
-               $ :  {totalPrice}
-              </Typography>
-              <Typography
-                variant="h1"
-                sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
-              >
-                No Additional Fees
-              </Typography>
-            </Box>
+            <Typography
+              variant="h1"
+              sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
+            >
+              No Additional Fees
+            </Typography>
           </Box>
+        </Box>
 
         <Divider />
 
@@ -98,6 +127,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           <Button
             variant="contained"
             sx={{ width: "100%", textTransform: "none" }}
+            onClick={handleCheckout}
           >
             Checkout
           </Button>
@@ -105,12 +135,12 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
             variant="outlined"
             sx={{ width: "100%", textTransform: "none", mt: 2 }}
             onClick={() => {
-              navigate('/desert-safari');
+              navigate("/desert-safari");
             }}
           >
             Explore more activities
           </Button>
-{/*
+          {/*
           {!isAuthenticated && (
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
               <Typography>
@@ -153,43 +183,43 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           )} */}
 
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
-              <Typography>
-                <Link
-                  to="/signup"
-                  style={{
-                    color: theme.palette.primary.main,
-                    textDecoration: "none",
-                  }}
-                >
-                  Create an account
-                </Link>
-                <span> or </span>
-                <Link
-                  to="/login"
-                  style={{
-                    color: theme.palette.primary.main,
-                    textDecoration: "none",
-                  }}
-                >
-                  Login
-                </Link>
-                for faster checkout
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "end",
-                  justifyContent: "center",
+            <Typography>
+              <Link
+                to="/signup"
+                style={{
+                  color: theme.palette.primary.main,
+                  textDecoration: "none",
                 }}
               >
-                <DoneIcon sx={{ color: "green" }} />
-                <Typography
-                  sx={{ color: "green", fontWeight: "600", marginTop: "1rem" }}
-                >
-                  Best Price Guarantee
-                </Typography>
-              </Box>
+                Create an account
+              </Link>
+              <span> or </span>
+              <Link
+                to="/login"
+                style={{
+                  color: theme.palette.primary.main,
+                  textDecoration: "none",
+                }}
+              >
+                Login
+              </Link>
+              for faster checkout
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "end",
+                justifyContent: "center",
+              }}
+            >
+              <DoneIcon sx={{ color: "green" }} />
+              <Typography
+                sx={{ color: "green", fontWeight: "600", marginTop: "1rem" }}
+              >
+                Best Price Guarantee
+              </Typography>
             </Box>
+          </Box>
         </Box>
       </Box>
 
@@ -201,7 +231,10 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
         <Divider />
         <Box sx={{ borderRadius: "20px", mt: 3 }}>
           {faq.map((val, index) => (
-            <Accordion key={index} sx={{ border: 'none', color: 'grey', boxShadow: 'none' }}>
+            <Accordion
+              key={index}
+              sx={{ border: "none", color: "grey", boxShadow: "none" }}
+            >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1-content"

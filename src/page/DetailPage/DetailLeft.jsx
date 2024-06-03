@@ -30,25 +30,39 @@ const DetailLeft = ({ ac_data, loading }) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
-            handleCart(p_id, q, date, price)
-                .then(() => {
-                    const data = {
-                        date: price,
-                        person: {
-                            adult: adult,
-                            child: child,
-                            infant: infant,
-                        },
-                        totalPrice: totalPrice,
-                    };
-                    navigate("/payment-details", { state: data });
-                    enqueueSnackbar("Package Booked", { variant: "success" });
+            const data = {
+                date: price,
+                person: {
+                    adult: adult,
+                    child: child,
+                    infant: infant,
+                },
+                totalPrice: totalPrice,
+            };
+            navigate("/payment-details", { state: data });
+            enqueueSnackbar("Package Booked", { variant: "success" });
 
-                })
-                .catch((err) => {
-                    console.log(err);
-                    enqueueSnackbar("Failed to add to cart", { variant: "error" });
-                });
+            // handleCart(p_id, q, date, price)
+            //     .then(() => {
+            //         const data = {
+            //             date: price,
+            //             person: {
+            //                 adult: adult,
+            //                 child: child,
+            //                 infant: infant,
+            //             },
+            //             totalPrice: totalPrice,
+            //         };
+            //         navigate("/payment-details", { state: data });
+            //         enqueueSnackbar("Package Booked", { variant: "success" });
+
+            //     })
+            //     .catch((err) => {
+            //         console.log(err);
+            //         enqueueSnackbar("Failed to add to cart", { variant: "error" });
+            //     });
+
+
         }
     };
 

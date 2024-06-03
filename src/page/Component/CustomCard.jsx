@@ -54,8 +54,8 @@ const CustomCard = ({
           }}
         >
           4.0(23)😊
-        </Box> */}
-        <Box
+        </Box>
+        {/* <Box
           sx={{
             position: "absolute",
             top: 0,
@@ -70,7 +70,7 @@ const CustomCard = ({
           }}
         >
           <Box>{earnpoints}</Box>
-        </Box>
+        </Box> */}
       </Box>
 
       <Box p={2} sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>

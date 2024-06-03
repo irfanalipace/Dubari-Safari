@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Grid, Button, Modal, Box, IconButton, useTheme, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { FaLongArrowAltLeft } from "react-icons/fa";
@@ -30,11 +30,20 @@ const DetailSlider = ({ data1 }) => {
     }
     const img = data1?.activity_images;
     console.log(img, 'jjj')
+    const bookNowRef = useRef(null);
+
+    const handleBookNowClick = () => {
+        window.scrollTo({
+            top: window.innerHeight / 1.2,
+            behavior: 'smooth',
+        });
+    };
+
     return (
         <div>
             <Grid container spacing={0.5}>
                 <Grid item xs={8} sx={{ position: 'relative' }}>
-                    <img src={`${base}${img?.[0]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '80vh', objectFit: 'cover' }} />
+                    <img src={`${base}${img?.[0]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '66vh', objectFit: 'cover' }} />
                     <Box sx={{ position: 'absolute', top: 50, left: 50 }}>
 
                         <Button onClick={handleBack} variant='standard' sx={{
@@ -47,10 +56,10 @@ const DetailSlider = ({ data1 }) => {
                 <Grid item xs={4} sx={{ position: 'relative' }}>
                     <Grid container direction="column" spacing={0}>
                         <Grid item>
-                            <img src={`${base}${img?.[1]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '40vh', objectFit: 'cover' }} />
+                            <img src={`${base}${img?.[1]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '33vh', objectFit: 'cover' }} />
                         </Grid>
                         <Grid item>
-                            <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '39vh', objectFit: 'cover' }} />
+                            <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '32vh', objectFit: 'cover' }} />
                         </Grid>
                         <Box sx={{ position: 'absolute', top: 50, right: 50 }}>
                             <Button variant="standard" onClick={handleOpen} style={{ width: '100%', borderRadius: "20px", textTransform: 'none', backgroundColor: '#F3F3F3', color: theme.palette.primary.main, fontWeight: 600 }}>
@@ -79,6 +88,8 @@ const DetailSlider = ({ data1 }) => {
                                         fontSize: "12px",
                                         textTransform: 'none'
                                     }}
+                                    onClick={handleBookNowClick}
+                                    ref={bookNowRef}
                                 >
                                     Book Now
                                 </Button>
