@@ -115,7 +115,7 @@ const RelatedData = () => {
                                         >
                                             4.0(23)😊
                                         </Box>
-                                        <Box
+                                        {/* <Box
                                             sx={{
                                                 position: "absolute",
                                                 top: 0,
@@ -129,10 +129,10 @@ const RelatedData = () => {
                                                 justifyContent: "center",
                                             }}
                                         >
-                                            {/* <Box>{earnpoints}</Box> */}
+
                                             <Box>end point</Box>
 
-                                        </Box>
+                                        </Box> */}
                                     </Box>
 
                                     <Box p={2} sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
