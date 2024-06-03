@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions/cartActions";
 import { FiGift } from "react-icons/fi";
 import { Send_Gift } from "../../store/actions/categoriesActions";
+import Cookies from "js-cookie"; // Importing js-cookie
 
 const DetailLeft = ({ ac_data, loading }) => {
     const [date, setDate] = useState("");
@@ -16,22 +17,19 @@ const DetailLeft = ({ ac_data, loading }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const theme = useTheme()
-    // const {date} = useParams()
+    const theme = useTheme();
 
     useEffect(() => {
-        // Set the current date as the initial date
         const currentDate = new Date().toISOString().split("T")[0];
         setDate(currentDate);
     }, []);
-
 
     const handleLogDetails = (totalPrice, p_id, q, date, price) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
             const data = {
-                date: price,
+                date: date,
                 person: {
                     adult: adult,
                     child: child,
@@ -39,33 +37,14 @@ const DetailLeft = ({ ac_data, loading }) => {
                 },
                 totalPrice: totalPrice,
             };
+
+            // Store data in a cookie
+            Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
+
             navigate("/payment-details", { state: data });
             enqueueSnackbar("Package Booked", { variant: "success" });
-
-            // handleCart(p_id, q, date, price)
-            //     .then(() => {
-            //         const data = {
-            //             date: price,
-            //             person: {
-            //                 adult: adult,
-            //                 child: child,
-            //                 infant: infant,
-            //             },
-            //             totalPrice: totalPrice,
-            //         };
-            //         navigate("/payment-details", { state: data });
-            //         enqueueSnackbar("Package Booked", { variant: "success" });
-
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //         enqueueSnackbar("Failed to add to cart", { variant: "error" });
-            //     });
-
-
         }
     };
-
 
     const handleGift = async (activity_id, discount_price, recipient_email) => {
         const body = {
@@ -73,11 +52,11 @@ const DetailLeft = ({ ac_data, loading }) => {
             discount_price: discount_price,
             recipient_email: recipient_email
         };
-        // console.log(body, 'llll')
+
         try {
             const res = await dispatch(Send_Gift(body));
             enqueueSnackbar("Gift sent successfully", { variant: "success" });
-            navigate('/view-gift')
+            navigate('/view-gift');
             return res;
         } catch (err) {
             console.log(err);
@@ -117,9 +96,6 @@ const DetailLeft = ({ ac_data, loading }) => {
             });
     };
 
-
-
-
     const stylesEll = {
         fontSize: "14px",
         fontWeight: 600,
@@ -128,26 +104,11 @@ const DetailLeft = ({ ac_data, loading }) => {
         overflow: "hidden",
         textOverflow: "ellipsis",
     };
-    console.log(ac_data, 'hdgadjdkl')
+
     return (
-        <Box
-            sx={{
-                border: "2px solid #EDEDED",
-                borderRadius: "20px",
-                padding: "30px 0px",
-            }}
-        >
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "start",
-                    gap: "20px",
-                }}
-            >
-                <Typography
-                    sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}
-                >
+        <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
+                <Typography sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}>
                     Select Date & Activity Option
                 </Typography>
                 <Divider sx={{ width: "100%" }} />
@@ -172,10 +133,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                     />
                 </Box>
                 <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                    <FormControl
-                        fullWidth
-                        sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
-                    >
+                    <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                         <Button
                             fullWidth
                             onClick={handleSelectClick}
@@ -196,10 +154,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                     <>
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Adult</InputLabel>
-                            <FormControl
-                                fullWidth
-                                sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
-                            >
+                            <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={adult}
                                     onChange={(e) => setAdult(e.target.value)}
@@ -219,10 +174,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Child</InputLabel>
-                            <FormControl
-                                fullWidth
-                                sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
-                            >
+                            <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={child}
                                     onChange={(e) => setChild(e.target.value)}
@@ -242,10 +194,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Infant</InputLabel>
-                            <FormControl
-                                fullWidth
-                                sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
-                            >
+                            <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={infant}
                                     onChange={(e) => setInfant(e.target.value)}
@@ -273,7 +222,6 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                     ) : (
                         ac_data?.packages?.map((item, index) => {
-                            console.log(ac_data, 'item')
                             const totalPrice = calculateTotalPrice(item.price);
                             let total = 0;
                             if (item.category === 'sharing') {
@@ -337,7 +285,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, total, date)}
+                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
@@ -355,8 +303,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
                     <FiGift style={{ color: theme.palette.primary.main }} />
-                    <Button onClick={() => handleGift(ac_data.id, ac_data.
-                        discount_offer, 'hi')} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
+                    <Button onClick={() => handleGift(ac_data.id, ac_data.discount_offer, 'hi')} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
                 </Box>
             </Box>
         </Box>
