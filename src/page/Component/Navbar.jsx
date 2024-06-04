@@ -531,10 +531,10 @@ const Navbar = () => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                           <Avatar
                             alt=""
-                            src={userData ? `${base}${userData.profile_image}` : ""}
+                            src={userData ? `${base}${userData?.profile_image}` : ""}
                             sx={{ marginRight: "8px" }}
                           />
-                          {userData.first_name}
+                          {userData?.first_name}
                         </Box>
                       )}
                     >

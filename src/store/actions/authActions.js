@@ -28,7 +28,10 @@ export const userLogin = (formValues) => async (dispatch) => {
 export const updateProfile = (formValues) => async (dispatch) => {
   try {
     const res = await api.post("user/update/profile", formValues);
-
+    dispatch({
+      type: "PROFILE_UPDATE_SUCCESS",
+      payload: res.data,
+    });
     return res;
   } catch (err) {
     throw err;

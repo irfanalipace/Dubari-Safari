@@ -100,25 +100,68 @@ const DetailLeft = ({ ac_data, loading }) => {
         return totalAdultPrice + totalChildPrice;
     };
 
+    // const handleCart = (p_id, q, total, date, adult, child, infant) => {
+    //     if (!date) {
+    //         enqueueSnackbar("Please Select Date", { variant: "error" });
+    //         return Promise.reject(new Error("Date not selected"));
+    //     }
+    //     return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
+    //         .then((result) => {
+    //             console.log(result);
+    //             enqueueSnackbar("Added to cart successfully", { variant: "success" });
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //             enqueueSnackbar("Failed to add to cart", { variant: "error" });
+    //             throw err;
+    //         });
+    // };
+
     const handleCart = (p_id, q, total, date, adult, child, infant) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
             return Promise.reject(new Error("Date not selected"));
         }
-        return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
-            .then((result) => {
-                console.log(result);
-                enqueueSnackbar("Added to cart successfully", { variant: "success" });
-            })
-            .catch((err) => {
-                console.log(err);
-                enqueueSnackbar("Failed to add to cart", { variant: "error" });
-                throw err;
-            });
+
+        const token = localStorage.getItem("token");
+        if (token) {
+
+            return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
+                .then((result) => {
+                    console.log(result);
+                    enqueueSnackbar("Added to cart successfully", { variant: "success" });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    enqueueSnackbar("Failed to add to cart", { variant: "error" });
+                    throw err;
+                });
+        } else {
+
+        const newItem = {
+            ac_data: ac_data,
+            item: {
+                p_id: p_id,
+                q: q,
+                total: total,
+                date: date,
+                adult: adult,
+                child: child,
+                infant: infant
+            }
+        };
+        const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
+
+        // Append the new item to the existing cart data
+        const updatedCartData = [...existingCartData, newItem];
+       
+            localStorage.setItem("addCartData", JSON.stringify(updatedCartData));
+
+            enqueueSnackbar("Item added to cart", { variant: "success" });
+
+
+            return Promise.resolve();}
     };
-
-
-
 
     const stylesEll = {
         fontSize: "14px",

@@ -205,12 +205,12 @@ const Categories = () => {
               Sort result by
             </Typography>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Recommended</InputLabel>
+              {/* <InputLabel id="demo-simple-select-label">Recommended</InputLabel> */}
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={sortCriteria}
-                label="Sort By"
+                // label="Sort By"
                 onChange={handleChange}
               >
                 <MenuItem value="recommended">Recommended</MenuItem>
@@ -222,13 +222,14 @@ const Categories = () => {
             </FormControl>
             {filteredSubCategories.length > 0 && (
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Sub Categories</InputLabel>
+                {/* <InputLabel id="demo-simple-select-label">Sub Categories</InputLabel> */}
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={selectedSubCategory}
                   onChange={handleSubCategoryChange}
                 >
+                
                   {filteredSubCategories.map((subCategory, index) => (
                     <MenuItem key={index} value={subCategory}>
                       {subCategory}

@@ -42,7 +42,7 @@ const Header = () => {
                     textTransform: 'none',
                     color: "#000",
                     fontWeight: 600,
-                    padding: '5px',
+                    paddingTop: '10px',
                     transform: 'rotate(-90deg)',
                     transformOrigin: 'left bottom',
                     zIndex: 9999

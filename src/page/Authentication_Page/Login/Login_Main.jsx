@@ -49,20 +49,16 @@ const navigate = useNavigate()
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     dispatch(userLogin(formValues))
       .then((res) => {
         enqueueSnackbar(res.data.message, { variant: "success" });
-
         // alert(res.data.message, 'response')
         setFormValues(initialValues)
         navigate('/')
-
-
-
-
       })
       .catch((err) => {
         setLoading(false);

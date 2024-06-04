@@ -65,6 +65,16 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
       };
     }
+
+    case "PROFILE_UPDATE_SUCCESS": {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+      };
+    }
     default:
       return state;
   }

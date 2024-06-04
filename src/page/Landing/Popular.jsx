@@ -1,8 +1,10 @@
 import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomCard from '../Component/CustomCard';
 import { useNavigate } from 'react-router';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useDispatch } from 'react-redux';
+import { getPopularActivities } from '../../store/actions/categoriesActions';
 
 
 const cardData = [
@@ -110,6 +112,10 @@ const Popular = () => {
     const handleClick = () => {
         navigate('/location-detail')
     }
+    const handleActivities = ()=>{
+        navigate('/desert-safari')
+    }
+
 
     return (
         <>
@@ -117,23 +123,12 @@ const Popular = () => {
                 <Typography sx={{ fontSize: '37px', fontWeight: 700 }}>Most Popular Things to do in Dubai</Typography>
                 <Typography sx={{ color: theme.palette.primary.textPrimary }}>Lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur</Typography>
                 <Box sx={{ padding: '30px 50px' }}>
-                    <Grid container spacing={2}>
-                        {cardData.map((val, ind) => (
-                            <Grid key={ind} item lg={3} xs={12} sm={12} md={6}>
-                                <CustomCard
-                                    handleClick={handleClick}
-                                    earnpoints={val.earnpoints}
-                                    title={val.title}
-                                    discountprice={val.discountprice}
-                                    actualprice={val.actualprice}
 
-                                    imageUrl={val.imageUrl}
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
+
+                <CustomCard/>
+
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
-                        <Button variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', borderRadius: '20px', textTransform: 'none', fontSize: '1rem', fontWeight: 700 }}>See All <ArrowForwardIcon /> </Button>
+                        <Button variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', borderRadius: '20px', textTransform: 'none', fontSize: '1rem', fontWeight: 700 }} onClick={handleActivities}>See All <ArrowForwardIcon /> </Button>
                     </Box>
                 </Box>
             </Box>

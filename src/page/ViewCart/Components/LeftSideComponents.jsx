@@ -12,7 +12,7 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { IoSyncOutline } from "react-icons/io5";
-import { deleteCart, getCart } from "../../../store/actions/cartActions";
+import { addToCart, deleteCart, getCart } from "../../../store/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useSnackbar } from "notistack";
@@ -32,10 +32,31 @@ const LeftSideComponents = ({ setTotalPrice  }) => {
     return adult + child + infant;
   };
 
-  
+
   useEffect(() => {
-    dispatch(getCart());
-  }, [dispatch]);
+    const token = localStorage.getItem("token");
+    const storedData = JSON.parse(localStorage.getItem("addCartData"));
+
+    if (token && storedData) {
+      const { p_id, q, total, date, adult, child, infant } = storedData;
+      dispatch(addToCart(p_id, q, total, date, adult, child, infant))
+        .then((res) => {
+          localStorage.removeItem("addCartData");
+          enqueueSnackbar("Activity Added to Cart", { variant: "success" });
+        })
+        .catch((err) => {
+          console.error(err);
+          enqueueSnackbar("Failed to Add Activity to Cart", { variant: "error" });
+        });
+    }else{
+      enqueueSnackbar("Failed to Add Activity to Cart", { variant: "error" });
+
+    }
+  }, [dispatch]); // Only trigger when dispatch changes
+
+
+
+
 
   useEffect(() => {
     const total = allCart.reduce((sum, item) => sum + item.price, 0);

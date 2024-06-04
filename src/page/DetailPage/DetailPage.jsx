@@ -90,7 +90,7 @@ const DetailPage = () => {
 
   const renderIconsFromFeatures = () => {
     const iconsToShow = [];
-    data1.features.forEach(feature => {
+    data1?.features?.forEach(feature => {
       const matchedItems = infoItems.filter(item => item.text === feature);
       matchedItems.forEach(matchedItem => {
         iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });

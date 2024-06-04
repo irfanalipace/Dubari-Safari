@@ -19,6 +19,7 @@ import {
 import { updatePassword, updateProfile } from "../../store/actions/authActions";
 import { useSnackbar } from "notistack";
 
+
 const ManageProfileMain = () => {
   const initialValues = {
     title: 30,
@@ -144,7 +145,7 @@ setFormValues(initialValues)
       enqueueSnackbar('Error updating Password', { variant: "error" });
 
     }
-  };    
+  };
 
   const textFieldStyle = {
     marginTop: "1rem",

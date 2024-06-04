@@ -12,34 +12,33 @@ import OurPartners from "./Components/OurPartners";
 import WhatWeDo from "./Components/WhatWeDo";
 import AllActivities from "./Components/AllActivities";
 import Page from "../../components/page";
+import { getPopularActivities } from "../../store/actions/categoriesActions";
+import { useDispatch } from "react-redux";
 const Landing = () => {
-
   useEffect(() => {
-    window.scrollTo(0, 0)
-  })
-
+    window.scrollTo(0, 0);
+  });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPopularActivities());
+  }, []);
 
   return (
     <>
+      <Page title="Arabia Horizon | No 1 Tour Company in Dubai ">
+        <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
+          <Header />
 
-<Page title='Arabia Horizon | No 1 Tour Company in Dubai '>
+          <ChooseUs />
+          <Popular />
+        </div>
 
-<div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
-
-<Header />
-
-<ChooseUs />
-<Popular />
-</div>
-
-<WhatWeDo />
-{/* <DubaiLeading /> */}
-{/* <OurPartners /> */}
-{/* <SpecialOffer /> */}
-{/* <OfficeLocation /> */}
-
-
-</Page>
+        <WhatWeDo />
+        {/* <DubaiLeading /> */}
+        {/* <OurPartners /> */}
+        {/* <SpecialOffer /> */}
+        {/* <OfficeLocation /> */}
+      </Page>
     </>
   );
 };

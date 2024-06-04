@@ -27,6 +27,26 @@ export const getActivitiesById = (id) => async (dispatch) => {
   }
 };
 
+
+export const getPopularActivities = () => async (dispatch) => {
+  dispatch({ type: "GET_POPULAR_ACTIVITIES_REQUEST" });
+  try {
+    const res = await api.get(`category-activity/1`);
+    dispatch({
+      type: "GET_POPULAR_ACTIVITIES",
+      payload: res.data,
+    });
+    console.log(res, 'popular activity data');
+    return res;
+  } catch (err) {
+    dispatch({
+      type: "GET_POPULAR_ACTIVITIES_FAILURE",
+      error: err,
+    });
+    throw err;
+  }
+};
+
 export const getActivities = () => async (dispatch) => {
   try {
     const res = await api.get("all_activity");
