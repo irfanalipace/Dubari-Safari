@@ -31,7 +31,7 @@ export const getActivitiesById = (id) => async (dispatch) => {
 export const getPopularActivities = () => async (dispatch) => {
   dispatch({ type: "GET_POPULAR_ACTIVITIES_REQUEST" });
   try {
-    const res = await api.get(`category-activity/1`);
+    const res = await api.get(`all_activity`);
     dispatch({
       type: "GET_POPULAR_ACTIVITIES",
       payload: res.data,

@@ -179,7 +179,7 @@ const Categories = () => {
                     cursor: "pointer",
                   }}
                 />
-                <Typography sx={{ mt: 1, fontWeight: "bold", fontSize:'0.9rem' }}>
+                <Typography sx={{ mt: 1, fontWeight: "bold", fontSize: '0.9rem' }}>
                   {val.name}
                 </Typography>
               </Box>
@@ -220,10 +220,10 @@ const Categories = () => {
                 <MenuItem value="High to low price">High to low price</MenuItem>
               </Select>
             </FormControl>
-            {filteredSubCategories.length > 0 && (
+            {/* {filteredSubCategories.length > 0 && (
               <FormControl fullWidth>
                 {/* <InputLabel id="demo-simple-select-label">Sub Categories</InputLabel> */}
-                <Select
+            {/* <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={selectedSubCategory}
@@ -235,9 +235,9 @@ const Categories = () => {
                       {subCategory}
                     </MenuItem>
                   ))}
-                </Select>
-              </FormControl>
-            )}
+                </Select> */}
+            {/* </FormControl> */}
+            {/* )}  */}
           </Box>
         </Box>
         <Grid container spacing={3} sx={{ mt: 3 }}>

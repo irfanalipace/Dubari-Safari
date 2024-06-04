@@ -112,27 +112,28 @@ const Popular = () => {
     const handleClick = () => {
         navigate('/location-detail')
     }
-    const handleActivities = ()=>{
+    const handleActivities = () => {
         navigate('/desert-safari')
     }
 
 
     return (
-        <>
+        <Box sx={{ padding: '0px 50px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px', padding: "0px 20px" }}>
                 <Typography sx={{ fontSize: '37px', fontWeight: 700 }}>Most Popular Things to do in Dubai</Typography>
                 <Typography sx={{ color: theme.palette.primary.textPrimary }}>Lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur</Typography>
                 <Box sx={{ padding: '30px 50px' }}>
 
 
-                <CustomCard/>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
-                        <Button variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', borderRadius: '20px', textTransform: 'none', fontSize: '1rem', fontWeight: 700 }} onClick={handleActivities}>See All <ArrowForwardIcon /> </Button>
-                    </Box>
                 </Box>
             </Box>
-        </>
+            <CustomCard />
+
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
+                <Button variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', borderRadius: '20px', textTransform: 'none', fontSize: '1rem', fontWeight: 700 }} onClick={handleActivities}>See All <ArrowForwardIcon /> </Button>
+            </Box>
+        </Box>
     );
 };
 
