@@ -138,23 +138,50 @@ const DetailLeft = ({ ac_data, loading }) => {
                 });
         } else {
 
+        // const newItem = {
+        //     ac_data: [ac_data],
+        //     p_id: p_id,
+        //     q: q,
+        //     total: total,
+        //     date: date,
+        //     adult: adult,
+        //     child: child,
+        //     infant: infant
+        // };
         const newItem = {
             ac_data: ac_data,
-            item: {
-                p_id: p_id,
-                q: q,
-                total: total,
-                date: date,
-                adult: adult,
-                child: child,
-                infant: infant
-            }
+            p_id: p_id,
+            q: q,
+            price: total,
+            date: date,
+            adult: adult,
+            child: child,
+            infant: infant
         };
+
+        // const newItem = {
+        //     ac_data: [
+        //       ac_data,
+        //       {
+        //         p_id: p_id,
+        //         q: q,
+        //         total: total,
+        //         date: date,
+        //         adult: adult,
+        //         child: child,
+        //         infant: infant
+        //       }
+        //     ]
+        //   };
+
+
+
+
         const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
 
         // Append the new item to the existing cart data
         const updatedCartData = [...existingCartData, newItem];
-       
+
             localStorage.setItem("addCartData", JSON.stringify(updatedCartData));
 
             enqueueSnackbar("Item added to cart", { variant: "success" });
