@@ -96,9 +96,9 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
             variant="h1"
             sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
           >
-            {/* Total ({allCart.length} Activit{allCart.length !== 1 ? 'ies' : ''}) */}
+
             Total ({allCart.length} Activit{allCart.length !== 1 ? "ies" : ""})
-            {/* Total (10 Activity) */}
+
           </Typography>
           <Box>
             <Typography

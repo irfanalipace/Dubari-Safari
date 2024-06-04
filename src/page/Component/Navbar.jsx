@@ -40,7 +40,21 @@ const Navbar = () => {
   const authh = useSelector((state) => state.auth.isAuthenticated);
 
   const cartData = useSelector((state) => state.cart.cart.payload);
-  const cartItemCount = cartData?.length;
+  const cartItemCountRedux = cartData?.length;
+
+ const [localCartItemCount, setLocalCartItemCount] = useState(0);
+ const storedCartItems = JSON.parse(localStorage.getItem("addCartData"));
+
+  useEffect(() => {
+   
+    const storedCartItems = JSON.parse(localStorage.getItem("addCartData"));
+    if (storedCartItems) {
+      setLocalCartItemCount(storedCartItems.length);
+    }
+  }, [storedCartItems]);
+
+  const cartItemCount = !authh ? localCartItemCount : cartItemCountRedux;
+
   // const wishlistData = useSelector((state) => state.wishlist.wishlist.payload);
   // const wishlistCount = wishlistData.length;
 
