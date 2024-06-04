@@ -220,7 +220,7 @@ const DetailPage = () => {
       ];
       let currentSectionId = null;
 
-      sectionIds.forEach((id, index) => {
+      sectionIds?.forEach((id, index) => {
         const section = document.getElementById(id);
         if (section) {
           const rect = section.getBoundingClientRect();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -13,6 +13,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 
 const PaymentDetailComponent = () => {
+  useEffect(() => {
+    window.scroll(0, 0)
+  }, [])
   const theme = useTheme();
   const navigate = useNavigate();
 
