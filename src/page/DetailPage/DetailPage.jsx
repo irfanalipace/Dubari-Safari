@@ -474,27 +474,34 @@ const DetailPage = () => {
                       </Typography>
                       <Divider sx={{ width: "100%" }} />
                       <Box sx={{ backgroundColor: "#F0F0F0", borderRadius: "20px" }}>
-                        {data1?.instructions?.map((qa, index) => (
-                          <Accordion
-                            key={index}
-                            expanded={openAccordion === `panel${index}`}
-                            onChange={handleAccordionChange(`panel${index}`)}
-                            sx={{ backgroundColor: "#F0F0F0" }}
-                          >
-                            <AccordionSummary
-                              expandIcon={<ExpandMoreIcon />}
-                              IconButtonProps={{ edge: 'start' }}
+                        {data1?.instructions && data1.instructions.length > 0 ? (
+                          data1.instructions.map((qa, index) => (
+                            <Accordion
+                              key={index}
+                              expanded={openAccordion === `panel${index}`}
+                              onChange={handleAccordionChange(`panel${index}`)}
+                              sx={{ backgroundColor: "#F0F0F0" }}
                             >
-                              <Typography sx={{ color: "black", textAlign: "start" }}>
-                                {qa.instruction_title}
-                              </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                              <Typography variant="body1">{qa.instruction_description}</Typography>
-                            </AccordionDetails>
-                          </Accordion>
-                        ))}
+                              <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                IconButtonProps={{ edge: 'start' }}
+                              >
+                                <Typography sx={{ color: "black", textAlign: "start" }}>
+                                  {qa.instruction_title}
+                                </Typography>
+                              </AccordionSummary>
+                              <AccordionDetails>
+                                <Typography variant="body1">{qa.instruction_description}</Typography>
+                              </AccordionDetails>
+                            </Accordion>
+                          ))
+                        ) : (
+                          <Typography sx={{ color: "black", textAlign: "center", padding: 2 }}>
+                            No instructions found
+                          </Typography>
+                        )}
                       </Box>
+
                     </div>
                   </Box>
                 </Grid>
