@@ -9,55 +9,14 @@ import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+
 const steps = [
   { title: "Add to cart", icon: <AddShoppingCartIcon /> },
   { title: "Payment", icon: <AttachMoneyIcon /> },
   { title: "Print Voucher", icon: <LocalPrintshopIcon /> },
 ];
-const StepperComp = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+const StepperComp = ({ activeStep, handleNext, handleBack, handleSkip, handleReset, isStepOptional, isStepSkipped }) => {
 
   return (
     <Card
@@ -72,7 +31,7 @@ const StepperComp = () => {
               const stepProps = {};
               const labelProps = {};
               return (
-                <Step key={label} {...stepProps}>
+                <Step key={label.title} {...stepProps}>
                   <StepLabel {...labelProps}>
                     <Box
                       sx={{

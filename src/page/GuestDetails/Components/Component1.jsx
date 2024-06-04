@@ -17,7 +17,7 @@ import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { Booking } from '../../../store/actions/categoriesActions';
 
-const Component1 = ({ data }) => {
+const Component1 = ({ data, onNext }) => {
   const theme = useTheme();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -56,6 +56,7 @@ const Component1 = ({ data }) => {
   const navigate = useNavigate();
 
   const handleProceedToPayment = () => {
+
     const bookingDetails = {
       ...formValues,
       activity_name: "Snorkeling",
@@ -69,7 +70,7 @@ const Component1 = ({ data }) => {
     };
 
     dispatch(Booking(bookingDetails));
-    navigate("/payment-details");
+    onNext();
   };
 
   const textFieldStyle = {
