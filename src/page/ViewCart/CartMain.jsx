@@ -123,7 +123,7 @@ const CartMain = () => {
   const dispatch = useDispatch();
   const allCartRedux = useSelector((state) => state.cart.cart.payload);
   const allCartLocal = JSON.parse(localStorage.getItem("addCartData")) || [];
-  const allCart = allCartRedux.length > 0 ? allCartRedux : allCartLocal;
+  const allCart = allCartRedux?.length > 0 ? allCartRedux : allCartLocal;
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -153,10 +153,10 @@ const CartMain = () => {
 
         {loading ? (
           <Loader />
-        ) : allCart.length === 0 ? (
-          <Box sx={{ display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
-            <Typography sx={{ fontSize:'1.5rem', mb:4, fontWeight:'700' }}>Your Cart is Empty</Typography>
-            <Button variant="contained" sx={{ textTransform:'none' }} onClick={() => navigate('/desert-safari')}>
+        ) : allCart?.length === 0 ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            <Typography sx={{ fontSize: '1.5rem', mb: 4, fontWeight: '700' }}>Your Cart is Empty</Typography>
+            <Button variant="contained" sx={{ textTransform: 'none' }} onClick={() => navigate('/desert-safari')}>
               Explore More
             </Button>
           </Box>

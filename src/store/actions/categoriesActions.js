@@ -105,3 +105,19 @@ export const Booking = (body) => async (dispatch) => {
   }
 };
 
+
+
+export const StripePay = (body) => async (dispatch) => {
+  try {
+    const res = await api.post("/stripe", body); // Ensure this is the correct endpoint
+    dispatch({
+      type: "STRIPE",
+      payload: res.data,
+    });
+    return res.data; // Make sure this returns the response data containing clientSecret
+  } catch (err) {
+    console.error("Error creating PaymentIntent:", err);
+    throw err;
+  }
+};
+
