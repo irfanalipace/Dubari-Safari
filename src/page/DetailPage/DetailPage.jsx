@@ -247,6 +247,8 @@ const DetailPage = () => {
     return id === highlightedId;
   };
 
+
+
   return (
     <Page title="Detail Page">
 
@@ -299,12 +301,12 @@ const DetailPage = () => {
 
                     <Box
                       sx={{
-                        width: "100%",
+                        width: "95%",
                         marginTop: "20px",
                         position: "sticky",
-                        top: 0,
+                        top: 45,
                         backgroundColor: "white",
-                        // zIndex: 99999,
+                        zIndex: 999,
                         padding: "20px",
                       }}
                     >
@@ -400,6 +402,7 @@ const DetailPage = () => {
                       </Box>
                     </div>
 
+                    {data1?.description && (
                     <div id="description" style={colStyle}>
                       <Typography
                         sx={{
@@ -411,12 +414,12 @@ const DetailPage = () => {
                         Description
                       </Typography>
                       <Divider sx={{ width: "100%" }} />
-                      <Typography>
-                        {data1.description}
-                      </Typography>
+                      <Typography>{data1.description}</Typography>
                     </div>
+                    )}
 
-                    <div id="itinerary" style={colStyle}>
+                    {data1?.itinerary && (
+                      <div id="itinerary" style={colStyle}>
                       <Typography
                         sx={{
                           fontSize: "30px",
@@ -437,8 +440,10 @@ const DetailPage = () => {
                       />
 
                     </div>
+                    )}
 
-                    <div id="whats-included" style={colStyle}>
+                    {data1?.whats_included && (
+                      <div id="whats-included" style={colStyle}>
                       <Typography
                         sx={{
                           fontSize: "30px",
@@ -461,8 +466,11 @@ const DetailPage = () => {
                         }}
                       />
                     </div>
+                    )}
 
-                    <div id="trip-instructions" style={colStyle}>
+
+                    {data1?.instructions && data1.instructions.length > 0 && (
+                      <div id="trip-instructions" style={colStyle}>
                       <Typography
                         sx={{
                           fontSize: "30px",
@@ -473,20 +481,20 @@ const DetailPage = () => {
                         Trip Instructions / Essentials
                       </Typography>
                       <Divider sx={{ width: "100%" }} />
-                      <Box sx={{ backgroundColor: "#F0F0F0", borderRadius: "20px" }}>
+                      <Box sx={{ backgroundColor: "white", borderRadius: "20px" }}>
                         {data1?.instructions && data1.instructions.length > 0 ? (
                           data1.instructions.map((qa, index) => (
                             <Accordion
                               key={index}
                               expanded={openAccordion === `panel${index}`}
                               onChange={handleAccordionChange(`panel${index}`)}
-                              sx={{ backgroundColor: "#F0F0F0" }}
+                              sx={{ backgroundColor:'#ffaf95', color:'white' }}
                             >
                               <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMoreIcon style={{color:'white'}}/>}
                                 IconButtonProps={{ edge: 'start' }}
                               >
-                                <Typography sx={{ color: "black", textAlign: "start" }}>
+                                <Typography sx={{ textAlign: "start" }}>
                                   {qa.instruction_title}
                                 </Typography>
                               </AccordionSummary>
@@ -503,6 +511,16 @@ const DetailPage = () => {
                       </Box>
 
                     </div>
+                    )}
+
+
+
+
+
+
+
+
+
                   </Box>
                 </Grid>
                 <Grid

@@ -118,16 +118,26 @@ const Categories = () => {
     ? sortActivities(filteredActivities, sortCriteria)
     : filteredActivities;
 
+
+
+
   return (
     <Page title="Categories">
-      <Box sx={{ p: 10 }}>
-        <Button
+      <Box sx={{ padding:'3rem 5rem' }}>
+        {/* <Button
           onClick={handleBack}
           variant="contained"
           startIcon={<ArrowBack />}
         >
           Back to home page
-        </Button>
+        </Button> */}
+        <Typography
+            variant="h4"
+            fontWeight="bold"
+            sx={{ flex: 2, whiteSpace: "nowrap", textAlign:'center' }}
+          >
+            Things to do in Abu Dhabi
+          </Typography>
         <Box
           sx={{
             display: "flex",
@@ -136,13 +146,13 @@ const Categories = () => {
           }}
         >
           <Typography variant="h4" fontWeight="bold" sx={{ mt: 3 }}>
-            Categories
+            {/* Categories */}
           </Typography>
           <Typography sx={{ color: "grey", fontWeight: "bold" }}>
             View All
           </Typography>
         </Box>
-        <Box sx={{ display: "flex", mt: 6 }}>
+        <Box sx={{ display: "flex", mt: 2 }}>
           {loading ? (
             <Box>
               <Loader />
@@ -181,6 +191,7 @@ const Categories = () => {
                 />
                 <Typography sx={{ mt: 1, fontWeight: "bold", fontSize: '0.9rem' }}>
                   {val.name}
+
                 </Typography>
               </Box>
             ))
@@ -198,7 +209,7 @@ const Categories = () => {
             fontWeight="bold"
             sx={{ flex: 2, whiteSpace: "nowrap" }}
           >
-            Things to do in Abu Dhabi
+            {/* Things to do in Abu Dhabi */}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", flex: 1, gap: "10px" }}>
             <Typography fontWeight="bold" sx={{ whiteSpace: "nowrap", mr: 2 }}>
@@ -229,7 +240,7 @@ const Categories = () => {
                   value={selectedSubCategory}
                   onChange={handleSubCategoryChange}
                 >
-                
+
                   {filteredSubCategories.map((subCategory, index) => (
                     <MenuItem key={index} value={subCategory}>
                       {subCategory}

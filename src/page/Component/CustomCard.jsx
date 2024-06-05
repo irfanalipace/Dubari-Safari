@@ -121,14 +121,14 @@ const CustomCard = () => {
                       >
                         {val.discount_offer}
                       </Typography>
-                      <Typography
+                      {/* <Typography
                         sx={{
                           color: theme.palette.primary.main,
                           fontWeight: "600",
                         }}
                       >
-                        {/* {actualprice} */}
-                      </Typography>
+                        {actualprice}
+                      </Typography> */}
 
                       {val.packages && val.packages.length > 0 && (
                         <Typography
@@ -165,9 +165,17 @@ const CustomCard = () => {
             </Grid>
           ))
         ) : (
-          <Typography sx={{ color: theme.palette.primary.main, textAlign: "center", paddingTop: '50px', fontSize: '20px', fontWeight: 600 }}>
+        <>
+
+<Box sx={{display:'flex', justifyContent:'center', alignItems:'center', minHeight:'10vh', width:'100%'}}>
+
+<Typography sx={{ color: theme.palette.primary.main, textAlign: "center", paddingTop: '50px', fontSize: '20px', fontWeight: 600 }}>
             No Data found
           </Typography>
+
+</Box>
+
+        </>
         )}
       </Grid>
     </>

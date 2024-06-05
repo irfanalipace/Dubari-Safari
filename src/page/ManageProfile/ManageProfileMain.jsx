@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ArrowBack, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Avatar,
@@ -16,9 +16,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Page from "../../components/page";
 import { updatePassword, updateProfile } from "../../store/actions/authActions";
 import { useSnackbar } from "notistack";
-
 
 const ManageProfileMain = () => {
   const initialValues = {
@@ -34,11 +34,10 @@ const ManageProfileMain = () => {
     current_password: "",
     new_password: "",
     confirm_password: "",
-  }
+  };
+
   const { enqueueSnackbar } = useSnackbar();
-
   const [formValues, setFormValues] = useState(initialValues);
-
   const [countries, setCountries] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -49,6 +48,8 @@ const ManageProfileMain = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
+  const userData = useSelector((state) => state.auth.user);
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -58,12 +59,17 @@ const ManageProfileMain = () => {
       .then((response) => response.json())
       .then((data) => {
         setCountries(data.countries);
-        setFormValues((prevState) => ({
-          ...prevState,
-          nationality: data.userSelectValue || "",
-        }));
       });
-  }, []);
+
+    if (userData) {
+      setFormValues((prevState) => ({
+        ...prevState,
+        first_name: userData.first_name || "",
+        last_name: userData.last_name || "",
+        phone: userData.phone || "",
+      }));
+    }
+  }, [userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,13 +79,10 @@ const ManageProfileMain = () => {
     }));
   };
 
-
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     if (name === "profile_image" && files.length > 0) {
       const selectedFile = files[0];
-
-      console.log(selectedFile, 'Selected file from input ');
 
       setFormValues((prevValues) => ({
         ...prevValues,
@@ -88,10 +91,6 @@ const ManageProfileMain = () => {
       setSelectedImage(URL.createObjectURL(selectedFile));
     }
   };
-
-  console.log(formValues, 'form valuessssssss');
-
-
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
@@ -112,18 +111,15 @@ const ManageProfileMain = () => {
     try {
       const { profile_image, ...otherValues } = formValues;
       const formData = new FormData();
-      formData.append('profile_image', profile_image);
+      formData.append("profile_image", profile_image);
       Object.entries(otherValues).forEach(([key, value]) => {
         formData.append(key, value);
       });
-      const response = await dispatch(updateProfile(formData));
-
-      enqueueSnackbar('Profile updated successfully', { variant: "success" });
-setFormValues(initialValues)
-
+      await dispatch(updateProfile(formData));
+      enqueueSnackbar("Profile updated successfully", { variant: "success" });
+      setFormValues(initialValues);
     } catch (error) {
-      enqueueSnackbar('Error updating profile', { variant: "error" });
-
+      enqueueSnackbar("Error updating profile", { variant: "error" });
     }
   };
 
@@ -131,19 +127,15 @@ setFormValues(initialValues)
     e.preventDefault();
     if (formValues.password !== formValues.confirm_password) {
       enqueueSnackbar("Password do not match", { variant: "error" });
-
-      setErrors({ confirm_password: "Passwords do not match" });
       return;
     }
 
     try {
-      const response = await dispatch(updatePassword(formValues));
-
-      enqueueSnackbar('Password Updated Successflly', { variant: "success" });
-setFormValues(initialValues)
+      await dispatch(updatePassword(formValues));
+      enqueueSnackbar("Password Updated Successfully", { variant: "success" });
+      setFormValues(initialValues);
     } catch (error) {
-      enqueueSnackbar('Error updating Password', { variant: "error" });
-
+      enqueueSnackbar("Error updating Password", { variant: "error" });
     }
   };
 
@@ -166,15 +158,18 @@ setFormValues(initialValues)
   };
 
   return (
+
+    <Page title='Manage Profile'>
+
     <Box sx={{ padding: "1rem 5%" }}>
-      <Button
+      {/* <Button
         variant="outlined"
         sx={{ textTransform: "none" }}
         startIcon={<ArrowBack />}
         onClick={handleBack}
       >
         Back to Listing
-      </Button>
+      </Button> */}
       <Typography
         variant="h1"
         sx={{ fontSize: "1.5rem", fontWeight: "700", mt: 3 }}
@@ -190,7 +185,7 @@ setFormValues(initialValues)
           <Box>
             <input
               type="file"
-name='profile_image'
+              name="profile_image"
               ref={fileInputRef}
               style={{ display: "none" }}
               onChange={handleFileChange}
@@ -258,8 +253,13 @@ name='profile_image'
                 onChange={handleChange}
               />
             </Box>
+
           </Grid> */}
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+
+
+
+
+          {/* <Grid item lg={4} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Nationality</label>
               <FormControl fullWidth>
@@ -286,7 +286,7 @@ name='profile_image'
                 </Select>
               </FormControl>
             </Box>
-          </Grid>
+          </Grid> */}
           <Grid item lg={4} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Phone Number</label>
@@ -299,7 +299,7 @@ name='profile_image'
               />
             </Box>
           </Grid>
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+          {/* <Grid item lg={4} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Visa Status</label>
               <FormControl fullWidth>
@@ -314,7 +314,7 @@ name='profile_image'
                 </Select>
               </FormControl>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
         <Grid item lg={8}>
           <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'end' }}>
@@ -433,6 +433,7 @@ name='profile_image'
         </Box>
       </Box>
     </Box>
+</Page>
   );
 };
 

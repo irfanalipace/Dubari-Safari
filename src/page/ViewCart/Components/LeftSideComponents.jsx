@@ -105,7 +105,7 @@ const LeftSideComponents = ({ setTotalPrice  }) => {
         const { p_id, q, price, date, adult, child, infant } = item;
         dispatch(addToCart(p_id, q, price, date, adult, child, infant))
           .then((res) => {
-            // localStorage.removeItem("addCartData");
+            localStorage.removeItem("addCartData");
             enqueueSnackbar("Activity Added to Cart", { variant: "success" });
           })
           .catch((err) => {

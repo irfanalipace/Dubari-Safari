@@ -46,7 +46,7 @@ const Navbar = () => {
  const storedCartItems = JSON.parse(localStorage.getItem("addCartData"));
 
   useEffect(() => {
-   
+
     const storedCartItems = JSON.parse(localStorage.getItem("addCartData"));
     if (storedCartItems) {
       setLocalCartItemCount(storedCartItems.length);
@@ -187,14 +187,14 @@ const Navbar = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          position: location.pathname === "/" ? "sticky" : "static",
+          position:"static",
           top: 0,
-          zIndex: 10000,
+          zIndex: 10000000,
         }}
       >
         <Box>
           <Link to="/">
-            <img src="/mainLogo.png" alt="Logo" style={{ height: '70px', width: '70px' }} />
+            <img src="/mainLogo.png" alt="Logo" style={{ height: '70px', width: '90px' }} />
           </Link>
         </Box>
 
@@ -795,6 +795,8 @@ const Navbar = () => {
                       {userData.name}
                     </Box>
                   )}
+
+
                 >
                   <MenuItem
                     value="Manage Profile"

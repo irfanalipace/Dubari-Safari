@@ -179,18 +179,6 @@ const Signup_Main = () => {
                     </Box>
 
                     {/* <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
-                                        <label>Visa Status</label>
-                                        <TextField
-                                            name="visa_status"
-                                            value={formValues.visa_status}
-                                            onChange={handleChange}
-                                            fullWidth
-                                            sx={{ marginTop: "0.3rem" }}
-                                            size='small'
-                                        />
-                                    </Box> */}
-
-                    <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
                       <label>Visa Status</label>
                       <TextField
                         select
@@ -205,7 +193,7 @@ const Signup_Main = () => {
 
                         <MenuItem value="UAE residence">UAE Residence</MenuItem>
                       </TextField>
-                    </Box>
+                    </Box> */}
 
                     <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
                       <label>Password</label>

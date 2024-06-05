@@ -120,7 +120,7 @@ const Footer = () => {
             <Grid item lg={3} md={3} sm={12} xs={12}>
               <Box>
                 <Link to='/'>
-                  <img src="/Logo.png" alt="footer Logo" />
+                  <img src="/mainLogo.png" alt="footer Logo" style={{ height: '70px', width: '90px' }} />
 
                 </Link>
               </Box>

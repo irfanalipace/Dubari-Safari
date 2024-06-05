@@ -138,20 +138,7 @@ const DetailLeft = ({ ac_data, loading }) => {
             infant: infant
         };
 
-        // const newItem = {
-        //     ac_data: [
-        //       ac_data,
-        //       {
-        //         p_id: p_id,
-        //         q: q,
-        //         total: total,
-        //         date: date,
-        //         adult: adult,
-        //         child: child,
-        //         infant: infant
-        //       }
-        //     ]
-        //   };
+
 
 
 
@@ -178,6 +165,26 @@ const DetailLeft = ({ ac_data, loading }) => {
         textOverflow: "ellipsis",
     };
 
+    const handleInfantChange = (e) => {
+        const value = e.target.value;
+        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
+          setInfant(value);
+        }
+      };
+
+      const handleChildChange = (e) => {
+        const value = e.target.value;
+        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
+          setChild(value);
+        }
+      };
+
+      const handleAdultChange = (e) => {
+        const value = e.target.value;
+        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
+          setAdult(value);
+        }
+      };
     return (
         <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
@@ -227,7 +234,24 @@ const DetailLeft = ({ ac_data, loading }) => {
                     <>
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Adult</InputLabel>
-                            <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                            <TextField
+        type="number"
+        value={adult}
+        onChange={handleAdultChange}
+        fullWidth
+        sx={{
+          backgroundColor: "#EDEDED",
+          borderRadius: "10px",
+          "& .MuiOutlinedInput-root": {
+            border: "none",
+            outline:'none',
+            borderColor:'transparent',
+            borderRadius:'7px'
+          },
+        }}
+        inputProps={{ min: 0 }}
+      />
+                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={adult}
                                     onChange={(e) => setAdult(e.target.value)}
@@ -237,17 +261,35 @@ const DetailLeft = ({ ac_data, loading }) => {
                                         },
                                     }}
                                 >
-                                    {[...Array(5).keys()].map((num) => (
+                                    {[...Array(300).keys()].map((num) => (
                                         <MenuItem key={num + 1} value={num + 1}>
                                             {num + 1}
                                         </MenuItem>
                                     ))}
                                 </Select>
-                            </FormControl>
+                            </FormControl> */}
                         </Box>
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Child</InputLabel>
-                            <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                            <TextField
+        type="number"
+        value={child}
+        onChange={handleChildChange}
+        fullWidth
+        sx={{
+          backgroundColor: "#EDEDED",
+          borderRadius: "10px",
+          "& .MuiOutlinedInput-root": {
+            border: "none",
+            outline:'none',
+            borderColor:'transparent',
+            borderRadius:'7px'
+          },
+        }}
+        inputProps={{ min: 0 }}
+      />
+
+                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={child}
                                     onChange={(e) => setChild(e.target.value)}
@@ -257,17 +299,36 @@ const DetailLeft = ({ ac_data, loading }) => {
                                         },
                                     }}
                                 >
-                                    {[...Array(5).keys()].map((num) => (
+                                    {[...Array(300).keys()].map((num) => (
                                         <MenuItem key={num} value={num}>
                                             {num}
                                         </MenuItem>
                                     ))}
                                 </Select>
-                            </FormControl>
+                            </FormControl> */}
                         </Box>
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Infant</InputLabel>
-                            <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+
+                            <TextField
+        type="number"
+        value={infant}
+        onChange={handleInfantChange}
+        fullWidth
+        sx={{
+          backgroundColor: "#EDEDED",
+          borderRadius: "10px",
+          "& .MuiOutlinedInput-root": {
+            border: "none",
+            outline:'none',
+            borderColor:'transparent',
+            borderRadius:'7px'
+          },
+        }}
+        inputProps={{ min: 0 }}
+      />
+
+                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={infant}
                                     onChange={(e) => setInfant(e.target.value)}
@@ -277,13 +338,13 @@ const DetailLeft = ({ ac_data, loading }) => {
                                         },
                                     }}
                                 >
-                                    {[...Array(5).keys()].map((num) => (
+                                    {[...Array(300).keys()].map((num) => (
                                         <MenuItem key={num} value={num}>
                                             {num}
                                         </MenuItem>
                                     ))}
                                 </Select>
-                            </FormControl>
+                            </FormControl> */}
                         </Box>
                     </>
                 )}

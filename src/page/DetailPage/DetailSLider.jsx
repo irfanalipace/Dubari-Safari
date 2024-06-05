@@ -66,7 +66,7 @@ const DetailSlider = ({ data1 }) => {
                                 See All Photos
                             </Button>
                         </Box>
-                        {/* <Box sx={{ position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                        <Box sx={{ position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
                             <Typography sx={{ fontWeight: 600 }}>Save Up To 3.00 Per Person</Typography>
 
 
@@ -95,7 +95,7 @@ const DetailSlider = ({ data1 }) => {
                                 </Button>
                             </Box>
 
-                        </Box> */}
+                        </Box>
                     </Grid>
                 </Grid>
             </Grid>

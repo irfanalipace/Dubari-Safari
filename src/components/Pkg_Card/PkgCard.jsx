@@ -5,13 +5,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Rating } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useNavigate } from "react-router";
 
 const PkgCard = ({ data, categories, ind }) => {
   const base = 'https://dubaisafari.saeedantechpvt.com/';
   const navigate = useNavigate();
+  const [value, setValue] = React.useState(5);
+
 
   const descriptionStyle = {
     display: '-webkit-box',
@@ -25,6 +27,15 @@ const PkgCard = ({ data, categories, ind }) => {
   const category = categories.find(category => category.id === data.category_id);
   const subCategory = category?.sub_category ? category.sub_category[ind]?.name : '';
   // console.log(data, 'ac')
+  const truncateName = (name) => {
+    const words = name.split(" ");
+    if (words.length > 3) {
+      return words.slice(0, 3).join(" ") + "...";
+    } else {
+      return name;
+    }
+  };
+
   return (
     <Card onClick={() => navigate(`/details/${data.id}`)} sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}>
       <CardMedia
@@ -36,8 +47,10 @@ const PkgCard = ({ data, categories, ind }) => {
         <Typography color="textSecondary" component="div">
           {subCategory}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div">
-          {data?.name}
+        <Typography gutterBottom variant="h5" component="div" sx={{fontSize:'1.3rem', fontWeight:'700'}}>
+          {/* {data?.name} */}
+          {truncateName(data?.name)}
+
         </Typography>
         <Typography sx={descriptionStyle}>{data?.description}</Typography>
         <Box
@@ -57,7 +70,21 @@ const PkgCard = ({ data, categories, ind }) => {
               </Typography>
             </Typography>
           </Box>
+
+
         </Box>
+<Box sx={{display:'flex'}}>
+        <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                        size="small"
+                      />
+                      <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography>
+                    </Box>
+
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button
             variant="contained"
