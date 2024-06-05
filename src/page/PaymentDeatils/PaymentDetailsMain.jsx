@@ -9,6 +9,7 @@ import Cookies from "js-cookie"; // Importing js-cookie
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import StripePayment from "./Components/StripePayment";
 
 const steps = [
   { title: "Add to cart", icon: <AddShoppingCartIcon /> },
@@ -87,7 +88,7 @@ const PaymentDetailsMain = () => {
         </Grid>
         <Grid item lg={8} md={12} sm={12} xs={12}>
           {activeStep === 0 && <Component1 data={cookieData} onNext={handleNext} />}
-          {activeStep === 1 && <PaymentDetailComponent onNext={handleNext} />}
+          {activeStep === 1 && <StripePayment onNext={handleNext} />}
           {activeStep === 2 && <PaymentDetailComponent />}
         </Grid>
         <Grid item lg={4} md={12} sm={12} xs={12}>

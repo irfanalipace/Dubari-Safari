@@ -16,9 +16,13 @@ import { IoIosPeople } from "react-icons/io";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { Booking } from '../../../store/actions/categoriesActions';
+import StripeCheckout from "react-stripe-checkout";
 
 const Component1 = ({ data, onNext }) => {
+  // console.log(data.totalPrice, 'ssss')
   const theme = useTheme();
+  const [payNow, setPayNow] = useState(false);
+
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [formValues, setFormValues] = useState({
@@ -56,7 +60,6 @@ const Component1 = ({ data, onNext }) => {
   const navigate = useNavigate();
 
   const handleProceedToPayment = () => {
-
     const bookingDetails = {
       ...formValues,
       activity_name: "Snorkeling",
@@ -93,6 +96,15 @@ const Component1 = ({ data, onNext }) => {
 
   const dispatch = useDispatch();
 
+  const handleStripe = () => {
+    setPayNow(true)
+
+  }
+
+  const payment = async () => {
+    await dispatch({ price: data?.totalPrice })
+  };
+  // console.log(bookingDetails.total_amount, 'ay')
   return (
     <>
       <Box
@@ -307,6 +319,22 @@ const Component1 = ({ data, onNext }) => {
         <input type="checkbox" name="" id="" />
         <Typography>By clicking "Pay Now", you agree that you have read and understand our <span style={{ color: theme.palette.primary.main }}>Terms & Conditions</span></Typography>
       </Box>
+      <Button onClick={handleStripe}>hi</Button>
+      {payNow && (
+        <StripeCheckout
+          name="Cara Store"
+          label='Pay to Cara Store'
+          // description={`Your payment amount is ${totalAmount}`}
+          amount={100}
+          currency="USD"
+          stripeKey="pk_test_51O7uqSGK1VxuPahpbuSuWbp5hsQq0vwCerCTplRuL0nrteegpvQDclrOofCSFNfB4G2ns9nhmr2lY7syeOtk1HVd00DickofQF"
+          email={formValues.email}
+          token={payment}
+          reconfigureOnUpdate={false}
+        >
+        </StripeCheckout >
+      )}
+
     </>
   );
 };
