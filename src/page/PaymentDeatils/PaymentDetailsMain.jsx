@@ -10,6 +10,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import StripePayment from "./Components/StripePayment";
+import { useLocation } from "react-router";
 
 const steps = [
   { title: "Add to cart", icon: <AddShoppingCartIcon /> },
@@ -19,9 +20,15 @@ const steps = [
 
 const PaymentDetailsMain = () => {
   // const { state } = useLocation();
+  // console.log(state, 'statet daarararartatata')
+
+
   const [cookieData, setCookieData] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
+
+
+
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -49,7 +49,7 @@ const navigate = useNavigate()
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -88,7 +88,8 @@ const navigate = useNavigate()
                 }}
               >
                 <Box>
-                  <img src="/Logo.png" alt="Logo" />
+                <img src="/mainLogo.png" alt="Logo" style={{width:'90px', height:'auto'}} />
+
                 </Box>
                 <Box>
                   <Typography
@@ -291,6 +292,7 @@ justifyContent:'center',                    alignItems: "center",
             sx={{
               backgroundColor: theme.palette.primary.main,
               width: "100%",
+              margin:'3rem 0rem'
             }}
           >
             <Side_Image />

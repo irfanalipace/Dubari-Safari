@@ -140,17 +140,46 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
     }
   };
 
-  const handleFavoriteClick = (activityId) => {
-    console.log(activityId, "iddddddd");
+  // const handleFavoriteClick = (activityId) => {
+  //   console.log(activityId, "iddddddd");
 
-    dispatch(addToWishList(activityId))
-      .then((result) => {
-        enqueueSnackbar("Added to Wishlist", { variant: "success" });
-      })
-      .catch((err) => {
-        console.log(err, "Error");
-      });
+  //   dispatch(addToWishList(activityId))
+  //     .then((result) => {
+  //       enqueueSnackbar("Added to Wishlist", { variant: "success" });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "Error");
+  //     });
+  // };
+
+
+  const handleFavoriteClick = (activityId, activityData) => {
+    const token = localStorage.getItem("token");
+    console.log(activityData, 'activity data')
+
+    if (token) {
+      dispatch(addToWishList(activityId))
+        .then((result) => {
+          enqueueSnackbar("Added to Wishlist", { variant: "success" });
+        })
+        .catch((err) => {
+          console.log(err, "Error");
+        });
+    } else {
+
+
+      const newItem ={
+        activityData: activityData
+
+      }
+
+      const wishListData = localStorage.setItem("wishListData", newItem);
+
+      localStorage.setItem("wishListData", JSON.stringify(wishListData));
+      enqueueSnackbar("Added to Wishlist (Locally)", { variant: "info" });
+    }
   };
+
 
   useEffect(() => {
     dispatch(getWishList())
@@ -257,7 +286,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                     </IconButton> */}
 
                     <div onClick={(e) => e.stopPropagation()}>
-                      <IconButton onClick={() => handleFavoriteClick(val.id)}>
+                      <IconButton onClick={() => handleFavoriteClick(val.id, val)}>
                         {isActivityInWishlist(val.id) ? (
                           <FavoriteIcon
                             sx={{ fontSize: "35px", color: "red" }}

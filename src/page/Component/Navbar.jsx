@@ -43,6 +43,7 @@ const Navbar = () => {
   const cartItemCountRedux = cartData?.length;
 
  const [localCartItemCount, setLocalCartItemCount] = useState(0);
+
  const storedCartItems = JSON.parse(localStorage.getItem("addCartData"));
 
   useEffect(() => {
@@ -55,10 +56,28 @@ const Navbar = () => {
 
   const cartItemCount = !authh ? localCartItemCount : cartItemCountRedux;
 
-  // const wishlistData = useSelector((state) => state.wishlist.wishlist.payload);
-  // const wishlistCount = wishlistData.length;
 
-  // console.log(authh, "authhhhhhhh");
+
+  const wishlistData = useSelector((state) => state.wishlist?.wishlist?.payload);
+  const wishlistCountRedux = wishlistData?.length;
+
+
+ const [localWIshlistItemCount, setLocalWishlistItemCount] = useState(0);
+
+ const storedWishlistItems = JSON.parse(localStorage.getItem("wishlistData"));
+
+  useEffect(() => {
+
+    const storedWishlistItems = JSON.parse(localStorage.getItem("wishlistData"));
+    if (storedWishlistItems) {
+      setLocalWishlistItemCount(storedWishlistItems?.length);
+    }
+  }, [storedWishlistItems]);
+
+  const wishlistItemCount = !authh ? localWIshlistItemCount : wishlistCountRedux;
+
+  // const wishListLength = localStorage.getItem("wishListLength");
+
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -152,7 +171,6 @@ const Navbar = () => {
     }
   }, [location.pathname]);
 
-  const wishListLength = localStorage.getItem("wishListLength");
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -446,8 +464,8 @@ const Navbar = () => {
                 }}
               >
                 <Badge
-                  badgeContent={wishListLength}
-                  // badgeContent={wishlistCount}
+                  // badgeContent={wishListLength}
+                  badgeContent={wishlistItemCount}
 
                   color="primary"
                   anchorOrigin={{

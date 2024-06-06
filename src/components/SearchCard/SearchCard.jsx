@@ -23,21 +23,23 @@ const SearchCard = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [wishList, setWishList] = useState([]);
-  const [loading, setLoading] = useState(true); // State to track loading
+  const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
 
-  // const wisListData = useSelector((state)=>state.wishlist.wishlist.payload)
+  const wishListData = useSelector((state)=>state.wishlist.wishlist.payload)
+
+  console.log(wishListData, 'wishlist data reducxxxxxxxx')
 
   useEffect(() => {
     dispatch(getWishList())
       .then((result) => {
         setWishList(result.data.payload);
         localStorage.setItem("wishListLength", result.data.payload.length);
-        setLoading(false); // Set loading to false when data is fetched
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err, "Error fetching categories");
-        setLoading(false); // Set loading to false in case of error
+        setLoading(false);
       });
   }, [dispatch]);
 
@@ -56,16 +58,16 @@ const SearchCard = () => {
       .then((res) => {
         setLoading(false);
         enqueueSnackbar("Activity Removed", { variant: "success" });
-
-
         setWishList((prevWishList) => prevWishList.filter(item => item.activity_id !== id));
+      
 
-        localStorage.setItem("wishListLength", wishList.length - 1);
       })
       .catch((err) => {
         console.error(err);
       });
   };
+
+
   const navigate = useNavigate()
 
   return (
@@ -76,7 +78,7 @@ const SearchCard = () => {
 <Loader />
 
 </Box>
-          ) : wishList.length === 0 ? ( // Check if allCart is empty
+          ) : wishListData?.length === 0 ? (
 
            <Box sx={{minHeight: "25vh", width:'100%',}}>
 
@@ -108,7 +110,7 @@ const SearchCard = () => {
            </Box>
 
           ) : (
-        wishList.map((val, ind) => (
+        wishListData?.map((val, ind) => (
           <Box sx={{ mt: 3 }} key={ind}>
             <Card sx={{ p: 2, background: "#FDF4F1" }}>
               <Box

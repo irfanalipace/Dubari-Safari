@@ -28,15 +28,7 @@ const DetailLeft = ({ ac_data, loading }) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
-            const data = {
-                date: date,
-                person: {
-                    adult: adult,
-                    child: child,
-                    infant: infant,
-                },
-                totalPrice: totalPrice,
-            };
+           c
 
             // Store data in a cookie
             Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
@@ -96,7 +88,7 @@ const DetailLeft = ({ ac_data, loading }) => {
     //         });
     // };
 
-    const handleCart = (p_id, q, total, date, adult, child, infant) => {
+    const handleCart = (p_id, q, total, date, adult, child, infant, category, packageid) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
             return Promise.reject(new Error("Date not selected"));
@@ -135,12 +127,10 @@ const DetailLeft = ({ ac_data, loading }) => {
             date: date,
             adult: adult,
             child: child,
-            infant: infant
+            infant: infant,
+            category:category,
+            packageid:packageid,
         };
-
-
-
-
 
 
         const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
@@ -406,7 +396,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant)}
+                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category,item.id)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",

@@ -18,6 +18,8 @@ import { Link, useNavigate } from "react-router-dom";
 import DoneIcon from "@mui/icons-material/Done";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux"; // Import useSelector
+import Cookies from "js-cookie"; // Importing js-cookie
+
 
 const RightSideComponents = ({ allCart, totalPrice }) => {
   const theme = useTheme();
@@ -57,21 +59,35 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
     const lastCartItem = allCart[allCart.length - 1];
     console.log(lastCartItem, "last cart data");
 
-    const { adult, child, infant, tour_date } = lastCartItem;
+    const { adult, child, infant, date } = lastCartItem;
 
 
 
-    navigate("/payment-details", {
-      state: {
-        totalPrice: totalPrice,
-        person: {
+    // navigate("/payment-details", {
+    //   state: {
+    //     totalPrice: totalPrice,
+    //     person: {
+    //       adult: adult,
+    //       child: child,
+    //       infant: infant,
+    //   },
+    //     date: tour_date,
+    //   },
+    // });
+
+    const data = {
+      date: date,
+      person: {
           adult: adult,
           child: child,
           infant: infant,
       },
-        date: tour_date,
-      },
-    });
+      totalPrice: totalPrice,
+  };
+
+    Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
+
+    navigate("/payment-details", { state: data });
   };
 
   return (

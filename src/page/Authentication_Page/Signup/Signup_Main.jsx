@@ -109,7 +109,7 @@ const Signup_Main = () => {
                   }}
                 >
                   <Box>
-                    <img src="/Logo.png" alt="Logo" />
+                    <img src="/mainLogo.png" alt="Logo" style={{width:'90px', height:'auto'}} />
                   </Box>
                   <Box>
                     <Typography
@@ -408,6 +408,8 @@ const Signup_Main = () => {
               sx={{
                 backgroundColor: theme.palette.primary.main,
                 width: "100%",
+              margin:'3rem 0rem'
+
               }}
             >
               <Side_Image />

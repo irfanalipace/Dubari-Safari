@@ -11,23 +11,45 @@ export const addToWishList = (activityId) => async (dispatch) => {
 };
 
 
+// export const getWishList = () => async (dispatch) => {
+//   try {
+//     const res = await api.get("user/wishlist");
+
+//     return res;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
 export const getWishList = () => async (dispatch) => {
   try {
+    dispatch({ type: 'GET_WISHLIST_REQUEST' });
     const res = await api.get("user/wishlist");
-
-    return res;
+    dispatch({ type: 'GET_WISHLIST_SUCCESS', payload: res.data });
   } catch (err) {
+    dispatch({ type: 'GET_WISHLIST_FAILURE', payload: err.message });
     throw err;
   }
 };
 
+// export const deleteWishList = (activityId) => async (dispatch) => {
+//   try {
+//     const res = await api.delete(`user/wishlist/${activityId}`);
+
+//     return res;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
 
 export const deleteWishList = (activityId) => async (dispatch) => {
   try {
+    dispatch({ type: 'DELETE_WISHLIST_REQUEST' });
     const res = await api.delete(`user/wishlist/${activityId}`);
-
+    dispatch({ type: 'DELETE_WISHLIST_SUCCESS', payload: { deletedItemId: activityId } });
     return res;
   } catch (err) {
+    dispatch({ type: 'DELETE_WISHLIST_FAILURE', payload: err.message });
     throw err;
   }
 };
