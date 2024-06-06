@@ -1,6 +1,8 @@
 import api from "../../utils/Api";
 import Cookies from "js-cookie";
 
+
+
 export const getCategories = () => async (dispatch) => {
   try {
     const res = await api.get("all_category");
@@ -72,9 +74,10 @@ export const Send_Gift = (body) => async (dispatch) => {
 };
 
 
-export const Booking = (body) => async (dispatch) => {
+export const Booking = (body, token) => async (dispatch) => {
+  // console.log(token, 'zzzzzzzz')
   try {
-    const { first_name, last_name, email, activity_name, title, nationality, phone, date, adult, child, infant, total_amount, pickup_location, note, status } = body;
+    const { first_name, last_name, email, activity_name, title, nationality, phone, date, adult, child, infant, total_amount, pickup_location, note, status, package_id } = body;
 
     Cookies.set('bookingDetails', JSON.stringify({
       first_name,
@@ -91,10 +94,13 @@ export const Booking = (body) => async (dispatch) => {
       total_amount,
       pickup_location,
       note,
-      status
+      status,
+      package_id
     }), { expires: 1 });
 
-    const res = await api.post("booking", body);
+    const endpoint = token ? "user/booking" : "booking";
+
+    const res = await api.post(endpoint, body);
     dispatch({
       type: "BOOKING",
       payload: res.data,
@@ -109,15 +115,29 @@ export const Booking = (body) => async (dispatch) => {
 
 export const StripePay = (body) => async (dispatch) => {
   try {
-    const res = await api.post("/stripe", body); // Ensure this is the correct endpoint
+    const res = await api.post("/stripe", body);
     dispatch({
       type: "STRIPE",
       payload: res.data,
     });
-    return res.data; // Make sure this returns the response data containing clientSecret
+    return res.data;
   } catch (err) {
     console.error("Error creating PaymentIntent:", err);
     throw err;
   }
 };
 
+
+export const Post_Reviews = (body) => async (dispatch) => {
+  try {
+    const res = await api.post("user/add/review", body);
+    dispatch({
+      type: "REVIEWS",
+      payload: res.data,
+    });
+    return res.data;
+  } catch (err) {
+    console.error("Error creating PaymentIntent:", err);
+    throw err;
+  }
+};

@@ -1,26 +1,27 @@
-import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
-import Page from "../../components/page";
-import BookingDetails from "./BookingDetails";
-const Booking_Info = () => {
+import React, { useEffect, useState } from 'react';
+import { Box, Grid, Typography } from '@mui/material';
+import Page from '../../components/page';
+import BookingDetails from './BookingDetails';
+import Cookies from 'js-cookie';
+
+const Booking_Info = ({ activeStep }) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const cookieData = Cookies.get('bookingDetails');
+    if (cookieData) {
+      setData(JSON.parse(cookieData));
+    }
+  }, [activeStep]);
+
   return (
     <Page title="Booking Information">
-      <Grid container spacing={3} sx={{ padding: "2rem 5%" }}>
+      <Grid container spacing={3} sx={{ padding: '2rem 5%' }}>
         <Grid item lg={12} md={12} sm={12} xs={12}>
-          <Typography variant="h4" textAlign="center" fontWeight="bold">
+          <Typography variant="h4" textAlign="center" fontWeight="bold" sx={{ padding: '20px 0px' }}>
             Thank you, Your Booking is Almost complete
           </Typography>
-          <Typography textAlign="center" sx={{ my: 1, color: "grey" }}>
-            Your Confirmation number is
-            <Typography
-              fontWeight="bold"
-              color="primary"
-              sx={{ display: "inline", ml: 0.5 }}
-            >
-              123456789
-            </Typography>
-          </Typography>
-          <BookingDetails />
+          <BookingDetails data={data} />
         </Grid>
       </Grid>
     </Page>

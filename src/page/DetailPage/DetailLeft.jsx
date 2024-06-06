@@ -18,25 +18,46 @@ const DetailLeft = ({ ac_data, loading }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
-
+    console.log(ac_data, 'ac')
     useEffect(() => {
         const currentDate = new Date().toISOString().split("T")[0];
         setDate(currentDate);
     }, []);
 
-    const handleLogDetails = (totalPrice, p_id, q, date, price) => {
+    const handleLogDetails = (total_amount, p_id, q, date, price, title, highlight, id) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
-           c
+            const data = {
+                id: id,
+                date: date,
+                adult: adult,
+                child: child,
+                infant: infant,
+                total_amount: total_amount,
+            };
 
-            // Store data in a cookie
-            Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
+            const information = {
+                id: id,
+                title: title,
+                highlight: highlight,
+                date: date,
+                adult: adult,
+                child: child,
+                infant: infant,
+                total_amount: total_amount
+            };
+
+            const farFutureDate = new Date(new Date().getTime() + (365 * 24 * 60 * 60 * 1000));
+            Cookies.set('bookingDetails', JSON.stringify(data), { expires: farFutureDate });
+            Cookies.set('information', JSON.stringify(information), { expires: farFutureDate });
 
             navigate("/payment-details", { state: data });
+
             enqueueSnackbar("Package Booked", { variant: "success" });
         }
     };
+
 
     const handleGift = async (activity_id, discount_price, recipient_email) => {
         const body = {
@@ -109,41 +130,48 @@ const DetailLeft = ({ ac_data, loading }) => {
                 });
         } else {
 
-        // const newItem = {
-        //     ac_data: [ac_data],
-        //     p_id: p_id,
-        //     q: q,
-        //     total: total,
-        //     date: date,
-        //     adult: adult,
-        //     child: child,
-        //     infant: infant
-        // };
-        const newItem = {
-            ac_data: ac_data,
-            p_id: p_id,
-            q: q,
-            price: total,
-            date: date,
-            adult: adult,
-            child: child,
-            infant: infant,
-            category:category,
-            packageid:packageid,
-        };
+            // const newItem = {
+            //     ac_data: [ac_data],
+            //     p_id: p_id,
+            //     q: q,
+            //     total: total,
+            //     date: date,
+            //     adult: adult,
+            //     child: child,
+            //     infant: infant
+            // };
+            const newItem = {
+
+                ac_data: ac_data,
+                p_id: p_id,
+                q: q,
+                price: total,
+                date: date,
+                adult: adult,
+                child: child,
+                infant: infant,
+                title: title,
+                highlight: highlight,
+                packageid: packageid
+            };
 
 
-        const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
 
-        // Append the new item to the existing cart data
-        const updatedCartData = [...existingCartData, newItem];
+
+
+
+            const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
+
+            // Append the new item to the existing cart data
+            const updatedCartData = [...existingCartData, newItem];
 
             localStorage.setItem("addCartData", JSON.stringify(updatedCartData));
 
             enqueueSnackbar("Item added to cart", { variant: "success" });
 
 
-            return Promise.resolve();}
+            return Promise.resolve();
+        }
     };
 
     const stylesEll = {
@@ -158,23 +186,23 @@ const DetailLeft = ({ ac_data, loading }) => {
     const handleInfantChange = (e) => {
         const value = e.target.value;
         if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-          setInfant(value);
+            setInfant(value);
         }
-      };
+    };
 
-      const handleChildChange = (e) => {
+    const handleChildChange = (e) => {
         const value = e.target.value;
         if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-          setChild(value);
+            setChild(value);
         }
-      };
+    };
 
-      const handleAdultChange = (e) => {
+    const handleAdultChange = (e) => {
         const value = e.target.value;
         if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-          setAdult(value);
+            setAdult(value);
         }
-      };
+    };
     return (
         <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
@@ -225,22 +253,22 @@ const DetailLeft = ({ ac_data, loading }) => {
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Adult</InputLabel>
                             <TextField
-        type="number"
-        value={adult}
-        onChange={handleAdultChange}
-        fullWidth
-        sx={{
-          backgroundColor: "#EDEDED",
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            border: "none",
-            outline:'none',
-            borderColor:'transparent',
-            borderRadius:'7px'
-          },
-        }}
-        inputProps={{ min: 0 }}
-      />
+                                type="number"
+                                value={adult}
+                                onChange={handleAdultChange}
+                                fullWidth
+                                sx={{
+                                    backgroundColor: "#EDEDED",
+                                    borderRadius: "10px",
+                                    "& .MuiOutlinedInput-root": {
+                                        border: "none",
+                                        outline: 'none',
+                                        borderColor: 'transparent',
+                                        borderRadius: '7px'
+                                    },
+                                }}
+                                inputProps={{ min: 0 }}
+                            />
                             {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={adult}
@@ -262,22 +290,22 @@ const DetailLeft = ({ ac_data, loading }) => {
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Child</InputLabel>
                             <TextField
-        type="number"
-        value={child}
-        onChange={handleChildChange}
-        fullWidth
-        sx={{
-          backgroundColor: "#EDEDED",
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            border: "none",
-            outline:'none',
-            borderColor:'transparent',
-            borderRadius:'7px'
-          },
-        }}
-        inputProps={{ min: 0 }}
-      />
+                                type="number"
+                                value={child}
+                                onChange={handleChildChange}
+                                fullWidth
+                                sx={{
+                                    backgroundColor: "#EDEDED",
+                                    borderRadius: "10px",
+                                    "& .MuiOutlinedInput-root": {
+                                        border: "none",
+                                        outline: 'none',
+                                        borderColor: 'transparent',
+                                        borderRadius: '7px'
+                                    },
+                                }}
+                                inputProps={{ min: 0 }}
+                            />
 
                             {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
@@ -301,22 +329,22 @@ const DetailLeft = ({ ac_data, loading }) => {
                             <InputLabel>Infant</InputLabel>
 
                             <TextField
-        type="number"
-        value={infant}
-        onChange={handleInfantChange}
-        fullWidth
-        sx={{
-          backgroundColor: "#EDEDED",
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            border: "none",
-            outline:'none',
-            borderColor:'transparent',
-            borderRadius:'7px'
-          },
-        }}
-        inputProps={{ min: 0 }}
-      />
+                                type="number"
+                                value={infant}
+                                onChange={handleInfantChange}
+                                fullWidth
+                                sx={{
+                                    backgroundColor: "#EDEDED",
+                                    borderRadius: "10px",
+                                    "& .MuiOutlinedInput-root": {
+                                        border: "none",
+                                        outline: 'none',
+                                        borderColor: 'transparent',
+                                        borderRadius: '7px'
+                                    },
+                                }}
+                                inputProps={{ min: 0 }}
+                            />
 
                             {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
@@ -346,12 +374,12 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                     ) : (
                         ac_data?.packages?.map((item, index) => {
-                            const totalPrice = calculateTotalPrice(item.price);
+                            const total_amount = calculateTotalPrice(item.price);
                             let total = 0;
                             if (item.category === 'sharing') {
                                 total = adult * Number(item.adult_price) + child * Number(item.child_price);
                             } else {
-                                total = totalPrice;
+                                total = total_amount;
                             }
                             const quantity = adult + child + infant;
                             return (
@@ -396,7 +424,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category,item.id)}
+                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
@@ -409,7 +437,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     </Box>
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price)}
+                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
                                             variant="contained"
                                             sx={{
                                                 color: "white",
