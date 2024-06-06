@@ -10,6 +10,7 @@ import {
   useTheme,
   IconButton,
   InputAdornment,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -68,6 +69,7 @@ const navigate = useNavigate()
       });
   };
 
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <>
@@ -76,7 +78,7 @@ const navigate = useNavigate()
       <Box mt={2}>
         <Grid container spacing={3}>
           <Grid item lg={6} md={6} sm={12} xs={12}>
-            <Box sx={{ padding: "2rem 8rem" }}>
+            <Box sx={{ padding: isSmall? "2rem 3rem" : "2rem 8rem" }}>
               <Box
                 sx={{
                   display: "flex",

@@ -3,14 +3,11 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Divider,
   Grid,
   Rating,
   Typography,
   useTheme,
 } from "@mui/material";
-import { CiStopwatch } from "react-icons/ci";
-import { CiHeart } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularActivities } from "../../store/actions/categoriesActions";
 import { useNavigate } from "react-router";
@@ -23,7 +20,6 @@ const CustomCard = () => {
   const dispatch = useDispatch();
 
   const popularActivities = useSelector((state) => state.popularActivities.popularActivities.payload)
-
 
   const filteredActivities = popularActivities
     ? popularActivities
@@ -45,13 +41,10 @@ const CustomCard = () => {
               <Box
                 onClick={() => navigate(`/details/${val.id}`)}
                 sx={{
-                  // width: 320,
-                  // backgroundColor: '#FDF4F1',
                   backgroundColor: "white",
                   borderRadius: "12px",
                   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                   overflow: "hidden",
-                  // margin: '0 auto',
                   padding: "5px",
                 }}
               >
@@ -66,41 +59,13 @@ const CustomCard = () => {
                       objectFit: "cover",
                     }}
                   />
-                  {/* <Box
-          sx={{
-            position: "absolute",
-            bottom: -12,
-            left: 10,
-            backgroundColor: "white",
-            padding: "5px 20px",
-            borderRadius: "20px",
-          }}
-        >
-          4.0(23)😊
-        </Box>
-        {/* <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            backgroundColor: theme.palette.primary.main,
-            color: "white",
-            padding: "0.2rem 0.4rem",
-            borderRadius: "0px 5px 0px 0px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Box>{earnpoints}</Box>
-        </Box> */}
                 </Box>
 
                 <Box
                   p={2}
                   sx={{ display: "flex", flexDirection: "column", gap: "10px" }}
                 >
-                  <Typography sx={{ fontSize: "1.2rem", fontWeight: 600 }}>
+                  <Typography sx={{ fontSize: "1.2rem", textAlign:'start', fontWeight: 600 }}>
                     {val.name}
                   </Typography>
 
@@ -116,29 +81,33 @@ const CustomCard = () => {
                     </Typography>
 
                     <Box gap={1} sx={{ display: "flex" }}>
-                      <Typography
-                        sx={{ color: "grey", textDecoration: "line-through" }}
-                      >
-                        {val.discount_offer}
-                      </Typography>
-                      {/* <Typography
-                        sx={{
-                          color: theme.palette.primary.main,
-                          fontWeight: "600",
-                        }}
-                      >
-                        {actualprice}
-                      </Typography> */}
-
                       {val.packages && val.packages.length > 0 && (
-                        <Typography
-                          fontWeight="bold"
-                          color={theme.palette.primary.main}
-                        >
-                          {val.packages[0].category === "private"
-                            ? `$ ${val.packages[0].price}`
-                            : `$ ${val.packages[0].adult_price}`}
-                        </Typography>
+                        <>
+                          <Typography
+                            sx={{ color: "grey", textDecoration: "line-through" }}
+                          >
+                            {val.packages[0].category === "private"
+                              ? `$ ${val.packages[0].price}`
+                              : `$ ${val.packages[0].adult_price}`}
+                          </Typography>
+                          {/* <Typography
+                            fontWeight="bold"
+                            color={theme.palette.primary.main}
+                          >
+                            {val.packages[0].category === "private"
+                              ? `$ ${(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100)).toFixed(2)}`
+                              : `$ ${(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100)).toFixed(2)}`}
+                          </Typography> */}
+
+                          <Typography
+                            fontWeight="bold"
+                            color={theme.palette.primary.main}
+                          >
+                            {val.packages[0].category === "private"
+                              ? `$ ${Math.round(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100))}`
+                              : `$ ${Math.round(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100))}`}
+                          </Typography>
+                        </>
                       )}
                     </Box>
                   </Box>
@@ -153,10 +122,8 @@ const CustomCard = () => {
                   >
                     <Rating
                       name="simple-controlled"
-                    // value={value}
-                    // onChange={(event, newValue) => {
-                    //   setValue(newValue);
-                    // }}
+                      value={value}
+                      readOnly
                     />
                     <Button variant="contained">Book Now</Button>
                   </Box>
@@ -165,17 +132,11 @@ const CustomCard = () => {
             </Grid>
           ))
         ) : (
-        <>
-
-<Box sx={{display:'flex', justifyContent:'center', alignItems:'center', minHeight:'10vh', width:'100%'}}>
-
-<Typography sx={{ color: theme.palette.primary.main, textAlign: "center", paddingTop: '50px', fontSize: '20px', fontWeight: 600 }}>
-            No Data found
-          </Typography>
-
-</Box>
-
-        </>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '10vh', width: '100%' }}>
+            <Typography sx={{ color: theme.palette.primary.main, textAlign: "center", paddingTop: '50px', fontSize: '20px', fontWeight: 600 }}>
+              No Data found
+            </Typography>
+          </Box>
         )}
       </Grid>
     </>

@@ -106,7 +106,7 @@
           dispatch(addToCart(p_id, q, price, date, adult, child, infant))
             .then((res) => {
               localStorage.removeItem("addCartData");
-              enqueueSnackbar("Activity Added to Cart", { variant: "success" });
+              // enqueueSnackbar("Activity Added to Cart", { variant: "success" });
             })
             .catch((err) => {
               console.error(err);
@@ -130,7 +130,7 @@
     useEffect(() => {
       const total = (token ? allCartRedux : allCartLocal).reduce((sum, item) => sum + item.price, 0);
       setTotalPrice(total);
-      
+
 
     }, [allCartRedux, allCartLocal, setTotalPrice]);
 
@@ -157,7 +157,7 @@
         // User is logged in, call the API to delete the item
         dispatch(deleteCart(id))
           .then((res) => {
-            setLoading(false);
+            setLoading(true);
             dispatch(getCart());
             enqueueSnackbar("Activity Removed", { variant: "success" });
           })

@@ -28,8 +28,6 @@ const DetailLeft = ({ ac_data, loading }) => {
         if (!date) {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
-           c
-
             // Store data in a cookie
             Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
 

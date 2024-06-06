@@ -115,8 +115,8 @@ const HelpPageMain = () => {
                 Hello How Can we help you?
               </Typography>
 
-              <Box sx={{ display: "flex", justifyContent: 'space-between', gap: '30px' }}>
-                <Box sx={{ textAlign: "", width: '110%' }}>
+              <Box sx={{ display: "flex", justifyContent: 'space-between', gap: '30px', }}>
+                <Box sx={{ width: '110%' }}>
                   <TextField
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}

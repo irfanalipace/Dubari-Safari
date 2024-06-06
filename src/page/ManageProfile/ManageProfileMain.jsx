@@ -15,6 +15,7 @@ import {
   Select,
   TextField,
   Typography,
+  Card
 } from "@mui/material";
 import Page from "../../components/page";
 import { updatePassword, updateProfile } from "../../store/actions/authActions";
@@ -177,6 +178,7 @@ const ManageProfileMain = () => {
         Manage My Account
       </Typography>
 
+      <Card sx={{padding:'3rem', mt:3}}>
       <form onSubmit={handleSubmit}>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "1rem" }} gap={4}>
           <Box sx={{ width: "8rem", height: "8rem" }}>
@@ -200,8 +202,8 @@ const ManageProfileMain = () => {
           </Box>
         </Box>
 
-        <Grid container spacing={4} sx={{ margin: "1rem 0rem" }}>
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+        <Grid container spacing={3} sx={{ margin: "1rem 0rem" }}>
+          {/* <Grid item lg={6} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label>Title</label>
               <FormControl fullWidth>
@@ -217,8 +219,8 @@ const ManageProfileMain = () => {
                 </Select>
               </FormControl>
             </Box>
-          </Grid>
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+          </Grid> */}
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>First Name</label>
               <TextField
@@ -230,7 +232,7 @@ const ManageProfileMain = () => {
               />
             </Box>
           </Grid>
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Last Name</label>
               <TextField
@@ -287,7 +289,7 @@ const ManageProfileMain = () => {
               </FormControl>
             </Box>
           </Grid> */}
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <label style={{ fontSize: "1.2rem" }}>Phone Number</label>
               <TextField
@@ -432,6 +434,7 @@ const ManageProfileMain = () => {
           </Button>
         </Box>
       </Box>
+      </Card>
     </Box>
 </Page>
   );

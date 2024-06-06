@@ -10,6 +10,7 @@ import {
   MenuItem,
   Select,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
@@ -120,10 +121,11 @@ const Categories = () => {
 
 
 
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Page title="Categories">
-      <Box sx={{ padding:'3rem 5rem' }}>
+      <Box sx={{ padding: isSmall ? '3rem 2rem':'3rem 5rem' }}>
         {/* <Button
           onClick={handleBack}
           variant="contained"
@@ -134,7 +136,7 @@ const Categories = () => {
         <Typography
             variant="h4"
             fontWeight="bold"
-            sx={{ flex: 2, whiteSpace: "nowrap", textAlign:'center' }}
+            sx={{ flex: 2, textAlign:'center' }}
           >
             Things to do in Abu Dhabi
           </Typography>
@@ -149,7 +151,7 @@ const Categories = () => {
             {/* Categories */}
           </Typography>
           <Typography sx={{ color: "grey", fontWeight: "bold" }}>
-            View All
+            {/* View All */}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", mt: 2 }}>

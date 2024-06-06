@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Page from "../../components/page";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import LeftAside from "./components/LeftAside";
 import RightAside from "./components/RightAside";
@@ -36,14 +36,28 @@ const Search_Results = () => {
         <Button variant="contained" startIcon={<ArrowBack />} onClick={handleBackClick}>
           Back to homepage
         </Button>
-        <Box sx={{ display: "flex", mt: 4, gap: 4 }}>
+
+<Grid container spacing={4} mt={1}>
+  <Grid item lg={3} md={3} sm={12} xs={12}>
+  <LeftAside onCategorySelect={handleCategorySelect} onBudgetChange={handleBudgetChange}/>
+
+  </Grid>
+
+  <Grid item lg={9} md={9} sm={12} xs={12}>
+  <RightAside selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} minPrice={minPrice} maxPrice={maxPrice}/>
+  </Grid>
+
+</Grid>
+
+
+        {/* <Box sx={{ display: "flex", mt: 4, gap: 4 }}>
           <Box flex={1}>
             <LeftAside onCategorySelect={handleCategorySelect} onBudgetChange={handleBudgetChange}/>
           </Box>
           <Box flex={3}>
             <RightAside selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} minPrice={minPrice} maxPrice={maxPrice}/>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Page>
   );
