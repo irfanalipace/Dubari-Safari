@@ -31,6 +31,7 @@ import BlogDetail from "./page/Blogs/BlogDetail";
 import Gift from "./page/gift/Gift";
 import Reviews from "./page/reviews/Reviews";
 import GuidLine from "./page/guidline/GuidLine";
+import GenerateInvoice from "./page/PaymentDeatils/GenerateInvoice";
 
 export default function Router() {
   let element = useRoutes([
@@ -170,6 +171,10 @@ export default function Router() {
     {
       path: "/guidline",
       element: <GuidLine />,
+    },
+    {
+      path: "/invoice-detail",
+      element: <GenerateInvoice />,
     },
 
   ]);

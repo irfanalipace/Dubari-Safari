@@ -51,7 +51,7 @@ const PriceCard = ({ data }) => {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: "600" }}>
-              {data?.person?.adult}
+              {data?.adult}
             </Typography>
           </Box>
           <Box
@@ -71,7 +71,7 @@ const PriceCard = ({ data }) => {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: "600" }}>
-              {data?.person?.child}
+              {data?.child}
             </Typography>
           </Box>
           <Box
@@ -91,7 +91,7 @@ const PriceCard = ({ data }) => {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: "600" }}>
-              {data?.person?.infant}
+              {data?.infant}
             </Typography>
           </Box>
           <Box
@@ -124,7 +124,7 @@ const PriceCard = ({ data }) => {
           >
             <Typography sx={{ color: "#90a3bf" }}>Total</Typography>
 
-            <Typography sx={{ fontWeight: "600" }}>$ {data?.totalPrice}</Typography>
+            <Typography sx={{ fontWeight: "600" }}>$ {data?.total_amount}</Typography>
           </Box>
 
           <Box
@@ -148,7 +148,7 @@ const PriceCard = ({ data }) => {
                 color: theme.palette.primary.main,
               }}
             >
-              $ {data?.totalPrice}
+              $ {data?.total_amount}
             </Typography>
           </Box>
           <Typography sx={{ color: "#90a3bf" }}>

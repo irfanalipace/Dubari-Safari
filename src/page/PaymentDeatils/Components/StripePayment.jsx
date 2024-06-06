@@ -17,7 +17,7 @@ const StripePayment = ({ data, onNext }) => {
     }, []);
 
 
-    // console.log(cookieData, 'jjj');
+    console.log(cookieData, 'jjj');
 
     return (
         <Elements stripe={stripePromise} options={'sk_test_51Nl5l2Fd4D0x5hm6Nx1OKK0snF9qYjovaDAraLysgglMKBT0lkl4G8PYGEb6xoc5qdovTvRDgGnUXPKG5wMhIKVs00NNF25eXI'}>

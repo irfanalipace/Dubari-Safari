@@ -1,19 +1,17 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, Rating } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
 import { useNavigate } from "react-router";
+import Cookies from "js-cookie";
 
 const PkgCard = ({ data, categories, ind }) => {
   const base = 'https://dubaisafari.saeedantechpvt.com/';
   const navigate = useNavigate();
   const [value, setValue] = React.useState(5);
-
 
   const descriptionStyle = {
     display: '-webkit-box',
@@ -26,7 +24,7 @@ const PkgCard = ({ data, categories, ind }) => {
 
   const category = categories.find(category => category.id === data.category_id);
   const subCategory = category?.sub_category ? category.sub_category[ind]?.name : '';
-  // console.log(data, 'ac')
+
   const truncateName = (name) => {
     const words = name.split(" ");
     if (words.length > 3) {
@@ -36,8 +34,18 @@ const PkgCard = ({ data, categories, ind }) => {
     }
   };
 
+  const handleBookNowClick = () => {
+    const farFutureDate = new Date(new Date().getTime() + (365 * 24 * 60 * 60 * 1000));
+    const bookingData = {
+      id: data.id,
+      image_url: `${base}${data?.image_url}`
+    };
+    Cookies.set('BookingImage', JSON.stringify(bookingData), { expires: farFutureDate });
+    navigate(`/details/${data.id}`);
+  };
+
   return (
-    <Card onClick={() => navigate(`/details/${data.id}`)} sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}>
+    <Card sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}>
       <CardMedia
         sx={{ height: 240, borderRadius: "8px" }}
         image={`${base}${data?.image_url}`}
@@ -47,10 +55,8 @@ const PkgCard = ({ data, categories, ind }) => {
         <Typography color="textSecondary" component="div">
           {subCategory}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div" sx={{fontSize:'1.3rem', fontWeight:'700'}}>
-          {/* {data?.name} */}
+        <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: '1.3rem', fontWeight: '700' }}>
           {truncateName(data?.name)}
-
         </Typography>
         <Typography sx={descriptionStyle}>{data?.description}</Typography>
         <Box
@@ -70,28 +76,24 @@ const PkgCard = ({ data, categories, ind }) => {
               </Typography>
             </Typography>
           </Box>
-
-
         </Box>
-<Box sx={{display:'flex'}}>
-        <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                        size="small"
-                      />
-                      <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography>
-                    </Box>
-
+        <Box sx={{ display: 'flex' }}>
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            size="small"
+          />
+          <Typography sx={{ fontSize: '0.8rem' }}>94 Reviews</Typography>
+        </Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button
             variant="contained"
-            onClick={() => navigate(`/details/${data.id}`)}
+            onClick={handleBookNowClick}
           >
-            {" "}
-            Book Now{" "}
+            Book Now
           </Button>
         </Box>
       </CardContent>
