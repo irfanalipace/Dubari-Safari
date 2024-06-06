@@ -58,7 +58,7 @@ const PkgCard = ({ data, categories, ind }) => {
         <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: '1.3rem', fontWeight: '700' }}>
           {truncateName(data?.name)}
         </Typography>
-        <Typography sx={descriptionStyle}>{data?.description}</Typography>
+        {/* <Typography sx={descriptionStyle}>{data?.description}</Typography> */}
         <Box
           sx={{
             display: "flex",
@@ -77,17 +77,18 @@ const PkgCard = ({ data, categories, ind }) => {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ display: 'flex' }}>
-          <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            size="small"
-          />
-          <Typography sx={{ fontSize: '0.8rem' }}>94 Reviews</Typography>
-        </Box>
+<Box sx={{display:'flex'}}>
+        <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                        size="small"
+                      />
+                      {/* <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> */}
+                    </Box>
+
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button
             variant="contained"

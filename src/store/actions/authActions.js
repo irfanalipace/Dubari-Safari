@@ -51,6 +51,18 @@ export const updatePassword = (formValues) => async (dispatch) => {
   }
 };
 
+export const sendEmail = (email) => async (dispatch) => {
+  try {
+    
+    const res = await api.post("/password/forgot", email);
+
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+
 export const logout = () => async (dispatch) => {
   try {
 

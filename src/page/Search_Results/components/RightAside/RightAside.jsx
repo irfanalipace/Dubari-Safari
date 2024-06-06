@@ -152,14 +152,15 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
   //     });
   // };
 
-
   const handleFavoriteClick = (activityId, activityData) => {
     const token = localStorage.getItem("token");
-    console.log(activityData, 'activity data')
+    console.log(activityData, 'activity data');
 
     if (token) {
+
       dispatch(addToWishList(activityId))
-        .then((result) => {
+
+      .then((result) => {
           enqueueSnackbar("Added to Wishlist", { variant: "success" });
         })
         .catch((err) => {
@@ -167,16 +168,17 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
         });
     } else {
 
+      const existingWishListData = localStorage.getItem("wishListData");
 
-      const newItem ={
-        activityData: activityData
+      let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
 
-      }
 
-      const wishListData = localStorage.setItem("wishListData", newItem);
+      wishListArray.push(activityData);
 
-      localStorage.setItem("wishListData", JSON.stringify(wishListData));
-      enqueueSnackbar("Added to Wishlist (Locally)", { variant: "info" });
+
+      localStorage.setItem("wishListData", JSON.stringify(wishListArray));
+
+      enqueueSnackbar("Added to Wishlist", { variant: "info" });
     }
   };
 
@@ -252,6 +254,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                   display: "flex",
                   minHeight: "30vh",
                   gap: 4,
+                
                 }}
               >
                 <Box flex={1}>

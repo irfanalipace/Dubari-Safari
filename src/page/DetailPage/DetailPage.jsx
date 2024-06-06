@@ -488,10 +488,10 @@ const DetailPage = () => {
                               key={index}
                               expanded={openAccordion === `panel${index}`}
                               onChange={handleAccordionChange(`panel${index}`)}
-                              sx={{ backgroundColor:'#ffaf95', color:'white' }}
+                              sx={{ backgroundColor:'#ffaf95', color:'black' }}
                             >
                               <AccordionSummary
-                                expandIcon={<ExpandMoreIcon style={{color:'white'}}/>}
+                                expandIcon={<ExpandMoreIcon style={{color:'black'}}/>}
                                 IconButtonProps={{ edge: 'start' }}
                               >
                                 <Typography sx={{ textAlign: "start" }}>

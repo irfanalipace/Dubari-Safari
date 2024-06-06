@@ -56,10 +56,10 @@ export default function Router() {
       path: "/forget-password",
       element: <Forget_Password />,
     },
-    {
-      path: "/otp-authentication",
-      element: <Password_Confirmation />,
-    },
+    // {
+    //   path: "/otp-authentication",
+    //   element: <Password_Confirmation />,
+    // },
 
     {
       path: "/change-password",

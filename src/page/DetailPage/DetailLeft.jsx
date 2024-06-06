@@ -51,6 +51,8 @@ const DetailLeft = ({ ac_data, loading }) => {
             const farFutureDate = new Date(new Date().getTime() + (365 * 24 * 60 * 60 * 1000));
             Cookies.set('bookingDetails', JSON.stringify(data), { expires: farFutureDate });
             Cookies.set('information', JSON.stringify(information), { expires: farFutureDate });
+            // Store data in a cookie
+            Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
 
             navigate("/payment-details", { state: data });
 

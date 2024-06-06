@@ -22,12 +22,14 @@ const Header = () => {
                 justifyContent: 'center',
                 color: 'white',
                 textAlign: 'left',
-                padding: isSmall ? '50px 50px' : '0px 50px',
+                padding: isSmall ? '20px 20px' : '0px 50px',
                 gap: '30px',
                 position: 'relative'
             }}
         >
-            <Typography sx={{ fontSize: '48px', fontWeight: 700, fontFamily: 'GT Eesti Display Trial, sans-serif' }}>
+            <Typography sx={{ fontSize: isSmall ? '30px' : '48px', fontWeight: 700, fontFamily: 'GT Eesti Display Trial, sans-serif',
+
+             }}>
                 UFC Flight Night In Abu Dubai
             </Typography>
             <Typography sx={{ fontSize: '18px', width: isSmall ? '100%' : '60%', fontFamily: 'GT Eesti Display Trial, sans-serif' }}>

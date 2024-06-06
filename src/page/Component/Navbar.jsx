@@ -64,15 +64,16 @@ const Navbar = () => {
 
  const [localWIshlistItemCount, setLocalWishlistItemCount] = useState(0);
 
- const storedWishlistItems = JSON.parse(localStorage.getItem("wishlistData"));
+ const storedWishlistItems = JSON.parse(localStorage.getItem("wishListData"));
 
   useEffect(() => {
 
-    const storedWishlistItems = JSON.parse(localStorage.getItem("wishlistData"));
+    const storedWishlistItems = JSON.parse(localStorage.getItem("wishListData"));
     if (storedWishlistItems) {
       setLocalWishlistItemCount(storedWishlistItems?.length);
     }
   }, [storedWishlistItems]);
+
 
   const wishlistItemCount = !authh ? localWIshlistItemCount : wishlistCountRedux;
 
@@ -256,6 +257,7 @@ const Navbar = () => {
                   width: "max-content",
                   padding: "1rem",
                   mt: 3,
+                  zIndex:10000
                 }}
               >
                 <Box
