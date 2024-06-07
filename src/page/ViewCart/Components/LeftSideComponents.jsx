@@ -16,6 +16,7 @@
   import { useDispatch, useSelector } from "react-redux";
   import { useNavigate } from "react-router";
   import { useSnackbar } from "notistack";
+import { CleaningServices } from "@mui/icons-material";
 
   const LeftSideComponents = ({ setTotalPrice  }) => {
 
@@ -110,7 +111,7 @@
             })
             .catch((err) => {
               console.error(err);
-              enqueueSnackbar("Failed to Add Activity to Cart", { variant: "error" });
+              // enqueueSnackbar("Failed to Add Activity to Cart", { variant: "error" });
             });
         });
       }
@@ -119,7 +120,7 @@
 
     useEffect(() => {
       if (!token) {
-        const storedData = JSON.parse(localStorage.getItem("addCartData")) || [];
+        const storedData = JSON.parse(localStorage.getItem("addCartData"));
 
         setAllCartLocal(storedData);
       } else {
@@ -127,12 +128,25 @@
       }
     }, [dispatch, token]);
 
+    // useEffect(() => {
+    //   const total = (token ? allCartRedux : allCartLocal).reduce((sum, item) => sum + item.price, 0);
+    //   setTotalPrice(total);
+
+
+    // }, [allCartRedux, allCartLocal, setTotalPrice]);
     useEffect(() => {
-      const total = (token ? allCartRedux : allCartLocal).reduce((sum, item) => sum + item.price, 0);
-      setTotalPrice(total);
+      let totalPrice = 0;
 
+      // Check if allCartLocal is not null and has items
+      if (allCartLocal && allCartLocal.length > 0) {
+        totalPrice = allCartLocal.reduce((sum, item) => sum + item.price, 0);
+      } else {
+        totalPrice = 0; // Set totalPrice to 0 if allCartLocal is null or empty
+      }
 
-    }, [allCartRedux, allCartLocal, setTotalPrice]);
+      setTotalPrice(totalPrice);
+    }, [allCartLocal, setTotalPrice]);
+
 
 
     // const handleDelete = (id) => {
@@ -189,11 +203,15 @@
       <>
         <Box sx={{ mt: 3 }}>
         {allCart?.map((val, index) => {
+
           if (!token) {
           return (
             <Card sx={{ p: 2, background: "#FDF4F1", mb: 4 }} key={index}>
                 {val?.ac_data?.packages?.map((packageItem, packageIndex) => (
-                  packageItem.category === val.category && (
+
+                  packageItem.id === val.packageid &&
+
+                   (
                     <Box key={packageIndex} sx={{ minHeight: "30vh", gap: 4 }}>
 
                       <Box

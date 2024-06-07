@@ -152,15 +152,9 @@ const DetailLeft = ({ ac_data, loading }) => {
                 adult: adult,
                 child: child,
                 infant: infant,
-                title: title,
-                highlight: highlight,
+                category:category,
                 packageid: packageid
             };
-
-
-
-
-
 
             const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
 
