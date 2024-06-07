@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  Divider,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { IoSyncOutline } from "react-icons/io5";
-import {
-  addToCart,
-  deleteCart,
-  getCart,
-} from "../../../store/actions/cartActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { useSnackbar } from "notistack";
+  import React, { useEffect, useState } from "react";
+  import {
+    Box,
+    Button,
+    Card,
+    Divider,
+    Typography,
+    useTheme,
+  } from "@mui/material";
+  import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+  import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+  import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+  import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+  import { IoSyncOutline } from "react-icons/io5";
+  import { addToCart, deleteCart, getCart } from "../../../store/actions/cartActions";
+  import { useDispatch, useSelector } from "react-redux";
+  import { useNavigate } from "react-router";
+  import { useSnackbar } from "notistack";
+import { CleaningServices } from "@mui/icons-material";
+
+  const LeftSideComponents = ({ setTotalPrice  }) => {
 
 const LeftSideComponents = ({ setTotalPrice }) => {
   //   const base = "https://dubaisafari.saeedantechpvt.com";
@@ -102,10 +101,83 @@ const LeftSideComponents = ({ setTotalPrice }) => {
     const token = localStorage.getItem("token");
     const storedData = JSON.parse(localStorage.getItem("addCartData"));
 
-    if (token && storedData && storedData.length > 0) {
-      storedData.forEach((item) => {
-        const { p_id, q, price, date, adult, child, infant } = item;
-        dispatch(addToCart(p_id, q, price, date, adult, child, infant))
+    const calculateTotalGuests = (adult, child, infant) => {
+      return adult + child + infant;
+    };
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      const storedData = JSON.parse(localStorage.getItem("addCartData"));
+
+      if (token && storedData && storedData.length > 0) {
+        storedData.forEach((item) => {
+          const { p_id, q, price, date, adult, child, infant } = item;
+          dispatch(addToCart(p_id, q, price, date, adult, child, infant))
+            .then((res) => {
+              localStorage.removeItem("addCartData");
+              // enqueueSnackbar("Activity Added to Cart", { variant: "success" });
+            })
+            .catch((err) => {
+              console.error(err);
+              // enqueueSnackbar("Failed to Add Activity to Cart", { variant: "error" });
+            });
+        });
+      }
+    }, [dispatch, enqueueSnackbar]);
+
+
+    useEffect(() => {
+      if (!token) {
+        const storedData = JSON.parse(localStorage.getItem("addCartData"));
+
+        setAllCartLocal(storedData);
+      } else {
+        dispatch(getCart());
+      }
+    }, [dispatch, token]);
+
+    // useEffect(() => {
+    //   const total = (token ? allCartRedux : allCartLocal).reduce((sum, item) => sum + item.price, 0);
+    //   setTotalPrice(total);
+
+
+    // }, [allCartRedux, allCartLocal, setTotalPrice]);
+    useEffect(() => {
+      let totalPrice = 0;
+
+      // Check if allCartLocal is not null and has items
+      if (allCartLocal && allCartLocal.length > 0) {
+        totalPrice = allCartLocal.reduce((sum, item) => sum + item.price, 0);
+      } else {
+        totalPrice = 0; // Set totalPrice to 0 if allCartLocal is null or empty
+      }
+
+      setTotalPrice(totalPrice);
+    }, [allCartLocal, setTotalPrice]);
+
+
+
+    // const handleDelete = (id) => {
+    //   setLoading(true);
+
+    //   dispatch(deleteCart(id))
+    //     .then((res) => {
+    //       setLoading(false);
+    //       dispatch(getCart());
+    //       enqueueSnackbar("Activity Removed", { variant: "success" });
+    //     })
+    //     .catch((err) => {
+    //       console.error(err);
+    //     });
+    // };
+
+    const handleDelete = (id) => {
+      console.log(id, 'id for delete')
+      setLoading(true);
+
+      if (token) {
+        // User is logged in, call the API to delete the item
+        dispatch(deleteCart(id))
           .then((res) => {
             localStorage.removeItem("addCartData");
             // enqueueSnackbar("Activity Added to Cart", { variant: "success" });
@@ -191,12 +263,17 @@ const LeftSideComponents = ({ setTotalPrice }) => {
     <>
       <Box sx={{ mt: 3 }}>
         {allCart?.map((val, index) => {
+
           if (!token) {
-            return (
-              <Card sx={{ p: 2, background: "#FDF4F1", mb: 4 }} key={index}>
-                {val?.ac_data?.packages?.map(
-                  (packageItem, packageIndex) =>
-                    packageItem.category === val.category && (
+          return (
+            <Card sx={{ p: 2, background: "#FDF4F1", mb: 4 }} key={index}>
+                {val?.ac_data?.packages?.map((packageItem, packageIndex) => (
+
+                  packageItem.id === val.packageid &&
+
+                   (
+                    <Box key={packageIndex} sx={{ minHeight: "30vh", gap: 4 }}>
+
                       <Box
                         key={packageIndex}
                         sx={{ minHeight: "30vh", gap: 4 }}
@@ -365,7 +442,7 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                       flexDirection: { xs: "column", md: "row" }, // Adjust flex direction for mobile
                       minHeight: "30vh",
                       gap: 4,
-                     
+
                     }}
                     onClick={() => handleNavigate(val.package.activity_id)}
                   >
@@ -465,7 +542,7 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                       <Box
                         sx={{
                           display: "flex",
-                          flexDirection: { xs: "column", md: "row" }, 
+                          flexDirection: { xs: "column", md: "row" },
                           justifyContent: "space-between",
                           marginTop: "1rem",
                           gap: { xs: 2, md: 0 },
@@ -489,7 +566,7 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                           }}
                         >
                           {" "}
-                         
+
                           <IoSyncOutline
                             style={{ fontSize: "1.5rem", fontWeight: "800" }}
                           />
@@ -501,7 +578,7 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                             textTransform: "none",
                             color: "black",
                             order: { xs: 4, md: 3 },
-                          }} 
+                          }}
                         >
                           Please Login to use Promocode
                         </Button>

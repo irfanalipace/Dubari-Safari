@@ -59,7 +59,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
     const lastCartItem = allCart[allCart.length - 1];
     console.log(lastCartItem, "last cart data");
 
-    const { adult, child, infant, date } = lastCartItem;
+    const { adult, child, infant, tour_date } = lastCartItem;
 
 
 
@@ -76,13 +76,11 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
     // });
 
     const data = {
-      date: date,
-      person: {
-          adult: adult,
-          child: child,
-          infant: infant,
-      },
-      totalPrice: totalPrice,
+      date: tour_date,
+      adult: adult,
+      child: child,
+      infant: infant,
+      total_amount: totalPrice,
   };
 
     Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
