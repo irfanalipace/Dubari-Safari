@@ -61,24 +61,6 @@ const DetailLeft = ({ ac_data, loading }) => {
     };
 
 
-    const handleGift = async (activity_id, discount_price, recipient_email) => {
-        const body = {
-            activity_id: activity_id,
-            discount_price: discount_price,
-            recipient_email: recipient_email
-        };
-
-        try {
-            const res = await dispatch(Send_Gift(body));
-            enqueueSnackbar("Gift sent successfully", { variant: "success" });
-            navigate('/view-gift');
-            return res;
-        } catch (err) {
-            console.log(err);
-            enqueueSnackbar("Failed to send gift", { variant: "error" });
-            throw err;
-        }
-    };
 
     const handleSelectClick = () => {
         if (!date) {
@@ -110,6 +92,8 @@ const DetailLeft = ({ ac_data, loading }) => {
     //             throw err;
     //         });
     // };
+
+    // console.log(ac_data.available_activity, 'hi')
 
     const handleCart = (p_id, q, total, date, adult, child, infant, category, packageid) => {
         if (!date) {
@@ -205,6 +189,14 @@ const DetailLeft = ({ ac_data, loading }) => {
             setAdult(value);
         }
     };
+
+    const handleSendGift = () => {
+
+        const dataToSend = {
+            ac_data
+        };
+        navigate('/view-gift', { state: dataToSend });
+    };
     return (
         <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
@@ -213,25 +205,55 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Typography>
                 <Divider sx={{ width: "100%" }} />
                 <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                    <InputLabel>Please Select Date</InputLabel>
-                    <TextField
-                        type="date"
-                        fullWidth
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        InputLabelProps={{ shrink: true }}
-                        variant="outlined"
-                        sx={{
-                            backgroundColor: "#EDEDED",
-                            borderRadius: "7px",
-                            "& .MuiOutlinedInput-root": {
-                                "& fieldset": {
-                                    border: "none",
-                                },
-                            },
-                        }}
-                    />
+                    {ac_data.available_activity === 0 ? (
+                        <div>
+                            <TextField
+                                type="date"
+                                fullWidth
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                InputLabelProps={{ shrink: true }}
+                                variant="outlined"
+                                disabled // Disabling date picker
+                                sx={{
+                                    backgroundColor: "#EDEDED",
+                                    borderRadius: "7px",
+                                    "& .MuiOutlinedInput-root": {
+                                        "& fieldset": {
+                                            border: "none",
+                                        },
+                                    },
+                                }}
+                                onClick={() => {
+                                    enqueueSnackbar("No activity found", { variant: "error" });
+                                }}
+                            />
+                            <Typography variant="caption">Activity not available</Typography>
+                        </div>
+                    ) : (
+                        <div>
+                            <InputLabel>Please Select Date</InputLabel>
+                            <TextField
+                                type="date"
+                                fullWidth
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                InputLabelProps={{ shrink: true }}
+                                variant="outlined"
+                                sx={{
+                                    backgroundColor: "#EDEDED",
+                                    borderRadius: "7px",
+                                    "& .MuiOutlinedInput-root": {
+                                        "& fieldset": {
+                                            border: "none",
+                                        },
+                                    },
+                                }}
+                            />
+                        </div>
+                    )}
                 </Box>
+
                 <Box sx={{ padding: "0px 20px", width: "90%" }}>
                     <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                         <Button
@@ -437,10 +459,11 @@ const DetailLeft = ({ ac_data, loading }) => {
                                             Add To Cart
                                         </Button>
                                     </Box>
+
                                     <Box>
                                         <Button
                                             onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
-                                            variant="contained"
+                                            variant={ac_data?.available_activity === 0 ? 'disabled' : 'contained'}
                                             sx={{
                                                 color: "white",
                                                 fontSize: "12px",
@@ -457,10 +480,10 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
                     <FiGift style={{ color: theme.palette.primary.main }} />
-                    <Button onClick={() => handleGift(ac_data.id, ac_data.discount_offer, 'hi')} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
+                    <Button onClick={handleSendGift} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
                 </Box>
             </Box>
-        </Box>
+        </Box >
     );
 };
 

@@ -32,6 +32,8 @@ import Gift from "./page/gift/Gift";
 import Reviews from "./page/reviews/Reviews";
 import GuidLine from "./page/guidline/GuidLine";
 import GenerateInvoice from "./page/PaymentDeatils/GenerateInvoice";
+import StripeGift from "./page/gift/StripeGift";
+import PreviewCard from "./page/gift/PreviewCard";
 
 export default function Router() {
   let element = useRoutes([
@@ -175,6 +177,14 @@ export default function Router() {
     {
       path: "/invoice-detail",
       element: <GenerateInvoice />,
+    },
+    {
+      path: "/gift-pay",
+      element: <StripeGift />,
+    },
+    {
+      path: "/preview-card",
+      element: <PreviewCard />,
     },
 
   ]);

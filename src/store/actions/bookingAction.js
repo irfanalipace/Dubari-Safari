@@ -1,4 +1,46 @@
 // In store/actions/bookingActions.js
+import api from "../../utils/Api";
+
+export const getAllBooking = () => async (dispatch) => {
+    try {
+        const res = await api.get("user/bookings");
+        dispatch({
+            type: "GET_BOOKING",
+            payload: res.data,
+        });
+        return res;
+    } catch (err) {
+        throw err;
+    }
+};
+
+
+export const OrderCancel = (id) => async (dispatch) => {
+    try {
+        const res = await api.put(`user/cancel/booking/${id}`);
+        dispatch({
+            type: "ORDER_CANCEL",
+            payload: res.data,
+        });
+        return res;
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const BookingUpdate = (id, date) => async (dispatch) => {
+    try {
+        const res = await api.put(`user/booking/${id}?date=${date}`);
+        dispatch({
+            type: "BOOKING_UPDATE",
+            payload: res.data,
+        });
+        return res;
+    } catch (err) {
+        throw err;
+    }
+};
+
 
 export const SET_BOOKING_DETAILS = 'SET_BOOKING_DETAILS';
 export const CLEAR_BOOKING_DETAILS = 'CLEAR_BOOKING_DETAILS';

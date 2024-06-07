@@ -2,13 +2,18 @@ import { Box, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { FiGift } from "react-icons/fi";
 import GiftDetail from './GiftDetail';
-
+import { useLocation } from 'react-router-dom'; // Import useLocation
 
 const Gift = () => {
+    const location = useLocation(); // Get the location object
 
-    useEffect(()=>{
-        window.scrollTo(0,0)
-    })
+    // Access the state data passed from the previous page
+    const { state } = location;
+    const { ac_data } = state || {};
+    // console.log(ac_data, 'gift')
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, []) // Ensure useEffect has dependencies array
 
     return (
         <>
@@ -17,7 +22,8 @@ const Gift = () => {
                 <Typography sx={{ fontSize: "18px", fontWeight: 700, color: "#DD404E" }}>The Arabic Horizons Gift</Typography>
                 <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#707070", textAlign: 'center', width: '70%' }}>Tired of getting loved ones the same old stuff?. Let them choose the experience of a lifetime. Our gift cards are valid for thousands of things to do all around the world.</Typography>
             </Box>
-            <GiftDetail />
+            {/* Pass the data to the GiftDetail component */}
+            <GiftDetail ac_data={ac_data} />
         </>
     )
 }

@@ -403,124 +403,115 @@ const DetailPage = () => {
                     </div>
 
                     {data1?.description && (
-                    <div id="description" style={colStyle}>
-                      <Typography
-                        sx={{
-                          fontSize: "30px",
-                          fontWeight: 600,
-                          color: theme.palette.primary.main,
-                        }}
-                      >
-                        Description
-                      </Typography>
-                      <Divider sx={{ width: "100%" }} />
-                      <Typography>{data1.description}</Typography>
-                    </div>
+                      <div id="description" style={colStyle}>
+                        <Typography
+                          sx={{
+                            fontSize: "30px",
+                            fontWeight: 600,
+                            color: theme.palette.primary.main,
+                          }}
+                        >
+                          Description
+                        </Typography>
+                        <Divider sx={{ width: "100%" }} />
+                        <Typography>{data1.description}</Typography>
+                      </div>
                     )}
 
                     {data1?.itinerary && (
                       <div id="itinerary" style={colStyle}>
-                      <Typography
-                        sx={{
-                          fontSize: "30px",
-                          fontWeight: 600,
-                          color: theme.palette.primary.main,
-                        }}
-                      >
-                        Highlights
-                      </Typography>
-                      <Divider sx={{ width: "100%" }} />
-                      <Box
-                        sx={{
-                          paddingLeft: "30px",
-                          color: "black",
-                          fontSize: "16px",
-                        }}
-                        dangerouslySetInnerHTML={{ __html: data1.itinerary }}
-                      />
+                        <Typography
+                          sx={{
+                            fontSize: "30px",
+                            fontWeight: 600,
+                            color: theme.palette.primary.main,
+                          }}
+                        >
+                          Highlights
+                        </Typography>
+                        <Divider sx={{ width: "100%" }} />
+                        <Box
+                          sx={{
+                            paddingLeft: "30px",
+                            color: "black",
+                            fontSize: "16px",
+                          }}
+                          dangerouslySetInnerHTML={{ __html: data1.itinerary }}
+                        />
 
-                    </div>
+                      </div>
                     )}
 
                     {data1?.whats_included && (
                       <div id="whats-included" style={colStyle}>
-                      <Typography
-                        sx={{
-                          fontSize: "30px",
-                          fontWeight: 600,
-                          color: theme.palette.primary.main,
-                        }}
-                      >
-                        Itinerary
-                      </Typography>
-                      <Divider sx={{ width: "100%" }} />
-                      <Box
-                        sx={{
-                          paddingLeft: "30px",
-                          color: "black",
-                          fontSize: "16px",
-                        }}
+                        <Typography
+                          sx={{
+                            fontSize: "30px",
+                            fontWeight: 600,
+                            color: theme.palette.primary.main,
+                          }}
+                        >
+                          Itinerary
+                        </Typography>
+                        <Divider sx={{ width: "100%" }} />
+                        <Box
+                          sx={{
+                            paddingLeft: "30px",
+                            color: "black",
+                            fontSize: "16px",
+                          }}
 
-                        dangerouslySetInnerHTML={{
-                          __html: data1.whats_included
-                        }}
-                      />
-                    </div>
+                          dangerouslySetInnerHTML={{
+                            __html: data1.whats_included
+                          }}
+                        />
+                      </div>
                     )}
 
 
                     {data1?.instructions && data1.instructions.length > 0 && (
                       <div id="trip-instructions" style={colStyle}>
-                      <Typography
-                        sx={{
-                          fontSize: "30px",
-                          fontWeight: 600,
-                          color: theme.palette.primary.main,
-                        }}
-                      >
-                        Trip Instructions / Essentials
-                      </Typography>
-                      <Divider sx={{ width: "100%" }} />
-                      <Box sx={{ backgroundColor: "white", borderRadius: "20px" }}>
-                        {data1?.instructions && data1.instructions.length > 0 ? (
-                          data1.instructions.map((qa, index) => (
-                            <Accordion
-                              key={index}
-                              expanded={openAccordion === `panel${index}`}
-                              onChange={handleAccordionChange(`panel${index}`)}
-                              sx={{ backgroundColor:'#ffaf95', color:'black' }}
-                            >
-                              <AccordionSummary
-                                expandIcon={<ExpandMoreIcon style={{color:'black'}}/>}
-                                IconButtonProps={{ edge: 'start' }}
+                        <Typography
+                          sx={{
+                            fontSize: "30px",
+                            fontWeight: 600,
+                            color: theme.palette.primary.main,
+                          }}
+                        >
+                          Trip Instructions / Essentials
+                        </Typography>
+                        <Divider sx={{ width: "100%" }} />
+                        <Box sx={{ backgroundColor: "white", borderRadius: "20px" }}>
+                          {data1?.instructions && data1.instructions.length > 0 ? (
+                            data1.instructions.map((qa, index) => (
+                              <Accordion
+                                key={index}
+                                expanded={openAccordion === `panel${index}`}
+                                onChange={handleAccordionChange(`panel${index}`)}
+                                sx={{ backgroundColor: '#ffaf95', color: 'black' }}
                               >
-                                <Typography sx={{ textAlign: "start" }}>
-                                  {qa.instruction_title}
-                                </Typography>
-                              </AccordionSummary>
-                              <AccordionDetails>
-                                <Typography variant="body1">{qa.instruction_description}</Typography>
-                              </AccordionDetails>
-                            </Accordion>
-                          ))
-                        ) : (
-                          <Typography sx={{ color: "black", textAlign: "center", padding: 2 }}>
-                            No instructions found
-                          </Typography>
-                        )}
-                      </Box>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon style={{ color: 'black' }} />}
+                                  IconButtonProps={{ edge: 'start' }}
+                                >
+                                  <Typography sx={{ textAlign: "start" }}>
+                                    {qa.instruction_title}
+                                  </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                  <Typography variant="body1">{qa.instruction_description}</Typography>
+                                </AccordionDetails>
+                              </Accordion>
+                            ))
+                          ) : (
+                            <Typography sx={{ color: "black", textAlign: "center", padding: 2 }}>
+                              No instructions found
+                            </Typography>
+                          )}
+                        </Box>
 
-                    </div>
+                      </div>
                     )}
-
-
-
-
-
-
-
-
-
                   </Box>
                 </Grid>
                 <Grid
@@ -534,7 +525,7 @@ const DetailPage = () => {
                   <DetailLeft ac_data={data1} loading={loading} />
                 </Grid>
               </Grid>
-              <ReiewsDetail />
+              <ReiewsDetail data={data1} />
             </Box>
 
             <RelatedData ac_data={data1} />

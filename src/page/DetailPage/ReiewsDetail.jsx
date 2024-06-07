@@ -1,8 +1,25 @@
-import { Box, Divider, LinearProgress, Rating, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Card, CardContent, Divider, LinearProgress, Rating, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 
-const ReviewsDetail = () => {
+const ReviewsDetail = ({ data }) => {
     const [value, setValue] = useState(5);
+    const base = 'https://dubaisafari.saeedantechpvt.com/';
+
+    // Calculate average rating
+    const totalReviews = data?.reviews.length || 0;
+    const averageRating = data?.reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews || 0;
+
+    // Ratings distribution
+    const ratingDistribution = [5, 4, 3, 2, 1].map(star => {
+        return {
+            star,
+            count: data?.reviews.filter(review => review.rating === star).length,
+        };
+    });
+
+    useEffect(() => {
+        setValue(Math.round(averageRating));
+    }, [averageRating]);
 
     return (
         <>
@@ -11,79 +28,59 @@ const ReviewsDetail = () => {
                 <Divider sx={{ width: '100%' }} />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Box>
-                        <Typography sx={{ fontSize: '42px' }}>5.0/5.0</Typography>
+                        <Typography sx={{ fontSize: '42px' }}>{averageRating.toFixed(1)}/5.0</Typography>
                         <Rating
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                                setValue(newValue);
-                            }}
+                            name="average-rating"
+                            value={averageRating}
+                            readOnly
                         />
                     </Box>
                     <Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Typography sx={{ fontSize: '22px' }}>5 stars</Typography>
-                            <Rating
-                                name="simple-controlled"
-                                value={5}
-                                readOnly
-                            />
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Typography sx={{ fontSize: '22px' }}>4 stars</Typography>
-                            <Rating
-                                name="simple-controlled"
-                                value={4}
-                                readOnly
-                            />
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Typography sx={{ fontSize: '22px' }}>3 stars</Typography>
-                            <Rating
-                                name="simple-controlled"
-                                value={3}
-                                readOnly
-                            />
-                        </Box>
+                        {ratingDistribution.map(({ star, count }) => (
+                            <Box key={star} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
+                                <Typography sx={{ fontSize: '22px' }}>{star} stars</Typography>
+                                <Rating
+                                    name={`rating-${star}`}
+                                    value={star}
+                                    readOnly
+                                />
+                                <Typography sx={{ fontSize: '22px', marginLeft: '10px' }}>{count}</Typography>
+                            </Box>
+                        ))}
                     </Box>
                     <Box sx={{ width: '30%', paddingRight: '30px' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <LinearProgress variant="determinate" value={80} sx={{ flexGrow: 1, marginRight: '10px' }} />
-                            <Typography sx={{ width: '100px' }}>78/66</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <LinearProgress variant="determinate" value={50} sx={{ flexGrow: 1, marginRight: '10px' }} />
-                            <Typography sx={{ width: '100px' }}>78/66</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <LinearProgress variant="determinate" value={80} sx={{ flexGrow: 1, marginRight: '10px' }} />
-                            <Typography sx={{ width: '100px' }}>78/66</Typography>
-                        </Box>
-
+                        {ratingDistribution.map(({ star, count }) => (
+                            <Box key={star} sx={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                                <LinearProgress variant="determinate" value={(count / totalReviews) * 100} sx={{ flexGrow: 1, marginRight: '10px' }} />
+                                <Typography sx={{ width: '100px' }}>{count}/{totalReviews}</Typography>
+                            </Box>
+                        ))}
                     </Box>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '50px' }}>
-                    <Box>
-                        <img src="/jeep.jpg" alt="" style={{ height: '100px', width: '100px', borderRadius: '50%' }} />
-                        <Typography>Muhammad Moaz</Typography>
-                    </Box>
-                    <Box>
-                        <Typography sx={{ fontSize: '20px', fontWeight: 600 }}>Muhammd Moaz in etc places</Typography>
-                        <Typography>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto excepturi alias error perferendis, ipsum fugiat aut sunt facere odit sed repellendus laudantium quas incidunt, corporis voluptas quo. Soluta neque, eum molestiae adipisci eius suscipit dicta doloribus numquam rem cum illo praesentium sequi ducimus tempora?</Typography>
-                    </Box>
-                    <Box>
-
-                        <Typography sx={{ fontSize: '22px' }}>5.0/5.0</Typography>
-                        <Rating
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                                setValue(newValue);
-                            }}
-                        />
-                        <Typography sx={{ backgroundColor: 'green', padding: "5px", color: 'white', borderRadius: '5px', textAlign: 'center' }}>Excellent</Typography>
-                    </Box>
-                </Box>
+                {data?.reviews.map((review, index) => (
+                    <Card key={index} sx={{ margin: '10px 0', padding: '20px' }}>
+                        <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Box sx={{ width: '100px', height: '100px' }}>
+                                <img src={`${base}${review.user.profile_image}`} alt="" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+                            </Box>
+                            <Box sx={{ flex: 1, marginLeft: '20px' }}>
+                                <Typography variant="h6" sx={{ fontWeight: 600 }}>{review.user.first_name}</Typography>
+                                <Typography sx={{ fontSize: '16px', marginTop: '5px' }}>{review.comment}</Typography>
+                            </Box>
+                            <Box sx={{ textAlign: 'center' }}>
+                                <Typography sx={{ fontSize: '22px' }}>{review.rating}.0/5.0</Typography>
+                                <Rating
+                                    name={`review-rating-${index}`}
+                                    value={review.rating}
+                                    readOnly
+                                />
+                                <Typography sx={{ backgroundColor: 'green', padding: "5px", color: 'white', borderRadius: '5px', textAlign: 'center' }}>
+                                    {review.rating === 5 ? 'Excellent' : review.rating >= 4 ? 'Good' : review.rating >= 3 ? 'Average' : 'Poor'}
+                                </Typography>
+                            </Box>
+                        </CardContent>
+                    </Card>
+                ))}
             </Box>
         </>
     );
