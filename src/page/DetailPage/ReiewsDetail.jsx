@@ -6,14 +6,14 @@ const ReviewsDetail = ({ data }) => {
     const base = 'https://dubaisafari.saeedantechpvt.com/';
 
     // Calculate average rating
-    const totalReviews = data?.reviews.length || 0;
-    const averageRating = data?.reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews || 0;
+    const totalReviews = data?.reviews?.length || 0;
+    const averageRating = data?.reviews?.reduce((acc, review) => acc + review?.rating, 0) / totalReviews || 0;
 
     // Ratings distribution
     const ratingDistribution = [5, 4, 3, 2, 1].map(star => {
         return {
             star,
-            count: data?.reviews.filter(review => review.rating === star).length,
+            count: data?.reviews.filter(review => review?.rating === star).length,
         };
     });
 
@@ -57,7 +57,7 @@ const ReviewsDetail = ({ data }) => {
                         ))}
                     </Box>
                 </Box>
-                {data?.reviews.map((review, index) => (
+                {data?.reviews?.map((review, index) => (
                     <Card key={index} sx={{ margin: '10px 0', padding: '20px' }}>
                         <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             <Box sx={{ width: '100px', height: '100px' }}>

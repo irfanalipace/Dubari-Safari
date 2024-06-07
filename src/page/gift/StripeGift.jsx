@@ -8,14 +8,7 @@ import CheckoutGift from "./CheckoutGift";
 const stripePromise = loadStripe("pk_test_51Nl5l2Fd4D0x5hm6bNeeGB3OgSp6LVDsHPSthOuzgiygFol7rB4uUG02e2x1DlTyz48BBGenNM6gd0DJWrozE0cj00b7xF7yx3");
 
 const StripeGift = () => {
-    // const [cookieData, setCookieData] = useState(null);
 
-    // useEffect(() => {
-    //     const data = Cookies.get('bookingDetails');
-    //     if (data) {
-    //         setCookieData(JSON.parse(data));
-    //     }
-    // }, []);
 
 
     // console.log(cookieData, 'jjj');

@@ -83,7 +83,7 @@ const Categories = () => {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    setSelectedSubCategory(null); // Reset selected sub-category when a new category is selected
+    setSelectedSubCategory(null);
   };
 
   const handleSubCategoryChange = (event) => {
@@ -121,11 +121,11 @@ const Categories = () => {
 
 
 
-    const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Page title="Categories">
-      <Box sx={{ padding: isSmall ? '3rem 2rem':'3rem 5rem' }}>
+      <Box sx={{ padding: isSmall ? '3rem 2rem' : '3rem 5rem' }}>
         {/* <Button
           onClick={handleBack}
           variant="contained"
@@ -134,12 +134,12 @@ const Categories = () => {
           Back to home page
         </Button> */}
         <Typography
-            variant="h4"
-            fontWeight="bold"
-            sx={{ flex: 2, textAlign:'center' }}
-          >
-            Things to do in Abu Dhabi
-          </Typography>
+          variant="h4"
+          fontWeight="bold"
+          sx={{ flex: 2, textAlign: 'center' }}
+        >
+          Things to do in Abu Dhabi
+        </Typography>
         <Box
           sx={{
             display: "flex",

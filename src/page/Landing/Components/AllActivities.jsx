@@ -43,43 +43,44 @@ const AllActivities = () => {
 
 
   const isMediumOrSmallScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
-if (location.pathname === '/desert-safari' || isMediumOrSmallScreen) {
+  if (location.pathname === '/desert-safari' || isMediumOrSmallScreen) {
     return null;
   }
   return (
 
-    <Box sx={{ padding: "1rem 5%",  position: "sticky",
-    top: 0, backgroundColor:'white', zIndex:'1000',
-     boxShadow:"1px 1px 1px grey",
-     }}>
+    <Box sx={{
+      padding: "1rem 5%", position: "sticky",
+      top: 0, backgroundColor: 'white', zIndex: '1000',
+      boxShadow: "1px 1px 1px grey",
+    }}>
 
-    <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
-      <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
-        All Activities
-      </Typography>
-      {staticCategories.map((val, ind) => {
-        {/* const categoryId = categoryMap[val.name]; */}
-        return (
-          <Box key={ind} sx={{ display: "flex", alignItems: "center" }}>
-  <Button
-    sx={{ textTransform: "none", color: "grey" }}
-    onClick={() => navigate('/desert-safari')}
-    startIcon={
-      <img
-        src={val.image}
-        alt={val.name}
-        style={{ width: '20px', height: '20px' }}
-      />
-    }
-  >
-    {val.name}
-  </Button>
-</Box>
+      <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
+        <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
+          All Activities
+        </Typography>
+        {staticCategories.map((val, ind) => {
+          {/* const categoryId = categoryMap[val.name]; */ }
+          return (
+            <Box key={ind} sx={{ display: "flex", alignItems: "center" }}>
+              <Button
+                sx={{ textTransform: "none", color: "grey" }}
+                onClick={() => navigate('/desert-safari')}
+                startIcon={
+                  <img
+                    src={val.image}
+                    alt={val.name}
+                    style={{ width: '20px', height: '20px' }}
+                  />
+                }
+              >
+                {val.name}
+              </Button>
+            </Box>
 
-        );
-      })}
+          );
+        })}
+      </Box>
     </Box>
-  </Box>
 
 
     // <Box sx={{ padding: "1rem 5%" }}>

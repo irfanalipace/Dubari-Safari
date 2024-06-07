@@ -41,6 +41,22 @@ export const BookingUpdate = (id, date) => async (dispatch) => {
     }
 };
 
+export const Apply_Voucher = (voucherCode) => async (dispatch) => {
+    try {
+        const res = await api.post("user/apply/voucher", { voucher_code: voucherCode });
+        // Ensure the discount amount is negative
+        res.data.discountAmount = -Math.abs(res.data.discountAmount);
+        dispatch({
+            type: "APPLY_VOUCHER",
+            payload: res.data,
+        });
+        return res;
+    } catch (err) {
+        throw err;
+    }
+};
+
+
 
 export const SET_BOOKING_DETAILS = 'SET_BOOKING_DETAILS';
 export const CLEAR_BOOKING_DETAILS = 'CLEAR_BOOKING_DETAILS';

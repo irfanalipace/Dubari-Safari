@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 import { Button, Box, Typography, useTheme } from "@mui/material";
-// import { StripePay } from "../../../store/actions/categoriesActions";
 import { Link } from "react-router-dom";
-// import { Booking } from '../../../store/actions/categoriesActions';
 import Cookies from 'js-cookie';
+import { Send_Gift, StripePay } from "../../store/actions/categoriesActions";
 
-const CheckoutGift = ({ totalAmount, onNext, data }) => {
-    const token = useSelector((state) => state?.auth?.token)
-
+const CheckoutGift = ({ onNext }) => {
     const theme = useTheme();
     const stripe = useStripe();
     const elements = useElements();
@@ -17,29 +14,24 @@ const CheckoutGift = ({ totalAmount, onNext, data }) => {
     const [paymentError, setPaymentError] = useState(null);
     const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-    const handleProceedToPayment = async (paymentStatus) => {
-        const bookingDetails = JSON.parse(Cookies.get('bookingDetails'));
-        bookingDetails.payment = paymentStatus;
+    const [GiftData, setGiftData] = useState(null);
 
-        try {
-            const res = await dispatch(Booking(bookingDetails, token));
-            console.log('Booking API response:', res);
-            onNext();
-        } catch (error) {
-            console.error('Error in booking:', error);
-            setPaymentError("Error in booking. Please try again later.");
+    useEffect(() => {
+        const data = Cookies.get('gift_data');
+        if (data) {
+            setGiftData(JSON.parse(data));
         }
-    };
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!stripe || !elements) {
+        if (!stripe || !elements || !GiftData) {
             return;
         }
 
         try {
-            const { clientSecret } = await dispatch(StripePay({ price: totalAmount }));
+            const { clientSecret } = await dispatch(StripePay({ price: GiftData.discount_price }));
 
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
@@ -50,20 +42,22 @@ const CheckoutGift = ({ totalAmount, onNext, data }) => {
 
             if (result.error) {
                 setPaymentError(result.error.message);
-                handleProceedToPayment('fail');
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
                     setPaymentSuccess(true);
-                    handleProceedToPayment('success');
+                    await dispatch(Send_Gift({
+                        description: GiftData.description,
+                        discount_price: GiftData.discount_price,
+                        recipient_email: GiftData.recipient_email,
+                        ...(GiftData.activity_id && { activity_id: GiftData.activity_id }),
+                    }));
                 } else {
                     setPaymentError("Payment failed. Please try again.");
-                    handleProceedToPayment('fail');
                 }
             }
         } catch (error) {
             console.error("Error in Stripe payment:", error);
             setPaymentError("Error processing payment. Please try again later.");
-            handleProceedToPayment('fail');
         }
     };
 
@@ -169,7 +163,7 @@ const CheckoutGift = ({ totalAmount, onNext, data }) => {
                         </Typography>
                     </Box>
                     <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Typography variant="h6">Total Amount: ${totalAmount}</Typography>
+                        <Typography variant="h6">Total Amount: ${GiftData?.discount_price}</Typography>
                         <Button type="submit" variant="contained" disabled={!stripe}>
                             Pay Now
                         </Button>

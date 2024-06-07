@@ -136,8 +136,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                 adult: adult,
                 child: child,
                 infant: infant,
-                title: title,
-                highlight: highlight,
+                
                 packageid: packageid
             };
 
@@ -398,6 +397,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                     ) : (
                         ac_data?.packages?.map((item, index) => {
+                            { console.log(item, 'jjjjjjjjjjjjjjj') }
                             const total_amount = calculateTotalPrice(item.price);
                             let total = 0;
                             if (item.category === 'sharing') {

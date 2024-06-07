@@ -4,10 +4,11 @@ import { useDispatch } from "react-redux";
 import Page from "../../components/page";
 import { SendHelp } from "../../store/actions/helpAction";
 import { enqueueSnackbar } from "notistack";
+import { useNavigate } from "react-router";
 
 const HelpPageMain = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -16,22 +17,20 @@ const HelpPageMain = () => {
   const [bookingRefNo, setBookingRefNo] = useState("");
   const [description, setDescription] = useState("");
 
+  const [AllData, setAllData] = useState([])
   const handleSubmit = async () => {
     const formValues = {
       email,
       booking_ref_no: bookingRefNo,
-      description,
     };
-
     try {
       const res = await dispatch(SendHelp(formValues));
-      // console.log(res, 'ff')
-      enqueueSnackbar(res.data.message, { variant: "success" })
+      enqueueSnackbar(res.data?.message, { variant: "success" });
       setEmail("");
       setBookingRefNo("");
-      setDescription("");
+      navigate('/payment-help', { state: { allData: res.data.payload } });
     } catch (error) {
-      enqueueSnackbar('Failed to send help request', { variant: "error" })
+      enqueueSnackbar('Failed to send help request', { variant: "error" });
       console.error("Failed to send help request:", error);
     }
   };

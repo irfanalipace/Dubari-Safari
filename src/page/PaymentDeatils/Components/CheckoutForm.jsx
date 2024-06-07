@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
-import { Button, Box, Typography, useTheme } from "@mui/material";
-import { StripePay } from "../../../store/actions/categoriesActions";
+import { Button, Box, Typography, useTheme, TextField } from "@mui/material";
+import { StripePay } from "../../../store/actions/categoriesActions"; // Import Apply_Voucher
 import { Link } from "react-router-dom";
 import { Booking } from '../../../store/actions/categoriesActions';
 import Cookies from 'js-cookie';
+import { Apply_Voucher } from "../../../store/actions/bookingAction";
 
 const CheckoutForm = ({ totalAmount, onNext, data }) => {
-    const token = useSelector((state) => state?.auth?.token)
+    const token = useSelector((state) => state?.auth?.token);
 
     const theme = useTheme();
     const stripe = useStripe();
@@ -16,6 +17,9 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
     const dispatch = useDispatch();
     const [paymentError, setPaymentError] = useState(null);
     const [paymentSuccess, setPaymentSuccess] = useState(false);
+    const [voucherCode, setVoucherCode] = useState("");
+    const [discount, setDiscount] = useState(0);
+    const [discountError, setDiscountError] = useState(null); // To store error from voucher application
 
     const handleProceedToPayment = async (paymentStatus) => {
         const bookingDetails = JSON.parse(Cookies.get('bookingDetails'));
@@ -39,7 +43,7 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
         }
 
         try {
-            const { clientSecret } = await dispatch(StripePay({ price: totalAmount }));
+            const { clientSecret } = await dispatch(StripePay({ price: totalAmount - discount }));
 
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
@@ -66,6 +70,28 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
             handleProceedToPayment('fail');
         }
     };
+
+    const handleVoucherApply = async () => {
+        try {
+            const res = await dispatch(Apply_Voucher(voucherCode));
+            if (res.data.success) {
+                // Calculate the discount percentage
+                const discountPercentage = res.data.price > 0 ? (res.data.discountAmount / res.data.price) * 100 : 0;
+                // Calculate the discount amount based on the total amount
+                const discountAmount = -(totalAmount * (discountPercentage / 100));
+                setDiscount(discountAmount);
+                setDiscountError(null);
+            } else {
+                setDiscountError(res.data.message);
+                setDiscount(0);
+            }
+        } catch (error) {
+            console.error("Error validating voucher:", error);
+            setDiscountError("Error validating voucher. Please try again later.");
+            setDiscount(0);
+        }
+    };
+
 
     const cardStyle = {
         style: {
@@ -126,6 +152,7 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
                     </Box>
 
                     {paymentError && <Typography color="error" sx={{ marginBottom: "20px" }}>{paymentError}</Typography>}
+                    {discountError && <Typography color="error" sx={{ marginBottom: "20px" }}>{discountError}</Typography>}
 
                     <Box gap={1} display={"flex"} sx={{ marginTop: "2rem", alignItems: "center" }}>
                         <input
@@ -168,8 +195,24 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
                             </Link>{" "}
                         </Typography>
                     </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                        <TextField
+                            label="Voucher Code"
+                            value={voucherCode}
+                            onChange={(e) => setVoucherCode(e.target.value)}
+                            variant="outlined"
+                            sx={{ marginRight: '10px', flex: 1 }}
+                        />
+                        <Button variant="contained" onClick={handleVoucherApply}>
+                            Apply
+                        </Button>
+                    </Box>
+
                     <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Typography variant="h6">Total Amount: ${totalAmount}</Typography>
+                        <Typography variant="h6">
+                            Total Amount: ${(totalAmount - discount).toFixed(2)}
+                        </Typography>
                         <Button type="submit" variant="contained" disabled={!stripe}>
                             Pay Now
                         </Button>

@@ -34,6 +34,7 @@ import GuidLine from "./page/guidline/GuidLine";
 import GenerateInvoice from "./page/PaymentDeatils/GenerateInvoice";
 import StripeGift from "./page/gift/StripeGift";
 import PreviewCard from "./page/gift/PreviewCard";
+import UnAuthDetail from "./page/Help_Page/UnAuthDetail";
 
 export default function Router() {
   let element = useRoutes([
@@ -185,6 +186,10 @@ export default function Router() {
     {
       path: "/preview-card",
       element: <PreviewCard />,
+    },
+    {
+      path: "/payment-help",
+      element: <UnAuthDetail />,
     },
 
   ]);
