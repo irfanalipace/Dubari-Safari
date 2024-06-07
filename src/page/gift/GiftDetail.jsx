@@ -35,25 +35,61 @@ const GiftDetail = ({ ac_data }) => {
   return (
     <>
       <Box sx={{
-        padding: '70px',
+       padding: { xs: '3px', md: '70px' },
       }}>
         <Box sx={{
           borderRadius: '15px',
           border: ' 1px solid #E1E1E1',
           padding: '15px'
         }}>
-          <Box sx={{ display: 'flex', alignItems: 'start', gap: '30px' }}>
-            <Box flex={1}>
-              <img src={base + ac_data?.image_url} alt="" style={{ width: '100%', height: '30vh' }} />
-            </Box>
-            <Box flex={3} gap={4}>
-              <Typography sx={{ fontSize: '20px', fontWeight: 700 }}>{ac_data?.name}</Typography>
-              <Typography sx={{ fontSize: '16px', fontWeight: 500, color: '#A9A9A9', wordBreak: 'break-all' }}>
-                {ac_data?.description}
-              </Typography>
-
-            </Box>
-          </Box>
+        <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: 'start',
+          gap: { xs: '20px', md: '30px' },
+        }}
+      >
+        <Box
+          flex={1}
+          sx={{
+            width: { xs: '100%', md: 'auto' },
+          }}
+        >
+          <img
+            src={base + ac_data?.image_url}
+            alt=""
+            style={{
+              width: '100%',
+              height: { xs: '20vh', md: '30vh' },
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+        <Box
+          flex={3}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: { xs: 2, md: 4 },
+          }}
+        >
+          <Typography sx={{ fontSize: { xs: '18px', md: '20px' }, fontWeight: 700 }}>
+            {ac_data?.name}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: { xs: '14px', md: '16px' },
+              fontWeight: 500,
+              color: '#A9A9A9',
+              wordBreak: 'break-all',
+            }}
+          >
+            {ac_data?.description}
+          </Typography>
+        </Box>
+      </Box>
+      
 
 
           <Box sx={{ mt: 4 }}>
@@ -152,7 +188,7 @@ const GiftDetail = ({ ac_data }) => {
 
               </Grid>
 
-
+             
               <Box mt={3}>
                 {/* <img src='/recaptcha.png' alt='recaptcha'/> */}
                 <ReCaptcha />

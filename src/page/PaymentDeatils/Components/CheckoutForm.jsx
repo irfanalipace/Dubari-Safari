@@ -111,7 +111,7 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
                         </div>
                     </div>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <div style={{ ...fieldContainerStyle, width: "calc(50% - 10px)" }}>
+                        <div style={{ ...fieldContainerStyle, width: "calc(65% - 10px)" }}>
                             <label style={{ display: "block", marginBottom: "10px" }}>Expiration Date</label>
                             <div style={{ padding: "12px", backgroundColor: '#F6F7F9', borderRadius: '6px' }}>
                                 <CardExpiryElement options={cardStyle} />
@@ -168,12 +168,31 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
                             </Link>{" "}
                         </Typography>
                     </Box>
-                    <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Typography variant="h6">Total Amount: ${totalAmount}</Typography>
-                        <Button type="submit" variant="contained" disabled={!stripe}>
-                            Pay Now
-                        </Button>
-                    </Box>
+                    <Box
+                    sx={{
+                        marginTop: "1rem",
+                        display: "flex",
+                        flexDirection: { xs: "column", md: "row" }, // Stack on small screens, row on medium screens
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    }}
+                >
+                    <Typography variant="h6" sx={{ marginBottom: { xs: "0.5rem", md: 0 } }}>
+                        Total Amount: ${totalAmount}
+                    </Typography>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        disabled={!stripe}
+                        sx={{
+                            marginTop: { xs: "1rem", md: 0 }, // Add margin top on small screens
+                            width: { xs: "100%", md: "auto" }, // Set width to 100% on small screens, auto on medium screens
+                        }}
+                    >
+                        Pay Now
+                    </Button>
+                </Box>
+                
                 </form>
             ) : (
                 <Typography color="success" variant="h5" sx={{ textAlign: "center", marginTop: "20px" }}>Payment successful!</Typography>

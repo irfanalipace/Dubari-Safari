@@ -26,37 +26,61 @@ const ReviewsDetail = ({ data }) => {
             <Box sx={{ padding: '25px 0px', display: 'flex', flexDirection: 'column', gap: '30px' }}>
                 <Typography sx={{ fontSize: '30px', fontWeight: 600 }}>Louvre Abu Dhabi Reviews</Typography>
                 <Divider sx={{ width: '100%' }} />
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Box>
-                        <Typography sx={{ fontSize: '42px' }}>{averageRating.toFixed(1)}/5.0</Typography>
-                        <Rating
-                            name="average-rating"
-                            value={averageRating}
-                            readOnly
-                        />
-                    </Box>
-                    <Box>
-                        {ratingDistribution.map(({ star, count }) => (
-                            <Box key={star} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
-                                <Typography sx={{ fontSize: '22px' }}>{star} stars</Typography>
-                                <Rating
-                                    name={`rating-${star}`}
-                                    value={star}
-                                    readOnly
-                                />
-                                <Typography sx={{ fontSize: '22px', marginLeft: '10px' }}>{count}</Typography>
-                            </Box>
-                        ))}
-                    </Box>
-                    <Box sx={{ width: '30%', paddingRight: '30px' }}>
-                        {ratingDistribution.map(({ star, count }) => (
-                            <Box key={star} sx={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                                <LinearProgress variant="determinate" value={(count / totalReviews) * 100} sx={{ flexGrow: 1, marginRight: '10px' }} />
-                                <Typography sx={{ width: '100px' }}>{count}/{totalReviews}</Typography>
-                            </Box>
-                        ))}
-                    </Box>
-                </Box>
+              <Box
+  sx={{
+    display: 'flex',
+    flexDirection: { xs: 'column', md: 'row' },
+    alignItems: { xs: 'flex-start', md: 'center' },
+    justifyContent: 'space-between',
+    gap: { xs: 2, md: 0 },
+    width: '100%',
+  }}
+>
+  <Box sx={{ width: { xs: '100%', md: 'auto' }, textAlign: { xs: 'center', md: 'left' } }}>
+    <Typography sx={{ fontSize: { xs: '24px', md: '42px' } }}>
+      {averageRating.toFixed(1)}/5.0
+    </Typography>
+    <Rating name="average-rating" value={averageRating} readOnly />
+  </Box>
+
+  <Box sx={{ width: { xs: '100%', md: 'auto' }, textAlign: { xs: 'center', md: 'left' } }}>
+    {ratingDistribution.map(({ star, count }) => (
+      <Box
+        key={star}
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '8px',
+          width: '100%',
+        }}
+      >
+        <Typography sx={{ fontSize: { xs: '18px', md: '22px' } }}>{star} stars</Typography>
+        <Rating name={`rating-${star}`} value={star} readOnly />
+        <Typography sx={{ fontSize: { xs: '18px', md: '22px' }, marginLeft: { xs: 0, sm: '10px' } }}>
+          {count}
+        </Typography>
+      </Box>
+    ))}
+  </Box>
+
+  <Box sx={{ width: { xs: '100%', md: '30%' }, paddingRight: { xs: 0, md: '30px' } }}>
+    {ratingDistribution.map(({ star, count }) => (
+      <Box key={star} sx={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
+        <LinearProgress
+          variant="determinate"
+          value={(count / totalReviews) * 100}
+          sx={{ flexGrow: 1, marginRight: '10px' }}
+        />
+        <Typography sx={{ width: { xs: 'auto', md: '100px' } }}>
+          {count}/{totalReviews}
+        </Typography>
+      </Box>
+    ))}
+  </Box>
+</Box>
+
                 {data?.reviews.map((review, index) => (
                     <Card key={index} sx={{ margin: '10px 0', padding: '20px' }}>
                         <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

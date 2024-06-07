@@ -20,13 +20,15 @@ const Tab1Card = (props) => {
     }
   };
 
-  const popularActivities = useSelector((state) => state.popularActivities.popularActivities.payload);
+  const popularActivities = useSelector(
+    (state) => state.popularActivities.popularActivities.payload
+  );
 
   const filteredActivities = popularActivities
     ? popularActivities
-      .filter((activity) => activity.otherexpereience_activity === 1)
-      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      .slice(0, 3)
+        .filter((activity) => activity.otherexpereience_activity === 1)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .slice(0, 3)
     : [];
 
   return (
@@ -68,23 +70,41 @@ const Tab1Card = (props) => {
                     alignItems: "start",
                   }}
                 >
-                  <Typography sx={{ fontSize: "1.5rem", fontWeight: 600 }}>
+                  <Typography sx={{ fontSize: "18px", fontWeight: 600 }}>
                     {val.name}
                   </Typography>
                   <Typography
                     sx={{
                       fontSize: "1rem",
                       color: theme.palette.primary.textPrimary,
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 3,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxHeight: "4.5rem",
+                      lineHeight: "1.5rem",
                     }}
                   >
                     {truncateDescription(val.description)}
+                   
                   </Typography>
                 </Box>
               </Box>
             </Grid>
           ))
         ) : (
-          <Typography sx={{ color: theme.palette.primary.main, textAlign: "center", paddingTop: '50px', fontSize: '20px', fontWeight: 600 }}>
+          <Typography
+            sx={{
+              color: theme.palette.primary.main,
+              textAlign: "center",
+              paddingTop: "50px",
+              fontSize: "20px",
+              fontWeight: 600,
+            }}
+          >
             No experience found
           </Typography>
         )}

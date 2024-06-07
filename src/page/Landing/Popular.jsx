@@ -126,7 +126,7 @@ const Popular = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px',
             padding: isSmall ? '0px': '0px 20px'
              }}>
-                <Typography sx={{fontSize: isSmall ? '30px' : '37px', fontWeight: 700 }}>Most Popular Things to do in Dubai</Typography>
+                <Typography sx={{fontSize: isSmall ? '25px' : '37px', fontWeight: 700, }}>Most Popular Things to do in Dubai</Typography>
                 <Typography sx={{ color: theme.palette.primary.textPrimary }}>Lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur lorem r</Typography>
                 <Box sx={{ padding: '30px 50px' }}>
 

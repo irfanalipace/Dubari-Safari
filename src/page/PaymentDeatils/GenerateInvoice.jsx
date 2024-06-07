@@ -130,70 +130,74 @@ const GenerateInvoice = () => {
 
     return (
         <Box>
-            <Grid container spacing={1}>
-                <Grid item lg={12}>
-                    <Box id="invoice-container" sx={{ margin: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
-                        <Typography sx={{ fontSize: '24px', fontWeight: 700 }}>Invoice Details</Typography>
-                        <Typography sx={{ fontSize: '14px', color: '#90A3BF' }}>Paid on {cookiesData?.date}</Typography>
-                        <Divider sx={{ width: '100%' }} />
-                        <Box sx={{ display: 'flex', alignItems: '', gap: '20px' }}>
-                            <Box flex={1}>
-                                {imageLink && <img src={imageLink?.image_url} alt="Invoice" style={{ width: '100%', height: '20vh' }} />}
-                            </Box>
-                            <Box flex={4}>
-                                <Typography sx={{ fontWeight: 700, color: '#FF5532' }}>{cookiesData?.title}</Typography>
-                                <Typography sx={{ color: '#989A9C' }}>{cookiesData?.highlight}</Typography>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                            <Box sx={{ padding: '20px', backgroundColor: '#FAFAFA', color: '#989A9C', width: '200px' }}>
-                                <Typography>Customer Name :</Typography>
-                                <Typography>Child In Tour :</Typography>
-                                <Typography>Total Adult In Tour :</Typography>
-                                <Typography>Total Infant In Tour :</Typography>
-                            </Box>
-                            <Box>
-                                <Typography>{cooks?.first_name}</Typography>
-                                <Typography>{cookiesData?.child}</Typography>
-                                <Typography>{cookiesData?.adult}</Typography>
-                                <Typography>{cookiesData?.infant}</Typography>
-                            </Box>
-                        </Box>
-                        <Table>
-                            <TableHead>
-                                <TableRow sx={{ backgroundColor: '#FAFAFA', }}>
-                                    <TableCell sx={{ fontWeight: 600 }}>Tour Name</TableCell>
-                                    <TableCell sx={{ fontWeight: 600 }}>Customer Name</TableCell>
-                                    <TableCell sx={{ fontWeight: 600 }}>Tour Date</TableCell>
-                                    <TableCell sx={{ fontWeight: 600 }}>Booking</TableCell>
-                                    <TableCell sx={{ fontWeight: 600 }}>Price</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell>{cookiesData?.title}</TableCell>
-                                    <TableCell>{cooks?.first_name}</TableCell>
-                                    <TableCell>{cookiesData?.date}</TableCell>
-                                    <TableCell>1 Booking {cookiesData?.adult} adult, {cookiesData?.child} child </TableCell>
-                                    <TableCell sx={{ color: '#FF5532' }}>{cookiesData?.total_amount}</TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                        <Typography sx={{ color: '#667085' }}>Terms & Conditions</Typography>
-                        <Typography>Please pay within 15 days of receiving this invoice.</Typography>
-                    </Box>
-                </Grid>
-            </Grid>
-            <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'end', gap: '30px', padding: '30px' }}>
-                <Button variant='contained' sx={{ textTransform: 'none', backgroundColor: '#FF5532', color: 'white', padding: '10px 30px' }} onClick={handleOpenModal}>
-                    Give Review
-                </Button>
-                <Button variant='contained' onClick={handlePrintInvoice} sx={{ textTransform: 'none', backgroundColor: '#FF5532', color: 'white', padding: '10px 30px' }}>
-                    Print Invoice
-                </Button>
+        <Grid container spacing={1}>
+          <Grid item xs={12} lg={12}>
+            <Box id="invoice-container" sx={{ margin: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+              <Typography sx={{ fontSize: '24px', fontWeight: 700 }}>Invoice Details</Typography>
+              <Typography sx={{ fontSize: '14px', color: '#90A3BF' }}>Paid on {cookiesData?.date}</Typography>
+              <Divider sx={{ width: '100%' }} />
+              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '20px' }}>
+                <Box flex={1}>
+                  {imageLink && <img src={imageLink?.image_url} alt="Invoice" style={{ width: '100%', height: '20vh' }} />}
+                </Box>
+                <Box flex={4}>
+                  <Typography sx={{ fontWeight: 700, color: '#FF5532' }}>{cookiesData?.title}</Typography>
+                  <Typography sx={{ color: '#989A9C' }}>{cookiesData?.highlight}</Typography>
+                </Box>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: '20px' }}>
+                <Box sx={{ padding: '20px', backgroundColor: '#FAFAFA', color: '#989A9C', width: '200px' }}>
+                  <Typography>Customer Name :</Typography>
+                  <Typography>Child In Tour :</Typography>
+                  <Typography>Total Adult In Tour :</Typography>
+                  <Typography>Total Infant In Tour :</Typography>
+                </Box>
+                <Box>
+                  <Typography>{cooks?.first_name}</Typography>
+                  <Typography>{cookiesData?.child}</Typography>
+                  <Typography>{cookiesData?.adult}</Typography>
+                  <Typography>{cookiesData?.infant}</Typography>
+                </Box>
+              </Box>
+              <Box sx={{ overflowX: 'auto' }}>
+              <Table>
+                <TableHead>
+                  <TableRow sx={{ backgroundColor: '#FAFAFA' }}>
+                    <TableCell sx={{ fontWeight: 600 }}>Tour Name</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Customer Name</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Tour Date</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Booking</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Price</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>{cookiesData?.title}</TableCell>
+                    <TableCell>{cooks?.first_name}</TableCell>
+                    <TableCell>{cookiesData?.date}</TableCell>
+                    <TableCell>1 Booking {cookiesData?.adult} adult, {cookiesData?.child} child </TableCell>
+                    <TableCell sx={{ color: '#FF5532' }}>{cookiesData?.total_amount}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </Box>
-            <ReviewModal open={modalOpen} handleClose={handleCloseModal} handleSubmit={handleSubmitReview} />
+            
+              <Typography sx={{ color: '#667085' }}>Terms & Conditions</Typography>
+              <Typography>Please pay within 15 days of receiving this invoice.</Typography>
+            </Box>
+          </Grid>
+        </Grid>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '30px', padding: '30px' }}>
+          <Button variant='contained' sx={{ textTransform: 'none', backgroundColor: '#FF5532', color: 'white', padding: '10px 30px' }} onClick={handleOpenModal}>
+            Give Review
+          </Button>
+          <Button variant='contained' onClick={handlePrintInvoice} sx={{ textTransform: 'none', backgroundColor: '#FF5532', color: 'white', padding: '10px 30px' }}>
+            Print Invoice
+          </Button>
         </Box>
+        <ReviewModal open={modalOpen} handleClose={handleCloseModal} handleSubmit={handleSubmitReview} />
+      </Box>
+      
     );
 };
 

@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { Grid, Button, Modal, Box, IconButton, useTheme, Typography } from '@mui/material';
+import { Grid, Button, Modal, Box, IconButton, useTheme, Typography, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 
 const DetailSlider = ({ data1 }) => {
+    const theme = useTheme()
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
     console.log(data1, 'fff')
     const base = 'https://dubaisafari.saeedantechpvt.com/';
     const navigate = useNavigate()
-    const theme = useTheme()
+ 
     const initialImages = [
         { itemImageSrc: '/specialofferimage.png', alt: 'Image 1' },
         { itemImageSrc: '/specialofferimage.png', alt: 'Image 2' },
@@ -61,12 +63,12 @@ const DetailSlider = ({ data1 }) => {
                         <Grid item>
                             <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '32vh', objectFit: 'cover' }} />
                         </Grid>
-                        <Box sx={{ position: 'absolute', top: 50, right: 50 }}>
+                        <Box sx={{ position: 'absolute', top: 50, right: 50, width:'134px' }}>
                             <Button variant="standard" onClick={handleOpen} style={{ width: '100%', borderRadius: "20px", textTransform: 'none', backgroundColor: '#F3F3F3', color: theme.palette.primary.main, fontWeight: 600 }}>
                                 See All Photos
                             </Button>
                         </Box>
-                        <Box sx={{ position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                        <Box sx={{ width: isSmall ? "200px":"100%", position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
                             <Typography sx={{ fontWeight: 600 }}>Save Up To 3.00 Per Person</Typography>
 
 

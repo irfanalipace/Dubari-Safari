@@ -45,6 +45,7 @@ const Tab2Card = (props) => {
                   overflow: "hidden",
                   padding: "5px",
                   textAlign: "start",
+                
                 }}
               >
                 <Box sx={{ position: "relative" }}>
@@ -69,7 +70,7 @@ const Tab2Card = (props) => {
                     alignItems: "start",
                   }}
                 >
-                  <Typography sx={{ fontSize: "1.5rem", fontWeight: 600 }}>
+                  <Typography sx={{ fontSize: "18px", fontWeight: 600 }}>
                     {val.name}
                   </Typography>
                   <Typography

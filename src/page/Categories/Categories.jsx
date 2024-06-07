@@ -136,7 +136,7 @@ const Categories = () => {
         <Typography
             variant="h4"
             fontWeight="bold"
-            sx={{ flex: 2, textAlign:'center' }}
+            sx={{ flex: 2, textAlign:'center', fontSize:'25px' }}
           >
             Things to do in Abu Dhabi
           </Typography>
@@ -213,7 +213,7 @@ const Categories = () => {
           >
             {/* Things to do in Abu Dhabi */}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", flex: 1, gap: "10px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", flex: 1, gap: "10px" , width:'85%' }}>
             <Typography fontWeight="bold" sx={{ whiteSpace: "nowrap", mr: 2 }}>
               Sort result by
             </Typography>

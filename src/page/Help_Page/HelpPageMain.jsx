@@ -108,7 +108,7 @@ const HelpPageMain = () => {
                 sx={{
                   color: "black",
                   cursor: "pointer",
-                  fontSize: "2.5rem",
+                  fontSize: "25px",
                   fontWeight: "600",
                 }}
               >
@@ -261,58 +261,53 @@ const HelpPageMain = () => {
               marginTop: "3rem",
             }}
           >
-            <Typography variant="h1" sx={{ fontSize: '2rem', fontWeight: '600' }}>Can't find what you're looking for?</Typography>
+            <Typography variant="h1" sx={{ fontSize: '25px', fontWeight: '600' }}>Can't find what you're looking for?</Typography>
 
             <Box
-              sx={{ display: "flex", alignItems: "center", marginTop: "2rem" }}
-              gap={3}
+            sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" }, // Stack on small screens, row on medium screens
+                alignItems: "center",
+                marginTop: "1rem",
+                gap: { xs: "1rem", md: "2rem" }, // Adjust gap between boxes based on screen size
+            }}
+        >
+            <Box
+                sx={{
+                    border: "1px solid #ebebeb",
+                    borderRadius: "15px",
+                    padding: "2rem 4rem",
+                    textAlign: "center", // Center content
+                    marginBottom: { xs: "2rem", md: "0" }, // Add margin bottom only on small screens
+                }}
             >
-              <Box
-                sx={{
-                  border: "1px solid #ebebeb",
-                  borderRadius: "15px",
-                  padding: "2rem 4rem",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box>
-                  <img src="/chatico.png" alt="Altttt" />
+                    <img src="/chatico.png" alt="Chat icon" />
                 </Box>
-
-                <Typography
-                  variant="h1"
-                  sx={{ fontSize: "1.3rem", fontWeight: "700" }}
-                >
-                  Chat With Us
+        
+                <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
+                    Chat With Us
                 </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  border: "1px solid #ebebeb",
-                  borderRadius: "15px",
-                  padding: "2rem 4rem",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box>
-                  <img src="/contacticon.png" alt="Altttt" />
-                </Box>
-
-                <Typography
-                  variant="h1"
-                  sx={{ fontSize: "1.3rem", fontWeight: "700" }}
-                >
-                  Contact Us
-                </Typography>
-              </Box>
             </Box>
+        
+            <Box
+                sx={{
+                    border: "1px solid #ebebeb",
+                    borderRadius: "15px",
+                    padding: "2rem 4rem",
+                    textAlign: "center", // Center content
+                }}
+            >
+                <Box>
+                    <img src="/contacticon.png" alt="Contact icon" />
+                </Box>
+        
+                <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
+                    Contact Us
+                </Typography>
+            </Box>
+        </Box>
+        
           </Box>
         </Box>
       </Page>

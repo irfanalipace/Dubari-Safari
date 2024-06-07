@@ -229,7 +229,7 @@ const Component1 = ({ data, onNext }) => {
       <Box
         sx={{
           border: "1px solid #f0f0f0",
-          padding: "3rem 5%",
+          padding: "1.3rem 5%",
           borderRadius: "10px",
           marginTop: "2rem",
           background: "#fff",
@@ -275,11 +275,29 @@ const Component1 = ({ data, onNext }) => {
         </Grid>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end', mt: 2 }}>
-        <Button onClick={handleProceedToPayment} variant="contained" sx={{ textTransform: 'none', padding: '10px 40px', backgroundColor: theme.palette.primary.main, color: 'white' }}>
-          Proceed to payment
-        </Button>
-      </Box>
+      <Box
+      sx={{
+        display: "flex",
+        justifyContent: { xs: "center", md: "end" }, 
+        alignItems: "end",
+        mt: 2,
+      }}
+    >
+      <Button
+        onClick={handleProceedToPayment}
+        variant="contained"
+        sx={{
+          textTransform: "none",
+          padding: { xs: "10px 20px", md: "10px 40px" }, 
+          width: { xs: "100%", md: "auto" }, 
+          backgroundColor: theme.palette.primary.main,
+          color: "white",
+        }}
+      >
+        Proceed to payment
+      </Button>
+    </Box>
+    
     </>
   );
 };

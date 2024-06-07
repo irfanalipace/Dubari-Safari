@@ -8,7 +8,7 @@ const BookingDetails = ({ data }) => {
   // console.log(data, 'fdfdfd') 
   const navigate = useNavigate()
   return (
-    <Box sx={{ height: "80vh", background: "#f6f7f9", py: 5, px: 3 }}>
+    <Box sx={{ height: "70%", background: "#f6f7f9", py: 5, px: 3 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} lg={6} sx={{ px: 2 }}>
           <BookingHeader
@@ -36,7 +36,7 @@ const BookingDetails = ({ data }) => {
               Total
             </Typography>
             <Typography variant="h3" color="primary" fontWeight="bold">
-              {data?.total_amount}
+             ${data?.total_amount}
             </Typography>
           </Box>
           {/* <Divider sx={{ mt: 2 }} /> */}
@@ -65,10 +65,10 @@ const BookingDetails = ({ data }) => {
           <Details title="Fee Included" value="24 Feb, 2024" />
         </Grid>
         <Box
-          sx={{ margin: "3rem 0px", display: "flex", margin: '0 auto' }}
+          sx={{ margin: "3rem 0px", display: "flex", marginTop: '10px', justifiyContent:'Right' }}
         >
           <Button
-            z
+             onClick={() => navigate('/')}
             variant="contained"
             sx={{
               padding: "0.8rem 3rem",

@@ -408,72 +408,68 @@ const DetailLeft = ({ ac_data, loading }) => {
                             const quantity = adult + child + infant;
                             return (
                                 <Box
-                                    key={index}
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: "10px",
-                                        padding: "20px",
-                                        border: "1px solid #EDEDED",
-                                        borderRadius: "10px",
-                                        marginBottom: "10px",
-                                        backgroundColor: "#EDEDED",
-                                    }}
-                                >
-                                    <Box>
-                                        <Typography sx={stylesEll}>
-                                            {item.title}
-                                        </Typography>
-                                        <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                                            {item.category}
-                                        </Typography>
-                                    </Box>
-                                    <Box>
-                                        <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
-                                            {`$ ${total}`}
-                                        </Typography>
-                                        {item.category === 'sharing' && (
-                                            <Typography sx={{ fontSize: "12px", color: "#777" }}>
-                                                Per Group: {item.adult_price}
-                                                <br />
-                                                Per Child: {item.child_price}
-                                            </Typography>
-                                        )}
-                                        {item.category === 'private' && (
-                                            <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                                                Per Group
-                                            </Typography>
-                                        )}
-                                    </Box>
-                                    <Box>
-                                        <Button
-                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
-                                            variant="contained"
-                                            sx={{
-                                                color: "white",
-                                                fontSize: "12px",
-                                                textTransform: 'none'
-                                            }}
-                                        >
-                                            Add To Cart
-                                        </Button>
-                                    </Box>
-
-                                    <Box>
-                                        <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
-                                            variant={ac_data?.available_activity === 0 ? 'disabled' : 'contained'}
-                                            sx={{
-                                                color: "white",
-                                                fontSize: "12px",
-                                                textTransform: 'none'
-                                            }}
-                                        >
-                                            Book Now
-                                        </Button>
-                                    </Box>
+                                key={index}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: { xs: "column", md: "row" }, // Stack on small screens, row on medium screens
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    gap: "10px",
+                                    padding: "20px",
+                                    border: "1px solid #EDEDED",
+                                    borderRadius: "10px",
+                                    marginBottom: "10px",
+                                    backgroundColor: "#EDEDED",
+                                }}
+                            >
+                                <Box sx={{ width: { xs: "100%", md: "auto" } }}> {/* Adjust width based on screen size */}
+                                    <Typography sx={stylesEll}>{item.title}</Typography>
+                                    <Typography sx={{ fontSize: "14px", color: "#777" }}>{item.category}</Typography>
                                 </Box>
+                                <Box sx={{ width: { xs: "100%", md: "auto" } }}> {/* Adjust width based on screen size */}
+                                    <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>{`$ ${total}`}</Typography>
+                                    {item.category === "sharing" && (
+                                        <Typography sx={{ fontSize: "12px", color: "#777" }}>
+                                            Per Group: {item.adult_price}
+                                            <br />
+                                            Per Child: {item.child_price}
+                                        </Typography>
+                                    )}
+                                    {item.category === "private" && (
+                                        <Typography sx={{ fontSize: "14px", color: "#777" }}>Per Group</Typography>
+                                    )}
+                                </Box>
+                                <Box>
+                                    <Button
+                                        onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
+                                        variant="contained"
+                                        sx={{
+                                            color: "white",
+                                            fontSize: "12px",
+                                            textTransform: "none",
+                                        }}
+                                    >
+                                        Add To Cart
+                                    </Button>
+                                </Box>
+                                <Box>
+                                    <Button
+                                        onClick={() =>
+                                            handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)
+                                        }
+                                        variant={ac_data?.available_activity === 0 ? "disabled" : "contained"}
+                                        sx={{
+                                            color: "white",
+                                            fontSize: "12px",
+                                            textTransform: "none",
+                                            marginTop: { xs: "10px", md: "0" }, // Add space only on small screens
+                                        }}
+                                    >
+                                        Book Now
+                                    </Button>
+                                </Box>
+                            </Box>
+                            
                             );
                         })
                     )}
