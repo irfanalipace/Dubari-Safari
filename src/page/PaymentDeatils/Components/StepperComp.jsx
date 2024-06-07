@@ -18,6 +18,7 @@ const steps = [
 
 const StepperComp = ({ activeStep, handleNext, handleBack, handleSkip, handleReset, isStepOptional, isStepSkipped }) => {
 
+
   return (
     <Card
       sx={{ border: "1px solid #f0f0f0", borderRadius: "10px" }}
@@ -26,31 +27,34 @@ const StepperComp = ({ activeStep, handleNext, handleBack, handleSkip, handleRes
       <CardContent>
         {" "}
         <Box sx={{ width: "100%" }}>
-          <Stepper activeStep={activeStep}>
-            {steps.map((label, index) => {
-              const stepProps = {};
-              const labelProps = {};
-              return (
-                <Step key={label.title} {...stepProps}>
-                  <StepLabel {...labelProps}>
-                    <Box
-                      sx={{
-                        border: "1px solid grey",
-                        p: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        width: "100px",
-                      }}
-                    >
-                      {label.icon}
-                      <Typography sx={{ mt: 0.5 }}>{label.title}</Typography>
-                    </Box>
-                  </StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
+        <Stepper activeStep={activeStep} sx={{ overflowX: "auto" }}>
+        {steps.map((label, index) => {
+          const stepProps = {};
+          const labelProps = {};
+          return (
+            <Step key={index} {...stepProps}>
+              <StepLabel {...labelProps}>
+                <Box
+                  sx={{
+                    border: "1px solid grey",
+                    p: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    width: { xs: "80px", sm: "100px" }, // Adjust width based on screen size
+                    minWidth: "80px", // Set minimum width
+                    textAlign: "center", // Center content
+                  }}
+                >
+                  {label.icon}
+                  <Typography sx={{ mt: 0.5, fontSize: { xs: "0.8rem", sm: "1rem" } }}>{label.title}</Typography> {/* Adjust font size based on screen size */}
+                </Box>
+              </StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+      
           {/* {activeStep === steps.length ? (
             <React.Fragment>
               <Typography sx={{ mt: 2, mb: 1 }}>

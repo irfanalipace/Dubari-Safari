@@ -27,12 +27,12 @@ const Header = () => {
                 position: 'relative'
             }}
         >
-            <Typography sx={{ fontSize: isSmall ? '30px' : '48px', fontWeight: 700, fontFamily: 'GT Eesti Display Trial, sans-serif',
+            <Typography sx={{ fontSize: isSmall ? '25px' : '48px', fontWeight: 700, fontFamily: 'GT Eesti Display Trial, sans-serif',
 
              }}>
-                UFC Flight Night In Abu Dubai
+                UFC Flight Night In Abu Dubai 
             </Typography>
-            <Typography sx={{ fontSize: '18px', width: isSmall ? '100%' : '60%', fontFamily: 'GT Eesti Display Trial, sans-serif' }}>
+            <Typography sx={{ fontSize: '17px', width: isSmall ? '100%' : '60%', fontFamily: 'GT Eesti Display Trial, sans-serif' }}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui eum non amet similique cumque obcaecati earum odit vero adipisci, fuga maxime sint deserunt saepe assumenda fugiat veniam harum, distinctio voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui
             </Typography>
             <Box>

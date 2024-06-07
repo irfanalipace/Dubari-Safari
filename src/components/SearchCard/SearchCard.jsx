@@ -102,21 +102,38 @@ const SearchCard = () => {
         </Box>
       ) : wishList?.length === 0 ? (
         <Box sx={{ minHeight: "25vh", width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Grid container sx={{ padding: '1rem 20%' }}>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem' }}>
-                <img src='/wishlist.JPG' alt="image" width={'100%'} />
-              </Box>
-            </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Box>
-                <Typography variant="h1" sx={{ fontSize: '2rem', fontWeight: '700', display: "flex", justifyContent: "center", alignItems: "center", height: "25vh", marginTop: '4rem' }}>
-                  Your Wishlist is empty
-                </Typography>
-                <Button variant="contained" sx={{ textTransform: 'none' }} onClick={() => navigate('/desert-safari')}>Explore More</Button>
-              </Box>
-            </Grid>
-          </Grid>
+        <Grid container sx={{ padding: { xs: '1rem', md: '1rem 20%' } }}>
+  <Grid item lg={6} md={6} sm={12} xs={12}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem' }}>
+      <img src='/wishlist.JPG' alt="image" width='100%' />
+    </Box>
+  </Grid>
+  <Grid item lg={6} md={6} sm={12} xs={12}>
+    <Box>
+      <Typography 
+        variant="h1" 
+        sx={{ 
+          fontSize: { xs: '1.5rem', md: '2rem' }, 
+          fontWeight: '700', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: { xs: 'auto', md: '25vh' }, 
+          marginTop: { xs: '2rem', md: '4rem' }, 
+          textAlign: 'center' 
+        }}
+      >
+        Your Wishlist is empty
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+        <Button variant="contained" sx={{ textTransform: 'none' }} onClick={() => navigate('/desert-safari')}>
+          Explore More
+        </Button>
+      </Box>
+    </Box>
+  </Grid>
+</Grid>
+
         </Box>
       ) : (
         wishList.map((val, ind) => (

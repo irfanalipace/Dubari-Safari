@@ -13,14 +13,14 @@ const chooseData = [
 ];
 
 const ChooseUs = () => {
-    const theme = useTheme();
-    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+    const theme = useTheme()
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px', padding: "0px 20px" }}>
-            <Typography sx={{ fontSize: '37px', fontWeight: 700 }}>Why Choose Us</Typography>
+            <Typography sx={{  fontWeight: 700,fontSize: isSmall ? '25px' : '37px', }}>Why Choose Us</Typography>
             <Typography sx={{ color: theme.palette.primary.textPrimary, textAlign: 'center' }}>Experience the thrill of discovering off-the-beaten-path gems and famous landmarks in top destinations worldwide - your wanderlust awaits!</Typography>
-            <Box sx={{ padding: '30px 50px' }}>
+            <Box style={{ padding: isSmall ? '30px 17px' : ''}}>
                 <Grid container spacing={5}>
                     {chooseData.length > 0 ? (
                         chooseData.map((val, ind) => (

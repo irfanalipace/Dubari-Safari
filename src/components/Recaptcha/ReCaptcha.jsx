@@ -21,10 +21,11 @@ const ReCaptcha = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <ReCAPTCHA
         sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
         onChange={handleRecaptchaChange}
+        style={{width:'100px'}}
       />
   
     </form>

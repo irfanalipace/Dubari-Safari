@@ -15,8 +15,6 @@ const PriceCard = ({ data }) => {
 
   return (
     <>
-
-
       <Box
         sx={{
           padding: "3rem 5%",

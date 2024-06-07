@@ -59,7 +59,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
     const lastCartItem = allCart[allCart.length - 1];
     console.log(lastCartItem, "last cart data");
 
-    const { adult, child, infant, date } = lastCartItem;
+    const { adult, child, infant, tour_date } = lastCartItem;
 
 
 
@@ -76,13 +76,11 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
     // });
 
     const data = {
-      date: date,
-      person: {
-          adult: adult,
-          child: child,
-          infant: infant,
-      },
-      totalPrice: totalPrice,
+      date: tour_date,
+      adult: adult,
+      child: child,
+      infant: infant,
+      total_amount: totalPrice,
   };
 
     Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
@@ -110,7 +108,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
         >
           <Typography
             variant="h1"
-            sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
+            sx={{ fontSize: "20px", fontWeight: "600", marginBottom: "1rem" }}
           >
 
             Total ({allCart.length} Activit{allCart.length !== 1 ? "ies" : ""})
@@ -240,7 +238,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
       </Box>
 
       <Box sx={{ mt: 3 }}>
-        <Typography variant="h1" sx={{ fontSize: "1.5rem", fontWeight: "700" }}>
+        <Typography variant="h1" sx={{ fontSize: "20px", fontWeight: "700" }}>
           Frequently Asked Questions
         </Typography>
         <br />

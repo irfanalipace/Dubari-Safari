@@ -276,35 +276,44 @@ const DetailPage = () => {
                       gap: "20px",
                     }}
                   >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "10px",
-                      }}
-                    >
+                  <Box
+    sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "10px",
+        textAlign: "center",
+    }}
+>
+    <Typography sx={{ fontSize: { xs: "20px", md: "25px" }, fontWeight: 700 }}>
+        {data1.name}
+    </Typography>
+    <Box
+        sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+        }}
+    >
+        <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+                setValue(newValue);
+            }}
+        />
+        <Typography sx={{ fontSize: { xs: "14px", md: "16px" } }}>94 Reviews </Typography>
+    </Box>
+</Box>
 
-                      <Typography sx={{ fontSize: "32px", fontWeight: 700 }}>
-                        {data1.name}
-                      </Typography>
-
-                      <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                      />
-                      <Typography>94 Reviews</Typography>
-                    </Box>
 
                     <Box
                       sx={{
                         width: "95%",
                         marginTop: "20px",
                         position: "sticky",
-                        top: 45,
+                        top: 0,
                         backgroundColor: "white",
                         zIndex: 999,
                         padding: "20px",
@@ -414,7 +423,18 @@ const DetailPage = () => {
                           Description
                         </Typography>
                         <Divider sx={{ width: "100%" }} />
-                        <Typography>{data1.description}</Typography>
+                        <Typography sx={{   
+                          fontSize: "1rem",
+                      color: theme.palette.primary.textPrimary,
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 3,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxHeight: "4.5rem",
+                      lineHeight: "1.5rem",}}>{data1.description}</Typography>
                       </div>
                     )}
 

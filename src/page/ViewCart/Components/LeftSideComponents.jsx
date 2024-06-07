@@ -16,9 +16,11 @@
   import { useDispatch, useSelector } from "react-redux";
   import { useNavigate } from "react-router";
   import { useSnackbar } from "notistack";
+import { CleaningServices } from "@mui/icons-material";
 
   const LeftSideComponents = ({ setTotalPrice  }) => {
 
+const LeftSideComponents = ({ setTotalPrice }) => {
   //   const base = "https://dubaisafari.saeedantechpvt.com";
   //   const navigate = useNavigate();
   //   const theme = useTheme();
@@ -54,7 +56,6 @@
   //     }
   //   }, [dispatch]);
 
-
   //   useEffect(() => {
   //     const total = allCart.reduce((sum, item) => sum + item.price, 0);
   //     setTotalPrice(total);
@@ -81,16 +82,24 @@
   //     navigate(`/details/${id}`);
   //   };
 
-    const base = "https://dubaisafari.saeedantechpvt.com";
-    const navigate = useNavigate();
-    const theme = useTheme();
-    const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
-    const [loading, setLoading] = useState(true);
+  const base = "https://dubaisafari.saeedantechpvt.com";
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(true);
 
+  const token = localStorage.getItem("token");
+  const allCartRedux = useSelector((state) => state.cart.cart.payload);
+  const [allCartLocal, setAllCartLocal] = useState([]);
+
+  const calculateTotalGuests = (adult, child, infant) => {
+    return adult + child + infant;
+  };
+
+  useEffect(() => {
     const token = localStorage.getItem("token");
-    const allCartRedux = useSelector((state) => state.cart.cart.payload);
-    const [allCartLocal, setAllCartLocal] = useState([]);
+    const storedData = JSON.parse(localStorage.getItem("addCartData"));
 
     const calculateTotalGuests = (adult, child, infant) => {
       return adult + child + infant;
@@ -110,7 +119,7 @@
             })
             .catch((err) => {
               console.error(err);
-              enqueueSnackbar("Failed to Add Activity to Cart", { variant: "error" });
+              // enqueueSnackbar("Failed to Add Activity to Cart", { variant: "error" });
             });
         });
       }
@@ -119,7 +128,7 @@
 
     useEffect(() => {
       if (!token) {
-        const storedData = JSON.parse(localStorage.getItem("addCartData")) || [];
+        const storedData = JSON.parse(localStorage.getItem("addCartData"));
 
         setAllCartLocal(storedData);
       } else {
@@ -127,12 +136,25 @@
       }
     }, [dispatch, token]);
 
+    // useEffect(() => {
+    //   const total = (token ? allCartRedux : allCartLocal).reduce((sum, item) => sum + item.price, 0);
+    //   setTotalPrice(total);
+
+
+    // }, [allCartRedux, allCartLocal, setTotalPrice]);
     useEffect(() => {
-      const total = (token ? allCartRedux : allCartLocal).reduce((sum, item) => sum + item.price, 0);
-      setTotalPrice(total);
+      let totalPrice = 0;
 
+      // Check if allCartLocal is not null and has items
+      if (allCartLocal && allCartLocal.length > 0) {
+        totalPrice = allCartLocal.reduce((sum, item) => sum + item.price, 0);
+      } else {
+        totalPrice = 0; // Set totalPrice to 0 if allCartLocal is null or empty
+      }
 
-    }, [allCartRedux, allCartLocal, setTotalPrice]);
+      setTotalPrice(totalPrice);
+    }, [allCartLocal, setTotalPrice]);
+
 
 
     // const handleDelete = (id) => {
@@ -157,183 +179,282 @@
         // User is logged in, call the API to delete the item
         dispatch(deleteCart(id))
           .then((res) => {
-            setLoading(true);
-            dispatch(getCart());
-            enqueueSnackbar("Activity Removed", { variant: "success" });
+            localStorage.removeItem("addCartData");
+            // enqueueSnackbar("Activity Added to Cart", { variant: "success" });
           })
           .catch((err) => {
-            setLoading(false);
             console.error(err);
-            enqueueSnackbar("Failed to Remove Activity", { variant: "error" });
+            enqueueSnackbar("Failed to Add Activity to Cart", {
+              variant: "error",
+            });
           });
-      } else {
+      });
+    }
+  }, [dispatch, enqueueSnackbar]);
 
-        const updatedCart = allCartLocal.filter(item => item.packageid !== id);
-        console.log(updatedCart, 'cart ud del')
-        setAllCartLocal(updatedCart);
-        localStorage.setItem("addCartData", JSON.stringify(updatedCart));
-        setLoading(false);
-        enqueueSnackbar("Activity Removed", { variant: "success" });
-      }
-    };
+  useEffect(() => {
+    if (!token) {
+      const storedData = JSON.parse(localStorage.getItem("addCartData")) || [];
 
-    const handleNavigate = (id) => {
-      navigate(`/details/${id}`);
-    };
+      setAllCartLocal(storedData);
+    } else {
+      dispatch(getCart());
+    }
+  }, [dispatch, token]);
 
-    const allCart = token ? allCartRedux : allCartLocal;
+  useEffect(() => {
+    const total = (token ? allCartRedux : allCartLocal).reduce(
+      (sum, item) => sum + item.price,
+      0
+    );
+    setTotalPrice(total);
+  }, [allCartRedux, allCartLocal, setTotalPrice]);
 
-  console.log(allCart, 'cart data')
+  // const handleDelete = (id) => {
+  //   setLoading(true);
 
-    return (
-      <>
-        <Box sx={{ mt: 3 }}>
+  //   dispatch(deleteCart(id))
+  //     .then((res) => {
+  //       setLoading(false);
+  //       dispatch(getCart());
+  //       enqueueSnackbar("Activity Removed", { variant: "success" });
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
+
+  const handleDelete = (id) => {
+    console.log(id, "id for delete");
+    setLoading(true);
+
+    if (token) {
+      // User is logged in, call the API to delete the item
+      dispatch(deleteCart(id))
+        .then((res) => {
+          setLoading(true);
+          dispatch(getCart());
+          enqueueSnackbar("Activity Removed", { variant: "success" });
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.error(err);
+          enqueueSnackbar("Failed to Remove Activity", { variant: "error" });
+        });
+    } else {
+      const updatedCart = allCartLocal.filter((item) => item.packageid !== id);
+      console.log(updatedCart, "cart ud del");
+      setAllCartLocal(updatedCart);
+      localStorage.setItem("addCartData", JSON.stringify(updatedCart));
+      setLoading(false);
+      enqueueSnackbar("Activity Removed", { variant: "success" });
+    }
+  };
+
+  const handleNavigate = (id) => {
+    navigate(`/details/${id}`);
+  };
+
+  const allCart = token ? allCartRedux : allCartLocal;
+
+  console.log(allCart, "cart data");
+
+  return (
+    <>
+      <Box sx={{ mt: 3 }}>
         {allCart?.map((val, index) => {
+
           if (!token) {
           return (
             <Card sx={{ p: 2, background: "#FDF4F1", mb: 4 }} key={index}>
                 {val?.ac_data?.packages?.map((packageItem, packageIndex) => (
-                  packageItem.category === val.category && (
+
+                  packageItem.id === val.packageid &&
+
+                   (
                     <Box key={packageIndex} sx={{ minHeight: "30vh", gap: 4 }}>
 
                       <Box
-                        sx={{
-                          display: "flex",
-                          minHeight: "30vh",
-                          gap: 4,
-                        }}
-                        onClick={() => handleNavigate(packageItem.activity_id)}
+                        key={packageIndex}
+                        sx={{ minHeight: "30vh", gap: 4 }}
                       >
-                        <Box flex={2}>
-                          <img
-                            src={`${base}/storage/uploads/media/${val.ac_data.image}`}
-                            alt="Activity"
-                            style={{
-                              width: "100%",
-                              borderRadius: "10px",
-                              height: "260px",
-                              objectFit: "cover",
-                            }}
-                          />
-                        </Box>
-                        <Box flex={4}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
-                          >
-                            <Typography fontWeight="bold" variant="h6">
-                              {packageItem.title}
-                            </Typography>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            minHeight: "30vh",
+                            gap: 4,
+                          }}
+                          onClick={() =>
+                            handleNavigate(packageItem.activity_id)
+                          }
+                        >
+                          <Box flex={2}>
+                            <img
+                              src={`${base}/storage/uploads/media/${val.ac_data.image}`}
+                              alt="Activity"
+                              style={{
+                                width: "100%",
+                                borderRadius: "10px",
+                                height: "260px",
+                                objectFit: "cover",
+                              }}
+                            />
                           </Box>
                           <Box flex={4}>
-                            <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                              <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
-                                Package Type : {packageItem.highlight}
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Typography fontWeight="bold" variant="h6">
+                                {packageItem.title}
                               </Typography>
                             </Box>
-                            <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                              <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
-                                Tour Date : {val.date}
-                              </Typography>
-                            </Box>
-                            <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                              <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
-                                1 {packageItem.category} car up to{" "}
-                                {calculateTotalGuests(
-                                  val.adult,
-                                  val.child,
-                                  val.infant
-                                )}
-                                pax
-                              </Typography>
-                            </Box>
-                            <Box sx={{ my: 2 }}>
-                              <Typography
+                            <Box flex={4}>
+                              <Box
                                 sx={{
-                                  color: theme.palette.primary.main,
-                                  fontSize: "1.2rem",
-                                  fontWeight: "600",
+                                  display: "flex",
+                                  alignItems: "start",
+                                  mt: 1,
                                 }}
                               >
-                                Cancellation Before :{" "}
-                                {val.ac_data.cancellation_duration} hours
+                                <ShoppingCartOutlinedIcon
+                                  sx={{ color: "black" }}
+                                />
+                                <Typography sx={{ ml: 1, color: "grey" }}>
+                                  Package Type : {packageItem.highlight}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "start",
+                                  mt: 1,
+                                }}
+                              >
+                                <CalendarMonthOutlinedIcon
+                                  sx={{ color: "black" }}
+                                />
+                                <Typography sx={{ ml: 1, color: "grey" }}>
+                                  Tour Date : {val.date}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "start",
+                                  mt: 1,
+                                }}
+                              >
+                                <PersonOutlineOutlinedIcon
+                                  sx={{ color: "black" }}
+                                />
+                                <Typography sx={{ ml: 1, color: "grey" }}>
+                                  1 {packageItem.category} car up to{" "}
+                                  {calculateTotalGuests(
+                                    val.adult,
+                                    val.child,
+                                    val.infant
+                                  )}
+                                  pax
+                                </Typography>
+                              </Box>
+                              <Box sx={{ my: 2 }}>
+                                <Typography
+                                  sx={{
+                                    color: theme.palette.primary.main,
+                                    fontSize: "1.2rem",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  Cancellation Before :{" "}
+                                  {val.ac_data.cancellation_duration} hours
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </Box>
+
+                        <Box sx={{ display: "flex" }}>
+                          <Box flex={2}></Box>
+                          <Box flex={4}>
+                            <Divider />
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                marginTop: "1rem",
+                              }}
+                            >
+                              <Button
+                                sx={{ textTransform: "none", color: "black" }}
+                                onClick={() => handleDelete(packageItem.id)}
+                              >
+                                <DeleteOutlineOutlinedIcon /> Delete
+                              </Button>
+                              <Button
+                                sx={{ textTransform: "none", color: "black" }}
+                              >
+                                <IoSyncOutline
+                                  style={{
+                                    fontSize: "1.5rem",
+                                    fontWeight: "800",
+                                  }}
+                                />
+                                Update
+                              </Button>
+                              <Button
+                                sx={{
+                                  fontSize: "0.8rem",
+                                  textTransform: "none",
+                                  color: "black",
+                                }}
+                              >
+                                Please Login to use Promocode
+                              </Button>
+                              <Typography
+                                sx={{
+                                  fontSize: "1.5rem",
+                                  fontWeight: "700",
+                                  color: theme.palette.primary.main,
+                                }}
+                              >
+                                $ {val.price}
                               </Typography>
                             </Box>
                           </Box>
                         </Box>
                       </Box>
-
-                      <Box sx={{ display: 'flex' }}>
-                        <Box flex={2}></Box>
-                        <Box flex={4}>
-                          <Divider />
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              marginTop: "1rem",
-                            }}
-                          >
-                            <Button
-                              sx={{ textTransform: "none", color: "black" }}
-                              onClick={() => handleDelete(packageItem.id)}
-                            >
-                              <DeleteOutlineOutlinedIcon /> Delete
-                            </Button>
-                            <Button sx={{ textTransform: "none", color: "black" }}>
-                              <IoSyncOutline
-                                style={{ fontSize: "1.5rem", fontWeight: "800" }}
-                              />
-                              Update
-                            </Button>
-                            <Button
-                              sx={{
-                                fontSize: "0.8rem",
-                                textTransform: "none",
-                                color: "black",
-                              }}
-                            >
-                              Please Login to use Promocode
-                            </Button>
-                            <Typography
-                              sx={{
-                                fontSize: "1.5rem",
-                                fontWeight: "700",
-                                color: theme.palette.primary.main,
-                              }}
-                            >
-                              $ {val.price}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>
-                  )
-                ))}
+                    )
+                )}
               </Card>
             );
           } else {
             // Assuming allCartRedux is a simple array
             return (
-              <Card sx={{ p: 2, background: "#FDF4F1", mb:4 }} key={index} >
-                <Box sx={{ minHeight: "30vh", gap: 4 }}>
+              <Card sx={{ p: 2, background: "#FDF4F1", mb: 4 }} key={index}>
+                <Box sx={{ minHeight: "30vh", gap: 4,  }}>
                   <Box
                     sx={{
                       display: "flex",
+                      flexDirection: { xs: "column", md: "row" }, // Adjust flex direction for mobile
                       minHeight: "30vh",
                       gap: 4,
+
                     }}
                     onClick={() => handleNavigate(val.package.activity_id)}
                   >
-                    <Box flex={2}>
+                    <Box
+                      sx={{
+                        flex: { xs: "unset", md: 2 },
+                        mb: { xs: 2, md: 0 },
+                      }}
+                    >
+                      {" "}
+                      {/* Adjust flex and margin for mobile */}
                       <img
-                        // src={`${base}/uploads/gallery/${image}`}
                         src={`${base}/storage/uploads/media/${val.package.activity.image}`}
                         alt="Activity"
                         style={{
@@ -344,7 +465,9 @@
                         }}
                       />
                     </Box>
-                    <Box flex={4}>
+                    <Box sx={{ flex: { xs: "unset", md: 4 } }}>
+                      {" "}
+                      {/* Adjust flex for mobile */}
                       <Box
                         sx={{
                           display: "flex",
@@ -356,20 +479,26 @@
                           {val.package.title}
                         </Typography>
                       </Box>
-                      <Box flex={4}>
-                        <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                      <Box sx={{ flex: { xs: "unset", md: 4 } }}>
+                        <Box
+                          sx={{ display: "flex", alignItems: "start", mt: 1 }}
+                        >
                           <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
                           <Typography sx={{ ml: 1, color: "grey" }}>
                             Package Type : {val.package.highlight}
                           </Typography>
                         </Box>
-                        <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                        <Box
+                          sx={{ display: "flex", alignItems: "start", mt: 1 }}
+                        >
                           <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
                           <Typography sx={{ ml: 1, color: "grey" }}>
                             Tour Date : {val.tour_date}
                           </Typography>
                         </Box>
-                        <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                        <Box
+                          sx={{ display: "flex", alignItems: "start", mt: 1 }}
+                        >
                           <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
                           <Typography sx={{ ml: 1, color: "grey" }}>
                             1 {val.package.category} car up to{" "}
@@ -377,7 +506,7 @@
                               val.adult,
                               val.child,
                               val.infant
-                            )}
+                            )}{" "}
                             pax
                           </Typography>
                         </Box>
@@ -397,24 +526,47 @@
                     </Box>
                   </Box>
 
-                  <Box sx={{ display: 'flex' }}>
-                    <Box flex={2}></Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: { xs: "column", md: "row" },
+                    }}
+                  >
+                    <Box
+                      flex={2}
+                      sx={{ display: { xs: "none", md: "block" } }}
+                    ></Box>{" "}
+                    {/* Hide on small screens */}
                     <Box flex={4}>
                       <Divider />
                       <Box
                         sx={{
                           display: "flex",
+                          flexDirection: { xs: "column", md: "row" },
                           justifyContent: "space-between",
                           marginTop: "1rem",
+                          gap: { xs: 2, md: 0 },
                         }}
                       >
                         <Button
-                          sx={{ textTransform: "none", color: "black" }}
+                          sx={{
+                            textTransform: "none",
+                            color: "black",
+                            order: { xs: 2, md: 1 },
+                          }} // Adjust order for mobile
                           onClick={() => handleDelete(val.id)}
                         >
                           <DeleteOutlineOutlinedIcon /> Delete
                         </Button>
-                        <Button sx={{ textTransform: "none", color: "black" }}>
+                        <Button
+                          sx={{
+                            textTransform: "none",
+                            color: "black",
+                            order: { xs: 3, md: 2 },
+                          }}
+                        >
+                          {" "}
+
                           <IoSyncOutline
                             style={{ fontSize: "1.5rem", fontWeight: "800" }}
                           />
@@ -425,6 +577,7 @@
                             fontSize: "0.8rem",
                             textTransform: "none",
                             color: "black",
+                            order: { xs: 4, md: 3 },
                           }}
                         >
                           Please Login to use Promocode
@@ -434,6 +587,7 @@
                             fontSize: "1.5rem",
                             fontWeight: "700",
                             color: theme.palette.primary.main,
+                            order: { xs: 1, md: 4 },
                           }}
                         >
                           $ {val.price}
@@ -446,9 +600,9 @@
             );
           }
         })}
-        </Box>
-      </>
-    );
-  };
+      </Box>
+    </>
+  );
+};
 
-  export default LeftSideComponents;
+export default LeftSideComponents;

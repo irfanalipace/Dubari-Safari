@@ -136,14 +136,9 @@ const DetailLeft = ({ ac_data, loading }) => {
                 adult: adult,
                 child: child,
                 infant: infant,
-                
+                category: category,
                 packageid: packageid
             };
-
-
-
-
-
 
             const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
 
@@ -411,6 +406,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     key={index}
                                     sx={{
                                         display: "flex",
+                                        flexDirection: { xs: "column", md: "row" }, // Stack on small screens, row on medium screens
                                         alignItems: "center",
                                         justifyContent: "space-between",
                                         gap: "10px",
@@ -421,29 +417,21 @@ const DetailLeft = ({ ac_data, loading }) => {
                                         backgroundColor: "#EDEDED",
                                     }}
                                 >
-                                    <Box>
-                                        <Typography sx={stylesEll}>
-                                            {item.title}
-                                        </Typography>
-                                        <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                                            {item.category}
-                                        </Typography>
+                                    <Box sx={{ width: { xs: "100%", md: "auto" } }}> {/* Adjust width based on screen size */}
+                                        <Typography sx={stylesEll}>{item.title}</Typography>
+                                        <Typography sx={{ fontSize: "14px", color: "#777" }}>{item.category}</Typography>
                                     </Box>
-                                    <Box>
-                                        <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
-                                            {`$ ${total}`}
-                                        </Typography>
-                                        {item.category === 'sharing' && (
+                                    <Box sx={{ width: { xs: "100%", md: "auto" } }}> {/* Adjust width based on screen size */}
+                                        <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>{`$ ${total}`}</Typography>
+                                        {item.category === "sharing" && (
                                             <Typography sx={{ fontSize: "12px", color: "#777" }}>
                                                 Per Group: {item.adult_price}
                                                 <br />
                                                 Per Child: {item.child_price}
                                             </Typography>
                                         )}
-                                        {item.category === 'private' && (
-                                            <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                                                Per Group
-                                            </Typography>
+                                        {item.category === "private" && (
+                                            <Typography sx={{ fontSize: "14px", color: "#777" }}>Per Group</Typography>
                                         )}
                                     </Box>
                                     <Box>
@@ -453,27 +441,30 @@ const DetailLeft = ({ ac_data, loading }) => {
                                             sx={{
                                                 color: "white",
                                                 fontSize: "12px",
-                                                textTransform: 'none'
+                                                textTransform: "none",
                                             }}
                                         >
                                             Add To Cart
                                         </Button>
                                     </Box>
-
                                     <Box>
                                         <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
-                                            variant={ac_data?.available_activity === 0 ? 'disabled' : 'contained'}
+                                            onClick={() =>
+                                                handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)
+                                            }
+                                            variant={ac_data?.available_activity === 0 ? "disabled" : "contained"}
                                             sx={{
                                                 color: "white",
                                                 fontSize: "12px",
-                                                textTransform: 'none'
+                                                textTransform: "none",
+                                                marginTop: { xs: "10px", md: "0" }, // Add space only on small screens
                                             }}
                                         >
                                             Book Now
                                         </Button>
                                     </Box>
                                 </Box>
+
                             );
                         })
                     )}
