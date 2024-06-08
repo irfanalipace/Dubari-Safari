@@ -4,6 +4,7 @@ import { Box, Button, Grid, Rating, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularActivities } from "../../store/actions/categoriesActions";
 import { useNavigate } from "react-router";
+import Loader from "../../components/Loader/Loader";
 
 const CustomCard = () => {
   const theme = useTheme();
@@ -13,7 +14,7 @@ const CustomCard = () => {
   const dispatch = useDispatch();
 
   const popularActivities = useSelector(
-    (state) => state.popularActivities.popularActivities.payload
+    (state) => state?.popularActivities?.popularActivities?.payload
   );
 
   const filteredActivities = popularActivities
@@ -79,13 +80,7 @@ const CustomCard = () => {
                   <Box gap={1} sx={{ display: "flex" }}>
                     {val.packages && val.packages.length > 0 && (
                       <>
-                        <Typography
-                          sx={{ color: "grey", textDecoration: "line-through" }}
-                        >
-                          {val.packages[0].category === "private"
-                            ? `AED ${val.packages[0].price}`
-                            : `AED ${val.packages[0].adult_price}`}
-                        </Typography>
+
 
                         <Box gap={1} sx={{ display: "flex" }}>
                           <Typography

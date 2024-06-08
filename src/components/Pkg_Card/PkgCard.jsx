@@ -116,7 +116,7 @@ const isActivityInWishlist = (activityId) => {
             onClick={handleBookNowClick}
 
     >
-   
+
 
                     <div style={{ position: "relative" }}>
 

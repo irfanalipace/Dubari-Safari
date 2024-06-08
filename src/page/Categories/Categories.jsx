@@ -17,7 +17,7 @@ import { ArrowBack } from "@mui/icons-material";
 import PkgCard from "../../components/Pkg_Card/PkgCard";
 import { useNavigate, useLocation } from "react-router";
 import { useDispatch } from "react-redux";
-import { getCategories } from "../../store/actions/categoriesActions";
+import { getActivities, getCategories } from "../../store/actions/categoriesActions";
 import Loader from "../../components/Loader/Loader";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -30,6 +30,8 @@ const Categories = () => {
   const [sortCriteria, setSortCriteria] = useState("recommended");
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [filteredActivities, setFilteredActivities] = useState([]);
+  const [activityCount, setActivityCount] = useState([]);
+
   const theme = useTheme();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -37,6 +39,30 @@ const Categories = () => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+
+
+
+
+  // useEffect(() => {
+  //   dispatch(getActivities())
+  //     .then((result) => {
+  //       const initialActivityCount = result.data.payload;
+  //       setActivityCount(initialActivityCount);
+
+
+  //     })
+  //     .catch((err) => {
+
+  //       console.log(err, "ERRR");
+  //     });
+  // }, []);
+
+
+  // const activityLength = filtered?.length
+  const activityLength = filteredActivities?.length
+
+
+
 
   useEffect(() => {
     dispatch(getCategories())
@@ -63,10 +89,10 @@ const Categories = () => {
   useEffect(() => {
     if (selectedCategory) {
       const activities = selectedCategory.activity || [];
-      console.log(activities, 'abc')
+      console.log(activities, "abc");
       if (selectedSubCategory) {
-        const filtered = activities.filter(activity =>
-          activity.sub_category?.some(sub => sub.name === selectedSubCategory)
+        const filtered = activities.filter((activity) =>
+          activity.sub_category?.some((sub) => sub.name === selectedSubCategory)
         );
         setFilteredActivities(filtered);
       } else {
@@ -101,14 +127,18 @@ const Categories = () => {
         return [...activities].sort((a, b) => b.name.localeCompare(a.name));
       case "Low to high price":
         return [...activities].sort((a, b) => {
-          const priceA = a.packages[0]?.price ?? a.packages[0]?.adult_price ?? 0;
-          const priceB = b.packages[0]?.price ?? b.packages[0]?.adult_price ?? 0;
+          const priceA =
+            a.packages[0]?.price ?? a.packages[0]?.adult_price ?? 0;
+          const priceB =
+            b.packages[0]?.price ?? b.packages[0]?.adult_price ?? 0;
           return priceA - priceB;
         });
       case "High to low price":
         return [...activities].sort((a, b) => {
-          const priceA = a.packages[0]?.price ?? a.packages[0]?.adult_price ?? 0;
-          const priceB = b.packages[0]?.price ?? b.packages[0]?.adult_price ?? 0;
+          const priceA =
+            a.packages[0]?.price ?? a.packages[0]?.adult_price ?? 0;
+          const priceB =
+            b.packages[0]?.price ?? b.packages[0]?.adult_price ?? 0;
           return priceB - priceA;
         });
       default:
@@ -116,116 +146,111 @@ const Categories = () => {
     }
   };
 
-  const filteredSubCategories = selectedCategory?.sub_category?.map((subCategory) => subCategory.name) || [];
+  const filteredSubCategories =
+    selectedCategory?.sub_category?.map((subCategory) => subCategory.name) ||
+    [];
 
   const sortedActivities = sortCriteria
     ? sortActivities(filteredActivities, sortCriteria)
     : filteredActivities;
 
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // -------------------------scroll bar design slick slider --------------
 
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
-
-// -------------------------scroll bar design slick slider --------------
-
-
-const NextArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <button
-      className="slick-arrow"
-      style={{
-        backgroundColor: theme.palette.primary.main, // Background color of the next arrow
-        position: "absolute",
-        right: "-30px",
-        zIndex: 1,
-        top: "40%",
-        transform: "translateY(-50%)",
-        border: "none",
-        borderRadius: "50%",
-        width: "30px",
-        height: "30px",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    >
-      <span
+  const NextArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <button
+        className="slick-arrow"
         style={{
-          color: "white", // Inner arrow color
-          fontSize: "13px",
-          lineHeight: "30px",
+          backgroundColor: theme.palette.primary.main, // Background color of the next arrow
+          position: "absolute",
+          right: "-30px",
+          zIndex: 1,
+          top: "40%",
+          transform: "translateY(-50%)",
+          border: "none",
+          borderRadius: "50%",
+          width: "30px",
+          height: "30px",
+          cursor: "pointer",
         }}
+        onClick={onClick}
       >
-        &#10095;
-      </span>
-    </button>
-  );
-};
+        <span
+          style={{
+            color: "white", // Inner arrow color
+            fontSize: "13px",
+            lineHeight: "30px",
+          }}
+        >
+          &#10095;
+        </span>
+      </button>
+    );
+  };
 
-const PrevArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <button
-      className="slick-arrow"
-      style={{
-        backgroundColor: theme.palette.primary.main, // Background color of the previous arrow
-        position: "absolute",
-        left: "-30px",
-        zIndex: 1,
-        top: "40%",
-        transform: "translateY(-50%)",
-        border: "none",
-        borderRadius: "50%",
-        width: "30px",
-        height: "30px",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    >
-      <span
+  const PrevArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <button
+        className="slick-arrow"
         style={{
-          color: "white", // Inner arrow color
-          fontSize: "13px",
-          lineHeight: "30px",
+          backgroundColor: theme.palette.primary.main, // Background color of the previous arrow
+          position: "absolute",
+          left: "-30px",
+          zIndex: 1,
+          top: "40%",
+          transform: "translateY(-50%)",
+          border: "none",
+          borderRadius: "50%",
+          width: "30px",
+          height: "30px",
+          cursor: "pointer",
         }}
+        onClick={onClick}
       >
-        &#10094;
-      </span>
-    </button>
-  );
-};
+        <span
+          style={{
+            color: "white", // Inner arrow color
+            fontSize: "13px",
+            lineHeight: "30px",
+          }}
+        >
+          &#10094;
+        </span>
+      </button>
+    );
+  };
 
-const settings = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 7,
-  slidesToScroll: 7,
-  autoplay: false,
-  autoplaySpeed: 2000,
-  pauseOnHover: false,
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 7,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    pauseOnHover: false,
 
-  responsive: [
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        centerMode: false,
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false,
+        },
       },
-    },
-  ],
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />,
-};
-
-
-
-
+    ],
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
 
   return (
     <Page title="Categories">
-      <Box sx={{ padding: isSmall ? '3rem 2rem' : '3rem 5rem' }}>
+      <Box sx={{ padding: isSmall ? "3rem 2rem" : "3rem 5rem" }}>
         {/* <Button
           onClick={handleBack}
           variant="contained"
@@ -233,8 +258,6 @@ const settings = {
         >
           Back to home page
         </Button> */}
-
-
 
         {/* <Typography
             variant="h4"
@@ -270,90 +293,94 @@ const settings = {
               No Categories Found please try again later
             </Typography>
           ) : (
-
-<>
-
-<Box>
-
-
-<Box>
-  {categories.length <= 8 ? (
-
-<Box sx={{display:'flex', alignItems:'center'}}>
-{
-  categories.map((val, index) => (
-      <Box
-        key={index}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-          mr: 4,
-        }}
-        onClick={() => handleCategoryClick(val)}
-      >
-
-        <Avatar
-          src={val.image}
-          sx={{
-            height: "100px",
-            width: "100px",
-            border: `4px solid ${selectedCategory === val ? theme.palette.primary.main : "transparent"
-              }`,
-            cursor: "pointer",
-          }}
-        />
-        <Typography sx={{ mt: 1, fontWeight: "bold", fontSize: '0.9rem' }}>
-          {val.name}
-        </Typography>
-
-      </Box>
-    ))
-}
-
-</Box>
-
-  ) : (
-    <Slider {...settings}>
-      {categories.map((val, index) => (
-        <Box key={index} onClick={() => handleCategoryClick(val)}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              mr: 4,
-            }}
-          >
-            <Avatar
-              src={val.image}
-              sx={{
-                height: "100px",
-                width: "100px",
-                border: `4px solid ${selectedCategory === val ? theme.palette.primary.main : "transparent"
-                  }`,
-                cursor: "pointer",
-              }}
-            />
-            <Typography sx={{ mt: 1, fontWeight: "bold", fontSize: '0.9rem' }}>
-              {val.name}
-            </Typography>
-          </Box>
-        </Box>
-      ))}
-    </Slider>
-
-
-  )}
-</Box>
-
-</Box>
-
-</>
-
-
+            <>
+              <Box>
+                <Box>
+                  {categories.length <= 8 ? (
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      {categories.map((val, index) => (
+                        <Box
+                          key={index}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            flexDirection: "column",
+                            mr: 4,
+                          }}
+                          onClick={() => handleCategoryClick(val)}
+                        >
+                          <Avatar
+                            src={val.image}
+                            sx={{
+                              height: "100px",
+                              width: "100px",
+                              border: `4px solid ${
+                                selectedCategory === val
+                                  ? theme.palette.primary.main
+                                  : "transparent"
+                              }`,
+                              cursor: "pointer",
+                            }}
+                          />
+                          <Typography
+                            sx={{
+                              mt: 1,
+                              fontWeight: "bold",
+                              fontSize: "0.9rem",
+                            }}
+                          >
+                            {val.name}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Box>
+                  ) : (
+                    <Slider {...settings}>
+                      {categories.map((val, index) => (
+                        <Box
+                          key={index}
+                          onClick={() => handleCategoryClick(val)}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              flexDirection: "column",
+                              mr: 4,
+                            }}
+                          >
+                            <Avatar
+                              src={val.image}
+                              sx={{
+                                height: "100px",
+                                width: "100px",
+                                border: `4px solid ${
+                                  selectedCategory === val
+                                    ? theme.palette.primary.main
+                                    : "transparent"
+                                }`,
+                                cursor: "pointer",
+                              }}
+                            />
+                            <Typography
+                              sx={{
+                                mt: 1,
+                                fontWeight: "bold",
+                                fontSize: "0.9rem",
+                              }}
+                            >
+                              {val.name}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      ))}
+                    </Slider>
+                  )}
+                </Box>
+              </Box>
+            </>
           )}
         </Box>
         <Box
@@ -366,11 +393,20 @@ const settings = {
           <Typography
             variant="h4"
             fontWeight="bold"
-            sx={{ flex: 2, whiteSpace: "nowrap", fontSize:'1.3rem' }}
+            sx={{ flex: 2, whiteSpace: "nowrap", fontSize: "1.3rem" }}
           >
-            Things to do in Abu Dhabi
+            Things to do in Abu Dhabi {activityLength}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", flex: 1, gap: "10px" , width:'85%' }}>
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flex: 1,
+              gap: "10px",
+              width: "85%",
+            }}
+          >
             <Typography fontWeight="bold" sx={{ whiteSpace: "nowrap", mr: 2 }}>
               Sort result by
             </Typography>
