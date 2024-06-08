@@ -94,14 +94,14 @@ const PaymentDetailsMain = () => {
             isStepSkipped={isStepSkipped}
           />
         </Grid>
-        <Grid item lg={8} md={12} sm={12} xs={12}>
-          {activeStep === 0 && <Component1 data={cookieData} onNext={handleNext} />}
-          {activeStep === 1 && <StripePayment data={cookieData} onNext={handleNext} paymentData={paymentData} />}
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          {activeStep === 0 && <Component1 data={cookieData} onNext={handleNext} data1={paymentData} activeStep={activeStep} />}
+          {activeStep === 1 && <StripePayment data={cookieData} onNext={handleNext} paymentData={paymentData} activeStep={activeStep} />}
           {activeStep === 2 && <Booking_Info activeStep={activeStep} />}
         </Grid>
-        <Grid item lg={4} md={12} sm={12} xs={12}>
+        {/* <Grid item lg={4} md={12} sm={12} xs={12}>
           <PriceCard data={paymentData} activeStep={activeStep} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );

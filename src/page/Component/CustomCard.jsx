@@ -81,7 +81,6 @@ const CustomCard = () => {
                     {val.packages && val.packages.length > 0 && (
                       <>
 
-
                         <Box gap={1} sx={{ display: "flex" }}>
                           <Typography
                             sx={{ color: "grey", textDecoration: "line-through" }}

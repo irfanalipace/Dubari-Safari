@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 const stripePromise = loadStripe("pk_test_51Nl5l2Fd4D0x5hm6bNeeGB3OgSp6LVDsHPSthOuzgiygFol7rB4uUG02e2x1DlTyz48BBGenNM6gd0DJWrozE0cj00b7xF7yx3");
 
-const StripePayment = ({ data, onNext, }) => {
+const StripePayment = ({ data, onNext, paymentData, activeStep }) => {
     const [cookieData, setCookieData] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0);
     const [sideData, setSideData] = useState(null);
@@ -30,7 +30,7 @@ const StripePayment = ({ data, onNext, }) => {
 
     return (
         <Elements stripe={stripePromise} options={'sk_test_51Nl5l2Fd4D0x5hm6Nx1OKK0snF9qYjovaDAraLysgglMKBT0lkl4G8PYGEb6xoc5qdovTvRDgGnUXPKG5wMhIKVs00NNF25eXI'}>
-            <CheckoutForm totalAmount={totalAmount} setTotalAmount={setTotalAmount} onNext={onNext} setTotalValue={setTotalValue} totalValue={totalValue} />
+            <CheckoutForm totalAmount={totalAmount} setTotalAmount={setTotalAmount} onNext={onNext} setTotalValue={setTotalValue} totalValue={totalValue} paymentData={paymentData} activeStep={activeStep} />
         </Elements>
     );
 };
