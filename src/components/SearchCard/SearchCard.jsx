@@ -29,7 +29,7 @@ const SearchCard = () => {
   const reduxWishList = useSelector((state) => state.wishlist.wishlist.payload);
 
 
-  
+
 
   useEffect(() => {
     if (token) {
@@ -169,8 +169,8 @@ const SearchCard = () => {
                       {val.activity.packages && val.activity.packages.length > 0 && (
                         <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
                           {val.activity.packages[0].category === "private" ?
-                            `$ ${val.activity.packages[0].price}` :
-                            `$ ${val.activity.packages[0].adult_price}`}
+                            `AED ${val.activity.packages[0].price}` :
+                            `AED ${val.activity.packages[0].adult_price}`}
                         </Typography>
                       )}
                     </Box>
@@ -226,8 +226,8 @@ const SearchCard = () => {
                       {val.packages && val.packages.length > 0 && (
                         <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
                           {val.packages[0].category === "private" ?
-                            `$ ${val.packages[0].price}` :
-                            `$ ${val.packages[0].adult_price}`}
+                            `AED ${val.packages[0].price}` :
+                            `AED ${val.packages[0].adult_price}`}
                         </Typography>
                       )}
                     </Box>

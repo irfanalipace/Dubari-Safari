@@ -265,8 +265,8 @@ const DetailPage = () => {
           <>
             <DetailSlider data1={data1} />
             <Box sx={{ padding: "30px" }}>
-              <Grid container spacing={3}>
-                <Grid item lg={7} sm={12} xs={12} md={6}>
+              <Grid container spacing={6}>
+                <Grid item lg={8.5} sm={12} xs={12} md={6}>
                   <Box
                     sx={{
                       display: "flex",
@@ -525,7 +525,7 @@ const DetailPage = () => {
                 </Grid>
                 <Grid
                   item
-                  lg={5}
+                  lg={3.5}
                   sm={12}
                   xs={12}
                   md={6}

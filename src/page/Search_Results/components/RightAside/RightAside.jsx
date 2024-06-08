@@ -254,7 +254,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                   display: "flex",
                   minHeight: "30vh",
                   gap: 4,
-                
+
                 }}
               >
                 <Box flex={1}>
@@ -350,8 +350,8 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                     {val.packages && val.packages.length > 0 && (
                         <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
                           {val.packages[0].category === "private" ?
-                            `$ ${val.packages[0].price}` :
-                            `$ ${val.packages[0].adult_price}`}
+                            `AED ${val.packages[0].price}` :
+                            `AED ${val.packages[0].adult_price}`}
                         </Typography>
                       )}
                   </Box>

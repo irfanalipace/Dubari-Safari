@@ -1,7 +1,8 @@
-import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import Page from '../../components/page';
 const GuidLine = () => {
+    const theme = useTheme()
     useEffect(()=>{
         window.scrollTo(0,0)
     })
@@ -14,7 +15,7 @@ const GuidLine = () => {
             ]
         },
         {
-            title: 'Vehicles',
+            title: 'A Vehicles',
             descriptions: [
                 'Our vehicle fleet ensures comfort and safety. By law, all passengers must wear seat belts while the vehicle is in motion.',
                 'There are special considerations for children travelling in our safari vehicles. For the safety of our younger passengers in the vehicles, special seating is required and must be requested and booked in advance.',
@@ -25,20 +26,12 @@ const GuidLine = () => {
 
     const data2 = [
         {
-            title: 'Good To Know',
+            title: '2 Good To Know',
             descriptions: [
                 'Our sightseeing tours are conducted in more than one language and are usually multilingual, however our safari is conducted in English only.',
                 'Purchase of any of our products or services is subject to our Conditions of Contract.',
                 'Our safaris involve off-road driving through at Lahbab Desert Area - which adds to the excitement of the excursion. However, because of the adventurous nature and the rough terrain, you should not participate if your health or any pre-existing medical conditions (including heart ailments neck or back problems) may be adversely affected.',
                 'Additional guidelines for visitors to the UAE can be found on the websites below:'
-            ],
-        },
-        {
-            title: 'Vehicles',
-            descriptions: [
-                'Our vehicle fleet ensures comfort and safety. By law, all passengers must wear seat belts while the vehicle is in motion.',
-                'There are special considerations for children travelling in our safari vehicles. For the safety of our younger passengers in the vehicles, special seating is required and must be requested and booked in advance.',
-                'Seating is not pre-allocated. During safaris, seating for passengers within one 4-wheel drive vehicle will be rotated. We recommend that all passengers read our safety card which is available with the driver/guide in the vehicle before the start of the excursion.',
             ],
             link: [
                 'www.visitabudhabi.ae/ae-en/',
@@ -47,8 +40,9 @@ const GuidLine = () => {
                 'www.visitsharjah.com',
             ]
         },
+
         {
-            title: 'Cultural awareness',
+            title: '3 Cultural awareness',
             descriptions: [
                 'Photographing 	government buildings, military institutions and all oil and gas 	refineries is strictly prohibited',
                 ' 	Don’t 	smoke indoors or in public areas',
@@ -59,7 +53,7 @@ const GuidLine = () => {
             ],
         },
         {
-            title: 'Dress code for Sheikh Zayed Grand Mosque Visit',
+            title: '4 Dress code for Sheikh Zayed Grand Mosque Visit',
             descriptions: [
                 ' 	If 	your tour includes a visit to the Sheikh Zayed Grand Mosque, please 	read the dress code information 	at https://www.szgmc.gov.ae/en/mosque-manner.',
                 ' 	No 	transparent (see through) clothing',
@@ -70,14 +64,14 @@ const GuidLine = () => {
             ],
         },
         {
-            title: 'Alcohol and entertainment',
+            title: '5 Alcohol and entertainment',
             descriptions: [
                 ' 		Serving 		of alcohol and performances of live entertainment are not permitted 		for a period of 24 hours starting at sunset on the eve of all 		religious holidays. The legal drinking age in the UAE is 21 years 		of age.',
 
             ],
         },
         {
-            title: 'Ramadan',
+            title: '6 Ramadan',
             descriptions: [
                 ' 		 		Ramadan 		is the holy month during which the Islamic world commemorates the 		revelation of the Holy Quran and all Muslims are required to fast 		from dawn to dusk. Eating, drinking and smoking in public areas 		during daylight hours is strictly prohibited for all, throughout 		this month. Food is served at some restaurants and cafes, and in 		the hotels.',
 
@@ -114,13 +108,14 @@ const GuidLine = () => {
                     Guidelines
                 </Typography>
             </Box>
-            <Box sx={{ padding: '50px' }}>
+
+            <Box sx={{ padding: '10px 5%' }}>
                 {data1.map((val, ind) => (
                     <Box key={ind}>
-                        <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>{val.title}</Typography>
+                        <Typography sx={{ lineHeight:'2rem', fontSize: "28px", fontWeight: 700, color: ind === 0 ? 'black' : theme.palette.primary.main, marginTop:'1.5rem'}}>{val.title}</Typography>
                         <ul style={{ padding: '10px' }}>
                             {val.descriptions.map((description, descIndex) => (
-                                <li key={descIndex} style={{ color: '#506273', fontSize: '16px' }}>
+                                <li key={descIndex} style={{ lineHeight:'2rem', color: '#506273', fontSize: '16px' }}>
                                     {description}
                                 </li>
                             ))}
@@ -128,39 +123,37 @@ const GuidLine = () => {
                     </Box>
                 ))}
 
-                <Table sx={{ marginTop: '20px' }}>
-                    <TableHead sx={{
-                        backgroundColor: '#E3E3E3'
-                    }}>
-                        <TableRow>
-                            <TableCell sx={{ fontWeight: 'bold' }}>Seat Type</TableCell>
-                            <TableCell sx={{ fontWeight: 'bold' }}>Applicable For</TableCell>
-                            <TableCell sx={{ fontWeight: 'bold' }}>Vehicles</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {seatData.map((row, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{row.seatType}</TableCell>
-                                <TableCell>{row.applicableFor}</TableCell>
-                                <TableCell>{row.vehicles}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                <Table fullWidth sx={{ marginTop: '20px'}}>
+  <TableHead sx={{ backgroundColor: '#E3E3E3' }}>
+    <TableRow>
+      <TableCell sx={{ fontWeight: 'bold' }}>Seat Type</TableCell>
+      <TableCell sx={{ fontWeight: 'bold' }}>Applicable For</TableCell>
+      <TableCell sx={{ fontWeight: 'bold' }}>Vehicles</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {seatData.map((row, index) => (
+      <TableRow key={index} sx={{ '&:first-of-type': { backgroundColor: '#fff5f3' } }}>
+        <TableCell>{row.seatType}</TableCell>
+        <TableCell>{row.applicableFor}</TableCell>
+        <TableCell>{row.vehicles}</TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
 
                 {data2.map((val, ind) => (
                     <Box key={ind}>
-                        <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>{val.title}</Typography>
+                        <Typography sx={{ fontSize: "28px", fontWeight: 700, marginTop:'2rem' }}>{val.title}</Typography>
                         <ul style={{ padding: '10px' }}>
                             {val.descriptions.map((description, descIndex) => (
-                                <li key={descIndex} style={{ color: '#506273', fontSize: '16px' }}>
+                                <li key={descIndex} style={{ color: '#506273',lineHeight:'2rem', fontSize: '16px' }}>
                                     {description}
                                 </li>
                             ))}
                             {val.link && val.link.map((link, linkIndex) => (
-                                <li key={linkIndex} style={{ color: '#506273', fontSize: '16px' }}>
-                                    <a href={`http://${link}`} target="_blank" rel="noopener noreferrer">{link}</a>
+                                <li key={linkIndex} style={{ marginLeft:'1rem', color: '#506273', fontSize: '16px' }}>
+                                    <a href={`http://${link}`} style={{lineHeight:'2rem', textDecoration:'none', color:'grey'}} target="_blank" rel="noopener noreferrer">{link}</a>
                                 </li>
                             ))}
                         </ul>

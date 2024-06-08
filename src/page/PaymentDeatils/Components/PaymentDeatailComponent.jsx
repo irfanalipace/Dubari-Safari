@@ -183,7 +183,7 @@ const PaymentDetailComponent = () => {
           </Typography>
         </Box>
 
-        <Box
+        {/* <Box
           gap={1}
           display={"flex"}
           sx={{ marginTop: "1rem", alignItems: "center" }}
@@ -198,7 +198,7 @@ const PaymentDetailComponent = () => {
             beyond that our representative will call yoy regarding shipping
             chargen.
           </Typography>
-        </Box>
+        </Box> */}
 
         <Box
           gap={1}

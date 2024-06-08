@@ -20,11 +20,11 @@ const Booking = () => {
   };
 
   const bookingsData = [
-    { id: 1, date: "2024-05-24", tickets: 2, price: "$100", status: "Confirm" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "$150", status: "Unpaid" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "$150", status: "Confirm" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "$150", status: "Unpaid" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "$150", status: "Confirm" },
+    { id: 1, date: "2024-05-24", tickets: 2, price: "AED100", status: "Confirm" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Unpaid" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Confirm" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Unpaid" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Confirm" },
   ];
 
   const styleFont = {

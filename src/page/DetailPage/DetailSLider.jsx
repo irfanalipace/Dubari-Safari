@@ -69,16 +69,22 @@ const DetailSlider = ({ data1 }) => {
                         <Box sx={{ position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
                             <Typography sx={{ fontWeight: 600 }}>Save Up To 3.00 Per Person</Typography>
 
+<Typography fontWeight="bold" color={theme.palette.primary.main} textAlign={'right'}>
+{data1?.packages[0].category === "private"
+                              ? `AED ${Math.round(data1?.packages[0].price - (data1?.packages[0].price * data1?.discount_offer / 100))}`
+                              : `AED ${Math.round(data1?.packages[0].adult_price - (data1?.packages[0].adult_price * data1?.discount_offer / 100))}`}
 
-                            {data1.packages && data1.packages.length > 0 && (
+
+</Typography>
+
+
+                            {/* {data1.packages && data1.packages.length > 0 && (
                                 <Typography fontWeight="bold" color={theme.palette.primary.main} textAlign={'right'}>
                                     {data1.packages[0].category === "private" ?
-                                        `$ ${data1.packages[0].price}` :
-                                        `$ ${data1.packages[0].adult_price}`}
+                                        `AED ${data1.packages[0].price}` :
+                                        `AED ${data1.packages[0].adult_price}`}
                                 </Typography>
-                            )}
-
-
+                            )} */}
 
                             <Box sx={{ display: 'flex', justifyContent: 'right' }}>
                                 <Button

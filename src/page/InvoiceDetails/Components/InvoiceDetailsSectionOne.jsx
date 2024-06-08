@@ -134,7 +134,7 @@ const InvoiceDetailsSectionOne = () => {
                   color: theme.palette.primary.main,
                 }}
               >
-                $3,030.00
+                AED 3,030.00
               </Typography>
             </Box>
           </Box>

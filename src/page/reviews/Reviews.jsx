@@ -1,11 +1,12 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Page from '../../components/page'
 const Reviews = () => {
     return (
         <>
-            <Box sx={{ display: 'flex', alignItems: '', justifyContent: 'space-between', padding: '20px', }}>
+        <Page title='Feedback'>
+            <Box sx={{ display: 'flex', alignItems: '', justifyContent: 'space-between', padding: '20px', mt:7, mb:7 }}>
                 <Box>
                     <img src="/reviewLeft.png" alt="" />
                 </Box>
@@ -27,6 +28,7 @@ const Reviews = () => {
                     <img src="/reviewRight.png" alt="" />
                 </Box>
             </Box>
+            </Page>
         </>
     )
 }

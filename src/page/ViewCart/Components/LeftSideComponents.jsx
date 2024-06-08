@@ -326,7 +326,7 @@ import { CleaningServices } from "@mui/icons-material";
                                 color: theme.palette.primary.main,
                               }}
                             >
-                              $ {val.price}
+                              AED {val.price}
                             </Typography>
                           </Box>
                         </Box>
@@ -454,7 +454,7 @@ import { CleaningServices } from "@mui/icons-material";
                             color: theme.palette.primary.main,
                           }}
                         >
-                          $ {val.price}
+                          AED {val.price}
                         </Typography>
                       </Box>
                     </Box>
