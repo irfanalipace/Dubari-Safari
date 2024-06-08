@@ -274,49 +274,81 @@ const settings = {
 <>
 
 <Box>
-<Slider {...settings}>
+
+
+<Box>
+  {categories.length <= 8 ? (
+
+<Box sx={{display:'flex', alignItems:'center'}}>
 {
-
   categories.map((val, index) => (
-             <Box>
-             <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  mr: 4,
+      <Box
+        key={index}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+          mr: 4,
+        }}
+        onClick={() => handleCategoryClick(val)}
+      >
 
-                }}
-                onClick={() => handleCategoryClick(val)}
-              >
+        <Avatar
+          src={val.image}
+          sx={{
+            height: "100px",
+            width: "100px",
+            border: `4px solid ${selectedCategory === val ? theme.palette.primary.main : "transparent"
+              }`,
+            cursor: "pointer",
+          }}
+        />
+        <Typography sx={{ mt: 1, fontWeight: "bold", fontSize: '0.9rem' }}>
+          {val.name}
+        </Typography>
 
-
-
-                <Avatar
-                  src={val.image}
-                  sx={{
-                    height: "100px",
-                    width: "100px",
-                    border: `4px solid ${selectedCategory === val
-                      ? theme.palette.primary.main
-                      : "transparent"
-                      }`,
-                    cursor: "pointer",
-                  }}
-                />
-                <Typography sx={{ mt: 1, fontWeight: "bold", fontSize: '0.9rem' }}>
-                  {val.name}
-
-                </Typography>
-              </Box>
-             </Box>
-            ))
+      </Box>
+    ))
 }
 
+</Box>
 
-</Slider>
+  ) : (
+    <Slider {...settings}>
+      {categories.map((val, index) => (
+        <Box key={index} onClick={() => handleCategoryClick(val)}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              mr: 4,
+            }}
+          >
+            <Avatar
+              src={val.image}
+              sx={{
+                height: "100px",
+                width: "100px",
+                border: `4px solid ${selectedCategory === val ? theme.palette.primary.main : "transparent"
+                  }`,
+                cursor: "pointer",
+              }}
+            />
+            <Typography sx={{ mt: 1, fontWeight: "bold", fontSize: '0.9rem' }}>
+              {val.name}
+            </Typography>
+          </Box>
+        </Box>
+      ))}
+    </Slider>
+
+
+  )}
+</Box>
+
 </Box>
 
 </>

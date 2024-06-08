@@ -101,7 +101,7 @@ const InvoiceCard = () => {
               <Typography sx={{ color: "#90a3bf" }}>Total</Typography>
             </Box>
 
-            <Typography sx={{ fontWeight: "600" }}>$3,098 Incl. VAT</Typography>
+            <Typography sx={{ fontWeight: "600" }}>AED 3,098 Incl. VAT</Typography>
           </Box>
 
 

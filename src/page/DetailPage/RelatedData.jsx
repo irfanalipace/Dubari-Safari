@@ -108,8 +108,8 @@ const RelatedData = () => {
                               }}
                             >
                               {val.packages[0].category === "private"
-                                ? `$ ${val.packages[0].price}`
-                                : `$ ${val.packages[0].adult_price}`}
+                                ? `AED ${val.packages[0].price}`
+                                : `AED ${val.packages[0].adult_price}`}
                             </Typography>
                             {/* <Typography
                             fontWeight="bold"

@@ -163,7 +163,7 @@ const CheckoutGift = ({ onNext }) => {
                         </Typography>
                     </Box>
                     <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Typography variant="h6">Total Amount: ${GiftData?.discount_price}</Typography>
+                        <Typography variant="h6">Total Amount: AED{GiftData?.discount_price}</Typography>
                         <Button type="submit" variant="contained" disabled={!stripe}>
                             Pay Now
                         </Button>

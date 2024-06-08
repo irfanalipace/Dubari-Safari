@@ -10,7 +10,7 @@ const DetailSlider = ({ data1 }) => {
     console.log(data1, 'fff')
     const base = 'https://dubaisafari.saeedantechpvt.com/';
     const navigate = useNavigate()
- 
+
     const initialImages = [
         { itemImageSrc: '/specialofferimage.png', alt: 'Image 1' },
         { itemImageSrc: '/specialofferimage.png', alt: 'Image 2' },
@@ -68,10 +68,11 @@ const DetailSlider = ({ data1 }) => {
                                 See All Photos
                             </Button>
                         </Box>
-                        <Box sx={{ width: isSmall ? "200px":"100%", position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-                            <Typography sx={{ fontWeight: 600 }}>Save Up To 3.00 Per Person</Typography>
+                        <Box sx={{ width: isSmall ? "200px":"40%", position: 'absolute', bottom: -20, right: 50, backgroundColor: 'white', padding: '20px', borderRadius: '5px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'right', alignItems: 'right', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                            {/* <Typography sx={{ fontWeight: 600 }}>Save Up To 3.00 Per Person</Typography> */}
 
-<Typography fontWeight="bold" color={theme.palette.primary.main} textAlign={'right'}>
+<Typography fontWeight="bold" color={theme.palette.primary.main} textAlign={'right'} sx={{fontSize:'2.3rem'}}>
+
 {data1?.packages[0].category === "private"
                               ? `AED ${Math.round(data1?.packages[0].price - (data1?.packages[0].price * data1?.discount_offer / 100))}`
                               : `AED ${Math.round(data1?.packages[0].adult_price - (data1?.packages[0].adult_price * data1?.discount_offer / 100))}`}
@@ -93,7 +94,7 @@ const DetailSlider = ({ data1 }) => {
                                     variant="contained"
                                     sx={{
                                         color: "white",
-                                        fontSize: "12px",
+                                        fontSize: "1.1rem",
                                         textTransform: 'none'
                                     }}
                                     onClick={handleBookNowClick}

@@ -151,7 +151,7 @@ const PriceCard = ({ data, activeStep }) => {
                   color: theme.palette.primary.main,
                 }}
               >
-                $ {data?.total_amount}
+                AED {data?.total_amount}
               </Typography>
             </Box>
           )}

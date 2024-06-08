@@ -36,7 +36,7 @@ const BookingDetails = ({ data }) => {
               Total
             </Typography>
             <Typography variant="h3" color="primary" fontWeight="bold">
-             ${data?.total_amount}
+             AED {data?.total_amount}
             </Typography>
           </Box>
           {/* <Divider sx={{ mt: 2 }} /> */}

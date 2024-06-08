@@ -1,13 +1,16 @@
 import {
   Box, Button, FormControl, FormControlLabel, Grid, MenuItem, Radio, RadioGroup, Select, TextField, Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ReCaptcha from '../../components/Recaptcha/ReCaptcha';
 import Cookies from 'js-cookie';
 
 const GiftDetail = ({ ac_data }) => {
   console.log(ac_data, 'hi');
+
+
+
 
   const [selectedValue, setSelectedValue] = useState('');
   const [discountPrice, setDiscountPrice] = useState('');
@@ -58,9 +61,54 @@ const GiftDetail = ({ ac_data }) => {
   return (
     <Box>
       <Box sx={{
-        padding: { xs: '3px', md: '70px' },
+        padding: { xs: '3px', md: '70px', lg:'2rem 30%' },
       }}>
-        <Box sx={{
+
+
+        <Box sx={{ mt: 0 }}>
+
+
+          <Grid container spacing={3} mt={1} sx={{ alignItems: 'center' }}>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2.5 }}>
+                <label style={{ fontWeight: '700', fontSize: '1rem' }}>Enter Discount</label>
+                <TextField
+                  placeholder="Discount"
+                  sx={textFieldStyle}
+                  value={discountPrice}
+                  onChange={(e) => setDiscountPrice(e.target.value)}
+                />
+              </Box>
+            </Grid>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <label style={{ fontWeight: '700', fontSize: '1rem' }}>Recipient Email:</label>
+                <TextField
+                  placeholder="Recipient Email"
+                  sx={textFieldStyle}
+                  value={recipientEmail}
+                  onChange={(e) => setRecipientEmail(e.target.value)}
+                />
+              </Box>
+            </Grid>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <label style={{ fontWeight: '700', fontSize: '1rem' }}>Description*</label>
+                <TextField
+                  placeholder="Description"
+                  sx={textFieldStyle}
+                  multiline
+                  rows={5}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+
+
+          <Box sx={{padding:'2rem 0%'}}>
+          <Box sx={{
           borderRadius: '15px',
           border: ' 1px solid #E1E1E1',
           padding: '15px'
@@ -68,15 +116,15 @@ const GiftDetail = ({ ac_data }) => {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
+              flexDirection: { xs: 'column', md: 'column' },
               alignItems: 'start',
               gap: { xs: '20px', md: '30px' },
             }}
           >
             <Box
-              flex={1}
+
               sx={{
-                width: { xs: '100%', md: 'auto' },
+                width: { xs: '100%', md: '100%' },
               }}
             >
               <img
@@ -84,7 +132,7 @@ const GiftDetail = ({ ac_data }) => {
                 alt=""
                 style={{
                   width: '100%',
-                  height: { xs: '20vh', md: '30vh' },
+                  height: { xs: '20vh', md: '20vh', lg:'20vh' },
                   objectFit: 'cover',
                 }}
               />
@@ -118,8 +166,12 @@ const GiftDetail = ({ ac_data }) => {
 
         </Box>
 
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="h1" sx={{ fontSize: '1.2rem', fontWeight: '600' }}>
+
+          </Box>
+
+<Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+
+<Typography variant="h1" sx={{ fontSize: '1.2rem', fontWeight: '600' }}>
             Suggest this activity on this gift certificate.
           </Typography>
 
@@ -136,62 +188,32 @@ const GiftDetail = ({ ac_data }) => {
             </RadioGroup>
           </FormControl>
 
-          <Grid container spacing={3} mt={1} sx={{ alignItems: 'center' }}>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2.5 }}>
-                <label style={{ fontWeight: '700', fontSize: '1rem' }}>Enter Discount</label>
-                <TextField
-                  placeholder="Discount"
-                  sx={textFieldStyle}
-                  value={discountPrice}
-                  onChange={(e) => setDiscountPrice(e.target.value)}
-                />
-              </Box>
-            </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <label style={{ fontWeight: '700', fontSize: '1rem' }}>Recipient Email:</label>
-                <TextField
-                  placeholder="Recipient Email"
-                  sx={textFieldStyle}
-                  value={recipientEmail}
-                  onChange={(e) => setRecipientEmail(e.target.value)}
-                />
-              </Box>
-            </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <label style={{ fontWeight: '700', fontSize: '1rem' }}>Description*</label>
-                <TextField
-                  placeholder="Description"
-                  sx={textFieldStyle}
-                  multiline
-                  rows={5}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </Box>
-            </Grid>
-          </Grid>
+</Box>
 
+{/*
           <Box mt={3}>
             <ReCaptcha />
-          </Box>
+          </Box> */}
 
-          <Box sx={{ display: 'flex', justifyContent: 'end', mt: 4 }} gap={3}>
+
+
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }} gap={3}>
             <Button
-              onClick={() => navigate('/preview-card')}
+              onClick={() => navigate('/preview-card',  { state: { discountPrice, recipientEmail, description, acData: ac_data } })}
               variant="contained"
               sx={{
                 padding: '0.8rem 2rem',
                 backgroundColor: 'grey',
                 color: 'white',
                 textTransform: 'none',
-                fontSize: '0.8rem',
+                fontSize: '1rem',
+                width:'80%',
+                borderRadius:'25px',
                 ':hover': {
                   backgroundColor: 'grey',
                 },
               }}
+              disabled={!discountPrice || !recipientEmail}
             >
               Preview Card
             </Button>
@@ -203,8 +225,12 @@ const GiftDetail = ({ ac_data }) => {
                 marginLeft: '2rem',
                 padding: '0.8rem 3rem',
                 textTransform: 'none',
-                fontSize: '0.8rem',
+                width:'80%',
+                borderRadius:'25px',
+                fontSize: '1rem',
               }}
+              disabled={!discountPrice || !recipientEmail}
+
             >
               Buy Now
             </Button>
