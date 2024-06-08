@@ -32,6 +32,7 @@ const Component1 = ({ data, onNext }) => {
     note: "",
   });
 
+
   useEffect(() => {
     fetch(
       "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
@@ -276,28 +277,28 @@ const Component1 = ({ data, onNext }) => {
       </Box>
 
       <Box
-      sx={{
-        display: "flex",
-        justifyContent: { xs: "center", md: "end" }, 
-        alignItems: "end",
-        mt: 2,
-      }}
-    >
-      <Button
-        onClick={handleProceedToPayment}
-        variant="contained"
         sx={{
-          textTransform: "none",
-          padding: { xs: "10px 20px", md: "10px 40px" }, 
-          width: { xs: "100%", md: "auto" }, 
-          backgroundColor: theme.palette.primary.main,
-          color: "white",
+          display: "flex",
+          justifyContent: { xs: "center", md: "end" },
+          alignItems: "end",
+          mt: 2,
         }}
       >
-        Proceed to payment
-      </Button>
-    </Box>
-    
+        <Button
+          onClick={handleProceedToPayment}
+          variant="contained"
+          sx={{
+            textTransform: "none",
+            padding: { xs: "10px 20px", md: "10px 40px" },
+            width: { xs: "100%", md: "auto" },
+            backgroundColor: theme.palette.primary.main,
+            color: "white",
+          }}
+        >
+          Proceed to payment
+        </Button>
+      </Box>
+
     </>
   );
 };

@@ -9,9 +9,9 @@ const Reviews = () => {
                 <Box>
                     <img src="/reviewLeft.png" alt="" />
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    <Typography sx={{ fontSize: '36px', fontWeight: 700 }}>Where Would you like to put your reviews ?</Typography>
-                    <Box sx={{ display: 'flex', gap: '30px', alignItems: 'center', justifyContent: 'center' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', }}>
+                    <Typography sx={{ fontSize: '36px', fontWeight: 700 }}>where would you like to write review?</Typography>
+                    <Box sx={{ display: 'flex', gap: '30px', alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}>
                         <Link to='https://g.page/r/Cee91tzznq9EEBI/review' target='_blank'>
                             <img src="/googel.png" alt="" />
                         </Link>
