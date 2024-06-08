@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme } from "@mui/material";
+import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme, Radio } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
@@ -23,6 +23,12 @@ const DetailLeft = ({ ac_data, loading }) => {
         const currentDate = new Date().toISOString().split("T")[0];
         setDate(currentDate);
     }, []);
+
+    const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+
+    const handleSelectItem = (index) => {
+        setSelectedItemIndex(index);
+    };
 
     const handleLogDetails = (total_amount, p_id, q, date, price, title, highlight, id) => {
         if (!date) {
@@ -116,16 +122,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                 });
         } else {
 
-            // const newItem = {
-            //     ac_data: [ac_data],
-            //     p_id: p_id,
-            //     q: q,
-            //     total: total,
-            //     date: date,
-            //     adult: adult,
-            //     child: child,
-            //     infant: infant
-            // };
+
             const newItem = {
 
                 ac_data: ac_data,
@@ -157,7 +154,9 @@ const DetailLeft = ({ ac_data, loading }) => {
     const stylesEll = {
         fontSize: "14px",
         fontWeight: 600,
-        maxWidth: "100px",
+        maxWidth: "200px",
+        // maxWidth: "100px",
+
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
@@ -194,6 +193,116 @@ const DetailLeft = ({ ac_data, loading }) => {
     return (
         <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
+
+
+{/* ------------------client UI for packages-------------- */}
+
+<Box sx={{ padding: "20px", width: "90%" }}>
+
+<Typography>Choose a package</Typography>
+
+<Divider sx={{mb:3, mt:1}}/>
+                    {loading ? (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                            <CircularProgress />
+                        </Box>
+                    ) : (
+                        ac_data?.packages?.map((item, index) => {
+
+
+
+
+                            const total_amount = calculateTotalPrice(item.price);
+                            let total = 0;
+                            if (item.category === 'sharing') {
+                                total = adult * Number(item.adult_price) + child * Number(item.child_price);
+                            } else {
+                                total = total_amount;
+                            }
+                            const quantity = adult + child + infant;
+                            return (
+                                <Box
+    key={index}
+    sx={{
+        gap: "10px",
+        padding: "20px",
+        border: selectedItemIndex === index ? "2px solid red" : "1px solid #EDEDED",
+        borderRadius: "10px",
+        marginBottom: "10px",
+        cursor:'pointer',
+        backgroundColor: selectedItemIndex === index ? "#FFE4E1" : "#EDEDED",
+        display: 'flex',
+        alignItems: 'start',
+        // justifyContent: 'space-between'
+    }}
+    onClick={() => handleSelectItem(index)}
+>
+
+<Radio/>
+  <Box>
+
+  <Box>
+
+
+
+        <Box>
+            <Typography sx={stylesEll}>
+                {item.title}
+            </Typography>
+            <Typography sx={{ fontSize: "14px", color: "#777" }}>
+                {item.category}
+            </Typography>
+        </Box>
+        <Box>
+            <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
+                {`AED ${total}`}
+            </Typography>
+        </Box>
+    </Box>
+    <Box sx={{ display: 'flex' }} gap={3}>
+    <Box>
+                                        <Button
+                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
+                                            variant="contained"
+                                            sx={{
+                                                color: "white",
+                                                fontSize: "12px",
+                                                textTransform: 'none'
+                                            }}
+                                        >
+                                            Add To Cart
+                                        </Button>
+                                    </Box>
+                                    <Box>
+                                        <Button
+                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
+                                            variant="contained"
+                                            sx={{
+                                                color: "white",
+                                                fontSize: "12px",
+                                                textTransform: 'none'
+                                            }}
+                                        >
+                                            Book Now
+                                        </Button>
+                                    </Box>
+    </Box>
+
+  </Box>
+</Box>
+
+                            );
+                        })
+                    )}
+                </Box>
+
+
+
+
+
+{/* --------------------Client UI packages end-------------- */}
+
+
                 <Typography sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}>
                     Select Date & Activity Option
                 </Typography>
@@ -384,7 +493,17 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                     </>
                 )}
-                <Divider sx={{ width: "100%" }} />
+
+
+                {/* -----------------------------------------------prev code ------------- */}
+
+
+
+
+
+
+
+                {/* <Divider sx={{ width: "100%" }} />
                 <Box sx={{ padding: "20px", width: "90%" }}>
                     {loading ? (
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
@@ -418,12 +537,21 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     }}
                                 >
                                     <Box sx={{ width: { xs: "100%", md: "auto" } }}> {/* Adjust width based on screen size */}
-                                        <Typography sx={stylesEll}>{item.title}</Typography>
+
+
+
+{/* ----------------coment b usamma + ----- */}
+
+
+
+                                        {/* <Typography sx={stylesEll}>{item.title}</Typography>
                                         <Typography sx={{ fontSize: "14px", color: "#777" }}>{item.category}</Typography>
                                     </Box>
-                                    <Box sx={{ width: { xs: "100%", md: "auto" } }}> {/* Adjust width based on screen size */}
-                                        <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>{`$ ${total}`}</Typography>
-                                        {item.category === "sharing" && (
+                                    <Box>
+                                        <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
+                                            {`AED ${total}`}
+                                        </Typography>
+                                        {item.category === 'sharing' && (
                                             <Typography sx={{ fontSize: "12px", color: "#777" }}>
                                                 Per Group: {item.adult_price}
                                                 <br />
@@ -468,7 +596,12 @@ const DetailLeft = ({ ac_data, loading }) => {
                             );
                         })
                     )}
-                </Box>
+                </Box> */}
+
+
+                {/* ---------------------prev codeeee---------- */}
+
+
                 <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
                     <FiGift style={{ color: theme.palette.primary.main }} />
                     <Button onClick={handleSendGift} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>

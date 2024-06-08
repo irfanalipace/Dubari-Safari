@@ -427,8 +427,54 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                           </Box>
                         </Box>
                       </Box>
-                    )
-                )}
+
+                      <Box sx={{ display: 'flex' }}>
+                        <Box flex={2}></Box>
+                        <Box flex={4}>
+                          <Divider />
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              marginTop: "1rem",
+                            }}
+                          >
+                            <Button
+                              sx={{ textTransform: "none", color: "black" }}
+                              onClick={() => handleDelete(packageItem.id)}
+                            >
+                              <DeleteOutlineOutlinedIcon /> Delete
+                            </Button>
+                            <Button sx={{ textTransform: "none", color: "black" }}>
+                              <IoSyncOutline
+                                style={{ fontSize: "1.5rem", fontWeight: "800" }}
+                              />
+                              Update
+                            </Button>
+                            <Button
+                              sx={{
+                                fontSize: "0.8rem",
+                                textTransform: "none",
+                                color: "black",
+                              }}
+                            >
+                              Please Login to use Promocode
+                            </Button>
+                            <Typography
+                              sx={{
+                                fontSize: "1.5rem",
+                                fontWeight: "700",
+                                color: theme.palette.primary.main,
+                              }}
+                            >
+                              AED {val.price}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  )
+                ))}
               </Card>
             );
           } else {
@@ -590,7 +636,7 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                             order: { xs: 1, md: 4 },
                           }}
                         >
-                          $ {val.price}
+                          AED {val.price}
                         </Typography>
                       </Box>
                     </Box>

@@ -122,7 +122,7 @@ const PriceCard = ({ data }) => {
           >
             <Typography sx={{ color: "#90a3bf" }}>Total</Typography>
 
-            <Typography sx={{ fontWeight: "600" }}>$ {data?.total_amount}</Typography>
+            <Typography sx={{ fontWeight: "600" }}>AED {data?.total_amount}</Typography>
           </Box>
 
           <Box
@@ -146,7 +146,7 @@ const PriceCard = ({ data }) => {
                 color: theme.palette.primary.main,
               }}
             >
-              $ {data?.total_amount}
+              AED {data?.total_amount}
             </Typography>
           </Box>
           <Typography sx={{ color: "#90a3bf" }}>

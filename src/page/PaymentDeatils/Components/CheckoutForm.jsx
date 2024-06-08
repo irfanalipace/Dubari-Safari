@@ -169,7 +169,7 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
                         </Typography>
                     </Box>
 
-                    <Box gap={1} display={"flex"} sx={{ marginTop: "1rem", alignItems: "center" }}>
+                    {/* <Box gap={1} display={"flex"} sx={{ marginTop: "1rem", alignItems: "center" }}>
                         <input
                             type="checkbox"
                             required
@@ -180,7 +180,7 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
                             beyond that our representative will call you regarding shipping
                             charges.
                         </Typography>
-                    </Box>
+                    </Box> */}
 
                     <Box gap={1} display={"flex"} sx={{ marginTop: "1rem", alignItems: "center" }}>
                         <input
@@ -211,7 +211,7 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
 
                     <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <Typography variant="h6">
-                            Total Amount: ${(totalAmount - discount).toFixed(2)}
+                            Total Amount: AED {(totalAmount - discount).toFixed(2)}
                         </Typography>
                         <Button type="submit" variant="contained" disabled={!stripe}>
                             Pay Now

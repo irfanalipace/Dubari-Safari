@@ -74,6 +74,13 @@ const Booking = () => {
         console.log(err);
       });
   };
+  const bookingsData = [
+    { id: 1, date: "2024-05-24", tickets: 2, price: "AED100", status: "Confirm" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Unpaid" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Confirm" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Unpaid" },
+    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Confirm" },
+  ];
 
   const styleFont = {
     fontWeight: 600,

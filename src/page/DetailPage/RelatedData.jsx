@@ -116,8 +116,8 @@ const RelatedData = () => {
                             color={theme.palette.primary.main}
                           >
                             {val.packages[0].category === "private"
-                              ? `$ ${(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100)).toFixed(2)}`
-                              : `$ ${(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100)).toFixed(2)}`}
+                              ? `AED ${(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100)).toFixed(2)}`
+                              : `AED ${(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100)).toFixed(2)}`}
                           </Typography> */}
 
                             <Typography
@@ -125,13 +125,13 @@ const RelatedData = () => {
                               color={theme.palette.primary.main}
                             >
                               {val.packages[0].category === "private"
-                                ? `$ ${Math.round(
+                                ? `AED ${Math.round(
                                     val.packages[0].price -
                                       (val.packages[0].price *
                                         val.discount_offer) /
                                         100
                                   )}`
-                                : `$ ${Math.round(
+                                : `AED ${Math.round(
                                     val.packages[0].adult_price -
                                       (val.packages[0].adult_price *
                                         val.discount_offer) /

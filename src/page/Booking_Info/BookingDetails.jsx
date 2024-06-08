@@ -5,7 +5,7 @@ import Details from "./components/Details";
 import { Navigate, useNavigate } from "react-router";
 
 const BookingDetails = ({ data }) => {
-  // console.log(data, 'fdfdfd') 
+  // console.log(data, 'fdfdfd')
   const navigate = useNavigate()
   return (
     <Box sx={{ height: "70%", background: "#f6f7f9", py: 5, px: 3 }}>
@@ -94,7 +94,7 @@ const BookingDetails = ({ data }) => {
               fontSize: "0.8rem",
             }}
           >
-            Generate Invoice
+            Print Voucher
           </Button>
         </Box>
       </Grid>

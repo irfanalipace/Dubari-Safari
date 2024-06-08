@@ -15,7 +15,7 @@ const History = () => {
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing eli Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit...',
             duration: '3 Hours, 51 Minutes',
             cancellationPolicy: 'Free Cancellation Up to 48 Hours',
-            price: '$25,000',
+            price: 'AED 25,000',
             image: '/pic.png'
         },
         {
@@ -25,7 +25,7 @@ const History = () => {
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit...',
             duration: '3 Hours, 51 Minutes',
             cancellationPolicy: 'Free Cancellation Up to 48 Hours',
-            price: '$25,000',
+            price: 'AED 25,000',
             image: '/pic.png'
         },
     ];

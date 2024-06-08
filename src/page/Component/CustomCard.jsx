@@ -91,16 +91,54 @@ const CustomCard = () => {
                         : `$ ${val.packages[0].adult_price}`}
                     </Typography>
 
-                    <Typography
-                      fontWeight="bold"
-                      color={theme.palette.primary.main}
-                    >
-                      {val.packages[0].category === "private"
-                        ? `$ ${Math.round(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100))}`
-                        : `$ ${Math.round(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100))}`}
-                    </Typography>
-                  </>
-                )}
+                    <Box gap={1} sx={{ display: "flex" }}>
+                      {val.packages && val.packages.length > 0 && (
+                        <>
+                          <Typography
+                            sx={{ color: "grey", textDecoration: "line-through" }}
+                          >
+                            {val.packages[0].category === "private"
+                              ? `AED ${val.packages[0].price}`
+                              : `AED ${val.packages[0].adult_price}`}
+                          </Typography>
+                          {/* <Typography
+                            fontWeight="bold"
+                            color={theme.palette.primary.main}
+                          >
+                            {val.packages[0].category === "private"
+                              ? `AED ${(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100)).toFixed(2)}`
+                              : `AED ${(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100)).toFixed(2)}`}
+                          </Typography> */}
+
+                          <Typography
+                            fontWeight="bold"
+                            color={theme.palette.primary.main}
+                          >
+                            {val.packages[0].category === "private"
+                              ? `AED ${Math.round(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100))}`
+                              : `AED ${Math.round(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100))}`}
+                          </Typography>
+                        </>
+                      )}
+                    </Box>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      textTransform: "none",
+                    }}
+                  >
+                    <Rating
+                      name="simple-controlled"
+                      value={value}
+                      readOnly
+                    />
+                    <Button variant="contained">Book Now</Button>
+                  </Box>
+                </Box>
               </Box>
             </Box>
 

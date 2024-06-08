@@ -19,6 +19,9 @@ import { useNavigate, useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../store/actions/categoriesActions";
 import Loader from "../../components/Loader/Loader";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -123,6 +126,103 @@ const Categories = () => {
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
+// -------------------------scroll bar design slick slider --------------
+
+
+const NextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="slick-arrow"
+      style={{
+        backgroundColor: theme.palette.primary.main, // Background color of the next arrow
+        position: "absolute",
+        right: "-30px",
+        zIndex: 1,
+        top: "40%",
+        transform: "translateY(-50%)",
+        border: "none",
+        borderRadius: "50%",
+        width: "30px",
+        height: "30px",
+        cursor: "pointer",
+      }}
+      onClick={onClick}
+    >
+      <span
+        style={{
+          color: "white", // Inner arrow color
+          fontSize: "13px",
+          lineHeight: "30px",
+        }}
+      >
+        &#10095;
+      </span>
+    </button>
+  );
+};
+
+const PrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="slick-arrow"
+      style={{
+        backgroundColor: theme.palette.primary.main, // Background color of the previous arrow
+        position: "absolute",
+        left: "-30px",
+        zIndex: 1,
+        top: "40%",
+        transform: "translateY(-50%)",
+        border: "none",
+        borderRadius: "50%",
+        width: "30px",
+        height: "30px",
+        cursor: "pointer",
+      }}
+      onClick={onClick}
+    >
+      <span
+        style={{
+          color: "white", // Inner arrow color
+          fontSize: "13px",
+          lineHeight: "30px",
+        }}
+      >
+        &#10094;
+      </span>
+    </button>
+  );
+};
+
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 7,
+  slidesToScroll: 7,
+  autoplay: false,
+  autoplaySpeed: 2000,
+  pauseOnHover: false,
+
+  responsive: [
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerMode: false,
+      },
+    },
+  ],
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
+};
+
+
+
+
+
   return (
     <Page title="Categories">
       <Box sx={{ padding: isSmall ? '3rem 2rem' : '3rem 5rem' }}>
@@ -133,13 +233,17 @@ const Categories = () => {
         >
           Back to home page
         </Button> */}
-        <Typography
+
+
+
+        {/* <Typography
             variant="h4"
             fontWeight="bold"
             sx={{ flex: 2, textAlign:'center', fontSize:'25px' }}
           >
             Things to do in Abu Dhabi
-          </Typography>
+          </Typography> */}
+
         <Box
           sx={{
             display: "flex",
@@ -147,14 +251,14 @@ const Categories = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h4" fontWeight="bold" sx={{ mt: 3 }}>
+          <Typography variant="h4" fontWeight="bold" sx={{ mt: 0 }}>
             {/* Categories */}
           </Typography>
           <Typography sx={{ color: "grey", fontWeight: "bold" }}>
             {/* View All */}
           </Typography>
         </Box>
-        <Box sx={{ display: "flex", mt: 2 }}>
+        <Box sx={{ mt: 2 }}>
           {loading ? (
             <Box>
               <Loader />
@@ -166,8 +270,16 @@ const Categories = () => {
               No Categories Found please try again later
             </Typography>
           ) : (
-            categories.map((val, index) => (
-              <Box
+
+<>
+
+<Box>
+<Slider {...settings}>
+{
+
+  categories.map((val, index) => (
+             <Box>
+             <Box
                 key={index}
                 sx={{
                   display: "flex",
@@ -179,6 +291,9 @@ const Categories = () => {
                 }}
                 onClick={() => handleCategoryClick(val)}
               >
+
+
+
                 <Avatar
                   src={val.image}
                   sx={{
@@ -196,7 +311,17 @@ const Categories = () => {
 
                 </Typography>
               </Box>
+             </Box>
             ))
+}
+
+
+</Slider>
+</Box>
+
+</>
+
+
           )}
         </Box>
         <Box
@@ -209,9 +334,9 @@ const Categories = () => {
           <Typography
             variant="h4"
             fontWeight="bold"
-            sx={{ flex: 2, whiteSpace: "nowrap" }}
+            sx={{ flex: 2, whiteSpace: "nowrap", fontSize:'1.3rem' }}
           >
-            {/* Things to do in Abu Dhabi */}
+            Things to do in Abu Dhabi
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", flex: 1, gap: "10px" , width:'85%' }}>
             <Typography fontWeight="bold" sx={{ whiteSpace: "nowrap", mr: 2 }}>

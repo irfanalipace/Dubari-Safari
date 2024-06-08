@@ -40,6 +40,7 @@ const Tab1Card = (props) => {
               <Box
                 onClick={() => navigate(`/details/${val.id}`)}
                 sx={{
+                  height:'22rem',
                   backgroundColor: "white",
                   borderRadius: "12px",
                   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",

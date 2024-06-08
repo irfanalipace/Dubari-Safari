@@ -38,7 +38,9 @@ const Tab2Card = (props) => {
               <Box
                 onClick={() => navigate(`/details/${val.id}`)}
                 sx={{
-                  width: 320,
+
+height:'22rem',
+                  // width: 320,
                   backgroundColor: "white",
                   borderRadius: "12px",
                   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
