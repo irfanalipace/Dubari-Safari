@@ -7,7 +7,8 @@ import {
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
-const PriceCard = ({ data }) => {
+const PriceCard = ({ data, activeStep }) => {
+
   const theme = useTheme();
 
   console.log(data, 'll')
@@ -15,6 +16,8 @@ const PriceCard = ({ data }) => {
 
   return (
     <>
+
+
       <Box
         sx={{
           padding: "3rem 5%",
@@ -27,7 +30,7 @@ const PriceCard = ({ data }) => {
           variant="h1"
           sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
         >
-          {data?.activity?.name}
+          Summary
         </Typography>
         <Divider />
 
@@ -111,47 +114,51 @@ const PriceCard = ({ data }) => {
 
             <Typography sx={{ fontWeight: "600" }}>{data?.date}</Typography>
           </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: "1rem",
-            }}
-          >
-            <Typography sx={{ color: "#90a3bf" }}>Total</Typography>
-
-            <Typography sx={{ fontWeight: "600" }}>AED {data?.total_amount}</Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: "1rem",
-            }}
-          >
-            <Typography
-              sx={{ color: "black", fontWeight: "600", fontSize: "1.5rem" }}
-            >
-              Total Amount
-            </Typography>
-
-            <Typography
+          {activeStep === 0 && (
+            <Box
               sx={{
-                fontWeight: "600",
-                fontSize: "2rem",
-                color: theme.palette.primary.main,
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "1rem",
               }}
             >
-              AED {data?.total_amount}
-            </Typography>
-          </Box>
-          <Typography sx={{ color: "#90a3bf" }}>
+              <Typography sx={{ color: "#90a3bf" }}>Total</Typography>
+
+              <Typography sx={{ fontWeight: "600" }}>$ {data?.total_amount}</Typography>
+            </Box>
+          )}
+
+          {activeStep === 0 && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "1rem",
+              }}
+            >
+              <Typography
+                sx={{ color: "black", fontWeight: "600", fontSize: "1.5rem" }}
+              >
+                Total Amount
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontWeight: "600",
+                  fontSize: "2rem",
+                  color: theme.palette.primary.main,
+                }}
+              >
+                $ {data?.total_amount}
+              </Typography>
+            </Box>
+          )}
+
+          {/* <Typography sx={{ color: "#90a3bf" }}>
             Overall price and includes all Tax
-          </Typography>
+          </Typography> */}
         </Box>
       </Box>
     </>

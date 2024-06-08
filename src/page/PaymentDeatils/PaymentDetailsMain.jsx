@@ -20,11 +20,17 @@ const steps = [
 
 const PaymentDetailsMain = () => {
   const [cookieData, setCookieData] = useState(null);
+  const [paymentData, setPaymentData] = useState(null)
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
 
-
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const data = Cookies.get('information');
+    if (data) {
+      setPaymentData(JSON.parse(data));
+    }
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -90,11 +96,11 @@ const PaymentDetailsMain = () => {
         </Grid>
         <Grid item lg={8} md={12} sm={12} xs={12}>
           {activeStep === 0 && <Component1 data={cookieData} onNext={handleNext} />}
-          {activeStep === 1 && <StripePayment data={cookieData} onNext={handleNext} />}
+          {activeStep === 1 && <StripePayment data={cookieData} onNext={handleNext} paymentData={paymentData} />}
           {activeStep === 2 && <Booking_Info activeStep={activeStep} />}
         </Grid>
         <Grid item lg={4} md={12} sm={12} xs={12}>
-          <PriceCard data={cookieData} />
+          <PriceCard data={paymentData} activeStep={activeStep} />
         </Grid>
       </Grid>
     </Box>

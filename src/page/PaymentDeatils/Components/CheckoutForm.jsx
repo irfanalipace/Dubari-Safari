@@ -8,7 +8,7 @@ import { Booking } from '../../../store/actions/categoriesActions';
 import Cookies from 'js-cookie';
 import { Apply_Voucher } from "../../../store/actions/bookingAction";
 
-const CheckoutForm = ({ totalAmount, onNext, data }) => {
+const CheckoutForm = ({ totalAmount, onNext, data, setTotalAmount }) => {
     const token = useSelector((state) => state?.auth?.token);
 
     const theme = useTheme();
@@ -19,7 +19,10 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [voucherCode, setVoucherCode] = useState("");
     const [discount, setDiscount] = useState(0);
-    const [discountError, setDiscountError] = useState(null); // To store error from voucher application
+    const [discountError, setDiscountError] = useState(null);
+    // To store error from voucher application
+
+    const [isFieldEnabled, setIsFieldEnabled] = useState(false);
 
     const handleProceedToPayment = async (paymentStatus) => {
         const bookingDetails = JSON.parse(Cookies.get('bookingDetails'));
@@ -71,27 +74,37 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
         }
     };
 
+
     const handleVoucherApply = async () => {
         try {
             const res = await dispatch(Apply_Voucher(voucherCode));
             if (res.data.success) {
-                // Calculate the discount percentage
-                const discountPercentage = res.data.price > 0 ? (res.data.discountAmount / res.data.price) * 100 : 0;
-                // Calculate the discount amount based on the total amount
-                const discountAmount = -(totalAmount * (discountPercentage / 100));
+                const price = parseFloat(res.data.payload.price);
+                const discountAmount = Math.abs(price);
                 setDiscount(discountAmount);
                 setDiscountError(null);
+                setIsFieldEnabled(true);
+                const bookingDetails = JSON.parse(Cookies.get('bookingDetails'));
+                const information = JSON.parse(Cookies.get('information'));
+
+                const updatedTotalAmount = bookingDetails.total_amount - discountAmount;
+                bookingDetails.total_amount = updatedTotalAmount;
+                information.total_amount = updatedTotalAmount;
+
+                Cookies.set('bookingDetails', JSON.stringify(bookingDetails));
+                Cookies.set('information', JSON.stringify(information));
+
+                setTotalAmount(updatedTotalAmount);
             } else {
                 setDiscountError(res.data.message);
                 setDiscount(0);
             }
         } catch (error) {
-            console.error("Error validating voucher:", error);
-            setDiscountError("Error validating voucher. Please try again later.");
+            console.error("Error applying voucher:", error);
+            setDiscountError("Error applying voucher. Please try again later.");
             setDiscount(0);
         }
     };
-
 
     const cardStyle = {
         style: {
@@ -195,52 +208,49 @@ const CheckoutForm = ({ totalAmount, onNext, data }) => {
                             </Link>{" "}
                         </Typography>
                     </Box>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', margin: '20px 0px' }}>
                         <TextField
                             label="Voucher Code"
                             value={voucherCode}
                             onChange={(e) => setVoucherCode(e.target.value)}
                             variant="outlined"
-                            sx={{ marginRight: '10px', flex: 1 }}
+                            sx={{ flex: 1, borderRadius: '10px', backgroundColor: 'whitesmoke', '&:hover': { backgroundColor: 'white' } }}
+                            InputProps={{
+                                endAdornment: (
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleVoucherApply}
+                                        sx={{
+                                            borderTopLeftRadius: 0,
+                                            borderBottomLeftRadius: 0,
+                                            padding: '10px 50px',
+                                            height: '100%',
+                                            // textTransform: 'none'
+                                        }}
+                                    >
+                                        Apply
+                                    </Button>
+                                ),
+                                sx: { borderTopRightRadius: '10px', borderBottomRightRadius: '10px' }
+                            }}
                         />
-                        <Button variant="contained" onClick={handleVoucherApply}>
-                            Apply
-                        </Button>
                     </Box>
+                    {/* <Box sx={{ paddingTop: '20px' }}>
+                        <Typography sx={{ color: theme.palette.primary.main, textAlign: 'end', padding: '10px', cursor: 'pointer', fontWeight: 600, backgroundColor: '#f0f0f0', display: 'inline-block', borderRadius: '10px' }}>Apply Coupon</Typography>
+                    </Box> */}
 
                     <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <Typography variant="h6">
                             Total Amount: AED {(totalAmount - discount).toFixed(2)}
                         </Typography>
-                        <Button type="submit" variant="contained" disabled={!stripe}>
+                        <Button sx={{ padding: '10px 30px' }} type="submit" variant="contained" disabled={!stripe}>
                             Pay Now
                         </Button>
                     </Box>
-                    <Box
-                        sx={{
-                            marginTop: "1rem",
-                            display: "flex",
-                            flexDirection: { xs: "column", md: "row" }, // Stack on small screens, row on medium screens
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Typography variant="h6" sx={{ marginBottom: { xs: "0.5rem", md: 0 } }}>
-                            Total Amount: ${totalAmount}
-                        </Typography>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            disabled={!stripe}
-                            sx={{
-                                marginTop: { xs: "1rem", md: 0 }, // Add margin top on small screens
-                                width: { xs: "100%", md: "auto" }, // Set width to 100% on small screens, auto on medium screens
-                            }}
-                        >
-                            Pay Now
-                        </Button>
-                    </Box>
+
+
+
+
 
                 </form>
             ) : (
