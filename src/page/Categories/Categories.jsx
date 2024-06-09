@@ -164,7 +164,7 @@ const Categories = () => {
       <button
         className="slick-arrow"
         style={{
-          backgroundColor: theme.palette.primary.main, // Background color of the next arrow
+          backgroundColor:'#fef7f5', // Background color of the next arrow
           position: "absolute",
           right: "-30px",
           zIndex: 1,
@@ -180,7 +180,7 @@ const Categories = () => {
       >
         <span
           style={{
-            color: "white", // Inner arrow color
+            color: "black", // Inner arrow color
             fontSize: "13px",
             lineHeight: "30px",
           }}
@@ -197,7 +197,7 @@ const Categories = () => {
       <button
         className="slick-arrow"
         style={{
-          backgroundColor: theme.palette.primary.main, // Background color of the previous arrow
+          backgroundColor: '#fef7f5', // Background color of the previous arrow
           position: "absolute",
           left: "-30px",
           zIndex: 1,
@@ -213,7 +213,7 @@ const Categories = () => {
       >
         <span
           style={{
-            color: "white", // Inner arrow color
+            color: "black", // Inner arrow color
             fontSize: "13px",
             lineHeight: "30px",
           }}
@@ -296,8 +296,8 @@ const Categories = () => {
             <>
               <Box>
                 <Box>
-                  {categories.length <= 8 ? (
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {categories.length <= 7 ? (
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent:'center' }}>
                       {categories.map((val, index) => (
                         <Box
                           key={index}
@@ -307,6 +307,8 @@ const Categories = () => {
                             alignItems: "center",
                             flexDirection: "column",
                             mr: 4,
+                            width:'10%'
+
                           }}
                           onClick={() => handleCategoryClick(val)}
                         >
@@ -328,6 +330,7 @@ const Categories = () => {
                               mt: 1,
                               fontWeight: "bold",
                               fontSize: "0.9rem",
+                              textAlign:'center'
                             }}
                           >
                             {val.name}
@@ -336,6 +339,7 @@ const Categories = () => {
                       ))}
                     </Box>
                   ) : (
+                    <Box sx={{padding:'0rem 8%'}}>
                     <Slider {...settings}>
                       {categories.map((val, index) => (
                         <Box
@@ -348,6 +352,7 @@ const Categories = () => {
                               justifyContent: "center",
                               alignItems: "center",
                               flexDirection: "column",
+
                               mr: 4,
                             }}
                           >
@@ -369,6 +374,7 @@ const Categories = () => {
                                 mt: 1,
                                 fontWeight: "bold",
                                 fontSize: "0.9rem",
+                                textAlign:'center'
                               }}
                             >
                               {val.name}
@@ -377,6 +383,7 @@ const Categories = () => {
                         </Box>
                       ))}
                     </Slider>
+                    </Box>
                   )}
                 </Box>
               </Box>
@@ -395,7 +402,7 @@ const Categories = () => {
             fontWeight="bold"
             sx={{ flex: 2, whiteSpace: "nowrap", fontSize: "1.3rem" }}
           >
-            Things to do in Abu Dhabi {activityLength}
+           {activityLength}  Things to do in Abu Dhabi
           </Typography>
 
           <Box

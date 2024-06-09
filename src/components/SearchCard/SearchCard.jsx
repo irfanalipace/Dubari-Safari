@@ -81,39 +81,41 @@ const SearchCard = () => {
   };
 
   const handleDelete = (id) => {
-    setLoading(true); // Start the loader
 
     if (token) {
+      setLoading(true);
       dispatch(deleteWishList(id))
-        .then(() => {
-          // After deletion, fetch the updated wishlist
-          dispatch(getWishList())
-            .then(() => {
-              setLoading(false); // Hide the loader
-              enqueueSnackbar("Activity Removed", { variant: "success" });
-            })
-            .catch((err) => {
-              console.error(err);
-              setLoading(false); // Hide the loader in case of error
-            });
+        .then((res) => {
+           dispatch(getWishList()).then((res)=>{
+            setLoading(false);
+            enqueueSnackbar("Activity Removed", { variant: "success" });
+           }).catch((err)=>{
+            setLoading(false)
+           })
+
         })
         .catch((err) => {
           console.error(err);
-          setLoading(false); // Hide the loader in case of error
+          setLoading(false);
         });
     } else {
+
       const updatedWishList = wishList.filter(item => item.activity_id === id);
-      localStorage.removeItem("wishListData", (updatedWishList));
-      console.log(updatedWishList, 'wishhhhh');
+      localStorage.removeItem("wishListData", (updatedWishList))
+      console.log(updatedWishList, 'wishhhhh')
       setWishList(updatedWishList);
-      setLoading(false); // Hide the loader
       enqueueSnackbar("Activity Removed from local wishlist", { variant: "success" });
       localStorage.setItem("wishListData", JSON.stringify(updatedWishList));
+
     }
   };
 
-
-
+  // console.log(wishList, 'wishlisttttttt');
+  useEffect(() => {
+    if (token && reduxWishList) {
+      setWishList(reduxWishList);
+    }
+  }, [reduxWishList, token]);
 
   return (
     <>

@@ -89,7 +89,7 @@ const LeftSideComponents = ({ setTotalPrice }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(true);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState({});
 
 const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
@@ -169,7 +169,10 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
   const handleDelete = (id) => {
 
-    setDeleteLoading(true);
+    setDeleteLoading(prevState => ({
+      ...prevState,
+      [id]: true // Set loading state for the item being deleted
+    }));
 
     if (token) {
       // User is logged in, call the API to delete the item
@@ -178,16 +181,25 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
           dispatch(getCart())
           .then(() => {
-            setDeleteLoading(false); // Hide the loader
+            setDeleteLoading(prevState => ({
+              ...prevState,
+              [id]: false // Set loading state for the item being deleted
+            })); // Hide the loader
             enqueueSnackbar("Activity Removed", { variant: "success" });
           })
           .catch((err) => {
             console.error(err);
-            setDeleteLoading(false); // Hide the loader in case of error
+            setDeleteLoading(prevState => ({
+              ...prevState,
+              [id]: false // Set loading state for the item being deleted
+            })); // Hide the loader in case of error
           });
         })
         .catch((err) => {
-          setDeleteLoading(false);
+          setDeleteLoading(prevState => ({
+            ...prevState,
+            [id]: false // Set loading state for the item being deleted
+          }));
           console.error(err);
           enqueueSnackbar("Failed to Remove Activity", { variant: "error" });
         });
@@ -197,7 +209,10 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
       console.log(updatedCart, 'cart ud del')
       setAllCartLocal(updatedCart);
       localStorage.setItem("addCartData", JSON.stringify(updatedCart));
-      setDeleteLoading(false);
+      setDeleteLoading(prevState => ({
+        ...prevState,
+        [id]: false // Set loading state for the item being deleted
+      }));
       enqueueSnackbar("Activity Removed", { variant: "success" });
     }
   };
@@ -464,17 +479,17 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                         }}
                       >
 <Button
-  sx={{ textTransform: "none", color: "black" }}
-  onClick={() => handleDelete(val.id)}
-  disabled={deleteLoading}
->
-  {deleteLoading ? (
-    <Loader/>
-  ) : (
-    <DeleteOutlineOutlinedIcon />
-  )}
-  Delete
-</Button>
+                            sx={{ textTransform: "none", color: "black" }}
+                            onClick={() => handleDelete(val.id)}
+                            disabled={deleteLoading[val.id]}
+                          >
+                            {deleteLoading[val.id] ? (
+                              <Loader/>
+                            ) : (
+                              <DeleteOutlineOutlinedIcon />
+                            )}
+                            Delete
+                          </Button>
 
                         {/* <Button sx={{ textTransform: "none", color: "black" }}>
                           <IoSyncOutline

@@ -8,7 +8,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import {
   CalendarMonthOutlined,
@@ -19,6 +19,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux"; // Import useSelector
 import Cookies from "js-cookie"; // Importing js-cookie
+import Loader from "../../../components/Loader/Loader";
 
 
 const RightSideComponents = ({ allCart, totalPrice }) => {
@@ -26,7 +27,17 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  console.log(allCart, "all cartttt");
+const [loading, setLoading]= useState(true)
+
+  useEffect(() => {
+if(totalPrice === null || totalPrice === 0){
+  setLoading(true)
+}else{
+  setLoading(false)
+}
+
+  }, [totalPrice]);
+
 
   const faq = [
     {
@@ -111,27 +122,33 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
             sx={{ fontSize: "20px", fontWeight: "600", marginBottom: "1rem" }}
           >
 
-            Total ({allCart.length} Activit{allCart.length !== 1 ? "ies" : ""})
+            Total ({allCart?.length} Activit{allCart?.length !== 1 ? "ies" : ""})
 
           </Typography>
           <Box>
-            <Typography
-              variant="h1"
-              sx={{
-                color: theme.palette.primary.main,
-                fontSize: "2rem",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-              }}
-            >
-              AED : {totalPrice}
-            </Typography>
-            <Typography
-              variant="h1"
-              sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
-            >
-              No Additional Fees
-            </Typography>
+          {loading ? (
+              <Loader/> // Show loader while loading
+            ) : (
+              <>
+                <Typography
+                  variant="h1"
+                  sx={{
+                    color: theme.palette.primary.main,
+                    fontSize: "2rem",
+                    fontWeight: "600",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  AED : {totalPrice}
+                </Typography>
+                <Typography
+                  variant="h1"
+                  sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
+                >
+                  No Additional Fees
+                </Typography>
+              </>
+            )}
           </Box>
         </Box>
 

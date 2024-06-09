@@ -7,6 +7,7 @@ import { addToCart } from "../../store/actions/cartActions";
 import { FiGift } from "react-icons/fi";
 import { Send_Gift } from "../../store/actions/categoriesActions";
 import Cookies from "js-cookie"; // Importing js-cookie
+import Loader from "../../components/Loader/Loader";
 
 const DetailLeft = ({ ac_data, loading }) => {
     const [date, setDate] = useState("");
@@ -18,6 +19,8 @@ const DetailLeft = ({ ac_data, loading }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
+
+    const [loadingStates, setLoadingStates] = useState({});
     console.log(ac_data, 'ac')
     useEffect(() => {
         const currentDate = new Date().toISOString().split("T")[0];
@@ -109,14 +112,26 @@ const DetailLeft = ({ ac_data, loading }) => {
 
         const token = localStorage.getItem("token");
         if (token) {
+            setLoadingStates(prevStates => ({
+                ...prevStates,
+                [packageid]: true
+            }));
 
             return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
                 .then((result) => {
-                    console.log(result);
+                    setLoadingStates(prevStates => ({
+                        ...prevStates,
+                        [packageid]: false
+                    }));
+
                     enqueueSnackbar("Added to cart successfully", { variant: "success" });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    setLoadingStates(prevStates => ({
+                        ...prevStates,
+                        [packageid]: false
+                    }));
+
                     enqueueSnackbar("Failed to add to cart", { variant: "error" });
                     throw err;
                 });
@@ -204,7 +219,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 <Divider sx={{mb:3, mt:1}}/>
                     {loading ? (
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                            <CircularProgress />
+                            <Loader />
                         </Box>
                     ) : (
                         ac_data?.packages?.map((item, index) => {
@@ -261,17 +276,22 @@ const DetailLeft = ({ ac_data, loading }) => {
     </Box>
     <Box sx={{ display: 'flex' }} gap={3}>
     <Box>
-                                        <Button
-                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
-                                            variant="contained"
-                                            sx={{
-                                                color: "white",
-                                                fontSize: "12px",
-                                                textTransform: 'none'
-                                            }}
-                                        >
-                                            Add To Cart
-                                        </Button>
+    {loadingStates[item.id] ? (
+                        <Loader/>
+                    ) : (
+                        <Button
+                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
+                            variant="contained"
+                            sx={{
+                                color: "white",
+                                fontSize: "12px",
+                                textTransform: 'none'
+                            }}
+                            disabled={loadingStates[item.id]}
+                        >
+                            Add To Cart
+                        </Button>
+                    )}
                                     </Box>
                                     <Box>
                                         <Button
