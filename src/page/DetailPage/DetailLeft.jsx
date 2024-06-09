@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme, Radio } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
@@ -205,7 +205,98 @@ const DetailLeft = ({ ac_data, loading }) => {
         };
         navigate('/view-gift', { state: dataToSend });
     };
+
+
+
+    const bookNowRef = useRef(null);
+
+    const handleBookNowClick = () => {
+      window.scrollTo({
+        top: window.innerHeight / 1.2,
+        behavior: "smooth",
+      });
+    };
     return (
+
+
+
+        <>
+   <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "end",
+                mt: 0,
+                mb: 5,
+              }}
+              gap={3}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "end",
+                  flex:1
+                }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
+                  <Typography sx={{ fontSize: "1rem" }}>From</Typography>
+                  <Typography
+                    fontWeight="bold"
+                    color={theme.palette.primary.main}
+                    textAlign={"right"}
+                    sx={{ fontSize: "1.2rem" }}
+                  >
+                    {ac_data?.packages[0].category === "private"
+                      ? `AED ${Math.round(
+                          ac_data?.packages[0].price -
+                            (ac_data?.packages[0].price * ac_data?.discount_offer) /
+                              100
+                        )}`
+                      : `AED ${Math.round(
+                          ac_data?.packages[0].adult_price -
+                            (ac_data?.packages[0].adult_price *
+                              ac_data?.discount_offer) /
+                              100
+                        )}`}
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      fontSize: "1.1rem",
+                      color: "grey",
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {ac_data.packages[0].category === "private"
+                      ? `AED ${ac_data.packages[0].price}`
+                      : `AED ${ac_data.packages[0].adult_price}`}
+                  </Typography>
+                </Box>
+                <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
+                  Price varies by vehicles, group sizes and other selections
+                </Typography>
+              </Box>
+
+              <Box sx={{ display: "flex", justifyContent: "right", flex:1 }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "white",
+                    fontSize: "0.9rem",
+                    textTransform: "none",
+                    borderRadius: "30px",
+                    padding: "0.4rem 2rem",
+                  }}
+                  onClick={handleBookNowClick}
+                  ref={bookNowRef}
+                >
+                  Select Options
+                </Button>
+              </Box>
+            </Box>
+
+
         <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
 
@@ -235,6 +326,9 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 total = total_amount;
                             }
                             const quantity = adult + child + infant;
+
+
+
                             return (
                                 <Box
     key={index}
@@ -266,6 +360,9 @@ const DetailLeft = ({ ac_data, loading }) => {
             </Typography>
             <Typography sx={{ fontSize: "14px", color: "#777" }}>
                 {item.category}
+            </Typography>
+            <Typography sx={{ fontSize: "14px", color: "#777" }}>
+                {item.highlight}
             </Typography>
         </Box>
         <Box>
@@ -628,6 +725,8 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box>
             </Box>
         </Box >
+        </>
+
     );
 };
 

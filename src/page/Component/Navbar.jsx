@@ -128,7 +128,7 @@ const Navbar = () => {
   };
 
   const handleSignup = () => {
-    navigate("/signup");
+    navigate("/login");
   };
 
   const handleDrawerClose = () => {
@@ -197,12 +197,41 @@ const Navbar = () => {
 
   if (location.pathname !== "/") {
   }
+
+
+
+  const placeholderLines = ["Desert Safari", "Quad Bikes", "City Tours"];
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [placeholderText, setPlaceholderText] = useState('');
+  const [typingSpeed, setTypingSpeed] = useState(50); // Adjust typing speed here
+  const [delayBetweenLines, setDelayBetweenLines] = useState(1000); // Adjust delay between lines here
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (placeholderText.length === placeholderLines[currentLineIndex].length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setPlaceholderText("");
+          setCurrentLineIndex((currentLineIndex + 1) % placeholderLines.length);
+        }, delayBetweenLines);
+      } else {
+        const nextCharacter = placeholderLines[currentLineIndex][placeholderText.length];
+        setPlaceholderText(prevText => prevText + nextCharacter);
+      }
+    }, typingSpeed);
+    return () => clearInterval(interval);
+  }, [placeholderText, currentLineIndex, placeholderLines, typingSpeed, delayBetweenLines]);
+
+
+
+
+
   return (
     <>
       <Box
         sx={{
           backgroundColor: "white",
-          padding: "0.8rem 5%",
+          padding: "0rem 5%",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -357,8 +386,11 @@ const Navbar = () => {
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
+
+
               <TextField
-                placeholder="Search for Experience"
+                // placeholder="Search for Experience"
+                placeholder={placeholderText}
                 size="small"
                 variant="outlined"
                 value={searchKeyword}
@@ -612,7 +644,7 @@ const Navbar = () => {
                     textTransform: "none",
                   }}
                 >
-                  Sign-Up
+                  Login
                 </Button>
               )}
             </Box>

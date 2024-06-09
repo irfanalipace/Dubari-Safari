@@ -7,15 +7,12 @@ import ReCaptcha from '../../components/Recaptcha/ReCaptcha';
 import Cookies from 'js-cookie';
 
 const GiftDetail = ({ ac_data }) => {
-  console.log(ac_data, 'hi');
-
-
-
 
   const [selectedValue, setSelectedValue] = useState('');
   const [discountPrice, setDiscountPrice] = useState('');
   const [recipientEmail, setRecipientEmail] = useState('');
   const [description, setDescription] = useState('');
+  const [readMore, setReadMore] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -57,7 +54,7 @@ const GiftDetail = ({ ac_data }) => {
   };
 
   const base = 'https://dubaisafari.saeedantechpvt.com/';
-
+  const descriptionPreview = ac_data?.description?.split(' ').slice(0, 30).join(' ');
   return (
     <Box>
       <Box sx={{
@@ -148,7 +145,7 @@ const GiftDetail = ({ ac_data }) => {
               <Typography sx={{ fontSize: { xs: '18px', md: '20px' }, fontWeight: 700 }}>
                 {ac_data?.name}
               </Typography>
-              <Typography
+              {/* <Typography
                 sx={{
                   fontSize: { xs: '14px', md: '16px' },
                   fontWeight: 500,
@@ -157,7 +154,28 @@ const GiftDetail = ({ ac_data }) => {
                 }}
               >
                 {ac_data?.description}
-              </Typography>
+              </Typography> */}
+
+              <Typography
+      sx={{
+        fontSize: { xs: '14px', md: '16px' },
+        fontWeight: 500,
+        color: '#A9A9A9',
+        wordBreak: 'break-all',
+
+      }}
+    >
+      {readMore ? ac_data?.description : `${descriptionPreview}...`}
+      {ac_data?.description.length > descriptionPreview.length && (
+        <Typography
+          onClick={() => setReadMore(!readMore)}
+          sx={{ cursor: 'pointer', textTransform: 'none', padding: 0, minWidth: 'fit-content' }}
+        >
+          {readMore ? ' Read Less' : ' Read More'}
+        </Typography>
+      )}
+    </Typography>
+
             </Box>
           </Box>
 

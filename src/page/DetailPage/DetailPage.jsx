@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Page from "../../components/page";
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   AccordionSummary,
 } from "@mui/material";
 
-import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import { CiStopwatch } from "react-icons/ci";
 import {
   FaMobileScreen,
@@ -40,15 +40,12 @@ const DetailPage = () => {
   const [value, setValue] = useState(5);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
+    window.scrollTo(0, 0);
+  }, []);
 
   const styleType = {
     color: theme.palette.primary.main,
   };
-
-
 
   useEffect(() => {
     (() => {
@@ -57,7 +54,6 @@ const DetailPage = () => {
           // console.log(result, 'hhhh')
           setData(result.data.payload);
           setLoading(false);
-
         })
         .catch((err) => {
           console.log(err);
@@ -90,25 +86,28 @@ const DetailPage = () => {
 
   const renderIconsFromFeatures = () => {
     const iconsToShow = [];
-    data1?.features?.forEach(feature => {
-      const matchedItems = infoItems.filter(item => item.text === feature);
-      matchedItems.forEach(matchedItem => {
+    data1?.features?.forEach((feature) => {
+      const matchedItems = infoItems.filter((item) => item.text === feature);
+      matchedItems.forEach((matchedItem) => {
         iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
       });
     });
     if (data1.duration) {
-      iconsToShow.push({ icon: <FaClockRotateLeft style={styleType} />, text: `Duration : ${data1.duration}` });
+      iconsToShow.push({
+        icon: <FaClockRotateLeft style={styleType} />,
+        text: `Duration : ${data1.duration}`,
+      });
     }
 
     if (data1.cancellation_duration) {
-      iconsToShow.push({ icon: <FaClockRotateLeft style={styleType} />, text: `Free Cancellation ${data1.cancellation_duration} Hours Prior` });
+      iconsToShow.push({
+        icon: <FaClockRotateLeft style={styleType} />,
+        text: `Free Cancellation ${data1.cancellation_duration} Hours Prior`,
+      });
     }
 
     return iconsToShow;
   };
-
-
-
 
   // const renderIconsFromFeatures = () => {
   //   const iconsToShow = [];
@@ -118,7 +117,6 @@ const DetailPage = () => {
   //       iconsToShow.push({ icon: matchedItem.icon, text: matchedItem.text });
   //     });
   //   });
-
 
   //   const operatingHoursItem = infoItems.find(item => item.text === "Operating Hours");
   //   const freeCancellationItem = infoItems.find(item => item.text === "Free Cancellation 12 Hours Prior");
@@ -144,7 +142,6 @@ const DetailPage = () => {
   //   });
   //   return iconsToShow;
   // };
-
 
   const data = [
     {
@@ -204,7 +201,7 @@ const DetailPage = () => {
     fontSize: "16px",
   };
 
-  console.log(data1, 'single ac data')
+  console.log(data1, "single ac data");
   const [highlightedId, setHighlightedId] = useState(null);
 
   useEffect(() => {
@@ -251,76 +248,93 @@ const DetailPage = () => {
 
   return (
     <Page title="Detail Page">
-
-      {
-        loading ? (
-
-          <>
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-              <Loader />
-            </Box>
-          </>
-
-        ) : (
-          <>
-            <DetailSlider data1={data1} />
-            <Box sx={{ padding: "30px" }}>
-              <Grid container spacing={6}>
-                <Grid item lg={8.5} sm={12} xs={12} md={6}>
+      {loading ? (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "50vh",
+            }}
+          >
+            <Loader />
+          </Box>
+        </>
+      ) : (
+        <>
+          <DetailSlider data1={data1} />
+          <Box sx={{ padding: "30px" }}>
+            <Grid container spacing={6}>
+              <Grid item lg={8} sm={12} xs={12} md={6}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "start",
+                    justifyContent: "center",
+                    gap: "20px",
+                  }}
+                >
                   <Box
                     sx={{
                       display: "flex",
                       flexDirection: "column",
-                      alignItems: "start",
-                      justifyContent: "center",
-                      gap: "20px",
+                      alignItems: "center",
+                      gap: "10px",
+                      textAlign: "center",
                     }}
                   >
-                  <Box
-    sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "10px",
-        textAlign: "center",
-    }}
->
-    <Typography sx={{ fontSize: { xs: "20px", md: "25px" }, fontWeight: 700 }}>
-        {data1.name}
-    </Typography>
-    <Box
-        sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
-        }}
-    >
-        <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-                setValue(newValue);
-            }}
-        />
-        <Typography sx={{ fontSize: { xs: "14px", md: "16px" } }}>94 Reviews </Typography>
-    </Box>
-</Box>
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "20px", md: "25px" },
+                        fontWeight: 700,
+
+                      }}
+                    >
+                      {data1.name}
+                    </Typography>
 
 
                     <Box
                       sx={{
-                        width: "95%",
-                        marginTop: "20px",
-                        position: "sticky",
-                        top: 0,
-                        backgroundColor: "white",
-                        zIndex: 999,
-                        padding: "20px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "10px",
                       }}
                     >
-                      <Box sx={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-                        {/* <a href="#overview">
+                      <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                      />
+                      <Typography sx={{ fontSize: { xs: "14px", md: "16px" } }}>
+                        94 Reviews{" "}
+                      </Typography>
+                    </Box>
+                  </Box>
+
+
+
+
+                  <Box
+                    sx={{
+                      width: "95%",
+                      marginTop: "20px",
+                      position: "sticky",
+                      top: 0,
+                      backgroundColor: "white",
+                      zIndex: 999,
+                      padding: "20px",
+                    }}
+                  >
+                    <Box
+                      sx={{ display: "flex", gap: "20px", flexWrap: "wrap" }}
+                    >
+                      {/* <a href="#overview">
                     <Button
                       sx={{
                         ...btnStyle,
@@ -330,55 +344,59 @@ const DetailPage = () => {
                       Overview
                     </Button>
                   </a> */}
-                        <a href="#description">
-                          <Button
-                            sx={{
-                              ...btnStyle,
-                              color: isHighlighted("description") ? "red" : "#0D0D0D",
-                            }}
-                          >
-                            Description
-                          </Button>
-                        </a>
-                        <a href="#itinerary">
-                          <Button
-                            sx={{
-                              ...btnStyle,
-                              color: isHighlighted("itinerary") ? "red" : "#0D0D0D",
-                            }}
-                          >
-                            Itinerary
-                          </Button>
-                        </a>
-                        <a href="#whats-included">
-                          <Button
-                            sx={{
-                              ...btnStyle,
-                              color: isHighlighted("whats-included")
-                                ? "red"
-                                : "#0D0D0D",
-                            }}
-                          >
-                            What’s Included
-                          </Button>
-                        </a>
-                        <a href="#trip-instructions">
-                          <Button
-                            sx={{
-                              ...btnStyle,
-                              color: isHighlighted("trip-instructions")
-                                ? "red"
-                                : "#0D0D0D",
-                            }}
-                          >
-                            Trip Instructions
-                          </Button>
-                        </a>
-                      </Box>
+                      <a href="#description">
+                        <Button
+                          sx={{
+                            ...btnStyle,
+                            color: isHighlighted("description")
+                              ? "red"
+                              : "#0D0D0D",
+                          }}
+                        >
+                          Description
+                        </Button>
+                      </a>
+                      <a href="#itinerary">
+                        <Button
+                          sx={{
+                            ...btnStyle,
+                            color: isHighlighted("itinerary")
+                              ? "red"
+                              : "#0D0D0D",
+                          }}
+                        >
+                          Itinerary
+                        </Button>
+                      </a>
+                      <a href="#whats-included">
+                        <Button
+                          sx={{
+                            ...btnStyle,
+                            color: isHighlighted("whats-included")
+                              ? "red"
+                              : "#0D0D0D",
+                          }}
+                        >
+                          What’s Included
+                        </Button>
+                      </a>
+                      <a href="#trip-instructions">
+                        <Button
+                          sx={{
+                            ...btnStyle,
+                            color: isHighlighted("trip-instructions")
+                              ? "red"
+                              : "#0D0D0D",
+                          }}
+                        >
+                          Trip Instructions
+                        </Button>
+                      </a>
                     </Box>
+                  </Box>
 
-                    <div id="overview" style={colStyle}>
-                      {/* <Typography
+                  <div id="overview" style={colStyle}>
+                    {/* <Typography
                   sx={{
                     fontSize: "30px",
                     fontWeight: 600,
@@ -387,171 +405,190 @@ const DetailPage = () => {
                 >
                   Overview
                 </Typography> */}
+                    <Divider sx={{ width: "100%" }} />
+                    <Box
+                      sx={{
+                        width: "100%",
+                        marginTop: "20px",
+                        display: "flex",
+                        gap: "40px",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {renderIconsFromFeatures().map((item, index) => (
+                        <Box
+                          key={index}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                          }}
+                        >
+                          {item.icon}
+                          <Typography>{item.text}</Typography>
+                        </Box>
+                      ))}
+                    </Box>
+                  </div>
+
+                  {data1?.description && (
+                    <div id="description" style={colStyle}>
+                      <Typography
+                        sx={{
+                          fontSize: "30px",
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        Description
+                      </Typography>
+                      <Divider sx={{ width: "100%" }} />
+                      <Typography
+                        sx={{
+                          fontSize: "1rem",
+                          color: theme.palette.primary.textPrimary,
+                          wordBreak: "break-word",
+                          overflowWrap: "break-word",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 3,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          maxHeight: "4.5rem",
+                          lineHeight: "1.5rem",
+                        }}
+                      >
+                        {data1.description}
+                      </Typography>
+                    </div>
+                  )}
+
+                  {data1?.itinerary && (
+                    <div id="itinerary" style={colStyle}>
+                      <Typography
+                        sx={{
+                          fontSize: "30px",
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        Highlights
+                      </Typography>
                       <Divider sx={{ width: "100%" }} />
                       <Box
                         sx={{
-                          width: "100%",
-                          marginTop: "20px",
-                          display: "flex",
-                          gap: "40px",
-                          alignItems: "center",
-                          flexWrap: "wrap",
+                          paddingLeft: "30px",
+                          color: "black",
+                          fontSize: "16px",
+                        }}
+                        dangerouslySetInnerHTML={{ __html: data1.itinerary }}
+                      />
+                    </div>
+                  )}
+
+                  {data1?.whats_included && (
+                    <div id="whats-included" style={colStyle}>
+                      <Typography
+                        sx={{
+                          fontSize: "30px",
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
                         }}
                       >
+                        Itinerary
+                      </Typography>
+                      <Divider sx={{ width: "100%" }} />
+                      <Box
+                        sx={{
+                          paddingLeft: "30px",
+                          color: "black",
+                          fontSize: "16px",
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: data1.whats_included,
+                        }}
+                      />
+                    </div>
+                  )}
 
-                        {renderIconsFromFeatures().map((item, index) => (
-                          <Box key={index} sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                            {item.icon}
-                            <Typography>{item.text}</Typography>
-                          </Box>
-                        ))}
-
-
-
+                  {data1?.instructions && data1.instructions.length > 0 && (
+                    <div id="trip-instructions" style={colStyle}>
+                      <Typography
+                        sx={{
+                          fontSize: "30px",
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        Trip Instructions / Essentials
+                      </Typography>
+                      <Divider sx={{ width: "100%" }} />
+                      <Box
+                        sx={{ backgroundColor: "white", borderRadius: "20px" }}
+                      >
+                        {data1?.instructions &&
+                        data1.instructions.length > 0 ? (
+                          data1.instructions.map((qa, index) => (
+                            <Accordion
+                              key={index}
+                              expanded={openAccordion === `panel${index}`}
+                              onChange={handleAccordionChange(`panel${index}`)}
+                              sx={{
+                                backgroundColor: "#ffaf95",
+                                color: "black",
+                              }}
+                            >
+                              <AccordionSummary
+                                expandIcon={
+                                  <ExpandMoreIcon style={{ color: "black" }} />
+                                }
+                                IconButtonProps={{ edge: "start" }}
+                              >
+                                <Typography sx={{ textAlign: "start" }}>
+                                  {qa.instruction_title}
+                                </Typography>
+                              </AccordionSummary>
+                              <AccordionDetails>
+                                <Typography variant="body1">
+                                  {qa.instruction_description}
+                                </Typography>
+                              </AccordionDetails>
+                            </Accordion>
+                          ))
+                        ) : (
+                          <Typography
+                            sx={{
+                              color: "black",
+                              textAlign: "center",
+                              padding: 2,
+                            }}
+                          >
+                            No instructions found
+                          </Typography>
+                        )}
                       </Box>
                     </div>
-
-                    {data1?.description && (
-                      <div id="description" style={colStyle}>
-                        <Typography
-                          sx={{
-                            fontSize: "30px",
-                            fontWeight: 600,
-                            color: theme.palette.primary.main,
-                          }}
-                        >
-                          Description
-                        </Typography>
-                        <Divider sx={{ width: "100%" }} />
-                        <Typography sx={{   
-                          fontSize: "1rem",
-                      color: theme.palette.primary.textPrimary,
-                      wordBreak: "break-word",
-                      overflowWrap: "break-word",
-                      display: "-webkit-box",
-                      WebkitBoxOrient: "vertical",
-                      WebkitLineClamp: 3,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      maxHeight: "4.5rem",
-                      lineHeight: "1.5rem",}}>{data1.description}</Typography>
-                      </div>
-                    )}
-
-                    {data1?.itinerary && (
-                      <div id="itinerary" style={colStyle}>
-                        <Typography
-                          sx={{
-                            fontSize: "30px",
-                            fontWeight: 600,
-                            color: theme.palette.primary.main,
-                          }}
-                        >
-                          Highlights
-                        </Typography>
-                        <Divider sx={{ width: "100%" }} />
-                        <Box
-                          sx={{
-                            paddingLeft: "30px",
-                            color: "black",
-                            fontSize: "16px",
-                          }}
-                          dangerouslySetInnerHTML={{ __html: data1.itinerary }}
-                        />
-
-                      </div>
-                    )}
-
-                    {data1?.whats_included && (
-                      <div id="whats-included" style={colStyle}>
-                        <Typography
-                          sx={{
-                            fontSize: "30px",
-                            fontWeight: 600,
-                            color: theme.palette.primary.main,
-                          }}
-                        >
-                          Itinerary
-                        </Typography>
-                        <Divider sx={{ width: "100%" }} />
-                        <Box
-                          sx={{
-                            paddingLeft: "30px",
-                            color: "black",
-                            fontSize: "16px",
-                          }}
-
-                          dangerouslySetInnerHTML={{
-                            __html: data1.whats_included
-                          }}
-                        />
-                      </div>
-                    )}
-
-
-                    {data1?.instructions && data1.instructions.length > 0 && (
-                      <div id="trip-instructions" style={colStyle}>
-                        <Typography
-                          sx={{
-                            fontSize: "30px",
-                            fontWeight: 600,
-                            color: theme.palette.primary.main,
-                          }}
-                        >
-                          Trip Instructions / Essentials
-                        </Typography>
-                        <Divider sx={{ width: "100%" }} />
-                        <Box sx={{ backgroundColor: "white", borderRadius: "20px" }}>
-                          {data1?.instructions && data1.instructions.length > 0 ? (
-                            data1.instructions.map((qa, index) => (
-                              <Accordion
-                                key={index}
-                                expanded={openAccordion === `panel${index}`}
-                                onChange={handleAccordionChange(`panel${index}`)}
-                                sx={{ backgroundColor: '#ffaf95', color: 'black' }}
-                              >
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon style={{ color: 'black' }} />}
-                                  IconButtonProps={{ edge: 'start' }}
-                                >
-                                  <Typography sx={{ textAlign: "start" }}>
-                                    {qa.instruction_title}
-                                  </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                  <Typography variant="body1">{qa.instruction_description}</Typography>
-                                </AccordionDetails>
-                              </Accordion>
-                            ))
-                          ) : (
-                            <Typography sx={{ color: "black", textAlign: "center", padding: 2 }}>
-                              No instructions found
-                            </Typography>
-                          )}
-                        </Box>
-
-                      </div>
-                    )}
-                  </Box>
-                </Grid>
-                <Grid
-                  item
-                  lg={3.5}
-                  sm={12}
-                  xs={12}
-                  md={6}
-                  sx={{ position: "sticky", top: 0 }}
-                >
-                  <DetailLeft ac_data={data1} loading={loading} />
-                </Grid>
+                  )}
+                </Box>
               </Grid>
-              <ReiewsDetail data={data1} />
-            </Box>
+              <Grid
+                item
+                lg={4}
+                sm={12}
+                xs={12}
+                md={6}
+                sx={{ position: "sticky", top: 0 }}
+              >
+                <DetailLeft ac_data={data1} loading={loading} />
+              </Grid>
+            </Grid>
+            <ReiewsDetail data={data1} />
+          </Box>
 
-            <RelatedData ac_data={data1} />
-          </>
-        )
-      }
+          <RelatedData ac_data={data1} />
+        </>
+      )}
     </Page>
   );
 };

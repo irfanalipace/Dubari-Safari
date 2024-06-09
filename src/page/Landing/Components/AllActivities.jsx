@@ -17,7 +17,7 @@ const AllActivities = () => {
     { name: 'Adventure', image: '/activity3.svg' },
     { name: 'Attractions & Experiences', image: '/activity4.svg' },
     { name: 'Cruising & Yachting', image: '/activity5.svg' },
-    { name: 'Transportation', image: '/activity6.svg' },
+    { name: 'Offers', image: '/activity6.svg' },
   ];
 
   useEffect(() => {

@@ -39,7 +39,8 @@ const Tab2Card = (props) => {
                 onClick={() => navigate(`/details/${val.id}`)}
                 sx={{
 
-height:'22rem',
+minHeight:'22rem',
+     maxHeight:'25rem',
                   // width: 320,
                   backgroundColor: "white",
                   borderRadius: "12px",
@@ -47,7 +48,7 @@ height:'22rem',
                   overflow: "hidden",
                   padding: "5px",
                   textAlign: "start",
-                
+
                 }}
               >
                 <Box sx={{ position: "relative" }}>

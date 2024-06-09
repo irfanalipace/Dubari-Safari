@@ -56,7 +56,11 @@ const ReviewsDetail = ({ data }) => {
                   width: '100%',
                 }}
               >
-                <Typography sx={{ fontSize: { xs: '18px', md: '22px' } }}>{star} stars</Typography>
+                {/* <Typography sx={{ fontSize: { xs: '18px', md: '22px' } }}>{star} stars</Typography> */}
+                <Typography sx={{ fontSize: { xs: '18px', md: '22px' } }}>
+    {star === 5 ? 'Excellent' : star === 4 ? 'Very Good' : star === 3 ? 'Average' : star === 2 ? 'Poor' : 'Terrible'}
+    &nbsp;{star} stars
+  </Typography>
                 <Rating name={`rating-${star}`} value={star} readOnly />
                 <Typography sx={{ fontSize: { xs: '18px', md: '22px' }, marginLeft: { xs: 0, sm: '10px' } }}>
                   {count}
