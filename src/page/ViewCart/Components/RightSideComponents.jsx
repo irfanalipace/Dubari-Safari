@@ -135,9 +135,11 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           </Box>
         </Box>
 
-        <Divider />
 
-        <Box sx={{ marginTop: "1rem" }}>
+    {!isAuthenticated && (
+      <Box sx={{ marginTop: "1rem" }}>
+      <Divider />
+
           <Button
             variant="contained"
             sx={{ width: "100%", textTransform: "none" }}
@@ -154,48 +156,6 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           >
             Explore more activities
           </Button>
-          {/*
-          {!isAuthenticated && (
-          <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
-              <Typography>
-                <Link
-                  to="/signup"
-                  style={{
-                    color: theme.palette.primary.main,
-                    textDecoration: "none",
-                  }}
-                >
-                  Create an account
-                </Link>
-                <span> or </span>
-                <Link
-                  to="/login"
-                  style={{
-                    color: theme.palette.primary.main,
-                    textDecoration: "none",
-                  }}
-                >
-                  Login
-                </Link>
-                for faster checkout
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "end",
-                  justifyContent: "center",
-                }}
-              >
-                <DoneIcon sx={{ color: "green" }} />
-                <Typography
-                  sx={{ color: "green", fontWeight: "600", marginTop: "1rem" }}
-                >
-                  Best Price Guarantee
-                </Typography>
-              </Box>
-            </Box>
-          )} */}
-
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
             <Typography>
               <Link
@@ -235,6 +195,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
             </Box>
           </Box>
         </Box>
+    )}
       </Box>
 
       <Box sx={{ mt: 3 }}>

@@ -15,12 +15,18 @@ import { useEffect } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Loader from "../Loader/Loader";
 
 const PkgCard = ({ data, categories, ind }) => {
   const base = 'https://dubaisafari.saeedantechpvt.com/';
   const navigate = useNavigate();
   const [value, setValue] = React.useState(5);
-const theme = useTheme()
+  const theme = useTheme();
+  const [loading, setLoading] = React.useState(false);
+  const [wishList, setWishList] = React.useState([]);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
   const descriptionStyle = {
     display: '-webkit-box',
     overflow: 'hidden',
@@ -52,65 +58,52 @@ const theme = useTheme()
     navigate(`/details/${data.id}`);
   };
 
+  const handleFavoriteClick = (activityId, activityData) => {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      dispatch(addToWishList(activityId))
+        .then(() => {
+          dispatch(getWishList())
+            .then((result) => {
+              setWishList(result.data.payload);
+              setLoading(false);
+            })
+            .catch((err) => {
+              console.log(err, "Error fetching wishlist");
+              setLoading(false);
+            });
+          enqueueSnackbar("Added to Wishlist", { variant: "success" });
+        })
+        .catch((err) => {
+          console.log(err, "Error");
+          setLoading(false);
+        });
+    } else {
+      const existingWishListData = localStorage.getItem("wishListData");
+      let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
+      wishListArray.push(activityData);
+      localStorage.setItem("wishListData", JSON.stringify(wishListArray));
+      enqueueSnackbar("Added to Wishlist", { variant: "info" });
+      setLoading(false);
+    }
+  };
 
 
-
-
-
-
-
-  // ------------------------wishlist button add -----------
-const [wishList, setWishList]= React.useState([])
-const dispatch = useDispatch()
-
-const {enqueueSnackbar} = useSnackbar()
-
-const handleFavoriteClick = (activityId, activityData) => {
-  const token = localStorage.getItem("token");
-  console.log(activityData, 'activity data');
-
-  if (token) {
-
-    dispatch(addToWishList(activityId))
-
-    .then((result) => {
-        enqueueSnackbar("Added to Wishlist", { variant: "success" });
+  useEffect(() => {
+    dispatch(getWishList())
+      .then((result) => {
+        setWishList(result.data.payload);
       })
       .catch((err) => {
-        console.log(err, "Error");
+        console.log(err, "Error fetching wishlist");
       });
-  } else {
+  }, [dispatch]);
 
-    const existingWishListData = localStorage.getItem("wishListData");
-
-    let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
-
-
-    wishListArray.push(activityData);
-
-
-    localStorage.setItem("wishListData", JSON.stringify(wishListArray));
-
-    enqueueSnackbar("Added to Wishlist", { variant: "info" });
-  }
-};
-
-
-useEffect(() => {
-  dispatch(getWishList())
-    .then((result) => {
-      setWishList(result.data.payload);
-    })
-    .catch((err) => {
-      console.log(err, "Error fetching wishlist");
-    });
-}, [dispatch]);
-
-const isActivityInWishlist = (activityId) => {
-  return wishList.some((item) => item.activity_id === activityId);
-};
-
-
+  const isActivityInWishlist = (activityId) => {
+    return wishList.some((item) => item.activity_id === activityId);
+  };
   return (
     <Card sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
             onClick={handleBookNowClick}
@@ -118,23 +111,20 @@ const isActivityInWishlist = (activityId) => {
     >
 
 
-                    <div style={{ position: "relative" }}>
-
-                    <div onClick={(e) => e.stopPropagation()}
-                    style={{position: "absolute", top: 0, right: 0}}
-
-                    >
-                      <IconButton onClick={() => handleFavoriteClick(data.id, data)}>
-                        {isActivityInWishlist(data.id) ? (
-                          <FavoriteIcon
-                            sx={{ fontSize: "35px", color: "red" }}
-                          />
-                        ) : (
-                          <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
-                        )}
-                      </IconButton>
-                    </div>
-
+<div style={{ position: "relative" }}>
+        <div onClick={(e) => e.stopPropagation()}
+          style={{ position: "absolute", top: 0, right: 0 }}
+        >
+          <IconButton onClick={() => handleFavoriteClick(data.id, data)}>
+            {loading ? (
+              <Loader />
+            ) : isActivityInWishlist(data.id) ? (
+              <FavoriteIcon sx={{ fontSize: "35px", color: "red" }} />
+            ) : (
+              <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
+            )}
+          </IconButton>
+        </div>
 
   {/* <FavoriteBorderIcon sx={{ fontSize: "35px", position: "absolute", top: 0, right: 0 }} /> */}
 

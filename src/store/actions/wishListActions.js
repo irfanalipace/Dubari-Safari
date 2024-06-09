@@ -47,6 +47,7 @@ export const deleteWishList = (activityId) => async (dispatch) => {
     dispatch({ type: 'DELETE_WISHLIST_REQUEST' });
     const res = await api.delete(`user/wishlist/${activityId}`);
     dispatch({ type: 'DELETE_WISHLIST_SUCCESS', payload: { deletedItemId: activityId } });
+    
     return res;
   } catch (err) {
     dispatch({ type: 'DELETE_WISHLIST_FAILURE', payload: err.message });
