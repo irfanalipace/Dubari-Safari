@@ -30,10 +30,12 @@ const Header = () => {
             <Typography sx={{ fontSize: isSmall ? '25px' : '48px', fontWeight: 700, fontFamily: 'GT Eesti Display Trial, sans-serif',
 
              }}>
-                UFC Flight Night In Abu Dubai 
+                Do More with bookdubaisafari.com
             </Typography>
             <Typography sx={{ fontSize: '17px', width: isSmall ? '100%' : '60%', fontFamily: 'GT Eesti Display Trial, sans-serif' }}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui eum non amet similique cumque obcaecati earum odit vero adipisci, fuga maxime sint deserunt saepe assumenda fugiat veniam harum, distinctio voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas hic corrupti qui
+            Choose from our curated selection of activities, including desert tours, adventures, city tours, yacht
+cruises, and water adventures. Immerse yourself in the best experiences, tailored for both tourists and
+residents
             </Typography>
             <Box>
                 <Button onClick={handleLearn} variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '15px 30px', textTransform: 'none', fontSize: '16px', fontWeight: 700 }}>Learn More</Button>
