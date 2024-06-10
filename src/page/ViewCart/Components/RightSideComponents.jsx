@@ -27,14 +27,14 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-const [loading, setLoading]= useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-if(totalPrice === null || totalPrice === 0){
-  setLoading(true)
-}else{
-  setLoading(false)
-}
+    if (totalPrice === null || totalPrice === 0) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
 
   }, [totalPrice]);
 
@@ -120,8 +120,8 @@ if(totalPrice === null || totalPrice === 0){
 
           </Typography>
           <Box>
-          {loading ? (
-              <Loader/> // Show loader while loading
+            {loading ? (
+              <Loader /> // Show loader while loading
             ) : (
               <>
                 <Typography
@@ -147,9 +147,9 @@ if(totalPrice === null || totalPrice === 0){
         </Box>
 
 
-    {!isAuthenticated && (
-      <Box sx={{ marginTop: "1rem" }}>
-      <Divider />
+
+        <Box sx={{ marginTop: "1rem" }}>
+          <Divider />
 
           <Button
             variant="contained"
@@ -168,28 +168,30 @@ if(totalPrice === null || totalPrice === 0){
             Explore more activities
           </Button>
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
-            <Typography>
-              <Link
-                to="/signup"
-                style={{
-                  color: theme.palette.primary.main,
-                  textDecoration: "none",
-                }}
-              >
-                Create an account
-              </Link>
-              <span> or </span>
-              <Link
-                to="/login"
-                style={{
-                  color: theme.palette.primary.main,
-                  textDecoration: "none",
-                }}
-              >
-                Login
-              </Link>
-              for faster checkout
-            </Typography>
+            {!isAuthenticated && (
+              <Typography>
+                <Link
+                  to="/signup"
+                  style={{
+                    color: theme.palette.primary.main,
+                    textDecoration: "none",
+                  }}
+                >
+                  Create an account
+                </Link>
+                <span> or </span>
+                <Link
+                  to="/login"
+                  style={{
+                    color: theme.palette.primary.main,
+                    textDecoration: "none",
+                  }}
+                >
+                  Login
+                </Link>
+                for faster checkout
+              </Typography>
+            )}
             <Box
               sx={{
                 display: "flex",
@@ -206,7 +208,7 @@ if(totalPrice === null || totalPrice === 0){
             </Box>
           </Box>
         </Box>
-    )}
+
       </Box>
 
       <Box sx={{ mt: 3 }}>

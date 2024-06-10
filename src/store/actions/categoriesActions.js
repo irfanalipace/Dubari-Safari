@@ -74,7 +74,7 @@ export const Send_Gift = (body) => async (dispatch) => {
 };
 
 
-export const Booking = (body, token) => async (dispatch) => {
+export const Booking = (body, token, package_details) => async (dispatch) => {
   // console.log(token, 'zzzzzzzz')
   try {
     const { first_name, last_name, email, activity_name, title, nationality, phone, date, adult, child, infant, total_amount, pickup_location, note, status, package_id } = body;
