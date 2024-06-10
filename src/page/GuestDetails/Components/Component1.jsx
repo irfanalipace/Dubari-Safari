@@ -10,18 +10,20 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'js-cookie';
 import { Booking } from '../../../store/actions/categoriesActions';
 import PriceCard from "../../Component/PriceCard";
 
-const Component1 = ({ data, onNext, data1, activeStep }) => {
+const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
   const theme = useTheme();
   const [payNow, setPayNow] = useState(false);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
+  const { state } = useLocation()
+
   const [formValues, setFormValues] = useState({
     title: "Mr",
     first_name: "",
@@ -57,26 +59,53 @@ const Component1 = ({ data, onNext, data1, activeStep }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [dete, setDete] = useState(null)
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    const data = Cookies.get('bookingDetails');
+    if (data) {
+      setDete(JSON.parse(data));
+    }
+  }, []);
+  console.log(dete, 'dere')
   const handleProceedToPayment = () => {
-    const bookingDetails = {
-      ...formValues,
-      activity_name: "Snorkeling",
-      date: data?.date,
-      adult: data?.adult,
-      child: data?.child,
-      infant: data?.infant,
-      total_amount: data?.total_amount,
-      status: "pending",
-      payment: 'fail',
-      package_id: data?.id,
-    };
+    let bookingDetails;
+    if (state === '/cart') {
+      const { date, adult, child, infant, total_amount, id } = cartData;
+      bookingDetails = {
+        ...formValues,
+        activity_name: "Snorkeling",
+        date: dete?.date,
+        adult: dete?.adult,
+        child: dete?.child,
+        infant: dete?.infant,
+        total_amount: dete?.total_amount,
+        status: "pending",
+        payment: 'fail',
+        package_id: '1',
+      };
+    } else {
+      bookingDetails = {
+        ...formValues,
+        activity_name: "Snorkeling",
+        date: data?.date,
+        adult: data?.adult,
+        child: data?.child,
+        infant: data?.infant,
+        total_amount: data?.total_amount,
+        status: "pending",
+        payment: 'fail',
+        package_id: data?.id,
+      };
+    }
 
     // Store booking details in cookies
     Cookies.set('bookingDetails', JSON.stringify(bookingDetails));
 
     onNext();
   };
+
+
 
 
   const textFieldStyle = {
@@ -303,7 +332,7 @@ const Component1 = ({ data, onNext, data1, activeStep }) => {
           </Box>
         </Grid>
         <Grid item lg={4}>
-          <PriceCard data1={data1} activeStep={activeStep} />
+          <PriceCard data1={data1} activeStep={activeStep} cartData={cartData} />
         </Grid>
       </Grid>
 

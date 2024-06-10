@@ -106,12 +106,12 @@ const PkgCard = ({ data, categories, ind }) => {
   };
   return (
     <Card sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
-            onClick={handleBookNowClick}
+      onClick={handleBookNowClick}
 
     >
 
 
-<div style={{ position: "relative" }}>
+      <div style={{ position: "relative" }}>
         <div onClick={(e) => e.stopPropagation()}
           style={{ position: "absolute", top: 0, right: 0 }}
         >
@@ -126,15 +126,15 @@ const PkgCard = ({ data, categories, ind }) => {
           </IconButton>
         </div>
 
-  {/* <FavoriteBorderIcon sx={{ fontSize: "35px", position: "absolute", top: 0, right: 0 }} /> */}
+        {/* <FavoriteBorderIcon sx={{ fontSize: "35px", position: "absolute", top: 0, right: 0 }} /> */}
 
 
-  <CardMedia
-    sx={{ height: 240, borderRadius: "8px" }}
-    image={`${base}${data?.image_url}`}
-    title="green iguana"
-  />
-</div>
+        <CardMedia
+          sx={{ height: 240, borderRadius: "8px" }}
+          image={`${base}${data?.image_url}`}
+          title="green iguana"
+        />
+      </div>
 
       <CardContent>
         <Typography color="textSecondary" component="div">
@@ -154,29 +154,29 @@ const PkgCard = ({ data, categories, ind }) => {
           <Typography sx={{ fontSize: "13px", color: "grey" }}>
             Per Person Price
           </Typography>
-          <Box sx={{display:'flex', alignItems:'center'}} gap={1}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
             {/* <Typography sx={{ fontSize: "15px", color: "grey" }}> */}
 
             <Typography
-                            sx={{ fontSize:'0.9rem', color: "grey", textDecoration: "line-through" }}
-                          >
-                            {data.packages[0].category === "private"
-                              ? `AED ${data.packages[0].price}`
-                              : `AED ${data.packages[0].adult_price}`}
-                          </Typography>
+              sx={{ fontSize: '0.9rem', color: "grey", textDecoration: "line-through" }}
+            >
+              {data.packages[0].category === "private"
+                ? `AED ${data.packages[0].price}`
+                : `AED ${data.packages[0].adult_price}`}
+            </Typography>
 
             <Typography
-                           sx={{fontSize:'1rem'}}
-                            fontWeight="bold"
-                            color={theme.palette.primary.main}
-                          >
-                            {data.packages[0].category === "private"
-                              ? `AED ${Math.round(data.packages[0].price - (data.packages[0].price * data.discount_offer / 100))}`
-                              : `AED ${Math.round(data.packages[0].adult_price - (data.packages[0].adult_price * data.discount_offer / 100))}`}
-                          </Typography>
+              sx={{ fontSize: '1rem' }}
+              fontWeight="bold"
+              color={theme.palette.primary.main}
+            >
+              {data.packages[0].category === "private"
+                ? `AED ${Math.round(data.packages[0].price - (data.packages[0].price * data.discount_offer / 100))}`
+                : `AED ${Math.round(data.packages[0].adult_price - (data.packages[0].adult_price * data.discount_offer / 100))}`}
+            </Typography>
 
 
-              {/* <Typography color="primary" display="inline" fontWeight="bold" sx={{ ml: 1 }}>
+            {/* <Typography color="primary" display="inline" fontWeight="bold" sx={{ ml: 1 }}>
                 AED {data?.packages[0]?.price !== null ? data?.packages[0]?.price : data?.packages[0]?.adult_price}
               </Typography> */}
 
@@ -185,17 +185,17 @@ const PkgCard = ({ data, categories, ind }) => {
             {/* </Typography> */}
           </Box>
         </Box>
-<Box sx={{display:'flex'}}>
-        <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                        size="small"
-                      />
-                      {/* <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> */}
-                    </Box>
+        <Box sx={{ display: 'flex' }}>
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            size="small"
+          />
+          {/* <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> */}
+        </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button
