@@ -256,6 +256,15 @@ const DetailLeft = ({ ac_data, loading }) => {
 
 
 
+  const [expandedStates, setExpandedStates] = useState(Array(ac_data?.packages?.length).fill(false));
+
+  const toggleDescription = (index) => {
+    const newExpandedStates = [...expandedStates];
+    newExpandedStates[index] = !newExpandedStates[index];
+    setExpandedStates(newExpandedStates);
+  };
+
+
 
 
 
@@ -424,9 +433,55 @@ const DetailLeft = ({ ac_data, loading }) => {
             <Typography sx={{ fontSize: "14px", color: "#777" }}>
                 {item.category}
             </Typography>
-            <Typography sx={{ fontSize: "14px", color: "#777" }}>
+            {/* <Typography sx={{ fontSize: "14px", color: "#777" }}>
                 {item.highlight}
-            </Typography>
+            </Typography> */}
+
+            <Typography
+                      sx={{
+                        fontSize: "14px",
+                        color: "#777",
+                        wordBreak: "break-word",
+                        overflowWrap: "break-word",
+                        lineHeight: "1.5rem",
+                      }}
+                    >
+                      {expandedStates[index] ? (
+                        item.highlight
+                      ) : (
+                        <>
+                          {item.highlight.slice(0, 80)}{" "}
+                          {item.highlight.length > 80 && (
+                            <Button
+                              onClick={() => toggleDescription(index)}
+                              sx={{
+                                marginLeft: "0.5rem",
+                                textTransform: "none",
+                                fontSize: "0.875rem",
+                                color: "black",
+                              }}
+                            >
+                              Read More
+                            </Button>
+                          )}
+                        </>
+                      )}
+                      {expandedStates[index] && (
+                        <Button
+                          onClick={() => toggleDescription(index)}
+                          sx={{
+                            marginTop: "0.5rem",
+                            textTransform: "none",
+                            fontSize: "0.875rem",
+                            color: "black",
+                          }}
+                        >
+                          Show Less
+                        </Button>
+                      )}
+                    </Typography>
+
+
         </Box>
         <Box>
             <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
