@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography, useTheme, Grid } from "@mui/material";
+import { Box, Button, Typography, Grid } from "@mui/material";
 import { useNavigate } from "react-router";
 import Page from "../../components/page";
 import LeftSideComponents from "./Components/LeftSideComponents";
@@ -7,7 +7,6 @@ import RightSideComponents from "./Components/RightSideComponents";
 import { getCart } from "../../store/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const CartMain = () => {
   const navigate = useNavigate();
