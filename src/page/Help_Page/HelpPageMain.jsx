@@ -39,44 +39,38 @@ const HelpPageMain = () => {
     {
       icon: "/bookingicon.png",
       title: "Booking",
-      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`,
+      description: `You can book your activity online and receive your booking confirmation by email,
+together with a link to download the BookDubaiSafari app.`,
     },
     {
       icon: "/paymenticon.png",
       title: "Payment",
-      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`,
+      description: `When you make a Booking, Full payment by credit or debit card is required to make a
+Booking, unless otherwise specified.`,
     },
     {
       icon: "/refunds.png",
       title: "Cancellation & Refunds",
-      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`,
+      description: `you must check the cancellation policy contained in the applicable
+Product listing at the time of your Booking, which is the policy that will apply to and govern the
+terms of your cancellation and any refunds`,
     },
     {
       icon: "/modification.png",
       title: "Booking Modification",
-      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`,
+      description: `Requests for modifications and amendments to a Booking, including date
+change requests contact customer support team.`,
     },
     {
       icon: "/cashbacks.png",
       title: "Coupons & Cashbacks",
-      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`,
+      description: `: You will be able to redeem your gift or promo code at the cart page during
+the booking process.`,
     },
     {
       icon: "/quries.png",
       title: "General Queries",
-      description: ` Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Necessitatibus illo quas minus quia animi ipsam ex numquam nam
-            labore repellat?`,
+      description: ` Can’t find help? contact us via contact page or helpline number`,
     },
   ];
 
@@ -283,12 +277,12 @@ const HelpPageMain = () => {
                 <Box>
                     <img src="/chatico.png" alt="Chat icon" />
                 </Box>
-        
+
                 <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
                     Chat With Us
                 </Typography>
             </Box>
-        
+
             <Box
                 sx={{
                     border: "1px solid #ebebeb",
@@ -300,13 +294,13 @@ const HelpPageMain = () => {
                 <Box>
                     <img src="/contacticon.png" alt="Contact icon" />
                 </Box>
-        
+
                 <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
                     Contact Us
                 </Typography>
             </Box>
         </Box>
-        
+
           </Box>
         </Box>
       </Page>
