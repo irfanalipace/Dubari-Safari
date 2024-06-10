@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { send_message } from "../../store/actions/ContactUsActions";
 import { useSnackbar } from "notistack";
 import Loader from "../../components/Loader/Loader";
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const Contact_Us = () => {
   const initialValues = {
@@ -118,10 +119,16 @@ const Contact_Us = () => {
                 />
               </Box>
               <Box sx={{ mt: 8 }}>
-                <TwitterIcon sx={{ mr: 3 }} />
-                <InstagramIcon sx={{ mr: 3 }} />
-                <TwitterIcon sx={{ mr: 3 }} />
-              </Box>
+      <a href="https://www.facebook.com/bookdubaisafariofficial" target="_blank" rel="noopener noreferrer">
+        <FacebookIcon sx={{ mr: 3, color:'white' }} />
+      </a>
+      <a href="https://www.instagram.com/bookdubaisafari/" target="_blank" rel="noopener noreferrer">
+        <InstagramIcon sx={{ mr: 3, color:'white' }} />
+      </a>
+      <a href="https://twitter.com/bookdubaisafari" target="_blank" rel="noopener noreferrer">
+        <TwitterIcon sx={{ mr: 3, color:'white' }} />
+      </a>
+    </Box>
             </Box>
           </Box>
           <Box flex={2} sx={{ p: 5 }}>

@@ -164,7 +164,7 @@ const Categories = () => {
       <button
         className="slick-arrow"
         style={{
-          backgroundColor:'#fef7f5', // Background color of the next arrow
+          backgroundColor: '#fef7f5', // Background color of the next arrow
           position: "absolute",
           right: "-30px",
           zIndex: 1,
@@ -297,7 +297,7 @@ const Categories = () => {
               <Box>
                 <Box>
                   {categories.length <= 7 ? (
-                    <Box sx={{ display: "flex", alignItems: "center", justifyContent:'center' }}>
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: 'center' }}>
                       {categories.map((val, index) => (
                         <Box
                           key={index}
@@ -307,7 +307,7 @@ const Categories = () => {
                             alignItems: "center",
                             flexDirection: "column",
                             mr: 4,
-                            width:'10%'
+                            width: '10%'
 
                           }}
                           onClick={() => handleCategoryClick(val)}
@@ -317,11 +317,10 @@ const Categories = () => {
                             sx={{
                               height: "100px",
                               width: "100px",
-                              border: `4px solid ${
-                                selectedCategory === val
-                                  ? theme.palette.primary.main
-                                  : "transparent"
-                              }`,
+                              border: `4px solid ${selectedCategory === val
+                                ? theme.palette.primary.main
+                                : "transparent"
+                                }`,
                               cursor: "pointer",
                             }}
                           />
@@ -330,7 +329,7 @@ const Categories = () => {
                               mt: 1,
                               fontWeight: "bold",
                               fontSize: "0.9rem",
-                              textAlign:'center'
+                              textAlign: 'center'
                             }}
                           >
                             {val.name}
@@ -339,50 +338,49 @@ const Categories = () => {
                       ))}
                     </Box>
                   ) : (
-                    <Box sx={{padding:'0rem 8%'}}>
-                    <Slider {...settings}>
-                      {categories.map((val, index) => (
-                        <Box
-                          key={index}
-                          onClick={() => handleCategoryClick(val)}
-                        >
+                    <Box sx={{ padding: '0rem 8%' }}>
+                      <Slider {...settings}>
+                        {categories.map((val, index) => (
                           <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              flexDirection: "column",
-
-                              mr: 4,
-                            }}
+                            key={index}
+                            onClick={() => handleCategoryClick(val)}
                           >
-                            <Avatar
-                              src={val.image}
+                            <Box
                               sx={{
-                                height: "100px",
-                                width: "100px",
-                                border: `4px solid ${
-                                  selectedCategory === val
-                                    ? theme.palette.primary.main
-                                    : "transparent"
-                                }`,
-                                cursor: "pointer",
-                              }}
-                            />
-                            <Typography
-                              sx={{
-                                mt: 1,
-                                fontWeight: "bold",
-                                fontSize: "0.9rem",
-                                textAlign:'center'
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "column",
+
+                                mr: 4,
                               }}
                             >
-                              {val.name}
-                            </Typography>
+                              <Avatar
+                                src={val.image}
+                                sx={{
+                                  height: "100px",
+                                  width: "100px",
+                                  border: `4px solid ${selectedCategory === val
+                                    ? theme.palette.primary.main
+                                    : "transparent"
+                                    }`,
+                                  cursor: "pointer",
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  mt: 1,
+                                  fontWeight: "bold",
+                                  fontSize: "0.9rem",
+                                  textAlign: 'center'
+                                }}
+                              >
+                                {val.name}
+                              </Typography>
+                            </Box>
                           </Box>
-                        </Box>
-                      ))}
-                    </Slider>
+                        ))}
+                      </Slider>
                     </Box>
                   )}
                 </Box>
@@ -402,7 +400,7 @@ const Categories = () => {
             fontWeight="bold"
             sx={{ flex: 2, whiteSpace: "nowrap", fontSize: "1.3rem" }}
           >
-           {activityLength}  Things to do in Abu Dhabi
+            {activityLength}  Things to do in Abu Dhabi
           </Typography>
 
           <Box

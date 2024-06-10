@@ -121,13 +121,14 @@ const Popular = () => {
     return (
         <Box sx={{ padding: '20px 50px',
 
-        
+
          textAlign:'center' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px',
             padding: isSmall ? '0px': '0px 20px'
              }}>
-                <Typography sx={{fontSize: isSmall ? '25px' : '37px', fontWeight: 700, }}>Most Popular Things to do in Dubai</Typography>
-                <Typography sx={{ color: theme.palette.primary.textPrimary }}>Lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur lorem r</Typography>
+                <Typography sx={{fontSize: isSmall ? '25px' : '37px', fontWeight: 700, }}>Our Most Recommended Tours and Activities</Typography>
+                <Typography sx={{ color: theme.palette.primary.textPrimary }}>Dubai is the place to seek out everything you imagine and beyond. Find it all here Things to do in Dubai,
+                Culture, nature, thrills, and more...</Typography>
                 <Box sx={{ padding: '30px 50px' }}>
 
 

@@ -6,10 +6,10 @@ import { VscOpenPreview } from "react-icons/vsc";
 import { CgWebsite } from "react-icons/cg";
 
 const chooseData = [
-    { icon: TfiHeadphoneAlt, title: 'Superior Customer Support', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-    { icon: RiBookLine, title: 'Fast & Easy Booking', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-    { icon: VscOpenPreview, title: 'Genuine Reviews & Photos', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-    { icon: CgWebsite, title: 'No Hidden Fees', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+    { icon: TfiHeadphoneAlt, title: '24/7 Customer Support', description: "New price? New plan? No problem. We're here to help, 24/7" },
+    { icon: RiBookLine, title: 'Ultimate Flexibility', description: " Free cancellation and payment options to satisfy any plans or budget" },
+    { icon: VscOpenPreview, title: 'Quality at Our Core', description: "High quality standards. Reliable reviews." },
+    { icon: CgWebsite, title: 'Memorable experiences', description: `Browse and book tours and activities so incredible, you’ll want to tell your friends.` },
 ];
 
 const ChooseUs = () => {
@@ -18,8 +18,9 @@ const ChooseUs = () => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px', padding: "0px 20px" }}>
-            <Typography sx={{  fontWeight: 700,fontSize: isSmall ? '25px' : '37px', }}>Why Choose Us</Typography>
-            <Typography sx={{ color: theme.palette.primary.textPrimary, textAlign: 'center' }}>Experience the thrill of discovering off-the-beaten-path gems and famous landmarks in top destinations worldwide - your wanderlust awaits!</Typography>
+            <Typography sx={{  fontWeight: 700,fontSize: isSmall ? '25px' : '37px', }}>Why Book with Book Dubai Safari?</Typography>
+            <Typography sx={{ color: theme.palette.primary.textPrimary, textAlign: 'center' }}>Experience the thrill of discovering off-the-beaten-path gems and famous landmarks in top
+            destinations worldwide - your wanderlust awaits!</Typography>
             <Box style={{ padding: isSmall ? '30px 17px' : ''}}>
                 <Grid container spacing={5}>
                     {chooseData.length > 0 ? (

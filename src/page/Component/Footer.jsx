@@ -52,12 +52,43 @@ const Footer = () => {
                   alignItems: "center",
                 }}
               >
-                <FacebookIcon />
-                <LinkedInIcon />
-                <TwitterIcon />
-                <YouTubeIcon />
-                <PinterestIcon />
-                <InstagramIcon />
+
+
+
+
+<a href="https://www.facebook.com/bookdubaisafariofficial" target="_blank" rel="noopener noreferrer">
+        <FacebookIcon sx={{color:'white' }} />
+      </a>
+
+      <a href="https://www.linkedin.com/company/bookdubaisafari" target="_blank" rel="noopener noreferrer">
+        <LinkedInIcon sx={{color:'white' }} />
+      </a>
+
+      <a href="https://www.instagram.com/bookdubaisafari/" target="_blank" rel="noopener noreferrer">
+        <InstagramIcon sx={{color:'white' }} />
+      </a>
+      <a href="https://twitter.com/bookdubaisafari" target="_blank" rel="noopener noreferrer">
+        <TwitterIcon sx={{color:'white' }} />
+      </a>
+
+
+      <a href="https://www.youtube.com/@BookDubaiSafari" target="_blank" rel="noopener noreferrer">
+        <YouTubeIcon sx={{color:'white' }} />
+      </a>
+      <a href="https://www.pinterest.com/bookdubaisafari/" target="_blank" rel="noopener noreferrer">
+        <PinterestIcon sx={{color:'white' }} />
+      </a>
+
+
+
+
+
+
+
+
+
+
+
               </Box>
             </Grid>
 

@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import { Apply_Voucher } from "../../../store/actions/bookingAction";
 import PriceCard from "../../Component/PriceCard";
 
-const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData }) => {
+const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, cartData }) => {
     const token = useSelector((state) => state?.auth?.token);
 
     const theme = useTheme();
@@ -259,7 +259,7 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData }
                     </div>
                 </Grid>
                 <Grid item lg={4}>
-                    <PriceCard data1={paymentData} total={totalAmount} setTotalAmount={setTotalAmount} paymentData={paymentData} />
+                    <PriceCard data1={paymentData} total={totalAmount} setTotalAmount={setTotalAmount} paymentData={paymentData} cartData={cartData} />
                 </Grid>
             </Grid>
 
