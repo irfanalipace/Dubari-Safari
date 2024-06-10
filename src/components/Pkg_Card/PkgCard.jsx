@@ -194,7 +194,7 @@ const PkgCard = ({ data, categories, ind }) => {
                         }}
                         size="small"
                       />
-                      {/* <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> */}
+                       <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> 
                     </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>

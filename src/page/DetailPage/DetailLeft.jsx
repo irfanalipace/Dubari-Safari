@@ -1,5 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme, Radio } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Typography,
+  TextField,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+  Button,
+  CircularProgress,
+  useTheme,
+  Radio,
+} from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
@@ -10,510 +23,610 @@ import Cookies from "js-cookie"; // Importing js-cookie
 import Loader from "../../components/Loader/Loader";
 
 const DetailLeft = ({ ac_data, loading }) => {
-    const [date, setDate] = useState("");
-    const [showDropdowns, setShowDropdowns] = useState(false);
-    const [adult, setAdult] = useState(1);
-    const [child, setChild] = useState(0);
-    const [infant, setInfant] = useState(0);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { enqueueSnackbar } = useSnackbar();
-    const theme = useTheme();
+  const [date, setDate] = useState("");
+  const [showDropdowns, setShowDropdowns] = useState(false);
+  const [adult, setAdult] = useState(1);
+  const [child, setChild] = useState(0);
+  const [infant, setInfant] = useState(0);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+ 
+  const [expandedStates, setExpandedStates] = useState(Array(ac_data?.packages?.length).fill(false));
 
-    const [loadingStates, setLoadingStates] = useState({});
-    console.log(ac_data, 'ac')
-    useEffect(() => {
-        const currentDate = new Date().toISOString().split("T")[0];
-        setDate(currentDate);
-    }, []);
+  const toggleDescription = (index) => {
+    const newExpandedStates = [...expandedStates];
+    newExpandedStates[index] = !newExpandedStates[index];
+    setExpandedStates(newExpandedStates);
+  };
 
-    const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const theme = useTheme();
 
-    const handleSelectItem = (index) => {
-        setSelectedItemIndex(index);
-    };
+  const [loadingStates, setLoadingStates] = useState({});
+  console.log(ac_data, "ac");
+  useEffect(() => {
+    const currentDate = new Date().toISOString().split("T")[0];
+    setDate(currentDate);
+  }, []);
 
-    const handleLogDetails = (total_amount, p_id, q, date, price, title, highlight, id) => {
-        if (!date) {
-            enqueueSnackbar("Please Select Date", { variant: "error" });
-        } else {
-            const data = {
-                id: id,
-                date: date,
-                adult: adult,
-                child: child,
-                infant: infant,
-                total_amount: total_amount,
-            };
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null);
 
-            const information = {
-                id: id,
-                title: title,
-                highlight: highlight,
-                date: date,
-                adult: adult,
-                child: child,
-                infant: infant,
-                total_amount: total_amount
-            };
+  const handleSelectItem = (index) => {
+    setSelectedItemIndex(index);
+  };
 
-            const farFutureDate = new Date(new Date().getTime() + (365 * 24 * 60 * 60 * 1000));
-            Cookies.set('bookingDetails', JSON.stringify(data), { expires: farFutureDate });
-            Cookies.set('information', JSON.stringify(information), { expires: farFutureDate });
-            // Store data in a cookie
-            Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
+  const handleLogDetails = (
+    total_amount,
+    p_id,
+    q,
+    date,
+    price,
+    title,
+    highlight,
+    id
+  ) => {
+    if (!date) {
+      enqueueSnackbar("Please Select Date", { variant: "error" });
+    } else {
+      const data = {
+        id: id,
+        date: date,
+        adult: adult,
+        child: child,
+        infant: infant,
+        total_amount: total_amount,
+      };
 
-            navigate("/payment-details", { state: data });
+      const information = {
+        id: id,
+        title: title,
+        highlight: highlight,
+        date: date,
+        adult: adult,
+        child: child,
+        infant: infant,
+        total_amount: total_amount,
+      };
 
-            enqueueSnackbar("Package Booked", { variant: "success" });
-        }
-    };
-
-
-
-    const handleSelectClick = () => {
-        if (!date) {
-            enqueueSnackbar("Please Select Date", { variant: "error" });
-        } else {
-            setShowDropdowns(!showDropdowns);
-        }
-    };
-
-    const calculateTotalPrice = (price) => {
-        const totalAdultPrice = price * adult;
-        const totalChildPrice = price * child;
-        return totalAdultPrice + totalChildPrice;
-    };
-
-    // const handleCart = (p_id, q, total, date, adult, child, infant) => {
-    //     if (!date) {
-    //         enqueueSnackbar("Please Select Date", { variant: "error" });
-    //         return Promise.reject(new Error("Date not selected"));
-    //     }
-    //     return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
-    //         .then((result) => {
-    //             console.log(result);
-    //             enqueueSnackbar("Added to cart successfully", { variant: "success" });
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //             enqueueSnackbar("Failed to add to cart", { variant: "error" });
-    //             throw err;
-    //         });
-    // };
-
-    // console.log(ac_data.available_activity, 'hi')
-
-    const handleCart = (p_id, q, total, date, adult, child, infant, category, packageid) => {
-        if (!date) {
-            enqueueSnackbar("Please Select Date", { variant: "error" });
-            return Promise.reject(new Error("Date not selected"));
-        }
-
-        const token = localStorage.getItem("token");
-        if (token) {
-            setLoadingStates(prevStates => ({
-                ...prevStates,
-                [packageid]: true
-            }));
-
-            return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
-                .then((result) => {
-                    setLoadingStates(prevStates => ({
-                        ...prevStates,
-                        [packageid]: false
-                    }));
-
-                    enqueueSnackbar("Added to cart successfully", { variant: "success" });
-                })
-                .catch((err) => {
-                    setLoadingStates(prevStates => ({
-                        ...prevStates,
-                        [packageid]: false
-                    }));
-
-                    enqueueSnackbar("Failed to add to cart", { variant: "error" });
-                    throw err;
-                });
-        } else {
-
-
-            const newItem = {
-
-                ac_data: ac_data,
-                p_id: p_id,
-                q: q,
-                price: total,
-                date: date,
-                adult: adult,
-                child: child,
-                infant: infant,
-                category: category,
-                packageid: packageid
-            };
-
-            const existingCartData = JSON.parse(localStorage.getItem("addCartData")) || [];
-
-            // Append the new item to the existing cart data
-            const updatedCartData = [...existingCartData, newItem];
-
-            localStorage.setItem("addCartData", JSON.stringify(updatedCartData));
-
-            enqueueSnackbar("Item added to cart", { variant: "success" });
-
-
-            return Promise.resolve();
-        }
-    };
-
-    const stylesEll = {
-        fontSize: "14px",
-        fontWeight: 600,
-        maxWidth: "200px",
-        // maxWidth: "100px",
-
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-    };
-
-    const handleInfantChange = (e) => {
-        const value = e.target.value;
-        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-            setInfant(value);
-        }
-    };
-
-    const handleChildChange = (e) => {
-        const value = e.target.value;
-        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-            setChild(value);
-        }
-    };
-
-    const handleAdultChange = (e) => {
-        const value = e.target.value;
-        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-            setAdult(value);
-        }
-    };
-
-    const handleSendGift = () => {
-
-        const dataToSend = {
-            ac_data
-        };
-        navigate('/view-gift', { state: dataToSend });
-    };
-
-
-
-    const bookNowRef = useRef(null);
-
-    const handleBookNowClick = () => {
-      window.scrollTo({
-        top: window.innerHeight / 1.2,
-        behavior: "smooth",
+      const farFutureDate = new Date(
+        new Date().getTime() + 365 * 24 * 60 * 60 * 1000
+      );
+      Cookies.set("bookingDetails", JSON.stringify(data), {
+        expires: farFutureDate,
       });
+      Cookies.set("information", JSON.stringify(information), {
+        expires: farFutureDate,
+      });
+      // Store data in a cookie
+      Cookies.set("bookingDetails", JSON.stringify(data), { expires: 7 });
+
+      navigate("/payment-details", { state: data });
+
+      enqueueSnackbar("Package Booked", { variant: "success" });
+    }
+  };
+
+  const handleSelectClick = () => {
+    if (!date) {
+      enqueueSnackbar("Please Select Date", { variant: "error" });
+    } else {
+      setShowDropdowns(!showDropdowns);
+    }
+  };
+
+  const calculateTotalPrice = (price) => {
+    const totalAdultPrice = price * adult;
+    const totalChildPrice = price * child;
+    return totalAdultPrice + totalChildPrice;
+  };
+
+  // const handleCart = (p_id, q, total, date, adult, child, infant) => {
+  //     if (!date) {
+  //         enqueueSnackbar("Please Select Date", { variant: "error" });
+  //         return Promise.reject(new Error("Date not selected"));
+  //     }
+  //     return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
+  //         .then((result) => {
+  //             console.log(result);
+  //             enqueueSnackbar("Added to cart successfully", { variant: "success" });
+  //         })
+  //         .catch((err) => {
+  //             console.log(err);
+  //             enqueueSnackbar("Failed to add to cart", { variant: "error" });
+  //             throw err;
+  //         });
+  // };
+
+  // console.log(ac_data.available_activity, 'hi')
+
+  const handleCart = (
+    p_id,
+    q,
+    total,
+    date,
+    adult,
+    child,
+    infant,
+    category,
+    packageid
+  ) => {
+    if (!date) {
+      enqueueSnackbar("Please Select Date", { variant: "error" });
+      return Promise.reject(new Error("Date not selected"));
+    }
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoadingStates((prevStates) => ({
+        ...prevStates,
+        [packageid]: true,
+      }));
+
+      return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
+        .then((result) => {
+          setLoadingStates((prevStates) => ({
+            ...prevStates,
+            [packageid]: false,
+          }));
+
+          enqueueSnackbar("Added to cart successfully", { variant: "success" });
+        })
+        .catch((err) => {
+          setLoadingStates((prevStates) => ({
+            ...prevStates,
+            [packageid]: false,
+          }));
+
+          enqueueSnackbar("Failed to add to cart", { variant: "error" });
+          throw err;
+        });
+    } else {
+      const newItem = {
+        ac_data: ac_data,
+        p_id: p_id,
+        q: q,
+        price: total,
+        date: date,
+        adult: adult,
+        child: child,
+        infant: infant,
+        category: category,
+        packageid: packageid,
+      };
+
+      const existingCartData =
+        JSON.parse(localStorage.getItem("addCartData")) || [];
+
+      // Append the new item to the existing cart data
+      const updatedCartData = [...existingCartData, newItem];
+
+      localStorage.setItem("addCartData", JSON.stringify(updatedCartData));
+
+      enqueueSnackbar("Item added to cart", { variant: "success" });
+
+      return Promise.resolve();
+    }
+  };
+
+  const stylesEll = {
+    fontSize: "14px",
+    fontWeight: 600,
+    maxWidth: "200px",
+    // maxWidth: "100px",
+
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  };
+
+  const handleInfantChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || (Number.isInteger(+value) && +value >= 0)) {
+      setInfant(value);
+    }
+  };
+
+  const handleChildChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || (Number.isInteger(+value) && +value >= 0)) {
+      setChild(value);
+    }
+  };
+
+  const handleAdultChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || (Number.isInteger(+value) && +value >= 0)) {
+      setAdult(value);
+    }
+  };
+
+  const handleSendGift = () => {
+    const dataToSend = {
+      ac_data,
     };
-    return (
+    navigate("/view-gift", { state: dataToSend });
+  };
 
+  const bookNowRef = useRef(null);
 
-
-        <>
-   <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "end",
-                mt: 0,
-                mb: 5,
-              }}
-              gap={3}
+  const handleBookNowClick = () => {
+    window.scrollTo({
+      top: window.innerHeight / 1.2,
+      behavior: "smooth",
+    });
+  };
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "end",
+          mt: 0,
+          mb: 5,
+        }}
+        gap={3}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
+            flex: 1,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
+            <Typography sx={{ fontSize: "1rem" }}>From</Typography>
+            <Typography
+              fontWeight="bold"
+              color={theme.palette.primary.main}
+              textAlign={"right"}
+              sx={{ fontSize: "1.2rem" }}
             >
+              {ac_data?.packages[0].category === "private"
+                ? `AED ${Math.round(
+                    ac_data?.packages[0].price -
+                      (ac_data?.packages[0].price * ac_data?.discount_offer) /
+                        100
+                  )}`
+                : `AED ${Math.round(
+                    ac_data?.packages[0].adult_price -
+                      (ac_data?.packages[0].adult_price *
+                        ac_data?.discount_offer) /
+                        100
+                  )}`}
+            </Typography>
+
+            <Typography
+              sx={{
+                fontSize: "1.1rem",
+                color: "grey",
+                textDecoration: "line-through",
+              }}
+            >
+              {ac_data.packages[0].category === "private"
+                ? `AED ${ac_data.packages[0].price}`
+                : `AED ${ac_data.packages[0].adult_price}`}
+            </Typography>
+          </Box>
+          <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
+            Price varies by vehicles, group sizes and other selections
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "right", flex: 1 }}>
+          <Button
+            variant="contained"
+            sx={{
+              color: "white",
+              fontSize: "0.9rem",
+              textTransform: "none",
+              borderRadius: "30px",
+              padding: "0.4rem 2rem",
+            }}
+            onClick={handleBookNowClick}
+            ref={bookNowRef}
+          >
+            Select Options
+          </Button>
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          border: "2px solid #EDEDED",
+          borderRadius: "20px",
+          padding: "30px 0px",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            gap: "20px",
+          }}
+        >
+          {/* ------------------client UI for packages-------------- */}
+
+          <Box sx={{ padding: "20px", width: "90%" }}>
+            <Typography>Choose a package</Typography>
+
+            <Divider sx={{ mb: 3, mt: 1 }} />
+            {loading ? (
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "end",
-                  flex:1
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "100%",
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
-                  <Typography sx={{ fontSize: "1rem" }}>From</Typography>
-                  <Typography
-                    fontWeight="bold"
-                    color={theme.palette.primary.main}
-                    textAlign={"right"}
-                    sx={{ fontSize: "1.2rem" }}
-                  >
-                    {ac_data?.packages[0].category === "private"
-                      ? `AED ${Math.round(
-                          ac_data?.packages[0].price -
-                            (ac_data?.packages[0].price * ac_data?.discount_offer) /
-                              100
-                        )}`
-                      : `AED ${Math.round(
-                          ac_data?.packages[0].adult_price -
-                            (ac_data?.packages[0].adult_price *
-                              ac_data?.discount_offer) /
-                              100
-                        )}`}
-                  </Typography>
+                <Loader />
+              </Box>
+            ) : (
+              ac_data?.packages?.map((item, index) => {
+                const total_amount = calculateTotalPrice(item.price);
+                let total = 0;
+                if (item.category === "sharing") {
+                  total =
+                    adult * Number(item.adult_price) +
+                    child * Number(item.child_price);
+                } else {
+                  total = total_amount;
+                }
+                const quantity = adult + child + infant;
 
-                  <Typography
+                return (
+                  <Box
+                    key={index}
                     sx={{
-                      fontSize: "1.1rem",
-                      color: "grey",
-                      textDecoration: "line-through",
+                      gap: "10px",
+                      padding: "20px",
+                      border:
+                        selectedItemIndex === index
+                          ? "2px solid red"
+                          : "1px solid #EDEDED",
+                      borderRadius: "10px",
+                      marginBottom: "10px",
+                      cursor: "pointer",
+                      backgroundColor:
+                        selectedItemIndex === index ? "#FFE4E1" : "#EDEDED",
+                      display: "flex",
+                      alignItems: "start",
+                      // justifyContent: 'space-between'
                     }}
+                    onClick={() => handleSelectItem(index)}
                   >
-                    {ac_data.packages[0].category === "private"
-                      ? `AED ${ac_data.packages[0].price}`
-                      : `AED ${ac_data.packages[0].adult_price}`}
-                  </Typography>
-                </Box>
-                <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
-                  Price varies by vehicles, group sizes and other selections
-                </Typography>
-              </Box>
+                    <Radio />
+                    <Box>
+                      <Box>
+                        <Box>
+                          <Typography sx={stylesEll}>{item.title}</Typography>
+                          <Typography sx={{ fontSize: "14px", color: "#777" }}>
+                            {item.category}
+                          </Typography>
 
-              <Box sx={{ display: "flex", justifyContent: "right", flex:1 }}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    color: "white",
-                    fontSize: "0.9rem",
-                    textTransform: "none",
-                    borderRadius: "30px",
-                    padding: "0.4rem 2rem",
-                  }}
-                  onClick={handleBookNowClick}
-                  ref={bookNowRef}
-                >
-                  Select Options
-                </Button>
-              </Box>
-            </Box>
-
-
-        <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
-
-
-{/* ------------------client UI for packages-------------- */}
-
-<Box sx={{ padding: "20px", width: "90%" }}>
-
-<Typography>Choose a package</Typography>
-
-<Divider sx={{mb:3, mt:1}}/>
-                    {loading ? (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                            <Loader />
-                        </Box>
-                    ) : (
-                        ac_data?.packages?.map((item, index) => {
-
-
-
-
-                            const total_amount = calculateTotalPrice(item.price);
-                            let total = 0;
-                            if (item.category === 'sharing') {
-                                total = adult * Number(item.adult_price) + child * Number(item.child_price);
-                            } else {
-                                total = total_amount;
-                            }
-                            const quantity = adult + child + infant;
-
-
-
-                            return (
-                                <Box
-    key={index}
-    sx={{
-        gap: "10px",
-        padding: "20px",
-        border: selectedItemIndex === index ? "2px solid red" : "1px solid #EDEDED",
-        borderRadius: "10px",
-        marginBottom: "10px",
-        cursor:'pointer',
-        backgroundColor: selectedItemIndex === index ? "#FFE4E1" : "#EDEDED",
-        display: 'flex',
-        alignItems: 'start',
-        // justifyContent: 'space-between'
-    }}
-    onClick={() => handleSelectItem(index)}
->
-
-<Radio/>
-  <Box>
-
-  <Box>
-
-
-
-        <Box>
-            <Typography sx={stylesEll}>
-                {item.title}
-            </Typography>
-            <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                {item.category}
-            </Typography>
-            <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                {item.highlight}
-            </Typography>
-        </Box>
-        <Box>
-            <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
-                {`AED ${total}`}
-            </Typography>
-        </Box>
-    </Box>
-    <Box sx={{ display: 'flex' }} gap={3}>
-    <Box>
-    {loadingStates[item.id] ? (
-                        <Loader/>
-                    ) : (
+                        <Typography
+                      sx={{
+                        fontSize: "14px",
+                        color: "#777",
+                        wordBreak: "break-word",
+                        overflowWrap: "break-word",
+                        lineHeight: "1.5rem",
+                      }}
+                    >
+                      {expandedStates[index] ? (
+                        item.highlight
+                      ) : (
+                        <>
+                          {item.highlight.slice(0, 80)}{" "}
+                          {item.highlight.length > 80 && (
+                            <Button
+                              onClick={() => toggleDescription(index)}
+                              sx={{
+                                marginLeft: "0.5rem",
+                                textTransform: "none",
+                                fontSize: "0.875rem",
+                                color: "black",
+                              }}
+                            >
+                              Read More
+                            </Button>
+                          )}
+                        </>
+                      )}
+                      {expandedStates[index] && (
                         <Button
-                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
-                            variant="contained"
-                            sx={{
+                          onClick={() => toggleDescription(index)}
+                          sx={{
+                            marginTop: "0.5rem",
+                            textTransform: "none",
+                            fontSize: "0.875rem",
+                            color: "black",
+                          }}
+                        >
+                          Show Less
+                        </Button>
+                      )}
+                    </Typography>
+                        </Box>
+
+                        <Box>
+                          <Typography
+                            sx={{ fontSize: "14px", fontWeight: 600 }}
+                          >
+                            {`AED ${total}`}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      <Box sx={{ display: "flex" }} gap={3}>
+                        <Box>
+                          {loadingStates[item.id] ? (
+                            <Loader />
+                          ) : (
+                            <Button
+                              onClick={() =>
+                                handleCart(
+                                  ac_data.id,
+                                  1,
+                                  total,
+                                  date,
+                                  adult,
+                                  child,
+                                  infant,
+                                  item.category,
+                                  item.id
+                                )
+                              }
+                              variant="contained"
+                              sx={{
                                 color: "white",
                                 fontSize: "12px",
-                                textTransform: 'none'
-                            }}
-                            disabled={loadingStates[item.id]}
-                        >
-                            Add To Cart
-                        </Button>
-                    )}
-                                    </Box>
-                                    <Box>
-                                        <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
-                                            variant="contained"
-                                            sx={{
-                                                color: "white",
-                                                fontSize: "12px",
-                                                textTransform: 'none'
-                                            }}
-                                        >
-                                            Book Now
-                                        </Button>
-                                    </Box>
-    </Box>
-
-  </Box>
-</Box>
-
-                            );
-                        })
-                    )}
-                </Box>
-
-
-
-
-
-{/* --------------------Client UI packages end-------------- */}
-
-
-                <Typography sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}>
-                    Select Date & Activity Option
-                </Typography>
-                <Divider sx={{ width: "100%" }} />
-                <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                    {ac_data.available_activity === 0 ? (
-                        <div>
-                            <TextField
-                                type="date"
-                                fullWidth
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                InputLabelProps={{ shrink: true }}
-                                variant="outlined"
-                                disabled // Disabling date picker
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "7px",
-                                    "& .MuiOutlinedInput-root": {
-                                        "& fieldset": {
-                                            border: "none",
-                                        },
-                                    },
-                                }}
-                                onClick={() => {
-                                    enqueueSnackbar("No activity found", { variant: "error" });
-                                }}
-                            />
-                            <Typography variant="caption">Activity not available</Typography>
-                        </div>
-                    ) : (
-                        <div>
-                            <InputLabel>Please Select Date</InputLabel>
-                            <TextField
-                                type="date"
-                                fullWidth
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                InputLabelProps={{ shrink: true }}
-                                variant="outlined"
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "7px",
-                                    "& .MuiOutlinedInput-root": {
-                                        "& fieldset": {
-                                            border: "none",
-                                        },
-                                    },
-                                }}
-                            />
-                        </div>
-                    )}
-                </Box>
-
-                <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                    <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
-                        <Button
-                            fullWidth
-                            onClick={handleSelectClick}
-                            sx={{
-                                backgroundColor: "#EDEDED",
-                                borderRadius: "7px",
                                 textTransform: "none",
-                                "&:hover": {
-                                    backgroundColor: "#EDEDED",
-                                },
+                              }}
+                              disabled={loadingStates[item.id]}
+                            >
+                              Add To Cart
+                            </Button>
+                          )}
+                        </Box>
+                        <Box>
+                          <Button
+                            onClick={() =>
+                              handleLogDetails(
+                                total,
+                                ac_data.id,
+                                1,
+                                date,
+                                item.price,
+                                item.title,
+                                item.highlight,
+                                item.id
+                              )
+                            }
+                            variant="contained"
+                            sx={{
+                              color: "white",
+                              fontSize: "12px",
+                              textTransform: "none",
                             }}
-                        >
-                            Select Person
-                        </Button>
-                    </FormControl>
-                </Box>
-                {showDropdowns && (
-                    <>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                            <InputLabel>Adult</InputLabel>
-                            <TextField
-                                type="number"
-                                value={adult}
-                                onChange={handleAdultChange}
-                                fullWidth
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "10px",
-                                    "& .MuiOutlinedInput-root": {
-                                        border: "none",
-                                        outline: 'none',
-                                        borderColor: 'transparent',
-                                        borderRadius: '7px'
-                                    },
-                                }}
-                                inputProps={{ min: 0 }}
-                            />
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                          >
+                            Book Now
+                          </Button>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                );
+              })
+            )}
+          </Box>
+
+          {/* --------------------Client UI packages end-------------- */}
+
+          <Typography
+            sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}
+          >
+            Select Date & Activity Option
+          </Typography>
+          <Divider sx={{ width: "100%" }} />
+          <Box sx={{ padding: "0px 20px", width: "90%" }}>
+            {ac_data.available_activity === 0 ? (
+              <div>
+                <TextField
+                  type="date"
+                  fullWidth
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  InputLabelProps={{ shrink: true }}
+                  variant="outlined"
+                  disabled // Disabling date picker
+                  sx={{
+                    backgroundColor: "#EDEDED",
+                    borderRadius: "7px",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    },
+                  }}
+                  onClick={() => {
+                    enqueueSnackbar("No activity found", { variant: "error" });
+                  }}
+                />
+                <Typography variant="caption">
+                  Activity not available
+                </Typography>
+              </div>
+            ) : (
+              <div>
+                <InputLabel>Please Select Date</InputLabel>
+                <TextField
+                  type="date"
+                  fullWidth
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  InputLabelProps={{ shrink: true }}
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: "#EDEDED",
+                    borderRadius: "7px",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    },
+                  }}
+                />
+              </div>
+            )}
+          </Box>
+
+          <Box sx={{ padding: "0px 20px", width: "90%" }}>
+            <FormControl
+              fullWidth
+              sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}
+            >
+              <Button
+                fullWidth
+                onClick={handleSelectClick}
+                sx={{
+                  backgroundColor: "#EDEDED",
+                  borderRadius: "7px",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "#EDEDED",
+                  },
+                }}
+              >
+                Select Person
+              </Button>
+            </FormControl>
+          </Box>
+          {showDropdowns && (
+            <>
+              <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                <InputLabel>Adult</InputLabel>
+                <TextField
+                  type="number"
+                  value={adult}
+                  onChange={handleAdultChange}
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#EDEDED",
+                    borderRadius: "10px",
+                    "& .MuiOutlinedInput-root": {
+                      border: "none",
+                      outline: "none",
+                      borderColor: "transparent",
+                      borderRadius: "7px",
+                    },
+                  }}
+                  inputProps={{ min: 0 }}
+                />
+                {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={adult}
                                     onChange={(e) => setAdult(e.target.value)}
@@ -530,28 +643,28 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     ))}
                                 </Select>
                             </FormControl> */}
-                        </Box>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                            <InputLabel>Child</InputLabel>
-                            <TextField
-                                type="number"
-                                value={child}
-                                onChange={handleChildChange}
-                                fullWidth
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "10px",
-                                    "& .MuiOutlinedInput-root": {
-                                        border: "none",
-                                        outline: 'none',
-                                        borderColor: 'transparent',
-                                        borderRadius: '7px'
-                                    },
-                                }}
-                                inputProps={{ min: 0 }}
-                            />
+              </Box>
+              <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                <InputLabel>Child</InputLabel>
+                <TextField
+                  type="number"
+                  value={child}
+                  onChange={handleChildChange}
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#EDEDED",
+                    borderRadius: "10px",
+                    "& .MuiOutlinedInput-root": {
+                      border: "none",
+                      outline: "none",
+                      borderColor: "transparent",
+                      borderRadius: "7px",
+                    },
+                  }}
+                  inputProps={{ min: 0 }}
+                />
 
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={child}
                                     onChange={(e) => setChild(e.target.value)}
@@ -568,29 +681,29 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     ))}
                                 </Select>
                             </FormControl> */}
-                        </Box>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                            <InputLabel>Infant</InputLabel>
+              </Box>
+              <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                <InputLabel>Infant</InputLabel>
 
-                            <TextField
-                                type="number"
-                                value={infant}
-                                onChange={handleInfantChange}
-                                fullWidth
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "10px",
-                                    "& .MuiOutlinedInput-root": {
-                                        border: "none",
-                                        outline: 'none',
-                                        borderColor: 'transparent',
-                                        borderRadius: '7px'
-                                    },
-                                }}
-                                inputProps={{ min: 0 }}
-                            />
+                <TextField
+                  type="number"
+                  value={infant}
+                  onChange={handleInfantChange}
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#EDEDED",
+                    borderRadius: "10px",
+                    "& .MuiOutlinedInput-root": {
+                      border: "none",
+                      outline: "none",
+                      borderColor: "transparent",
+                      borderRadius: "7px",
+                    },
+                  }}
+                  inputProps={{ min: 0 }}
+                />
 
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={infant}
                                     onChange={(e) => setInfant(e.target.value)}
@@ -607,20 +720,13 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     ))}
                                 </Select>
                             </FormControl> */}
-                        </Box>
-                    </>
-                )}
+              </Box>
+            </>
+          )}
 
+          {/* -----------------------------------------------prev code ------------- */}
 
-                {/* -----------------------------------------------prev code ------------- */}
-
-
-
-
-
-
-
-                {/* <Divider sx={{ width: "100%" }} />
+          {/* <Divider sx={{ width: "100%" }} />
                 <Box sx={{ padding: "20px", width: "90%" }}>
                     {loading ? (
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
@@ -655,13 +761,9 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 >
                                     <Box sx={{ width: { xs: "100%", md: "auto" } }}> {/* Adjust width based on screen size */}
 
+          {/* ----------------coment b usamma + ----- */}
 
-
-{/* ----------------coment b usamma + ----- */}
-
-
-
-                                        {/* <Typography sx={stylesEll}>{item.title}</Typography>
+          {/* <Typography sx={stylesEll}>{item.title}</Typography>
                                         <Typography sx={{ fontSize: "14px", color: "#777" }}>{item.category}</Typography>
                                     </Box>
                                     <Box>
@@ -715,19 +817,23 @@ const DetailLeft = ({ ac_data, loading }) => {
                     )}
                 </Box> */}
 
+          {/* ---------------------prev codeeee---------- */}
 
-                {/* ---------------------prev codeeee---------- */}
-
-
-                <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
-                    <FiGift style={{ color: theme.palette.primary.main }} />
-                    <Button onClick={handleSendGift} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
-                </Box>
-            </Box>
-        </Box >
-        </>
-
-    );
+          <Box
+            sx={{ display: "flex", alignItems: "center", padding: "0px 30px" }}
+          >
+            <FiGift style={{ color: theme.palette.primary.main }} />
+            <Button
+              onClick={handleSendGift}
+              sx={{ textTransform: "none", fontWeight: 600 }}
+            >
+              Give this as a Gift
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </>
+  );
 };
 
 export default DetailLeft;

@@ -33,6 +33,7 @@ const CustomCard = () => {
       {filteredActivities.length > 0 ? (
         filteredActivities.map((val, ind) => (
           <Grid item lg={3} md={6} sm={12} xs={12} key={ind}>
+          {console.log(val.reviews.length,"KLKKK")}
             <Box
               onClick={() => navigate(`/details/${val.id}`)}
               sx={{
@@ -62,9 +63,22 @@ const CustomCard = () => {
                 sx={{ display: "flex", flexDirection: "column", gap: "10px" }}
               >
                 <Typography
-                  sx={{ fontSize: "18px", textAlign: "start", fontWeight: 600 }}
+                  sx={{ fontSize: "18px", textAlign: "start", fontWeight: 600,     fontSize: "1rem",
+                 
+                    color: theme.palette.primary.textPrimary,
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 1,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxHeight: "4.5rem",
+                    lineHeight: "1.5rem",
+                  
+                  }}
                 >
-                  {val.name}
+                {val.name}
                 </Typography>
 
                 <Box
@@ -107,8 +121,9 @@ const CustomCard = () => {
                                 (val.packages[0].adult_price *
                                   val.discount_offer) /
                                 100
-                              )}`}
+                              )}`} {" "} 
                           </Typography>
+                         
                         </Box>
                       </>
                     )}
@@ -124,6 +139,7 @@ const CustomCard = () => {
                   }}
                 >
                   <Rating name="simple-controlled" value={value} readOnly />
+                  <Typography>{val.reviews.length}</Typography>
                   <Button variant="contained">Book Now</Button>
                 </Box>
               </Box>

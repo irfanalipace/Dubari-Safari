@@ -20,7 +20,11 @@ import { CleaningServices } from "@mui/icons-material";
 import Loader from "../../../components/Loader/Loader";
 
 const LeftSideComponents = ({ setTotalPrice }) => {
+ const [isExpanded, setIsExpanded] = useState(false);
 
+  const toggleDescription = () => {
+    setIsExpanded(!isExpanded);
+  };
   //   const base = "https://dubaisafari.saeedantechpvt.com";
   //   const navigate = useNavigate();
   //   const theme = useTheme();
@@ -429,9 +433,59 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                       <Box flex={4}>
                         <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                           <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                          <Typography sx={{ ml: 1, color: "grey" }}>
-                            Package Type : {val.package.highlight}
-                          </Typography>
+                         
+
+
+
+ <Typography
+     
+      sx={{
+            fontSize: { xs: '14px', md: '16px' },
+        fontWeight: 500,
+       
+        wordBreak: 'break-all',
+    color:"grey",
+        wordBreak: "break-word",
+        overflowWrap: "break-word",
+        lineHeight: "1.5rem",
+      }}
+    >
+      {isExpanded ? val.package.highlight : (
+        <>
+          {val.package.highlight.slice(0, 620)} 
+          {val.package.highlight.length > 620 && (
+            <Button
+              onClick={toggleDescription}
+              sx={{
+                marginLeft: '0.5rem', 
+                textTransform: 'none',
+                fontSize: '0.875rem',
+                color:'black'
+              }}
+            >
+              Read More
+            </Button>
+          )}
+        </>
+      )}
+      {isExpanded && (
+        <Button
+          onClick={toggleDescription}
+          sx={{
+            marginTop: '0.5rem', // Adjust spacing as needed
+            textTransform: 'none',
+            fontSize: '0.875rem',
+             color:'black'
+          }}
+        >
+          Show Less
+        </Button>
+      )}
+        </Typography>
+
+
+
+
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                           <CalendarMonthOutlinedIcon sx={{ color: "black" }} />

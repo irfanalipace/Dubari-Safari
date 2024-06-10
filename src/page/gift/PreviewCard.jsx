@@ -1,9 +1,14 @@
-import { Box, Grid, Typography, useTheme } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Box, Grid, Typography,Button, useTheme } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router';
 const PreviewCard = () => {
     const theme = useTheme()
     const location = useLocation();
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleDescription = () => {
+      setIsExpanded(!isExpanded);
+    };
     const { discountPrice, recipientEmail, description, acData } = location.state;
   const base = 'https://dubaisafari.saeedantechpvt.com/';
 
@@ -51,9 +56,49 @@ like on Dubai Safari</Typography>
 <Grid item lg={6} md={12} sm={12} xs={12}>
 <Box>
                         <Typography sx={{fontSize:'1.2rem', fontWeight:'700'}}>{acData?.name}</Typography>
-                        <Typography sx={{fontSize:'1rem', }}>
-                        {acData?.description}
-                        </Typography>
+                       
+                        <Typography
+      component="div"
+      sx={{
+        fontSize: "1rem",
+        color: 'primary.textPrimary', // Adjust according to your theme
+        wordBreak: "break-word",
+        overflowWrap: "break-word",
+        lineHeight: "1.5rem",
+      }}
+    >
+      {isExpanded ?   acData?.description : (
+        <>
+          { acData?.description.slice(0, 520)} {/* Adjust character limit as needed */}
+          {acData.description.length > 520 && (
+            <Button
+              onClick={toggleDescription}
+              sx={{
+                marginLeft: '0.5rem', // Adjust spacing as needed
+                textTransform: 'none',
+                fontSize: '0.875rem',
+                color:'black',
+              }}
+            >
+              Read More
+            </Button>
+          )}
+        </>
+      )}
+      {isExpanded && (
+        <Button
+          onClick={toggleDescription}
+          sx={{
+            marginTop: '0.5rem', // Adjust spacing as needed
+            textTransform: 'none',
+            fontSize: '0.875rem',
+            color:'black',
+          }}
+        >
+          Show Less
+        </Button>
+      )}
+        </Typography>
                     </Box>
 </Grid>
 </Grid>
