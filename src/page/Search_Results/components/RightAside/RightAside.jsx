@@ -12,7 +12,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getActivities } from "../../../../store/actions/categoriesActions";
 import Loader from "../../../../components/Loader/Loader";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -153,32 +153,38 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
   // };
 
   const handleFavoriteClick = (activityId, activityData) => {
+
     const token = localStorage.getItem("token");
-    console.log(activityData, 'activity data');
 
     if (token) {
-
       dispatch(addToWishList(activityId))
+        .then(() => {
+          dispatch(getWishList())
+            .then((result) => {
+              setWishList(result.data.payload);
 
-      .then((result) => {
+            })
+            .catch((err) => {
+              console.log(err, "Error fetching wishlist");
+
+            });
           enqueueSnackbar("Added to Wishlist", { variant: "success" });
         })
         .catch((err) => {
           console.log(err, "Error");
+
         });
     } else {
-
       const existingWishListData = localStorage.getItem("wishListData");
-
       let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
-
-
       wishListArray.push(activityData);
 
-
       localStorage.setItem("wishListData", JSON.stringify(wishListArray));
-
       enqueueSnackbar("Added to Wishlist", { variant: "info" });
+
+      setWishList(localStorage.getItem("wishListData"))
+
+
     }
   };
 
@@ -193,9 +199,27 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
       });
   }, [dispatch]);
 
+  // const isActivityInWishlist = (activityId) => {
+  //   return wishList.some((item) => item.activity_id === activityId);
+  // };
+
+
+  const WishListredux = useSelector((state)=>state.wishlist.wishlist.payload)
+const isAuth = useSelector((state)=>state.auth.isAuthenticated)
+
   const isActivityInWishlist = (activityId) => {
-    return wishList.some((item) => item.activity_id === activityId);
-  };
+
+
+    if(isAuth){
+
+      return WishListredux.some((item) => item.activity_id == activityId);
+
+    }else{
+      // return wishList.some((item) => item.activity_id == activityId);
+    }
+      };
+
+      console.log(wishList, 'wishlisttttttttttttttt')
 
   return (
     <Box>

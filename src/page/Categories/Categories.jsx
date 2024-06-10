@@ -393,8 +393,10 @@ const Categories = () => {
             display: "flex",
             alignItems: "center",
             mt: 5,
+
           }}
         >
+          <img src='/thingstodo.svg' width={'33rem'}/>
           <Typography
             variant="h4"
             fontWeight="bold"

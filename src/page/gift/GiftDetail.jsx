@@ -71,7 +71,7 @@ const GiftDetail = ({ ac_data }) => {
           <Grid container spacing={3} mt={1} sx={{ alignItems: 'center' }}>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-<Typography>Coose a value for gift card</Typography>
+<Typography sx={{fontSize:'1.2rem', fontWeight:'700'}}>Coose a value for gift card</Typography>
 <br/>
 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Button variant='outlined' onClick={() => handleDiscountClick('50')}>AED 50</Button>

@@ -39,8 +39,8 @@ const Tab2Card = (props) => {
                 onClick={() => navigate(`/details/${val.id}`)}
                 sx={{
 
-minHeight:'22rem',
-     maxHeight:'25rem',
+                  minHeight:'23rem',
+                  maxHeight:'25rem',
                   // width: 320,
                   backgroundColor: "white",
                   borderRadius: "12px",

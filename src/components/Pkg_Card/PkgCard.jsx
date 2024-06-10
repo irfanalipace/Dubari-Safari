@@ -8,7 +8,7 @@ import { Box, IconButton, Rating, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 import { getActivities } from "../../store/actions/categoriesActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToWishList, getWishList } from "../../store/actions/wishListActions";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
@@ -26,6 +26,10 @@ const PkgCard = ({ data, categories, ind }) => {
   const [wishList, setWishList] = React.useState([]);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+
+
+  const WishListredux = useSelector((state)=>state.wishlist.wishlist.payload)
+const isAuth = useSelector((state)=>state.auth.isAuthenticated)
 
   const descriptionStyle = {
     display: '-webkit-box',
@@ -84,11 +88,16 @@ const PkgCard = ({ data, categories, ind }) => {
       const existingWishListData = localStorage.getItem("wishListData");
       let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
       wishListArray.push(activityData);
+      setLoading(false);
       localStorage.setItem("wishListData", JSON.stringify(wishListArray));
       enqueueSnackbar("Added to Wishlist", { variant: "info" });
-      setLoading(false);
+
+      setWishList(localStorage.getItem("wishListData"))
+
+
     }
   };
+
 
 
   useEffect(() => {
@@ -102,9 +111,22 @@ const PkgCard = ({ data, categories, ind }) => {
   }, [dispatch]);
 
   const isActivityInWishlist = (activityId) => {
-    return wishList.some((item) => item.activity_id === activityId);
+
+
+if(isAuth){
+
+  return WishListredux.some((item) => item.activity_id == activityId);
+
+}else{
+  // return wishList.some((item) => item.activity_id == activityId);
+}
   };
+
   return (
+
+
+
+
     <Card sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
       onClick={handleBookNowClick}
 
@@ -157,13 +179,21 @@ const PkgCard = ({ data, categories, ind }) => {
           <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
             {/* <Typography sx={{ fontSize: "15px", color: "grey" }}> */}
 
-            <Typography
+            {data.discount_offer > 0 && (
+              <Typography
               sx={{ fontSize: '0.9rem', color: "grey", textDecoration: "line-through" }}
             >
               {data.packages[0].category === "private"
                 ? `AED ${data.packages[0].price}`
                 : `AED ${data.packages[0].adult_price}`}
             </Typography>
+)}
+
+
+
+
+
+
 
             <Typography
               sx={{ fontSize: '1rem' }}

@@ -36,7 +36,7 @@ const Navbar = () => {
   const theme = useTheme();
   const base='https://dubaisafari.saeedantechpvt.com/'
   const userData = useSelector((state) => state.auth.user);
-  console.log(userData, "User Data from BE");
+  // console.log(userData, "User Data from BE");
   const authh = useSelector((state) => state.auth.isAuthenticated);
 
   const cartData = useSelector((state) => state.cart.cart.payload);

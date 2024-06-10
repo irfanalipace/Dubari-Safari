@@ -1,8 +1,9 @@
 import { Box, Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getPopularActivities } from "../../store/actions/categoriesActions";
+import Loader from "../../components/Loader/Loader";
 
 const Tab1Card = (props) => {
   const theme = useTheme();
@@ -31,86 +32,92 @@ const Tab1Card = (props) => {
         .slice(0, 3)
     : [];
 
+    const loading = !popularActivities;
+
   return (
     <>
-      <Grid container sx={{ alignItems: "center" }} spacing={5}>
-        {filteredActivities.length > 0 ? (
-          filteredActivities.map((val, ind) => (
-            <Grid item lg={4} md={4} sm={12} xs={12} key={ind}>
-              <Box
-                onClick={() => navigate(`/details/${val.id}`)}
-                sx={{
-                  minHeight:'23rem',
-                  maxHeight:'25rem',
-                  backgroundColor: "white",
-                  borderRadius: "12px",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                  overflow: "hidden",
-                  padding: "5px",
-                  textAlign: "start",
-                }}
-              >
-                <Box sx={{ position: "relative" }}>
-                  <img
-                    src={`https://dubaisafari.saeedantechpvt.com/storage/uploads/media/${val.image}`}
-                    alt="Header image"
-                    style={{
-                      width: "100%",
-                      height: "30vh",
-                      borderRadius: "12px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-
-                <Box
-                  p={2}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1px",
-                    alignItems: "start",
-                  }}
-                >
-                  <Typography sx={{ fontSize: "18px", fontWeight: 600 }}>
-                    {val.name}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "1rem",
-                      color: theme.palette.primary.textPrimary,
-                      wordBreak: "break-word",
-                      overflowWrap: "break-word",
-                      display: "-webkit-box",
-                      WebkitBoxOrient: "vertical",
-                      WebkitLineClamp: 3,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      maxHeight: "4.5rem",
-                      lineHeight: "1.5rem",
-                    }}
-                  >
-                    {truncateDescription(val.description)}
-
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-          ))
-        ) : (
-          <Typography
+  <Grid container sx={{ alignItems: "center" }} spacing={5}>
+  {loading ? (
+    <Loader /> // Show loader while loading
+  ) : (
+    filteredActivities?.length > 0 ? (
+      filteredActivities?.map((val, ind) => (
+        <Grid item lg={4} md={4} sm={12} xs={12} key={ind}>
+          <Box
+            onClick={() => navigate(`/details/${val.id}`)}
             sx={{
-              color: theme.palette.primary.main,
-              textAlign: "center",
-              paddingTop: "50px",
-              fontSize: "20px",
-              fontWeight: 600,
+              minHeight: '23rem',
+              maxHeight: '25rem',
+              backgroundColor: "white",
+              borderRadius: "12px",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              overflow: "hidden",
+              padding: "5px",
+              textAlign: "start",
             }}
           >
-            No experience found
-          </Typography>
-        )}
-      </Grid>
+            <Box sx={{ position: "relative" }}>
+              <img
+                src={`https://dubaisafari.saeedantechpvt.com/storage/uploads/media/${val.image}`}
+                alt="Header image"
+                style={{
+                  width: "100%",
+                  height: "30vh",
+                  borderRadius: "12px",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+
+            <Box
+              p={2}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1px",
+                alignItems: "start",
+              }}
+            >
+              <Typography sx={{ fontSize: "18px", fontWeight: 600 }}>
+                {val.name}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "1rem",
+                  color: theme.palette.primary.textPrimary,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 3,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxHeight: "4.5rem",
+                  lineHeight: "1.5rem",
+                }}
+              >
+                {truncateDescription(val.description)}
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+      ))
+    ) : (
+      <Typography
+        sx={{
+          color: theme.palette.primary.main,
+          textAlign: "center",
+          paddingTop: "50px",
+          fontSize: "20px",
+          fontWeight: 600,
+        }}
+      >
+        No experience found
+      </Typography>
+    )
+  )}
+</Grid>
+
     </>
   );
 };

@@ -83,13 +83,17 @@ const CustomCard = () => {
                       <>
 
                         <Box gap={1} sx={{ display: "flex" }}>
-                          <Typography
-                            sx={{ color: "grey", textDecoration: "line-through" }}
-                          >
-                            {val.packages[0].category === "private"
-                              ? `AED ${val.packages[0].price}`
-                              : `AED ${val.packages[0].adult_price}`}
-                          </Typography>
+
+
+
+                        {val.discount_offer > 0 && (
+  <Typography sx={{ color: "grey", textDecoration: "line-through" }}>
+    {val.packages[0].category === "private"
+      ? `AED ${val.packages[0].price}`
+      : `AED ${val.packages[0].adult_price}`}
+  </Typography>
+)}
+
 
                           <Typography
                             fontWeight="bold"

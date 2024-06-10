@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme, Radio } from "@mui/material";
+import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme, Radio, Menu, IconButton } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import { FiGift } from "react-icons/fi";
 import { Send_Gift } from "../../store/actions/categoriesActions";
 import Cookies from "js-cookie"; // Importing js-cookie
 import Loader from "../../components/Loader/Loader";
+import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 
 const DetailLeft = ({ ac_data, loading }) => {
     const [date, setDate] = useState("");
@@ -19,6 +20,42 @@ const DetailLeft = ({ ac_data, loading }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
+
+
+
+
+    const [adultCount, setAdultCount] = useState(1);
+
+    const handleAdultIncrement = () => {
+      setAdult(prevCount => prevCount + 1);
+    };
+
+    const handleAdultDecrement = () => {
+      setAdult(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
+
+
+    }
+
+    const handleChildIncrement = () => {
+        setChild(prevCount => prevCount + 1);
+      };
+
+      const handleChildDecrement = () => {
+        setChild(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
+
+
+      }
+
+      const handleInfantIncrement = () => {
+        setInfant(prevCount => prevCount + 1);
+      };
+
+      const handleInfantDecrement = () => {
+        setInfant(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
+
+
+      }
+
 
     const [loadingStates, setLoadingStates] = useState({});
     console.log(ac_data, 'ac')
@@ -177,26 +214,26 @@ const DetailLeft = ({ ac_data, loading }) => {
         textOverflow: "ellipsis",
     };
 
-    const handleInfantChange = (e) => {
-        const value = e.target.value;
-        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-            setInfant(value);
-        }
-    };
+    // const handleInfantChange = (e) => {
+    //     const value = e.target.value;
+    //     if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
+    //         setInfant(value);
+    //     }
+    // };
 
-    const handleChildChange = (e) => {
-        const value = e.target.value;
-        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-            setChild(value);
-        }
-    };
+    // const handleChildChange = (e) => {
+    //     const value = e.target.value;
+    //     if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
+    //         setChild(value);
+    //     }
+    // };
 
-    const handleAdultChange = (e) => {
-        const value = e.target.value;
-        if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
-            setAdult(value);
-        }
-    };
+    // const handleAdultChange = (e) => {
+    //     const value = e.target.value;
+    //     if (value === '' || (Number.isInteger(+value) && +value >= 0)) {
+    //         setAdult(value);
+    //     }
+    // };
 
     const handleSendGift = () => {
 
@@ -216,6 +253,12 @@ const DetailLeft = ({ ac_data, loading }) => {
         behavior: "smooth",
       });
     };
+
+
+
+
+
+
     return (
 
 
@@ -240,10 +283,15 @@ const DetailLeft = ({ ac_data, loading }) => {
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
-                  <Typography sx={{ fontSize: "1rem" }}>From</Typography>
-                  <Typography
+
+
+                  {ac_data?.discount_offer > 0 && (
+
+<>
+<Typography sx={{ fontSize: "1rem" }}>From</Typography>
+<Typography
                     sx={{
-                      fontSize: "1.1rem",
+                      fontSize: "1rem",
                       color: "grey",
                       textDecoration: "line-through",
                     }}
@@ -252,11 +300,24 @@ const DetailLeft = ({ ac_data, loading }) => {
                       ? `AED ${ac_data.packages[0].price}`
                       : `AED ${ac_data.packages[0].adult_price}`}
                   </Typography>
+
+</>
+
+
+)}
+
+
+
+
+
+
+
+
                   <Typography
                     fontWeight="bold"
                     color={theme.palette.primary.main}
                     textAlign={"right"}
-                    sx={{ fontSize: "1.2rem" }}
+                    sx={{ fontSize: "1.1rem" }}
                   >
                     {ac_data?.packages[0].category === "private"
                       ? `AED ${Math.round(
@@ -314,18 +375,20 @@ const DetailLeft = ({ ac_data, loading }) => {
                         </Box>
                     ) : (
                         ac_data?.packages?.map((item, index) => {
+      const total_amount = calculateTotalPrice(item.price);
+      let total = 0;
 
+      if (item.category === "sharing") {
+        total =
+          adult * Number(item.adult_price) + child * Number(item.child_price);
+      } else {
+        total = total_amount;
+      }
 
-
-
-                            const total_amount = calculateTotalPrice(item.price);
-                            let total = 0;
-                            if (item.category === 'sharing') {
-                                total = adult * Number(item.adult_price) + child * Number(item.child_price);
-                            } else {
-                                total = total_amount;
-                            }
-                            const quantity = adult + child + infant;
+      const discount = ac_data?.discount_offer || 0;
+      total = total - (total * discount) / 100;
+  total = Math.round(total);
+      const quantity = adult + child + infant;
 
 
 
@@ -476,22 +539,6 @@ const DetailLeft = ({ ac_data, loading }) => {
 
                 <Box sx={{ padding: "0px 20px", width: "90%" }}>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                         <Button
                             fullWidth
@@ -512,7 +559,102 @@ const DetailLeft = ({ ac_data, loading }) => {
                 {showDropdowns && (
                     <>
                         <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                            <InputLabel>Adult</InputLabel>
+
+
+
+{/* ---------------------new design ----------------- */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent:'space-around' }}>
+
+<Typography sx={{fontSize:'1.1rem', fontWeight:'700'}}>Adult</Typography>
+
+
+
+
+
+
+      <Box sx={{ display: 'flex', alignItems: 'center', }}>
+
+
+<IconButton
+          onClick={handleAdultDecrement}
+sx={{color:theme.palette.primary.main, fontSize:'2.5rem'}}
+>
+
+<CiCircleMinus />
+</IconButton>
+
+
+        <Typography sx={{fontSize:'1.3rem'}}>{adult}</Typography>
+
+
+        <IconButton
+          onClick={handleAdultIncrement}
+sx={{color:theme.palette.primary.main, fontSize:'2.5rem'}}
+>
+<CiCirclePlus/>
+
+</IconButton>
+
+
+
+      </Box>
+    </Box>
+
+<br/>
+
+
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent:'space-around' }}>
+    <Typography sx={{fontSize:'1.1rem', fontWeight:'700'}}>Child</Typography>
+
+
+
+      <Box sx={{ display: 'flex', alignItems: 'center', }}>
+      <IconButton
+          onClick={handleChildDecrement}
+sx={{color:theme.palette.primary.main, fontSize:'2.5rem'}}
+>
+
+<CiCircleMinus />
+</IconButton>
+        <Typography sx={{fontSize:'1.3rem'}}>{child}</Typography>
+        <IconButton
+          onClick={handleChildIncrement}
+sx={{color:theme.palette.primary.main, fontSize:'2.5rem'}}
+>
+<CiCirclePlus/>
+
+</IconButton>
+      </Box>
+    </Box>
+<br/>
+
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent:'space-around' }}>
+    <Typography sx={{fontSize:'1.1rem', fontWeight:'700'}}>Infant</Typography>
+
+
+      <Box sx={{ display: 'flex', alignItems: 'center', }}>
+      <IconButton
+          onClick={handleInfantDecrement}
+sx={{color:theme.palette.primary.main, fontSize:'2.5rem'}}
+>
+
+<CiCircleMinus />
+</IconButton>
+        <Typography sx={{fontSize:'1.3rem'}}>{infant}</Typography>
+        <IconButton
+          onClick={handleInfantIncrement}
+sx={{color:theme.palette.primary.main, fontSize:'2.5rem'}}
+>
+<CiCirclePlus/>
+
+</IconButton>
+      </Box>
+    </Box>
+
+{/* ----------------------new design end------------ */}
+
+
+                            {/* <InputLabel>Adult</InputLabel>
                             <TextField
                                 type="number"
                                 value={adult}
@@ -529,26 +671,12 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     },
                                 }}
                                 inputProps={{ min: 0 }}
-                            />
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
-                                <Select
-                                    value={adult}
-                                    onChange={(e) => setAdult(e.target.value)}
-                                    sx={{
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            border: "none",
-                                        },
-                                    }}
-                                >
-                                    {[...Array(300).keys()].map((num) => (
-                                        <MenuItem key={num + 1} value={num + 1}>
-                                            {num + 1}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl> */}
+                            /> */}
+
                         </Box>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
+
+
+                        {/* <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Child</InputLabel>
                             <TextField
                                 type="number"
@@ -568,25 +696,12 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 inputProps={{ min: 0 }}
                             />
 
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
-                                <Select
-                                    value={child}
-                                    onChange={(e) => setChild(e.target.value)}
-                                    sx={{
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            border: "none",
-                                        },
-                                    }}
-                                >
-                                    {[...Array(300).keys()].map((num) => (
-                                        <MenuItem key={num} value={num}>
-                                            {num}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl> */}
-                        </Box>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                        </Box> */}
+
+
+
+
+                        {/* <Box sx={{ padding: "0px 20px", width: "90%" }}>
                             <InputLabel>Infant</InputLabel>
 
                             <TextField
@@ -607,24 +722,8 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 inputProps={{ min: 0 }}
                             />
 
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
-                                <Select
-                                    value={infant}
-                                    onChange={(e) => setInfant(e.target.value)}
-                                    sx={{
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            border: "none",
-                                        },
-                                    }}
-                                >
-                                    {[...Array(300).keys()].map((num) => (
-                                        <MenuItem key={num} value={num}>
-                                            {num}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl> */}
-                        </Box>
+
+                        </Box> */}
                     </>
                 )}
 

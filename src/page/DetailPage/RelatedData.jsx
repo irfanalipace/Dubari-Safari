@@ -99,26 +99,35 @@ const RelatedData = () => {
                       </Typography>
 
                       <Box gap={1} sx={{ display: "flex" }}>
+
+
+
+
+
+
+
+
+
+
                         {val.packages && val.packages.length > 0 && (
                           <>
-                            <Typography
-                              sx={{
-                                color: "grey",
-                                textDecoration: "line-through",
-                              }}
-                            >
-                              {val.packages[0].category === "private"
-                                ? `AED ${val.packages[0].price}`
-                                : `AED ${val.packages[0].adult_price}`}
-                            </Typography>
-                            {/* <Typography
-                            fontWeight="bold"
-                            color={theme.palette.primary.main}
-                          >
-                            {val.packages[0].category === "private"
-                              ? `AED ${(val.packages[0].price - (val.packages[0].price * val.discount_offer / 100)).toFixed(2)}`
-                              : `AED ${(val.packages[0].adult_price - (val.packages[0].adult_price * val.discount_offer / 100)).toFixed(2)}`}
-                          </Typography> */}
+
+                          {val?.discount_offer > 0 && (
+
+
+<Typography
+      sx={{
+        color: "grey",
+        textDecoration: "line-through",
+      }}
+    >
+      {val.packages[0].category === "private"
+        ? `AED ${val.packages[0].price}`
+        : `AED ${val.packages[0].adult_price}`}
+    </Typography>
+
+)}
+
 
                             <Typography
                               fontWeight="bold"
