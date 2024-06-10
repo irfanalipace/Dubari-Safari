@@ -12,7 +12,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWishList, getWishList } from "../../store/actions/wishListActions";
+import { addToWishList, deleteWishList, getWishList } from "../../store/actions/wishListActions";
 import Loader from "../Loader/Loader";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router";
@@ -29,6 +29,27 @@ const SearchCard = () => {
   const reduxWishList = useSelector((state) => state.wishlist.wishlist.payload);
 
 
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedData = JSON.parse(localStorage.getItem("wishListData"));
+
+    if (token && storedData && storedData.length > 0) {
+      storedData.forEach((item) => {
+        const { id } = item;
+        dispatch(addToWishList(id))
+          .then((res) => {
+
+            localStorage.removeItem("wishListData");
+            // enqueueSnackbar("Activity Added to wishlist", { variant: "success" });
+          })
+          .catch((err) => {
+            console.error(err);
+
+          });
+      });
+    }
+  }, []);
 
 
   useEffect(() => {
@@ -50,12 +71,6 @@ const SearchCard = () => {
     }
   }, [dispatch, token]);
 
-  useEffect(() => {
-    if (token && reduxWishList) {
-      setWishList(reduxWishList);
-    }
-  }, [reduxWishList, token]);
-
   const truncateDescription = (description) => {
     const words = description.split(" ");
     if (words.length > 30) {
@@ -71,9 +86,13 @@ const SearchCard = () => {
       setLoading(true);
       dispatch(deleteWishList(id))
         .then((res) => {
-          setLoading(false);
-          enqueueSnackbar("Activity Removed", { variant: "success" });
-          // setWishList((prevWishList) => prevWishList.filter(item => item.activity_id !== id));
+           dispatch(getWishList()).then((res)=>{
+            setLoading(false);
+            enqueueSnackbar("Activity Removed", { variant: "success" });
+           }).catch((err)=>{
+            setLoading(false)
+           })
+
         })
         .catch((err) => {
           console.error(err);
@@ -92,7 +111,11 @@ const SearchCard = () => {
   };
 
   // console.log(wishList, 'wishlisttttttt');
-
+  useEffect(() => {
+    if (token && reduxWishList) {
+      setWishList(reduxWishList);
+    }
+  }, [reduxWishList, token]);
 
   return (
     <>
@@ -110,17 +133,17 @@ const SearchCard = () => {
   </Grid>
   <Grid item lg={6} md={6} sm={12} xs={12}>
     <Box>
-      <Typography 
-        variant="h1" 
-        sx={{ 
-          fontSize: { xs: '1.5rem', md: '2rem' }, 
-          fontWeight: '700', 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: { xs: 'auto', md: '25vh' }, 
-          marginTop: { xs: '2rem', md: '4rem' }, 
-          textAlign: 'center' 
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: { xs: '1.5rem', md: '2rem' },
+          fontWeight: '700',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: { xs: 'auto', md: '25vh' },
+          marginTop: { xs: '2rem', md: '4rem' },
+          textAlign: 'center'
         }}
       >
         Your Wishlist is empty

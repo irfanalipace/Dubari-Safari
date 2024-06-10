@@ -43,7 +43,7 @@ const ReviewsDetail = ({ data }) => {
             <Rating name="average-rating" value={averageRating} readOnly />
           </Box>
 
-          <Box sx={{ width: { xs: '100%', md: 'auto' }, textAlign: { xs: 'center', md: 'left' } }}>
+          <Box sx={{ width: { xs: '100%', md: 'auto' }, textAlign: { xs: 'center', md: 'left' , lg:'left'} }}>
             {ratingDistribution.map(({ star, count }) => (
               <Box
                 key={star}
@@ -51,12 +51,18 @@ const ReviewsDetail = ({ data }) => {
                   display: 'flex',
                   flexDirection: { xs: 'column', sm: 'row' },
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  justifyContent: 'start',
                   marginBottom: '8px',
                   width: '100%',
                 }}
               >
-                <Typography sx={{ fontSize: { xs: '18px', md: '22px' } }}>{star} stars</Typography>
+
+                {/* <Typography sx={{ fontSize: { xs: '18px', md: '22px' } }}>{star} stars</Typography> */}
+                
+                <Typography sx={{ fontSize: { xs: '18px', md: '22px', } }}>
+    {star === 5 ? 'Excellent' : star === 4 ? 'Very Good' : star === 3 ? 'Average' : star === 2 ? 'Poor' : 'Terrible'}
+    &nbsp;{star} stars
+  </Typography>
                 <Rating name={`rating-${star}`} value={star} readOnly />
                 <Typography sx={{ fontSize: { xs: '18px', md: '22px' }, marginLeft: { xs: 0, sm: '10px' } }}>
                   {count}

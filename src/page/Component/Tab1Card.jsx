@@ -40,7 +40,8 @@ const Tab1Card = (props) => {
               <Box
                 onClick={() => navigate(`/details/${val.id}`)}
                 sx={{
-                  height:'22rem',
+                  minHeight:'23rem',
+                  maxHeight:'25rem',
                   backgroundColor: "white",
                   borderRadius: "12px",
                   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
@@ -90,7 +91,7 @@ const Tab1Card = (props) => {
                     }}
                   >
                     {truncateDescription(val.description)}
-                   
+
                   </Typography>
                 </Box>
               </Box>

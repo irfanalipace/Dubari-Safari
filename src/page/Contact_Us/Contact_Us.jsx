@@ -110,11 +110,11 @@ const Contact_Us = () => {
                 Feel Free to contact with us
               </Typography>
               <Box sx={{ mt: 4 }}>
-                <Icon_Title icon={<AddIcCallIcon />} txt="+123456789" />
-                <Icon_Title icon={<EmailIcon />} txt="demo@gmail.com" />
+                <Icon_Title icon={<AddIcCallIcon />} txt="+971 50 377 3786" />
+                <Icon_Title icon={<EmailIcon />} txt="info@bookdubaisafari.com" />
                 <Icon_Title
                   icon={<PlaceIcon />}
-                  txt="123 Elmhurst Street Number 22, New York USA. "
+                  txt="Dubai Downtown, 232268 Dubai U.A.E"
                 />
               </Box>
               <Box sx={{ mt: 8 }}>

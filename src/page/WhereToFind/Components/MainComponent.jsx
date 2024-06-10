@@ -150,17 +150,17 @@ const MainComponent = () => {
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">Telephone:</Typography>
-                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>+92 300 0000000</Typography>
+                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}> +971 50 377 3786</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">Email:</Typography>
-                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>dubai@gmail.com</Typography>
+                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>info@bookdubaisafari.com</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">WhatsApp:</Typography>
-                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>+92 300 0000000</Typography>
+                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>+971 50 377 3786</Typography>
                 </Box>
               </Box>
 
@@ -169,7 +169,10 @@ const MainComponent = () => {
               <Box sx={{ marginTop: "1rem" }}>
 
                 <Typography sx={{ fontWeight: '600' }}>Location</Typography>
-                <Typography sx={{ color: '#90a3bf', fontSize: '0.9rem' }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam quas consectetur dignissimos eaque voluptas cum numquam, nesci</Typography>
+                <Typography sx={{ color: '#90a3bf', fontSize: '0.9rem' }}>API World Tower
+Sheikh Zayed Road
+P.O Box 232268
+Dubai. United Arab Emirates</Typography>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">Timezone:</Typography>
@@ -178,21 +181,21 @@ const MainComponent = () => {
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">Booking:</Typography>
-                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>aaooline@arabian - adventures.com</Typography>
+                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>bds@bookdubaisafari.com</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">Business:</Typography>
-                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>AA - BD@emirates.com</Typography>
+                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>business@bookdubaisafari.com</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">Press:</Typography>
-                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>public.relations@dnata.com</Typography>
+                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>public.relations@bookdubaisafari.com</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                   <Typography sx={{ color: '#90a3bf', fontWeight: '600', fontSize: '1rem' }} variant="h1">General:</Typography>
-                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>aaooline@arabian - adventures.com</Typography>
+                  <Typography sx={{ color: theme.palette.primary.main, fontWeight: '600' }}>info@bookdubaisafari.com</Typography>
                 </Box>
               </Box>
 

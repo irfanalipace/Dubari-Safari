@@ -8,7 +8,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import {
   CalendarMonthOutlined,
@@ -19,6 +19,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux"; // Import useSelector
 import Cookies from "js-cookie"; // Importing js-cookie
+import Loader from "../../../components/Loader/Loader";
 
 
 const RightSideComponents = ({ allCart, totalPrice }) => {
@@ -26,7 +27,17 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  console.log(allCart, "all cartttt");
+const [loading, setLoading]= useState(true)
+
+  useEffect(() => {
+if(totalPrice === null || totalPrice === 0){
+  setLoading(true)
+}else{
+  setLoading(false)
+}
+
+  }, [totalPrice]);
+
 
   const faq = [
     {
@@ -111,33 +122,41 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
             sx={{ fontSize: "20px", fontWeight: "600", marginBottom: "1rem" }}
           >
 
-            Total ({allCart.length} Activit{allCart.length !== 1 ? "ies" : ""})
+            Total ({allCart?.length} Activit{allCart?.length !== 1 ? "ies" : ""})
 
           </Typography>
           <Box>
-            <Typography
-              variant="h1"
-              sx={{
-                color: theme.palette.primary.main,
-                fontSize: "2rem",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-              }}
-            >
-              AED : {totalPrice}
-            </Typography>
-            <Typography
-              variant="h1"
-              sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
-            >
-              No Additional Fees
-            </Typography>
+          {loading ? (
+              <Loader/> // Show loader while loading
+            ) : (
+              <>
+                <Typography
+                  variant="h1"
+                  sx={{
+                    color: theme.palette.primary.main,
+                    fontSize: "2rem",
+                    fontWeight: "600",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  AED : {totalPrice}
+                </Typography>
+                <Typography
+                  variant="h1"
+                  sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
+                >
+                  No Additional Fees
+                </Typography>
+              </>
+            )}
           </Box>
         </Box>
 
-        <Divider />
 
-        <Box sx={{ marginTop: "1rem" }}>
+    {!isAuthenticated && (
+      <Box sx={{ marginTop: "1rem" }}>
+      <Divider />
+
           <Button
             variant="contained"
             sx={{ width: "100%", textTransform: "none" }}
@@ -154,48 +173,6 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           >
             Explore more activities
           </Button>
-          {/*
-          {!isAuthenticated && (
-          <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
-              <Typography>
-                <Link
-                  to="/signup"
-                  style={{
-                    color: theme.palette.primary.main,
-                    textDecoration: "none",
-                  }}
-                >
-                  Create an account
-                </Link>
-                <span> or </span>
-                <Link
-                  to="/login"
-                  style={{
-                    color: theme.palette.primary.main,
-                    textDecoration: "none",
-                  }}
-                >
-                  Login
-                </Link>
-                for faster checkout
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "end",
-                  justifyContent: "center",
-                }}
-              >
-                <DoneIcon sx={{ color: "green" }} />
-                <Typography
-                  sx={{ color: "green", fontWeight: "600", marginTop: "1rem" }}
-                >
-                  Best Price Guarantee
-                </Typography>
-              </Box>
-            </Box>
-          )} */}
-
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
             <Typography>
               <Link
@@ -235,6 +212,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
             </Box>
           </Box>
         </Box>
+    )}
       </Box>
 
       <Box sx={{ mt: 3 }}>

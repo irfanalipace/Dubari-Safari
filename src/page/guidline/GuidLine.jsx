@@ -8,7 +8,7 @@ const GuidLine = () => {
     })
     const data1 = [
         {
-            title: 'How to Book',
+            title: '1. How to Book',
             descriptions: [
                 'To book any of our Tours and Safaris book online, or call us on +971 50 377 3786 or visit any of our Office.',
                 'Purchase of any of our products or services is subject to our Conditions of Contract.',
@@ -26,7 +26,7 @@ const GuidLine = () => {
 
     const data2 = [
         {
-            title: '2 Good To Know',
+            title: '2. Good To Know',
             descriptions: [
                 'Our sightseeing tours are conducted in more than one language and are usually multilingual, however our safari is conducted in English only.',
                 'Purchase of any of our products or services is subject to our Conditions of Contract.',
@@ -42,7 +42,7 @@ const GuidLine = () => {
         },
 
         {
-            title: '3 Cultural awareness',
+            title: '3. Cultural awareness',
             descriptions: [
                 'Photographing 	government buildings, military institutions and all oil and gas 	refineries is strictly prohibited',
                 ' 	Don’t 	smoke indoors or in public areas',
@@ -53,7 +53,7 @@ const GuidLine = () => {
             ],
         },
         {
-            title: '4 Dress code for Sheikh Zayed Grand Mosque Visit',
+            title: '4. Dress code for Sheikh Zayed Grand Mosque Visit',
             descriptions: [
                 ' 	If 	your tour includes a visit to the Sheikh Zayed Grand Mosque, please 	read the dress code information 	at https://www.szgmc.gov.ae/en/mosque-manner.',
                 ' 	No 	transparent (see through) clothing',
@@ -64,14 +64,14 @@ const GuidLine = () => {
             ],
         },
         {
-            title: '5 Alcohol and entertainment',
+            title: '5. Alcohol and entertainment',
             descriptions: [
                 ' 		Serving 		of alcohol and performances of live entertainment are not permitted 		for a period of 24 hours starting at sunset on the eve of all 		religious holidays. The legal drinking age in the UAE is 21 years 		of age.',
 
             ],
         },
         {
-            title: '6 Ramadan',
+            title: '6. Ramadan',
             descriptions: [
                 ' 		 		Ramadan 		is the holy month during which the Islamic world commemorates the 		revelation of the Holy Quran and all Muslims are required to fast 		from dawn to dusk. Eating, drinking and smoking in public areas 		during daylight hours is strictly prohibited for all, throughout 		this month. Food is served at some restaurants and cafes, and in 		the hotels.',
 
@@ -112,7 +112,7 @@ const GuidLine = () => {
             <Box sx={{ padding: '10px 5%' }}>
                 {data1.map((val, ind) => (
                     <Box key={ind}>
-                        <Typography sx={{ lineHeight:'2rem', fontSize: "28px", fontWeight: 700, color: ind === 0 ? 'black' : theme.palette.primary.main, marginTop:'1.5rem'}}>{val.title}</Typography>
+                        <Typography sx={{ lineHeight:'2rem', fontSize: "28px", fontWeight: 700, color:theme.palette.primary.main, marginTop:'1.5rem'}}>{val.title}</Typography>
                         <ul style={{ padding: '10px' }}>
                             {val.descriptions.map((description, descIndex) => (
                                 <li key={descIndex} style={{ lineHeight:'2rem', color: '#506273', fontSize: '16px' }}>
@@ -144,7 +144,7 @@ const GuidLine = () => {
 
                 {data2.map((val, ind) => (
                     <Box key={ind}>
-                        <Typography sx={{ fontSize: "28px", fontWeight: 700, marginTop:'2rem' }}>{val.title}</Typography>
+                        <Typography sx={{ fontSize: "28px", fontWeight: 700, marginTop:'2rem', color:theme.palette.primary.main }}>{val.title}</Typography>
                         <ul style={{ padding: '10px' }}>
                             {val.descriptions.map((description, descIndex) => (
                                 <li key={descIndex} style={{ color: '#506273',lineHeight:'2rem', fontSize: '16px' }}>
@@ -152,9 +152,12 @@ const GuidLine = () => {
                                 </li>
                             ))}
                             {val.link && val.link.map((link, linkIndex) => (
-                                <li key={linkIndex} style={{ marginLeft:'1rem', color: '#506273', fontSize: '16px' }}>
-                                    <a href={`http://${link}`} style={{lineHeight:'2rem', textDecoration:'none', color:'grey'}} target="_blank" rel="noopener noreferrer">{link}</a>
-                                </li>
+                                <div key={linkIndex} style={{ marginLeft:'1rem', color: '#506273', fontSize: '16px', alignItems:'center' }}>
+
+<img src='/icons/Vector.png' alt='tick' width={'15px'}/>
+
+                                    <a href={`http://${link}`} style={{lineHeight:'2rem', textDecoration:'none', marginLeft:'0.5rem', color:'grey'}} target="_blank" rel="noopener noreferrer">{link}</a>
+                                </div>
                             ))}
                         </ul>
                     </Box>

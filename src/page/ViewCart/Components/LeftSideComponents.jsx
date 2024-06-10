@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useSnackbar } from "notistack";
 import { CleaningServices } from "@mui/icons-material";
+import Loader from "../../../components/Loader/Loader";
 
 const LeftSideComponents = ({ setTotalPrice }) => {
 
@@ -88,6 +89,9 @@ const LeftSideComponents = ({ setTotalPrice }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(true);
+  const [deleteLoading, setDeleteLoading] = useState({});
+
+const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
   const token = localStorage.getItem("token");
   const allCartRedux = useSelector((state) => state.cart.cart.payload);
@@ -164,19 +168,38 @@ const LeftSideComponents = ({ setTotalPrice }) => {
   // };
 
   const handleDelete = (id) => {
-    console.log(id, 'id for delete')
-    setLoading(true);
+
+    setDeleteLoading(prevState => ({
+      ...prevState,
+      [id]: true // Set loading state for the item being deleted
+    }));
 
     if (token) {
       // User is logged in, call the API to delete the item
       dispatch(deleteCart(id))
         .then((res) => {
-          setLoading(true);
-          dispatch(getCart());
-          enqueueSnackbar("Activity Removed", { variant: "success" });
+
+          dispatch(getCart())
+          .then(() => {
+            setDeleteLoading(prevState => ({
+              ...prevState,
+              [id]: false // Set loading state for the item being deleted
+            })); // Hide the loader
+            enqueueSnackbar("Activity Removed", { variant: "success" });
+          })
+          .catch((err) => {
+            console.error(err);
+            setDeleteLoading(prevState => ({
+              ...prevState,
+              [id]: false // Set loading state for the item being deleted
+            })); // Hide the loader in case of error
+          });
         })
         .catch((err) => {
-          setLoading(false);
+          setDeleteLoading(prevState => ({
+            ...prevState,
+            [id]: false // Set loading state for the item being deleted
+          }));
           console.error(err);
           enqueueSnackbar("Failed to Remove Activity", { variant: "error" });
         });
@@ -186,7 +209,10 @@ const LeftSideComponents = ({ setTotalPrice }) => {
       console.log(updatedCart, 'cart ud del')
       setAllCartLocal(updatedCart);
       localStorage.setItem("addCartData", JSON.stringify(updatedCart));
-      setLoading(false);
+      setDeleteLoading(prevState => ({
+        ...prevState,
+        [id]: false // Set loading state for the item being deleted
+      }));
       enqueueSnackbar("Activity Removed", { variant: "success" });
     }
   };
@@ -198,6 +224,8 @@ const LeftSideComponents = ({ setTotalPrice }) => {
   const allCart = token ? allCartRedux : allCartLocal;
 
   console.log(allCart, 'cart data')
+
+
 
   return (
     <>
@@ -298,27 +326,51 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                               marginTop: "1rem",
                             }}
                           >
+
+
+
+
+<Button
+  sx={{ textTransform: "none", color: "black" }}
+  onClick={() => handleDelete(packageItem.id)}
+
+>
+
+    <DeleteOutlineOutlinedIcon />
+  Delete
+</Button>
+
+
                             <Button
                               sx={{ textTransform: "none", color: "black" }}
                               onClick={() => handleDelete(packageItem.id)}
                             >
                               <DeleteOutlineOutlinedIcon /> Delete
                             </Button>
-                            <Button sx={{ textTransform: "none", color: "black" }}>
+
+
+
+
+                            {/* <Button sx={{ textTransform: "none", color: "black" }}>
                               <IoSyncOutline
                                 style={{ fontSize: "1.5rem", fontWeight: "800" }}
                               />
                               Update
-                            </Button>
-                            <Button
-                              sx={{
-                                fontSize: "0.8rem",
-                                textTransform: "none",
-                                color: "black",
-                              }}
-                            >
-                              Please Login to use Promocode
-                            </Button>
+                            </Button> */}
+
+
+                      {!isAuthenticated && ( // Render the button if the user is not authenticated
+  <Button
+    sx={{
+      fontSize: "0.8rem",
+      textTransform: "none",
+      color: "black",
+    }}
+  >
+    Please Login to use Promocode
+  </Button>
+)}
+
                             <Typography
                               sx={{
                                 fontSize: "1.5rem",
@@ -426,27 +478,39 @@ const LeftSideComponents = ({ setTotalPrice }) => {
                           marginTop: "1rem",
                         }}
                       >
-                        <Button
-                          sx={{ textTransform: "none", color: "black" }}
-                          onClick={() => handleDelete(val.id)}
-                        >
-                          <DeleteOutlineOutlinedIcon /> Delete
-                        </Button>
-                        <Button sx={{ textTransform: "none", color: "black" }}>
+<Button
+                            sx={{ textTransform: "none", color: "black" }}
+                            onClick={() => handleDelete(val.id)}
+                            disabled={deleteLoading[val.id]}
+                          >
+                            {deleteLoading[val.id] ? (
+                              <Loader/>
+                            ) : (
+                              <DeleteOutlineOutlinedIcon />
+                            )}
+                            Delete
+                          </Button>
+
+                        {/* <Button sx={{ textTransform: "none", color: "black" }}>
                           <IoSyncOutline
                             style={{ fontSize: "1.5rem", fontWeight: "800" }}
                           />
                           Update
-                        </Button>
-                        <Button
-                          sx={{
-                            fontSize: "0.8rem",
-                            textTransform: "none",
-                            color: "black",
-                          }}
-                        >
-                          Please Login to use Promocode
-                        </Button>
+                        </Button> */}
+
+
+                        {!isAuthenticated && ( // Render the button if the user is not authenticated
+  <Button
+    sx={{
+      fontSize: "0.8rem",
+      textTransform: "none",
+      color: "black",
+    }}
+  >
+    Please Login to use Promocode
+  </Button>
+)}
+
                         <Typography
                           sx={{
                             fontSize: "1.5rem",

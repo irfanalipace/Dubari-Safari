@@ -41,6 +41,7 @@ const CustomCard = () => {
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 padding: "5px",
+                minHeight:'25rem'
               }}
             >
               <Box sx={{ position: "relative" }}>

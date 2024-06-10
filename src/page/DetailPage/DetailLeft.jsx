@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Divider, Typography, TextField, MenuItem, FormControl, InputLabel, Select, Button, CircularProgress, useTheme, Radio } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router";
@@ -7,6 +7,7 @@ import { addToCart } from "../../store/actions/cartActions";
 import { FiGift } from "react-icons/fi";
 import { Send_Gift } from "../../store/actions/categoriesActions";
 import Cookies from "js-cookie"; // Importing js-cookie
+import Loader from "../../components/Loader/Loader";
 
 const DetailLeft = ({ ac_data, loading }) => {
     const [date, setDate] = useState("");
@@ -18,6 +19,8 @@ const DetailLeft = ({ ac_data, loading }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
+
+    const [loadingStates, setLoadingStates] = useState({});
     console.log(ac_data, 'ac')
     useEffect(() => {
         const currentDate = new Date().toISOString().split("T")[0];
@@ -109,14 +112,26 @@ const DetailLeft = ({ ac_data, loading }) => {
 
         const token = localStorage.getItem("token");
         if (token) {
+            setLoadingStates(prevStates => ({
+                ...prevStates,
+                [packageid]: true
+            }));
 
             return dispatch(addToCart(p_id, q, total, date, adult, child, infant))
                 .then((result) => {
-                    console.log(result);
+                    setLoadingStates(prevStates => ({
+                        ...prevStates,
+                        [packageid]: false
+                    }));
+
                     enqueueSnackbar("Added to cart successfully", { variant: "success" });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    setLoadingStates(prevStates => ({
+                        ...prevStates,
+                        [packageid]: false
+                    }));
+
                     enqueueSnackbar("Failed to add to cart", { variant: "error" });
                     throw err;
                 });
@@ -190,7 +205,98 @@ const DetailLeft = ({ ac_data, loading }) => {
         };
         navigate('/view-gift', { state: dataToSend });
     };
+
+
+
+    const bookNowRef = useRef(null);
+
+    const handleBookNowClick = () => {
+      window.scrollTo({
+        top: window.innerHeight / 1.2,
+        behavior: "smooth",
+      });
+    };
     return (
+
+
+
+        <>
+   <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "end",
+                mt: 0,
+                mb: 5,
+              }}
+              gap={3}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "end",
+                  flex:1
+                }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
+                  <Typography sx={{ fontSize: "1rem" }}>From</Typography>
+                  <Typography
+                    fontWeight="bold"
+                    color={theme.palette.primary.main}
+                    textAlign={"right"}
+                    sx={{ fontSize: "1.2rem" }}
+                  >
+                    {ac_data?.packages[0].category === "private"
+                      ? `AED ${Math.round(
+                          ac_data?.packages[0].price -
+                            (ac_data?.packages[0].price * ac_data?.discount_offer) /
+                              100
+                        )}`
+                      : `AED ${Math.round(
+                          ac_data?.packages[0].adult_price -
+                            (ac_data?.packages[0].adult_price *
+                              ac_data?.discount_offer) /
+                              100
+                        )}`}
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      fontSize: "1.1rem",
+                      color: "grey",
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {ac_data.packages[0].category === "private"
+                      ? `AED ${ac_data.packages[0].price}`
+                      : `AED ${ac_data.packages[0].adult_price}`}
+                  </Typography>
+                </Box>
+                <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
+                  Price varies by vehicles, group sizes and other selections
+                </Typography>
+              </Box>
+
+              <Box sx={{ display: "flex", justifyContent: "right", flex:1 }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "white",
+                    fontSize: "0.9rem",
+                    textTransform: "none",
+                    borderRadius: "30px",
+                    padding: "0.4rem 2rem",
+                  }}
+                  onClick={handleBookNowClick}
+                  ref={bookNowRef}
+                >
+                  Select Options
+                </Button>
+              </Box>
+            </Box>
+
+
         <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
 
@@ -204,7 +310,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 <Divider sx={{mb:3, mt:1}}/>
                     {loading ? (
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                            <CircularProgress />
+                            <Loader />
                         </Box>
                     ) : (
                         ac_data?.packages?.map((item, index) => {
@@ -220,6 +326,9 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 total = total_amount;
                             }
                             const quantity = adult + child + infant;
+
+
+
                             return (
                                 <Box
     key={index}
@@ -252,6 +361,9 @@ const DetailLeft = ({ ac_data, loading }) => {
             <Typography sx={{ fontSize: "14px", color: "#777" }}>
                 {item.category}
             </Typography>
+            <Typography sx={{ fontSize: "14px", color: "#777" }}>
+                {item.highlight}
+            </Typography>
         </Box>
         <Box>
             <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
@@ -261,17 +373,22 @@ const DetailLeft = ({ ac_data, loading }) => {
     </Box>
     <Box sx={{ display: 'flex' }} gap={3}>
     <Box>
-                                        <Button
-                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
-                                            variant="contained"
-                                            sx={{
-                                                color: "white",
-                                                fontSize: "12px",
-                                                textTransform: 'none'
-                                            }}
-                                        >
-                                            Add To Cart
-                                        </Button>
+    {loadingStates[item.id] ? (
+                        <Loader/>
+                    ) : (
+                        <Button
+                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
+                            variant="contained"
+                            sx={{
+                                color: "white",
+                                fontSize: "12px",
+                                textTransform: 'none'
+                            }}
+                            disabled={loadingStates[item.id]}
+                        >
+                            Add To Cart
+                        </Button>
+                    )}
                                     </Box>
                                     <Box>
                                         <Button
@@ -608,6 +725,8 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box>
             </Box>
         </Box >
+        </>
+
     );
 };
 
