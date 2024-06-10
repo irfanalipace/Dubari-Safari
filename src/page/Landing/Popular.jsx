@@ -7,105 +7,6 @@ import { useDispatch } from 'react-redux';
 import { getPopularActivities } from '../../store/actions/categoriesActions';
 
 
-const cardData = [
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-    {
-        earnpoints: 'Earn R points',
-        title: "Morning Desert Safari",
-
-        duration: '3 Hours, 5 minutes',
-        availability: "Tomorrow",
-
-        discountprice: '$3,500',
-        actualprice: '$2,500',
-        imageUrl: "/header.png"
-    },
-
-
-
-];
-
-
-
-
 const Popular = () => {
     const theme = useTheme();
     const navigate = useNavigate()
@@ -119,14 +20,17 @@ const Popular = () => {
 
 
     return (
-        <Box sx={{ padding: '20px 50px',
+        <Box sx={{
+            padding: '20px 50px',
 
-        
-         textAlign:'center' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px',
-            padding: isSmall ? '0px': '0px 20px'
-             }}>
-                <Typography sx={{fontSize: isSmall ? '25px' : '37px', fontWeight: 700, }}>Most Popular Things to do in Dubai</Typography>
+
+            textAlign: 'center'
+        }}>
+            <Box sx={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px',
+                padding: isSmall ? '0px' : '0px 20px'
+            }}>
+                <Typography sx={{ fontSize: isSmall ? '25px' : '37px', fontWeight: 700, }}>Most Popular Things to do in Dubai</Typography>
                 <Typography sx={{ color: theme.palette.primary.textPrimary }}>Lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet consectetur lorem r</Typography>
                 <Box sx={{ padding: '30px 50px' }}>
 

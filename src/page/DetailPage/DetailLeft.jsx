@@ -38,11 +38,14 @@ const DetailLeft = ({ ac_data, loading }) => {
             enqueueSnackbar("Please Select Date", { variant: "error" });
         } else {
             const data = {
-                id: id,
+                package: {
+                    package_id: id,
+                    adult: adult,
+                    child: child,
+                    infant: infant,
+                    price: total_amount,
+                },
                 date: date,
-                adult: adult,
-                child: child,
-                infant: infant,
                 total_amount: total_amount,
             };
 
@@ -211,309 +214,309 @@ const DetailLeft = ({ ac_data, loading }) => {
     const bookNowRef = useRef(null);
 
     const handleBookNowClick = () => {
-      window.scrollTo({
-        top: window.innerHeight / 1.2,
-        behavior: "smooth",
-      });
+        window.scrollTo({
+            top: window.innerHeight / 1.2,
+            behavior: "smooth",
+        });
     };
     return (
 
 
 
         <>
-   <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "end",
-                mt: 0,
-                mb: 5,
-              }}
-              gap={3}
-            >
-              <Box
+            <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "end",
-                  flex:1
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "end",
+                    mt: 0,
+                    mb: 5,
                 }}
-              >
-                <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
-                  <Typography sx={{ fontSize: "1rem" }}>From</Typography>
-                  <Typography
-                    fontWeight="bold"
-                    color={theme.palette.primary.main}
-                    textAlign={"right"}
-                    sx={{ fontSize: "1.2rem" }}
-                  >
-                    {ac_data?.packages[0].category === "private"
-                      ? `AED ${Math.round(
-                          ac_data?.packages[0].price -
-                            (ac_data?.packages[0].price * ac_data?.discount_offer) /
-                              100
-                        )}`
-                      : `AED ${Math.round(
-                          ac_data?.packages[0].adult_price -
-                            (ac_data?.packages[0].adult_price *
-                              ac_data?.discount_offer) /
-                              100
-                        )}`}
-                  </Typography>
-
-                  <Typography
+                gap={3}
+            >
+                <Box
                     sx={{
-                      fontSize: "1.1rem",
-                      color: "grey",
-                      textDecoration: "line-through",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "end",
+                        flex: 1
                     }}
-                  >
-                    {ac_data.packages[0].category === "private"
-                      ? `AED ${ac_data.packages[0].price}`
-                      : `AED ${ac_data.packages[0].adult_price}`}
-                  </Typography>
-                </Box>
-                <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
-                  Price varies by vehicles, group sizes and other selections
-                </Typography>
-              </Box>
-
-              <Box sx={{ display: "flex", justifyContent: "right", flex:1 }}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    color: "white",
-                    fontSize: "0.9rem",
-                    textTransform: "none",
-                    borderRadius: "30px",
-                    padding: "0.4rem 2rem",
-                  }}
-                  onClick={handleBookNowClick}
-                  ref={bookNowRef}
                 >
-                  Select Options
-                </Button>
-              </Box>
+                    <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
+                        <Typography sx={{ fontSize: "1rem" }}>From</Typography>
+                        <Typography
+                            fontWeight="bold"
+                            color={theme.palette.primary.main}
+                            textAlign={"right"}
+                            sx={{ fontSize: "1.2rem" }}
+                        >
+                            {ac_data?.packages[0].category === "private"
+                                ? `AED ${Math.round(
+                                    ac_data?.packages[0].price -
+                                    (ac_data?.packages[0].price * ac_data?.discount_offer) /
+                                    100
+                                )}`
+                                : `AED ${Math.round(
+                                    ac_data?.packages[0].adult_price -
+                                    (ac_data?.packages[0].adult_price *
+                                        ac_data?.discount_offer) /
+                                    100
+                                )}`}
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: "1.1rem",
+                                color: "grey",
+                                textDecoration: "line-through",
+                            }}
+                        >
+                            {ac_data.packages[0].category === "private"
+                                ? `AED ${ac_data.packages[0].price}`
+                                : `AED ${ac_data.packages[0].adult_price}`}
+                        </Typography>
+                    </Box>
+                    <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
+                        Price varies by vehicles, group sizes and other selections
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: "flex", justifyContent: "right", flex: 1 }}>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            color: "white",
+                            fontSize: "0.9rem",
+                            textTransform: "none",
+                            borderRadius: "30px",
+                            padding: "0.4rem 2rem",
+                        }}
+                        onClick={handleBookNowClick}
+                        ref={bookNowRef}
+                    >
+                        Select Options
+                    </Button>
+                </Box>
             </Box>
 
 
-        <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
+            <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
 
 
-{/* ------------------client UI for packages-------------- */}
+                    {/* ------------------client UI for packages-------------- */}
 
-<Box sx={{ padding: "20px", width: "90%" }}>
+                    <Box sx={{ padding: "20px", width: "90%" }}>
 
-<Typography>Choose a package</Typography>
+                        <Typography>Choose a package</Typography>
 
-<Divider sx={{mb:3, mt:1}}/>
-                    {loading ? (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                            <Loader />
-                        </Box>
-                    ) : (
-                        ac_data?.packages?.map((item, index) => {
-
-
-
-
-                            const total_amount = calculateTotalPrice(item.price);
-                            let total = 0;
-                            if (item.category === 'sharing') {
-                                total = adult * Number(item.adult_price) + child * Number(item.child_price);
-                            } else {
-                                total = total_amount;
-                            }
-                            const quantity = adult + child + infant;
+                        <Divider sx={{ mb: 3, mt: 1 }} />
+                        {loading ? (
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                                <Loader />
+                            </Box>
+                        ) : (
+                            ac_data?.packages?.map((item, index) => {
 
 
 
-                            return (
-                                <Box
-    key={index}
-    sx={{
-        gap: "10px",
-        padding: "20px",
-        border: selectedItemIndex === index ? "2px solid red" : "1px solid #EDEDED",
-        borderRadius: "10px",
-        marginBottom: "10px",
-        cursor:'pointer',
-        backgroundColor: selectedItemIndex === index ? "#FFE4E1" : "#EDEDED",
-        display: 'flex',
-        alignItems: 'start',
-        // justifyContent: 'space-between'
-    }}
-    onClick={() => handleSelectItem(index)}
->
 
-<Radio/>
-  <Box>
-
-  <Box>
+                                const total_amount = calculateTotalPrice(item.price);
+                                let total = 0;
+                                if (item.category === 'sharing') {
+                                    total = adult * Number(item.adult_price) + child * Number(item.child_price);
+                                } else {
+                                    total = total_amount;
+                                }
+                                const quantity = adult + child + infant;
 
 
 
-        <Box>
-            <Typography sx={stylesEll}>
-                {item.title}
-            </Typography>
-            <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                {item.category}
-            </Typography>
-            <Typography sx={{ fontSize: "14px", color: "#777" }}>
-                {item.highlight}
-            </Typography>
-        </Box>
-        <Box>
-            <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
-                {`AED ${total}`}
-            </Typography>
-        </Box>
-    </Box>
-    <Box sx={{ display: 'flex' }} gap={3}>
-    <Box>
-    {loadingStates[item.id] ? (
-                        <Loader/>
-                    ) : (
-                        <Button
-                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
-                            variant="contained"
-                            sx={{
-                                color: "white",
-                                fontSize: "12px",
-                                textTransform: 'none'
-                            }}
-                            disabled={loadingStates[item.id]}
-                        >
-                            Add To Cart
-                        </Button>
-                    )}
+                                return (
+                                    <Box
+                                        key={index}
+                                        sx={{
+                                            gap: "10px",
+                                            padding: "20px",
+                                            border: selectedItemIndex === index ? "2px solid red" : "1px solid #EDEDED",
+                                            borderRadius: "10px",
+                                            marginBottom: "10px",
+                                            cursor: 'pointer',
+                                            backgroundColor: selectedItemIndex === index ? "#FFE4E1" : "#EDEDED",
+                                            display: 'flex',
+                                            alignItems: 'start',
+                                            // justifyContent: 'space-between'
+                                        }}
+                                        onClick={() => handleSelectItem(index)}
+                                    >
+
+                                        <Radio />
+                                        <Box>
+
+                                            <Box>
+
+
+
+                                                <Box>
+                                                    <Typography sx={stylesEll}>
+                                                        {item.title}
+                                                    </Typography>
+                                                    <Typography sx={{ fontSize: "14px", color: "#777" }}>
+                                                        {item.category}
+                                                    </Typography>
+                                                    <Typography sx={{ fontSize: "14px", color: "#777" }}>
+                                                        {item.highlight}
+                                                    </Typography>
+                                                </Box>
+                                                <Box>
+                                                    <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
+                                                        {`AED ${total}`}
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
+                                            <Box sx={{ display: 'flex' }} gap={3}>
+                                                <Box>
+                                                    {loadingStates[item.id] ? (
+                                                        <Loader />
+                                                    ) : (
+                                                        <Button
+                                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
+                                                            variant="contained"
+                                                            sx={{
+                                                                color: "white",
+                                                                fontSize: "12px",
+                                                                textTransform: 'none'
+                                                            }}
+                                                            disabled={loadingStates[item.id]}
+                                                        >
+                                                            Add To Cart
+                                                        </Button>
+                                                    )}
+                                                </Box>
+                                                <Box>
+                                                    <Button
+                                                        onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
+                                                        variant="contained"
+                                                        sx={{
+                                                            color: "white",
+                                                            fontSize: "12px",
+                                                            textTransform: 'none'
+                                                        }}
+                                                    >
+                                                        Book Now
+                                                    </Button>
+                                                </Box>
+                                            </Box>
+
+                                        </Box>
                                     </Box>
-                                    <Box>
-                                        <Button
-                                            onClick={() => handleLogDetails(total, ac_data.id, 1, date, item.price, item.title, item.highlight, item.id)}
-                                            variant="contained"
-                                            sx={{
-                                                color: "white",
-                                                fontSize: "12px",
-                                                textTransform: 'none'
-                                            }}
-                                        >
-                                            Book Now
-                                        </Button>
-                                    </Box>
-    </Box>
 
-  </Box>
-</Box>
-
-                            );
-                        })
-                    )}
-                </Box>
+                                );
+                            })
+                        )}
+                    </Box>
 
 
 
 
 
-{/* --------------------Client UI packages end-------------- */}
+                    {/* --------------------Client UI packages end-------------- */}
 
 
-                <Typography sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}>
-                    Select Date & Activity Option
-                </Typography>
-                <Divider sx={{ width: "100%" }} />
-                <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                    {ac_data.available_activity === 0 ? (
-                        <div>
-                            <TextField
-                                type="date"
+                    <Typography sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}>
+                        Select Date & Activity Option
+                    </Typography>
+                    <Divider sx={{ width: "100%" }} />
+                    <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                        {ac_data.available_activity === 0 ? (
+                            <div>
+                                <TextField
+                                    type="date"
+                                    fullWidth
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    InputLabelProps={{ shrink: true }}
+                                    variant="outlined"
+                                    disabled // Disabling date picker
+                                    sx={{
+                                        backgroundColor: "#EDEDED",
+                                        borderRadius: "7px",
+                                        "& .MuiOutlinedInput-root": {
+                                            "& fieldset": {
+                                                border: "none",
+                                            },
+                                        },
+                                    }}
+                                    onClick={() => {
+                                        enqueueSnackbar("No activity found", { variant: "error" });
+                                    }}
+                                />
+                                <Typography variant="caption">Activity not available</Typography>
+                            </div>
+                        ) : (
+                            <div>
+                                <InputLabel>Please Select Date</InputLabel>
+                                <TextField
+                                    type="date"
+                                    fullWidth
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    InputLabelProps={{ shrink: true }}
+                                    variant="outlined"
+                                    sx={{
+                                        backgroundColor: "#EDEDED",
+                                        borderRadius: "7px",
+                                        "& .MuiOutlinedInput-root": {
+                                            "& fieldset": {
+                                                border: "none",
+                                            },
+                                        },
+                                    }}
+                                />
+                            </div>
+                        )}
+                    </Box>
+
+                    <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                        <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                            <Button
                                 fullWidth
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                InputLabelProps={{ shrink: true }}
-                                variant="outlined"
-                                disabled // Disabling date picker
+                                onClick={handleSelectClick}
                                 sx={{
                                     backgroundColor: "#EDEDED",
                                     borderRadius: "7px",
-                                    "& .MuiOutlinedInput-root": {
-                                        "& fieldset": {
+                                    textTransform: "none",
+                                    "&:hover": {
+                                        backgroundColor: "#EDEDED",
+                                    },
+                                }}
+                            >
+                                Select Person
+                            </Button>
+                        </FormControl>
+                    </Box>
+                    {showDropdowns && (
+                        <>
+                            <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                                <InputLabel>Adult</InputLabel>
+                                <TextField
+                                    type="number"
+                                    value={adult}
+                                    onChange={handleAdultChange}
+                                    fullWidth
+                                    sx={{
+                                        backgroundColor: "#EDEDED",
+                                        borderRadius: "10px",
+                                        "& .MuiOutlinedInput-root": {
                                             border: "none",
+                                            outline: 'none',
+                                            borderColor: 'transparent',
+                                            borderRadius: '7px'
                                         },
-                                    },
-                                }}
-                                onClick={() => {
-                                    enqueueSnackbar("No activity found", { variant: "error" });
-                                }}
-                            />
-                            <Typography variant="caption">Activity not available</Typography>
-                        </div>
-                    ) : (
-                        <div>
-                            <InputLabel>Please Select Date</InputLabel>
-                            <TextField
-                                type="date"
-                                fullWidth
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                InputLabelProps={{ shrink: true }}
-                                variant="outlined"
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "7px",
-                                    "& .MuiOutlinedInput-root": {
-                                        "& fieldset": {
-                                            border: "none",
-                                        },
-                                    },
-                                }}
-                            />
-                        </div>
-                    )}
-                </Box>
-
-                <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                    <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
-                        <Button
-                            fullWidth
-                            onClick={handleSelectClick}
-                            sx={{
-                                backgroundColor: "#EDEDED",
-                                borderRadius: "7px",
-                                textTransform: "none",
-                                "&:hover": {
-                                    backgroundColor: "#EDEDED",
-                                },
-                            }}
-                        >
-                            Select Person
-                        </Button>
-                    </FormControl>
-                </Box>
-                {showDropdowns && (
-                    <>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                            <InputLabel>Adult</InputLabel>
-                            <TextField
-                                type="number"
-                                value={adult}
-                                onChange={handleAdultChange}
-                                fullWidth
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "10px",
-                                    "& .MuiOutlinedInput-root": {
-                                        border: "none",
-                                        outline: 'none',
-                                        borderColor: 'transparent',
-                                        borderRadius: '7px'
-                                    },
-                                }}
-                                inputProps={{ min: 0 }}
-                            />
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                                    }}
+                                    inputProps={{ min: 0 }}
+                                />
+                                {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={adult}
                                     onChange={(e) => setAdult(e.target.value)}
@@ -530,28 +533,28 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     ))}
                                 </Select>
                             </FormControl> */}
-                        </Box>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                            <InputLabel>Child</InputLabel>
-                            <TextField
-                                type="number"
-                                value={child}
-                                onChange={handleChildChange}
-                                fullWidth
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "10px",
-                                    "& .MuiOutlinedInput-root": {
-                                        border: "none",
-                                        outline: 'none',
-                                        borderColor: 'transparent',
-                                        borderRadius: '7px'
-                                    },
-                                }}
-                                inputProps={{ min: 0 }}
-                            />
+                            </Box>
+                            <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                                <InputLabel>Child</InputLabel>
+                                <TextField
+                                    type="number"
+                                    value={child}
+                                    onChange={handleChildChange}
+                                    fullWidth
+                                    sx={{
+                                        backgroundColor: "#EDEDED",
+                                        borderRadius: "10px",
+                                        "& .MuiOutlinedInput-root": {
+                                            border: "none",
+                                            outline: 'none',
+                                            borderColor: 'transparent',
+                                            borderRadius: '7px'
+                                        },
+                                    }}
+                                    inputProps={{ min: 0 }}
+                                />
 
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                                {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={child}
                                     onChange={(e) => setChild(e.target.value)}
@@ -568,29 +571,29 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     ))}
                                 </Select>
                             </FormControl> */}
-                        </Box>
-                        <Box sx={{ padding: "0px 20px", width: "90%" }}>
-                            <InputLabel>Infant</InputLabel>
+                            </Box>
+                            <Box sx={{ padding: "0px 20px", width: "90%" }}>
+                                <InputLabel>Infant</InputLabel>
 
-                            <TextField
-                                type="number"
-                                value={infant}
-                                onChange={handleInfantChange}
-                                fullWidth
-                                sx={{
-                                    backgroundColor: "#EDEDED",
-                                    borderRadius: "10px",
-                                    "& .MuiOutlinedInput-root": {
-                                        border: "none",
-                                        outline: 'none',
-                                        borderColor: 'transparent',
-                                        borderRadius: '7px'
-                                    },
-                                }}
-                                inputProps={{ min: 0 }}
-                            />
+                                <TextField
+                                    type="number"
+                                    value={infant}
+                                    onChange={handleInfantChange}
+                                    fullWidth
+                                    sx={{
+                                        backgroundColor: "#EDEDED",
+                                        borderRadius: "10px",
+                                        "& .MuiOutlinedInput-root": {
+                                            border: "none",
+                                            outline: 'none',
+                                            borderColor: 'transparent',
+                                            borderRadius: '7px'
+                                        },
+                                    }}
+                                    inputProps={{ min: 0 }}
+                                />
 
-                            {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
+                                {/* <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                                 <Select
                                     value={infant}
                                     onChange={(e) => setInfant(e.target.value)}
@@ -607,20 +610,20 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     ))}
                                 </Select>
                             </FormControl> */}
-                        </Box>
-                    </>
-                )}
+                            </Box>
+                        </>
+                    )}
 
 
-                {/* -----------------------------------------------prev code ------------- */}
-
-
-
+                    {/* -----------------------------------------------prev code ------------- */}
 
 
 
 
-                {/* <Divider sx={{ width: "100%" }} />
+
+
+
+                    {/* <Divider sx={{ width: "100%" }} />
                 <Box sx={{ padding: "20px", width: "90%" }}>
                     {loading ? (
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
@@ -657,11 +660,11 @@ const DetailLeft = ({ ac_data, loading }) => {
 
 
 
-{/* ----------------coment b usamma + ----- */}
+                    {/* ----------------coment b usamma + ----- */}
 
 
 
-                                        {/* <Typography sx={stylesEll}>{item.title}</Typography>
+                    {/* <Typography sx={stylesEll}>{item.title}</Typography>
                                         <Typography sx={{ fontSize: "14px", color: "#777" }}>{item.category}</Typography>
                                     </Box>
                                     <Box>
@@ -716,15 +719,15 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box> */}
 
 
-                {/* ---------------------prev codeeee---------- */}
+                    {/* ---------------------prev codeeee---------- */}
 
 
-                <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
-                    <FiGift style={{ color: theme.palette.primary.main }} />
-                    <Button onClick={handleSendGift} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
+                    <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
+                        <FiGift style={{ color: theme.palette.primary.main }} />
+                        <Button onClick={handleSendGift} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
+                    </Box>
                 </Box>
-            </Box>
-        </Box >
+            </Box >
         </>
 
     );

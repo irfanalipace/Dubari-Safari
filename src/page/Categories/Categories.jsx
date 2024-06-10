@@ -9,6 +9,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Skeleton,
   Typography,
   useMediaQuery,
   useTheme,
@@ -18,7 +19,6 @@ import PkgCard from "../../components/Pkg_Card/PkgCard";
 import { useNavigate, useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import { getActivities, getCategories } from "../../store/actions/categoriesActions";
-import Loader from "../../components/Loader/Loader";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -39,30 +39,6 @@ const Categories = () => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
-
-
-
-
-  // useEffect(() => {
-  //   dispatch(getActivities())
-  //     .then((result) => {
-  //       const initialActivityCount = result.data.payload;
-  //       setActivityCount(initialActivityCount);
-
-
-  //     })
-  //     .catch((err) => {
-
-  //       console.log(err, "ERRR");
-  //     });
-  // }, []);
-
-
-  // const activityLength = filtered?.length
-  const activityLength = filteredActivities?.length
-
-
-
 
   useEffect(() => {
     dispatch(getCategories())
@@ -91,7 +67,7 @@ const Categories = () => {
       const activities = selectedCategory.activity || [];
       console.log(activities, "abc");
       if (selectedSubCategory) {
-        const filtered = activities.filter((activity) =>
+        const filtered = activities?.filter((activity) =>
           activity.sub_category?.some((sub) => sub.name === selectedSubCategory)
         );
         setFilteredActivities(filtered);
@@ -113,6 +89,7 @@ const Categories = () => {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setSelectedSubCategory(null);
+    setImageLoaded(false);
   };
 
   const handleSubCategoryChange = (event) => {
@@ -156,15 +133,13 @@ const Categories = () => {
 
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // -------------------------scroll bar design slick slider --------------
-
   const NextArrow = (props) => {
     const { onClick } = props;
     return (
       <button
         className="slick-arrow"
         style={{
-          backgroundColor: '#fef7f5', // Background color of the next arrow
+          backgroundColor: '#fef7f5',
           position: "absolute",
           right: "-30px",
           zIndex: 1,
@@ -180,7 +155,7 @@ const Categories = () => {
       >
         <span
           style={{
-            color: "black", // Inner arrow color
+            color: "black",
             fontSize: "13px",
             lineHeight: "30px",
           }}
@@ -197,7 +172,7 @@ const Categories = () => {
       <button
         className="slick-arrow"
         style={{
-          backgroundColor: '#fef7f5', // Background color of the previous arrow
+          backgroundColor: '#fef7f5',
           position: "absolute",
           left: "-30px",
           zIndex: 1,
@@ -213,7 +188,7 @@ const Categories = () => {
       >
         <span
           style={{
-            color: "black", // Inner arrow color
+            color: "black",
             fontSize: "13px",
             lineHeight: "30px",
           }}
@@ -246,27 +221,11 @@ const Categories = () => {
     ],
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-  };
+  }; const activityLength = filteredActivities?.length;
 
   return (
     <Page title="Categories">
       <Box sx={{ padding: isSmall ? "3rem 2rem" : "3rem 5rem" }}>
-        {/* <Button
-          onClick={handleBack}
-          variant="contained"
-          startIcon={<ArrowBack />}
-        >
-          Back to home page
-        </Button> */}
-
-        {/* <Typography
-            variant="h4"
-            fontWeight="bold"
-            sx={{ flex: 2, textAlign:'center', fontSize:'25px' }}
-          >
-            Things to do in Abu Dhabi
-          </Typography> */}
-
         <Box
           sx={{
             display: "flex",
@@ -283,8 +242,20 @@ const Categories = () => {
         </Box>
         <Box sx={{ mt: 2 }}>
           {loading ? (
-            <Box>
-              <Loader />
+            <Box sx={{ display: "flex", justifyContent: "center", gap: '30px' }}>
+              {[...Array(7)].map((_, index) => (
+                <Skeleton
+                  key={index}
+                  variant="rectangular"
+                  width={100} // Adjust width to match Avatar's width
+                  height={100} // Adjust height to match Avatar's height
+                  sx={{
+                    borderRadius: "50%", // Apply the same border-radius as Avatar
+                    margin: "", // Center the Skeleton horizontally
+                    mb: 2, // Add margin bottom to separate Skeletons
+                  }}
+                />
+              ))}
             </Box>
           ) : categories.length === 0 ? (
             <Typography
@@ -308,22 +279,25 @@ const Categories = () => {
                             flexDirection: "column",
                             mr: 4,
                             width: '10%'
-
                           }}
                           onClick={() => handleCategoryClick(val)}
                         >
-                          <Avatar
-                            src={val.image}
-                            sx={{
-                              height: "100px",
-                              width: "100px",
-                              border: `4px solid ${selectedCategory === val
-                                ? theme.palette.primary.main
-                                : "transparent"
-                                }`,
-                              cursor: "pointer",
-                            }}
-                          />
+                          {imageLoaded ? (
+                            <Avatar
+                              src={val.image}
+                              sx={{
+                                height: "100px",
+                                width: "100px",
+                                border: `4px solid ${selectedCategory === val
+                                  ? theme.palette.primary.main
+                                  : "transparent"
+                                  }`,
+                                cursor: "pointer",
+                              }}
+                            />
+                          ) : (
+                            <Skeleton variant="circular" width={100} height={100} />
+                          )}
                           <Typography
                             sx={{
                               mt: 1,
@@ -416,12 +390,10 @@ const Categories = () => {
               Sort result by
             </Typography>
             <FormControl fullWidth>
-              {/* <InputLabel id="demo-simple-select-label">Recommended</InputLabel> */}
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={sortCriteria}
-                // label="Sort By"
                 onChange={handleChange}
               >
                 <MenuItem value="recommended">Recommended</MenuItem>
@@ -431,24 +403,6 @@ const Categories = () => {
                 <MenuItem value="High to low price">High to low price</MenuItem>
               </Select>
             </FormControl>
-            {/* {filteredSubCategories.length > 0 && (
-              <FormControl fullWidth>
-                {/* <InputLabel id="demo-simple-select-label">Sub Categories</InputLabel> */}
-            {/* <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={selectedSubCategory}
-                  onChange={handleSubCategoryChange}
-                >
-
-                  {filteredSubCategories.map((subCategory, index) => (
-                    <MenuItem key={index} value={subCategory}>
-                      {subCategory}
-                    </MenuItem>
-                  ))}
-                </Select> */}
-            {/* </FormControl> */}
-            {/* )}  */}
           </Box>
         </Box>
         <Grid container spacing={3} sx={{ mt: 3 }}>

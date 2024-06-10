@@ -34,17 +34,17 @@ import { logout } from "../../store/actions/authActions";
 
 const Navbar = () => {
   const theme = useTheme();
-  const base='https://dubaisafari.saeedantechpvt.com/'
+  const base = 'https://dubaisafari.saeedantechpvt.com/'
   const userData = useSelector((state) => state.auth.user);
-  console.log(userData, "User Data from BE");
+  // console.log(userData, "User Data from BE");
   const authh = useSelector((state) => state.auth.isAuthenticated);
 
   const cartData = useSelector((state) => state.cart.cart.payload);
   const cartItemCountRedux = cartData?.length;
 
- const [localCartItemCount, setLocalCartItemCount] = useState(0);
+  const [localCartItemCount, setLocalCartItemCount] = useState(0);
 
- const storedCartItems = JSON.parse(localStorage.getItem("addCartData"));
+  const storedCartItems = JSON.parse(localStorage.getItem("addCartData"));
 
   useEffect(() => {
 
@@ -62,9 +62,9 @@ const Navbar = () => {
   const wishlistCountRedux = wishlistData?.length;
 
 
- const [localWIshlistItemCount, setLocalWishlistItemCount] = useState(0);
+  const [localWIshlistItemCount, setLocalWishlistItemCount] = useState(0);
 
- const storedWishlistItems = JSON.parse(localStorage.getItem("wishListData"));
+  const storedWishlistItems = JSON.parse(localStorage.getItem("wishListData"));
 
   useEffect(() => {
 
@@ -235,7 +235,7 @@ const Navbar = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          position:"static",
+          position: "static",
           top: 0,
           zIndex: 10000000,
         }}
@@ -286,7 +286,7 @@ const Navbar = () => {
                   width: "max-content",
                   padding: "1rem",
                   mt: 3,
-                  zIndex:10000
+                  zIndex: 10000
                 }}
               >
                 <Box

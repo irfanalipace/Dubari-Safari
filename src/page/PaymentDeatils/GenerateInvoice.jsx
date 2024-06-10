@@ -1,9 +1,10 @@
-import { Box, Button, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography, Modal, TextField, Rating } from '@mui/material';
+import { Box, Button, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography, Modal, TextField, Rating, TableContainer, Paper } from '@mui/material';
 import React, { useEffect, useState, useRef } from 'react';
 import Cookies from 'js-cookie';
 import html2pdf from 'html2pdf.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Post_Reviews } from '../../store/actions/categoriesActions';
+import { useLocation } from 'react-router';
 
 const ReviewModal = ({ open, handleClose, handleSubmit }) => {
   const [rating, setRating] = useState(0);
@@ -74,6 +75,9 @@ const GenerateInvoice = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
   const imgRef = useRef(null);
+  const { state } = useLocation();
+
+  const data = useSelector((state) => state.cart.cart.payload);
 
   useEffect(() => {
     const cookieData = Cookies.get('BookingImage');
@@ -97,7 +101,8 @@ const GenerateInvoice = () => {
   }, []);
 
   const handlePrintInvoice = () => {
-    const invoiceContainer = document.getElementById('invoice-container');
+    const containerId = state === '/cart' ? 'table-container' : 'invoice-container';
+    const invoiceContainer = document.getElementById(containerId);
     const image = imgRef.current;
 
     const generatePDF = () => {
@@ -143,61 +148,89 @@ const GenerateInvoice = () => {
   return (
     <Box>
       <Grid container spacing={1}>
-        <Grid item xs={12} lg={12}>
-          <Box id="invoice-container" sx={{ margin: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
-            <Typography sx={{ fontSize: '24px', fontWeight: 700 }}>Invoice Details</Typography>
-            <Typography sx={{ fontSize: '14px', color: '#90A3BF' }}>Paid on {cookiesData?.date}</Typography>
-            <Divider sx={{ width: '100%' }} />
-            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '20px' }}>
-              <Box flex={1}>
-                {imageLink && <img ref={imgRef} src={imageLink?.image_url} alt="Invoice" style={{ width: '100%', height: '20vh' }} />}
-              </Box>
-              <Box flex={4}>
-                <Typography sx={{ fontWeight: 700, color: '#FF5532' }}>{cookiesData?.title}</Typography>
-                <Typography sx={{ color: '#989A9C' }}>{cookiesData?.highlight}</Typography>
-              </Box>
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: '20px' }}>
-              <Box sx={{ padding: '20px', backgroundColor: '#FAFAFA', color: '#989A9C', width: '200px' }}>
-                <Typography>Customer Name :</Typography>
-                <Typography>Child In Tour :</Typography>
-                <Typography>Total Adult In Tour :</Typography>
-                <Typography>Total Infant In Tour :</Typography>
-              </Box>
-              <Box>
-                <Typography>{cooks?.first_name}</Typography>
-                <Typography>{cookiesData?.child}</Typography>
-                <Typography>{cookiesData?.adult}</Typography>
-                <Typography>{cookiesData?.infant}</Typography>
-              </Box>
-            </Box>
-            <Box sx={{ overflowX: 'auto' }}>
+        {state === '/cart' ? (
+          <Grid item xs={12} lg={12} sx={{ margin: '20px' }}>
+            <TableContainer id="table-container" component={Paper}>
+              <Typography sx={{ textAlign: 'left', padding: '10px', fontSize: '26px', fontWeight: 600 }}>Invoice Detail</Typography>
               <Table>
                 <TableHead>
-                  <TableRow sx={{ backgroundColor: '#FAFAFA' }}>
-                    <TableCell sx={{ fontWeight: 600 }}>Tour Name</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Customer Name</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Tour Date</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Booking</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Price</TableCell>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Total Person</TableCell>
+                    <TableCell>Price</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>{cookiesData?.title}</TableCell>
-                    <TableCell>{cooks?.first_name}</TableCell>
-                    <TableCell>{cookiesData?.date}</TableCell>
-                    <TableCell>1 Booking {cookiesData?.adult} adult, {cookiesData?.child} child </TableCell>
-                    <TableCell sx={{ color: '#FF5532' }}>{cookiesData?.total_amount}</TableCell>
-                  </TableRow>
+                  {data.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{row.package_id}</TableCell>
+                      <TableCell>{row.tour_date}</TableCell>
+                      <TableCell>{`${row.adult} Adult ${row.child} Child ${row.infant} Infant`}</TableCell>
+                      <TableCell>{row.price}</TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
+              <Typography sx={{ textAlign: 'right', padding: '10px', fontSize: '18px', fontWeight: 600 }}>Total Amount AED:   {cooks?.total_amount}</Typography>
+            </TableContainer>
+          </Grid>
+        ) : (
+          <Grid item xs={12} lg={12}>
+            <Box id="invoice-container" sx={{ margin: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+              <Typography sx={{ fontSize: '24px', fontWeight: 700 }}>Invoice Details</Typography>
+              <Typography sx={{ fontSize: '14px', color: '#90A3BF' }}>Paid on {cookiesData?.date}</Typography>
+              <Divider sx={{ width: '100%' }} />
+              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '20px' }}>
+                <Box flex={1}>
+                  {imageLink && <img ref={imgRef} src={imageLink?.image_url} alt="Invoice" style={{ width: '100%', height: '20vh' }} />}
+                </Box>
+                <Box flex={4}>
+                  <Typography sx={{ fontWeight: 700, color: '#FF5532' }}>{cookiesData?.title}</Typography>
+                  <Typography sx={{ color: '#989A9C' }}>{cookiesData?.highlight}</Typography>
+                </Box>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: '20px' }}>
+                <Box sx={{ padding: '20px', backgroundColor: '#FAFAFA', color: '#989A9C', width: '200px' }}>
+                  <Typography>Customer Name :</Typography>
+                  <Typography>Child In Tour :</Typography>
+                  <Typography>Total Adult In Tour :</Typography>
+                  <Typography>Total Infant In Tour :</Typography>
+                </Box>
+                <Box>
+                  <Typography>{cooks?.first_name}</Typography>
+                  <Typography>{cookiesData?.child}</Typography>
+                  <Typography>{cookiesData?.adult}</Typography>
+                  <Typography>{cookiesData?.infant}</Typography>
+                </Box>
+              </Box>
+              <Box sx={{ overflowX: 'auto' }}>
+                <Table>
+                  <TableHead>
+                    <TableRow sx={{ backgroundColor: '#FAFAFA' }}>
+                      <TableCell sx={{ fontWeight: 600 }}>Tour Name</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>Customer Name</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>Tour Date</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>Booking</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>Price</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>{cookiesData?.title}</TableCell>
+                      <TableCell>{cooks?.first_name}</TableCell>
+                      <TableCell>{cookiesData?.date}</TableCell>
+                      <TableCell>1 Booking {cookiesData?.adult} adult, {cookiesData?.child} child </TableCell>
+                      <TableCell sx={{ color: '#FF5532' }}>{cookiesData?.total_amount}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+              <Typography sx={{ color: '#667085' }}>Terms & Conditions</Typography>
+              <Typography>Please pay within 15 days of receiving this invoice.</Typography>
             </Box>
-
-            <Typography sx={{ color: '#667085' }}>Terms & Conditions</Typography>
-            <Typography>Please pay within 15 days of receiving this invoice.</Typography>
-          </Box>
-        </Grid>
+          </Grid>
+        )}
       </Grid>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '30px', padding: '30px' }}>
         <Button variant='contained' sx={{ textTransform: 'none', backgroundColor: '#FF5532', color: 'white', padding: '10px 30px' }} onClick={handleOpenModal}>
@@ -209,7 +242,6 @@ const GenerateInvoice = () => {
       </Box>
       <ReviewModal open={modalOpen} handleClose={handleCloseModal} handleSubmit={handleSubmitReview} />
     </Box>
-
   );
 };
 
