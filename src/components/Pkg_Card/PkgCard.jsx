@@ -7,20 +7,18 @@ import Typography from "@mui/material/Typography";
 import { Box, IconButton, Rating, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
-import { getActivities } from "../../store/actions/categoriesActions";
 import { useDispatch } from "react-redux";
 import { addToWishList, getWishList } from "../../store/actions/wishListActions";
 import { useSnackbar } from "notistack";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const PkgCard = ({ data, categories, ind }) => {
   const base = 'https://dubaisafari.saeedantechpvt.com/';
   const navigate = useNavigate();
-  const [value, setValue] = React.useState(5);
-const theme = useTheme()
+  const [value, setValue] = useState(5);
+  const theme = useTheme();
   const descriptionStyle = {
     display: '-webkit-box',
     overflow: 'hidden',
@@ -52,99 +50,67 @@ const theme = useTheme()
     navigate(`/details/${data.id}`);
   };
 
+  const [wishList, setWishList] = useState([]);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
+  const handleFavoriteClick = (activityId, activityData) => {
+    const token = localStorage.getItem("token");
 
+    if (token) {
+      dispatch(addToWishList(activityId))
+        .then(() => {
+          enqueueSnackbar("Added to Wishlist", { variant: "success" });
+          setWishList((prevWishList) => [...prevWishList, { activity_id: activityId }]);
+        })
+        .catch((err) => {
+          console.log(err, "Error");
+        });
+    } else {
+      const existingWishListData = localStorage.getItem("wishListData");
+      let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
+      wishListArray.push(activityData);
+      localStorage.setItem("wishListData", JSON.stringify(wishListArray));
+      enqueueSnackbar("Added to Wishlist", { variant: "info" });
+      setWishList(wishListArray);
+    }
+  };
 
-
-
-
-
-  // ------------------------wishlist button add -----------
-const [wishList, setWishList]= React.useState([])
-const dispatch = useDispatch()
-
-const {enqueueSnackbar} = useSnackbar()
-
-const handleFavoriteClick = (activityId, activityData) => {
-  const token = localStorage.getItem("token");
-  console.log(activityData, 'activity data');
-
-  if (token) {
-
-    dispatch(addToWishList(activityId))
-
-    .then((result) => {
-        enqueueSnackbar("Added to Wishlist", { variant: "success" });
+  useEffect(() => {
+    dispatch(getWishList())
+      .then((result) => {
+        setWishList(result.data.payload);
       })
       .catch((err) => {
-        console.log(err, "Error");
+        console.log(err, "Error fetching wishlist");
       });
-  } else {
+  }, [dispatch]);
 
-    const existingWishListData = localStorage.getItem("wishListData");
-
-    let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
-
-
-    wishListArray.push(activityData);
-
-
-    localStorage.setItem("wishListData", JSON.stringify(wishListArray));
-
-    enqueueSnackbar("Added to Wishlist", { variant: "info" });
-  }
-};
-
-
-useEffect(() => {
-  dispatch(getWishList())
-    .then((result) => {
-      setWishList(result.data.payload);
-    })
-    .catch((err) => {
-      console.log(err, "Error fetching wishlist");
-    });
-}, [dispatch]);
-
-const isActivityInWishlist = (activityId) => {
-  return wishList.some((item) => item.activity_id === activityId);
-};
-
+  const isActivityInWishlist = (activityId) => {
+    return wishList.some((item) => item.activity_id === activityId);
+  };
 
   return (
     <Card sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
-            onClick={handleBookNowClick}
-
+      onClick={handleBookNowClick}
     >
+      <div style={{ position: "relative" }}>
+        <div onClick={(e) => e.stopPropagation()} style={{ position: "absolute", top: 0, right: 0 }}>
+          <IconButton sx={{ zIndex: 9999999 }} onClick={() => handleFavoriteClick(data.id, data)}>
+            {isActivityInWishlist(data.id) ? (
+              <FavoriteIcon sx={{ fontSize: "35px", color: "red" }} />
+            ) : (
+              <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
+            )}
+          </IconButton>
+        </div>
 
-
-                    <div style={{ position: "relative" }}>
-
-                    <div onClick={(e) => e.stopPropagation()}
-                    style={{position: "absolute", top: 0, right: 0}}
-
-                    >
-                      <IconButton onClick={() => handleFavoriteClick(data.id, data)}>
-                        {isActivityInWishlist(data.id) ? (
-                          <FavoriteIcon
-                            sx={{ fontSize: "35px", color: "red" }}
-                          />
-                        ) : (
-                          <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
-                        )}
-                      </IconButton>
-                    </div>
-
-
-  {/* <FavoriteBorderIcon sx={{ fontSize: "35px", position: "absolute", top: 0, right: 0 }} /> */}
-
-
-  <CardMedia
-    sx={{ height: 240, borderRadius: "8px" }}
-    image={`${base}${data?.image_url}`}
-    title="green iguana"
-  />
-</div>
+        <CardMedia
+          sx={{ height: 240, borderRadius: "8px" }}
+          image={`${base}${data?.image_url}`}
+          title="green iguana"
+        />
+      </div>
 
       <CardContent>
         <Typography color="textSecondary" component="div">
@@ -153,7 +119,6 @@ const isActivityInWishlist = (activityId) => {
         <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: '1.3rem', fontWeight: '700' }}>
           {truncateName(data?.name)}
         </Typography>
-        {/* <Typography sx={descriptionStyle}>{data?.description}</Typography> */}
         <Box
           sx={{
             display: "flex",
@@ -164,48 +129,36 @@ const isActivityInWishlist = (activityId) => {
           <Typography sx={{ fontSize: "13px", color: "grey" }}>
             Per Person Price
           </Typography>
-          <Box sx={{display:'flex', alignItems:'center'}} gap={1}>
-            {/* <Typography sx={{ fontSize: "15px", color: "grey" }}> */}
+          <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
+            <Typography
+              sx={{ fontSize: '0.9rem', color: "grey", textDecoration: "line-through" }}
+            >
+              {data.packages[0].category === "private"
+                ? `AED ${data.packages[0].price}`
+                : `AED ${data.packages[0].adult_price}`}
+            </Typography>
 
             <Typography
-                            sx={{ fontSize:'0.9rem', color: "grey", textDecoration: "line-through" }}
-                          >
-                            {data.packages[0].category === "private"
-                              ? `AED ${data.packages[0].price}`
-                              : `AED ${data.packages[0].adult_price}`}
-                          </Typography>
-
-            <Typography
-                           sx={{fontSize:'1rem'}}
-                            fontWeight="bold"
-                            color={theme.palette.primary.main}
-                          >
-                            {data.packages[0].category === "private"
-                              ? `AED ${Math.round(data.packages[0].price - (data.packages[0].price * data.discount_offer / 100))}`
-                              : `AED ${Math.round(data.packages[0].adult_price - (data.packages[0].adult_price * data.discount_offer / 100))}`}
-                          </Typography>
-
-
-              {/* <Typography color="primary" display="inline" fontWeight="bold" sx={{ ml: 1 }}>
-                AED {data?.packages[0]?.price !== null ? data?.packages[0]?.price : data?.packages[0]?.adult_price}
-              </Typography> */}
-
-
-
-            {/* </Typography> */}
+              sx={{ fontSize: '1rem' }}
+              fontWeight="bold"
+              color={theme.palette.primary.main}
+            >
+              {data.packages[0].category === "private"
+                ? `AED ${Math.round(data.packages[0].price - (data.packages[0].price * data.discount_offer / 100))}`
+                : `AED ${Math.round(data.packages[0].adult_price - (data.packages[0].adult_price * data.discount_offer / 100))}`}
+            </Typography>
           </Box>
         </Box>
-<Box sx={{display:'flex'}}>
-        <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                        size="small"
-                      />
-                      {/* <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> */}
-                    </Box>
+        <Box sx={{ display: 'flex' }}>
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            size="small"
+          />
+        </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button

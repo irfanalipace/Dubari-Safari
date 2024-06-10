@@ -14,11 +14,11 @@ import {
   CalendarMonthOutlined,
   CalendarViewMonthOutlined,
 } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DoneIcon from "@mui/icons-material/Done";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useSelector } from "react-redux"; // Import useSelector
-import Cookies from "js-cookie"; // Importing js-cookie
+import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 
 const RightSideComponents = ({ allCart, totalPrice }) => {
@@ -27,6 +27,8 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   console.log(allCart, "all cartttt");
+  const location = useLocation()
+  // console.log(location.pathname, 'hi')
 
   const faq = [
     {
@@ -55,38 +57,29 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
   //   navigate('/payment-details', { state: { totalPrice: totalPrice } })
   // }
 
+  const path = location.pathname;
+  console.log(path, 'this path')
   const handleCheckout = () => {
     const lastCartItem = allCart[allCart.length - 1];
-    console.log(lastCartItem, "last cart data");
+    const allCartString = JSON.stringify(allCart);
+
+    sessionStorage.setItem('cartData', allCartString);
 
     const { adult, child, infant, tour_date } = lastCartItem;
 
-
-
-    // navigate("/payment-details", {
-    //   state: {
-    //     totalPrice: totalPrice,
-    //     person: {
-    //       adult: adult,
-    //       child: child,
-    //       infant: infant,
-    //   },
-    //     date: tour_date,
-    //   },
-    // });
-
     const data = {
+      package_id: '1',
       date: tour_date,
       adult: adult,
       child: child,
       infant: infant,
       total_amount: totalPrice,
+    };
+
+    Cookies.set('bookingDetails', JSON.stringify(data));
+    navigate("/payment-details", { state: path });
   };
 
-    Cookies.set('bookingDetails', JSON.stringify(data), { expires: 7 });
-
-    navigate("/payment-details", { state: data });
-  };
 
   return (
     <>

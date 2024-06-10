@@ -6,6 +6,7 @@ const ReviewsDetail = ({ data }) => {
   const base = 'https://dubaisafari.saeedantechpvt.com/';
 
   // Calculate average rating
+  console.log(data, 'l')
   const totalReviews = data?.reviews?.length || 0;
   const averageRating = data?.reviews?.reduce((acc, review) => acc + review?.rating, 0) / totalReviews || 0;
 

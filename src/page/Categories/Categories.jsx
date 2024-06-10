@@ -315,11 +315,10 @@ const Categories = () => {
                             sx={{
                               height: "100px",
                               width: "100px",
-                              border: `4px solid ${
-                                selectedCategory === val
-                                  ? theme.palette.primary.main
-                                  : "transparent"
-                              }`,
+                              border: `4px solid ${selectedCategory === val
+                                ? theme.palette.primary.main
+                                : "transparent"
+                                }`,
                               cursor: "pointer",
                             }}
                           />
@@ -356,11 +355,10 @@ const Categories = () => {
                               sx={{
                                 height: "100px",
                                 width: "100px",
-                                border: `4px solid ${
-                                  selectedCategory === val
-                                    ? theme.palette.primary.main
-                                    : "transparent"
-                                }`,
+                                border: `4px solid ${selectedCategory === val
+                                  ? theme.palette.primary.main
+                                  : "transparent"
+                                  }`,
                                 cursor: "pointer",
                               }}
                             />
@@ -395,7 +393,7 @@ const Categories = () => {
             fontWeight="bold"
             sx={{ flex: 2, whiteSpace: "nowrap", fontSize: "1.3rem" }}
           >
-            Things to do in Abu Dhabi {activityLength}
+            {activityLength} Things to do in Abu Dhabi
           </Typography>
 
           <Box
