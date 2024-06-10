@@ -215,17 +215,17 @@ if(isAuth){
             {/* </Typography> */}
           </Box>
         </Box>
-        <Box sx={{ display: 'flex' }}>
-          <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            size="small"
-          />
-          {/* <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> */}
-        </Box>
+<Box sx={{display:'flex'}}>
+        <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                        size="small"
+                      />
+                       <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> 
+                    </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button

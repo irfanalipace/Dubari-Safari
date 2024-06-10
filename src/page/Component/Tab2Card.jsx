@@ -73,7 +73,16 @@ const Tab2Card = (props) => {
                     alignItems: "start",
                   }}
                 >
-                  <Typography sx={{ fontSize: "18px", fontWeight: 600 }}>
+                  <Typography sx={{ fontSize: "18px", fontWeight: 600,  color: theme.palette.primary.textPrimary,
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 1,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxHeight: "4.5rem",
+                    lineHeight: "1.5rem", }}>
                     {val.name}
                   </Typography>
                   <Typography

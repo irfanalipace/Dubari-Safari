@@ -46,6 +46,7 @@ const RelatedData = () => {
           {filteredActivities.length > 0 ? (
             filteredActivities.map((val, ind) => (
               <Grid item lg={3} md={6} sm={12} xs={12} key={ind}>
+              
                 <Box
                   onClick={() => navigate(`/details/${val.id}`)}
                   sx={{
@@ -82,6 +83,17 @@ const RelatedData = () => {
                         fontSize: "1.2rem",
                         textAlign: "start",
                         fontWeight: 600,
+                        color: theme.palette.primary.textPrimary,
+                        wordBreak: "break-word",
+                        overflowWrap: "break-word",
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxHeight: "4.5rem",
+                        lineHeight: "1.5rem",
+    
                       }}
                     >
                       {val.name}
@@ -161,6 +173,7 @@ const RelatedData = () => {
                       }}
                     >
                       <Rating name="simple-controlled" value={value} readOnly />
+                      <Typography>{val?.reviews?.length}</Typography>
                       <Button variant="contained">Book Now</Button>
                     </Box>
                   </Box>

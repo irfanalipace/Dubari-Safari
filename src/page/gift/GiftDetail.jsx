@@ -14,7 +14,11 @@ const GiftDetail = ({ ac_data }) => {
   const [description, setDescription] = useState('');
   const [readMore, setReadMore] = useState(false);
   const navigate = useNavigate();
+  const [isExpanded, setIsExpanded] = useState(false);
 
+  const toggleDescription = () => {
+    setIsExpanded(!isExpanded);
+  };
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -172,24 +176,50 @@ const GiftDetail = ({ ac_data }) => {
               </Typography> */}
 
               <Typography
-      sx={{
-        fontSize: { xs: '14px', md: '16px' },
-        fontWeight: 500,
-        color: '#A9A9A9',
-        wordBreak: 'break-all',
-
-      }}
-    >
-      {readMore ? ac_data?.description : `${descriptionPreview}...`}
-      {ac_data?.description.length > descriptionPreview.length && (
-        <Typography
-          onClick={() => setReadMore(!readMore)}
-          sx={{ cursor: 'pointer', textTransform: 'none', padding: 0, minWidth: 'fit-content' }}
-        >
-          {readMore ? ' Read Less' : ' Read More'}
-        </Typography>
-      )}
-    </Typography>
+     
+              sx={{
+                    fontSize: { xs: '14px', md: '16px' },
+                fontWeight: 500,
+               
+                wordBreak: 'break-all',
+              color: '#A9A9A9',
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+                lineHeight: "1.5rem",
+              }}
+            >
+              {isExpanded ? ac_data?.description : (
+                <>
+                  {ac_data?.description.slice(0, 320)} 
+                  {ac_data?.description.length > 320 && (
+                    <Button
+                      onClick={toggleDescription}
+                      sx={{
+                        marginLeft: '0.5rem', 
+                        textTransform: 'none',
+                        fontSize: '0.875rem',
+                        color: '#A9A9A9',
+                      }}
+                    >
+                      Read More
+                    </Button>
+                  )}
+                </>
+              )}
+              {isExpanded && (
+                <Button
+                  onClick={toggleDescription}
+                  sx={{
+                    marginTop: '0.5rem', // Adjust spacing as needed
+                    textTransform: 'none',
+                    fontSize: '0.875rem',
+                     color: '#A9A9A9',
+                  }}
+                >
+                  Show Less
+                </Button>
+              )}
+                </Typography>
 
             </Box>
           </Box>

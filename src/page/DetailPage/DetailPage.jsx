@@ -12,6 +12,7 @@ import {
   AccordionDetails,
   Accordion,
   AccordionSummary,
+
 } from "@mui/material";
 
 import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
@@ -38,7 +39,11 @@ const DetailPage = () => {
   const [data1, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(5);
+  const [isExpanded, setIsExpanded] = useState(false);
 
+  const toggleDescription = () => {
+    setIsExpanded(!isExpanded);
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -264,6 +269,7 @@ const DetailPage = () => {
       ) : (
         <>
           <DetailSlider data1={data1} />
+        
           <Box sx={{ padding: "30px" }}>
             <Grid container spacing={6}>
               <Grid item lg={8} sm={12} xs={12} md={6}>
@@ -312,7 +318,7 @@ const DetailPage = () => {
                         }}
                       />
                       <Typography sx={{ fontSize: { xs: "14px", md: "16px" } }}>
-                        94 Reviews{" "}
+                  {data1.reviews.length}{" "} 
                       </Typography>
                     </Box>
                   </Box>
@@ -444,23 +450,48 @@ const DetailPage = () => {
                         Description
                       </Typography>
                       <Divider sx={{ width: "100%" }} />
-                      <Typography
-                        sx={{
-                          fontSize: "1rem",
-                          color: theme.palette.primary.textPrimary,
-                          wordBreak: "break-word",
-                          overflowWrap: "break-word",
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          maxHeight: "4.5rem",
-                          lineHeight: "1.5rem",
-                        }}
-                      >
-                        {data1.description}
-                      </Typography>
+                  <Typography
+      component="div"
+      sx={{
+        fontSize: "1rem",
+        color: 'primary.textPrimary', // Adjust according to your theme
+        wordBreak: "break-word",
+        overflowWrap: "break-word",
+        lineHeight: "1.5rem",
+      }}
+    >
+      {isExpanded ? data1.description : (
+        <>
+          {data1.description.slice(0, 320)} {/* Adjust character limit as needed */}
+          {data1.description.length > 320 && (
+            <Button
+              onClick={toggleDescription}
+              sx={{
+                marginLeft: '0.5rem', // Adjust spacing as needed
+                textTransform: 'none',
+                fontSize: '0.875rem',
+                color:'black'
+              }}
+            >
+              Read More
+            </Button>
+          )}
+        </>
+      )}
+      {isExpanded && (
+        <Button
+          onClick={toggleDescription}
+          sx={{
+            marginTop: '0.5rem', // Adjust spacing as needed
+            textTransform: 'none',
+            fontSize: '0.875rem',
+            color:'black'
+          }}
+        >
+          Show Less
+        </Button>
+      )}
+        </Typography>
                     </div>
                   )}
 
