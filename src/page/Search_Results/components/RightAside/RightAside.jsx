@@ -204,15 +204,15 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
   // };
 
 
-  const WishListredux = useSelector((state)=>state.wishlist.wishlist.payload)
-const isAuth = useSelector((state)=>state.auth.isAuthenticated)
+  const WishListredux = useSelector((state)=>state?.wishlist?.wishlist?.payload)
+const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
 
   const isActivityInWishlist = (activityId) => {
 
 
     if(isAuth){
 
-      return WishListredux.some((item) => item.activity_id == activityId);
+      return WishListredux?.some((item) => item.activity_id == activityId);
 
     }else{
       // return wishList.some((item) => item.activity_id == activityId);

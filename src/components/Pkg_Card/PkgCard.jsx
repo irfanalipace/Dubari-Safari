@@ -28,8 +28,8 @@ const PkgCard = ({ data, categories, ind }) => {
   const { enqueueSnackbar } = useSnackbar();
 
 
-  const WishListredux = useSelector((state)=>state.wishlist.wishlist.payload)
-const isAuth = useSelector((state)=>state.auth.isAuthenticated)
+  const WishListredux = useSelector((state)=>state?.wishlist?.wishlist?.payload)
+const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
 
   const descriptionStyle = {
     display: '-webkit-box',
@@ -115,7 +115,7 @@ const isAuth = useSelector((state)=>state.auth.isAuthenticated)
 
 if(isAuth){
 
-  return WishListredux.some((item) => item.activity_id == activityId);
+  return WishListredux?.some((item) => item.activity_id == activityId);
 
 }else{
   // return wishList.some((item) => item.activity_id == activityId);
@@ -224,7 +224,7 @@ if(isAuth){
                         }}
                         size="small"
                       />
-                       <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> 
+                       <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography>
                     </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
