@@ -1,5 +1,5 @@
 import {
-  Box, Button, FormControl, FormControlLabel, Grid, MenuItem, Radio, RadioGroup, Select, TextField, Typography,
+  Box, Button, Divider, FormControl, FormControlLabel, Grid, MenuItem, Radio, RadioGroup, Select, TextField, Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -55,6 +55,9 @@ const GiftDetail = ({ ac_data }) => {
 
   const base = 'https://dubaisafari.saeedantechpvt.com/';
   const descriptionPreview = ac_data?.description?.split(' ').slice(0, 30).join(' ');
+  const handleDiscountClick = (value) => {
+    setDiscountPrice(value);
+  }
   return (
     <Box>
       <Box sx={{
@@ -67,7 +70,19 @@ const GiftDetail = ({ ac_data }) => {
 
           <Grid container spacing={3} mt={1} sx={{ alignItems: 'center' }}>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2.5 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+<Typography>Coose a value for gift card</Typography>
+<br/>
+<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Button variant='outlined' onClick={() => handleDiscountClick('50')}>AED 50</Button>
+                  <Button variant='outlined' onClick={() => handleDiscountClick('100')}>AED 100</Button>
+                  <Button variant='outlined' onClick={() => handleDiscountClick('150')}>AED 150</Button>
+                  <Button variant='outlined' onClick={() => handleDiscountClick('200')}>AED 200</Button>
+                  <Button variant='outlined' onClick={() => handleDiscountClick('250')}>AED 250</Button>
+                </Box>
+<br/>
+<Divider/>
+<br/>
                 <label style={{ fontWeight: '700', fontSize: '1rem' }}>Enter Discount</label>
                 <TextField
                   placeholder="Discount"

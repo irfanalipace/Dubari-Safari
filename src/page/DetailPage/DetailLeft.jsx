@@ -212,7 +212,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 
     const handleBookNowClick = () => {
       window.scrollTo({
-        top: window.innerHeight / 1.2,
+        top: window.innerHeight / 1,
         behavior: "smooth",
       });
     };
@@ -227,7 +227,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                 alignItems: "center",
                 justifyContent: "end",
                 mt: 0,
-                mb: 5,
+                mb: 1,
               }}
               gap={3}
             >
@@ -241,6 +241,17 @@ const DetailLeft = ({ ac_data, loading }) => {
               >
                 <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
                   <Typography sx={{ fontSize: "1rem" }}>From</Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "1.1rem",
+                      color: "grey",
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {ac_data.packages[0].category === "private"
+                      ? `AED ${ac_data.packages[0].price}`
+                      : `AED ${ac_data.packages[0].adult_price}`}
+                  </Typography>
                   <Typography
                     fontWeight="bold"
                     color={theme.palette.primary.main}
@@ -260,25 +271,11 @@ const DetailLeft = ({ ac_data, loading }) => {
                               100
                         )}`}
                   </Typography>
-
-                  <Typography
-                    sx={{
-                      fontSize: "1.1rem",
-                      color: "grey",
-                      textDecoration: "line-through",
-                    }}
-                  >
-                    {ac_data.packages[0].category === "private"
-                      ? `AED ${ac_data.packages[0].price}`
-                      : `AED ${ac_data.packages[0].adult_price}`}
-                  </Typography>
                 </Box>
-                <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
-                  Price varies by vehicles, group sizes and other selections
-                </Typography>
+
               </Box>
 
-              <Box sx={{ display: "flex", justifyContent: "right", flex:1 }}>
+              <Box sx={{ display: "flex", justifyContent: "right", }}>
                 <Button
                   variant="contained"
                   sx={{
@@ -294,10 +291,13 @@ const DetailLeft = ({ ac_data, loading }) => {
                   Select Options
                 </Button>
               </Box>
+
             </Box>
+            <Typography sx={{ color: "grey", fontSize: "0.9rem", mb:3 }}>
+                  Price varies by vehicles, group sizes and other selections
+                </Typography>
 
-
-        <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "30px 0px" }}>
+        <Box sx={{ border: "2px solid #EDEDED", borderRadius: "20px", padding: "10px 0px" }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "start", gap: "20px" }}>
 
 
@@ -305,7 +305,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 
 <Box sx={{ padding: "20px", width: "90%" }}>
 
-<Typography>Choose a package</Typography>
+<Typography sx={{fontWeight: 600, fontSize: "18px",}}>Choose a package</Typography>
 
 <Divider sx={{mb:3, mt:1}}/>
                     {loading ? (
@@ -475,6 +475,23 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box>
 
                 <Box sx={{ padding: "0px 20px", width: "90%" }}>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <FormControl fullWidth sx={{ backgroundColor: "#EDEDED", borderRadius: "7px" }}>
                         <Button
                             fullWidth

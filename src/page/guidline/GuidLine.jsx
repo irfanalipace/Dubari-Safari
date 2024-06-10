@@ -1,6 +1,7 @@
 import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import Page from '../../components/page';
+import { IoMdInformationCircleOutline } from "react-icons/io";
 const GuidLine = () => {
     const theme = useTheme()
     useEffect(()=>{
@@ -154,7 +155,7 @@ const GuidLine = () => {
                             {val.link && val.link.map((link, linkIndex) => (
                                 <div key={linkIndex} style={{ marginLeft:'1rem', color: '#506273', fontSize: '16px', alignItems:'center' }}>
 
-<img src='/icons/Vector.png' alt='tick' width={'15px'}/>
+<IoMdInformationCircleOutline style={{color:theme.palette.primary.main, fontSize:'1rem'}}/>
 
                                     <a href={`http://${link}`} style={{lineHeight:'2rem', textDecoration:'none', marginLeft:'0.5rem', color:'grey'}} target="_blank" rel="noopener noreferrer">{link}</a>
                                 </div>

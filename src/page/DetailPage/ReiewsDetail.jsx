@@ -59,7 +59,7 @@ const ReviewsDetail = ({ data }) => {
               >
 
                 {/* <Typography sx={{ fontSize: { xs: '18px', md: '22px' } }}>{star} stars</Typography> */}
-                
+
                 <Typography sx={{ fontSize: { xs: '18px', md: '22px', } }}>
     {star === 5 ? 'Excellent' : star === 4 ? 'Very Good' : star === 3 ? 'Average' : star === 2 ? 'Poor' : 'Terrible'}
     &nbsp;{star} stars
@@ -106,7 +106,7 @@ const ReviewsDetail = ({ data }) => {
                   readOnly
                 />
                 <Typography sx={{ backgroundColor: 'green', padding: "5px", color: 'white', borderRadius: '5px', textAlign: 'center' }}>
-                  {review.rating === 5 ? 'Excellent' : review.rating >= 4 ? 'Good' : review.rating >= 3 ? 'Average' : 'Poor'}
+                  {review.rating === 5 ? 'Excellent' : review.rating >= 4 ? 'Very Good' : review.rating >= 3 ? 'Average' : review.rating >= 2 ? 'Poor' : 'Terrible'}
                 </Typography>
               </Box>
             </CardContent>
