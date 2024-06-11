@@ -423,8 +423,8 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     >
 
                                         <Radio
-                                         checked={selectedItemIndex === index}
-                                         onChange={() => handleSelectItem(index)}
+                                            checked={selectedItemIndex === index}
+                                            onChange={() => handleSelectItem(index)}
                                         />
                                         <Box>
 
@@ -501,7 +501,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                                         <Loader />
                                                     ) : (
                                                         <Button
-                                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
+                                                            onClick={() => handleCart(ac_data.packages[index].id, 1, total, date, adult, child, infant, item.category, item.id)}
                                                             variant="contained"
                                                             sx={{
                                                                 color: "white",

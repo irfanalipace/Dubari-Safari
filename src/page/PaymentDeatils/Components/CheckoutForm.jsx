@@ -46,9 +46,6 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, 
         }
     };
 
-
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -112,6 +109,7 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, 
         padding: "8px",
     };
 
+    console.log(cartData, 'hiiiiiiiiiiiiiiiiiiii')
     return (
         <>
             <Grid container spacing={3}>

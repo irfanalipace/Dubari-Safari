@@ -23,6 +23,8 @@ const Landing = () => {
     dispatch(getPopularActivities());
   }, []);
 
+
+
   return (
     <>
       <Page title="Arabia Horizon | No 1 Tour Company in Dubai ">

@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const Overlay = ({ title }) => {
+const Overlay = ({ title, imageUrl }) => {
   return (
     <Box
       sx={{
         height: "15vh",
-        backgroundImage: "url(/pic.png)",
+        backgroundImage: `url(${imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",

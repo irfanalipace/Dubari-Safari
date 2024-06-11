@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'js-cookie';
 import { Apply_Voucher } from "../../store/actions/bookingAction";
 import { useLocation } from "react-router";
+import { MdOutlineDateRange } from "react-icons/md";
+import { IoPerson } from "react-icons/io5";
 
 const PriceCard = ({ data1, activeStep, total, setTotalAmount, cartData }) => {
   const [voucherCode, setVoucherCode] = useState("");
@@ -79,18 +81,68 @@ const PriceCard = ({ data1, activeStep, total, setTotalAmount, cartData }) => {
                   marginTop: "1rem",
                   border: '1px solid #f0f0f0',
                   padding: '20px',
-                  borderRadius: '5px'
+                  borderRadius: '5px',
+                  width: '90%'
                 }}
               >
-                <Box>
-                  <Typography>Adult: {item.adult}</Typography>
-                  <Typography>Child: {item.child}</Typography>
-                  <Typography>Infant: {item.infant}</Typography>
-                  <Typography>Date: {item.tour_date}</Typography>
-                  <Typography>Total Amount: AED {item.price}</Typography>
+                <Box sx={{ display: 'flex', flexDirection: "column", gap: '13px', width: '90%' }}>
+                  <Typography sx={{ fontWeight: 600 }}>{item.package.activity.name}</Typography>
+                  <Typography sx={{
+                    fontSize: "1rem",
+                    color: theme.palette.primary.textPrimary,
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 2,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxHeight: "4.5rem",
+                    lineHeight: "1.5rem",
+                  }}>{item.package.title} - {item.package.category} </Typography>
+                  <Typography sx={{ display: 'flex', alignItems: 'center', gap: '5px', fontWeight: 600 }}><MdOutlineDateRange size={22} /> &nbsp;{item.tour_date}</Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Typography><IoPerson /> &nbsp;1 * Adult</Typography>
+                    {/* Conditionally render price based on category */}
+                    <Typography>AED {item.package.category === 'sharing' ? item.package.adult_price : item.package.price}</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', margin: '20px 0px' }}>
+                    {activeStep !== 0 && (
+                      <TextField
+                        label="Voucher Code"
+                        value={voucherCode}
+                        onChange={(e) => setVoucherCode(e.target.value)}
+                        variant="outlined"
+                        sx={{ flex: 1, borderRadius: '10px', backgroundColor: 'whitesmoke', '&:hover': { backgroundColor: 'white' } }}
+                        InputProps={{
+                          endAdornment: (
+                            <Button
+                              variant="contained"
+                              onClick={handleVoucherApply}
+                              sx={{
+                                borderTopLeftRadius: 0,
+                                borderBottomLeftRadius: 0,
+                                padding: '10px 50px',
+                                height: '100%',
+                              }}
+                            >
+                              Apply
+                            </Button>
+                          ),
+                          sx: { borderTopRightRadius: '10px', borderBottomRightRadius: '10px' }
+                        }}
+                      />
+                    )}
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
+                    <Typography>Sub Total</Typography>
+                    <Typography> AED {item.price}</Typography>
+                  </Box>
                 </Box>
               </Box>
             ))}
+
             <Typography variant="h6" sx={{ marginTop: "1rem" }}>
               Total Amount: AED {totalBooking.total_amount}
             </Typography>
@@ -106,21 +158,21 @@ const PriceCard = ({ data1, activeStep, total, setTotalAmount, cartData }) => {
                 background: "#fff",
               }}
             >
-              <Typography
+              {/* <Typography
                 variant="h1"
                 sx={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "1rem" }}
               >
                 Summary
-              </Typography>
-              <Divider />
+              </Typography> */}
+              {/* <Divider /> */}
 
-              <Box sx={{ marginTop: "2rem" }}>
+              <Box sx={{ marginTop: "0rem" }}>
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginTop: "1rem",
+                    marginTop: "0rem",
                   }}
                 >
                   <Box sx={{ display: "flex", alignItems: "center" }}>

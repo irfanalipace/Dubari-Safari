@@ -1,16 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Page from "../../components/page";
 import { Box, Button, Typography } from "@mui/material";
 import Overlay from "../../components/Image_Overlay/Overlay";
 import { ArrowForward } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { getAboutImage, getHomeImage } from "../../store/actions/setting";
 const About_Us = () => {
 
-  useEffect(()=>{
-    window.scrollTo(0,0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
   })
+
+  const dispatch = useDispatch()
+  const [imageH, setImageH] = useState()
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await dispatch(getHomeImage());
+        setImageH(result.data.payload || []);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [dispatch]);
+
+  const abc = imageH?.length > 0 ? imageH[0]?.image_url : '';
   return (
     <Page title="About Us">
-      <Overlay title="About Us" />
+      <Overlay title="About Us" imageUrl={abc} />
       <Box sx={{ p: 5 }}>
         <Typography variant="h4" fontWeight="bold" color="primary">
           About Us

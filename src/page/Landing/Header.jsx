@@ -1,18 +1,45 @@
 import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material';
-import React from 'react';
-import { Navigate, useNavigate } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { getHomeImage } from '../../store/actions/setting';
+import Cookies from 'js-cookie'; // Import js-cookie library
 
 const Header = () => {
-    const navigate = useNavigate()
-    const theme = useTheme()
-    const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+    const navigate = useNavigate();
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
     const handleLearn = () => {
-        navigate('/desert-safari')
-    }
+        navigate('/desert-safari');
+    };
+    const dispatch = useDispatch();
+    const [imageH, setImageH] = useState([]);
+    const [imageUrl, setImageUrl] = useState('');
+
+    useEffect(() => {
+        const imageUrlFromCookie = Cookies.get('imageUrl');
+        if (imageUrlFromCookie) {
+            setImageUrl(imageUrlFromCookie);
+        } else {
+            (async () => {
+                try {
+                    const result = await dispatch(getHomeImage());
+                    setImageH(result.data.payload || []); // Ensure payload is an array
+                    // Set the imageUrl in a cookie
+                    const imageUrl = result.data.payload.length > 0 ? result.data.payload[0].image_url : '';
+                    Cookies.set('imageUrl', imageUrl);
+                    setImageUrl(imageUrl);
+                } catch (err) {
+                    console.log(err);
+                }
+            })();
+        }
+    }, [dispatch]);
+
     return (
         <Box
             sx={{
-                backgroundImage: 'url(/header.png)',
+                backgroundImage: `url(${imageUrl})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 height: '433px',
@@ -27,15 +54,15 @@ const Header = () => {
                 position: 'relative'
             }}
         >
-            <Typography sx={{ fontSize: isSmall ? '25px' : '48px', fontWeight: 500,
-
-             }}>
+            <Typography sx={{
+                fontSize: isSmall ? '25px' : '48px', fontWeight: 500,
+            }}>
                 Do More with bookdubaisafari.com
             </Typography>
-            <Typography sx={{ fontSize: '17px', width: isSmall ? '100%' : '60%',}}>
-            Choose from our curated selection of activities, including desert tours, adventures, city tours, yacht
-cruises, and water adventures. Immerse yourself in the best experiences, tailored for both tourists and
-residents
+            <Typography sx={{ fontSize: '17px', width: isSmall ? '100%' : '60%', }}>
+                Choose from our curated selection of activities, including desert tours, adventures, city tours, yacht
+                cruises, and water adventures. Immerse yourself in the best experiences, tailored for both tourists and
+                residents
             </Typography>
             <Box>
                 <Button onClick={handleLearn} variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', textTransform: 'none', fontSize: '16px', fontWeight: 500 }}>Learn More</Button>
@@ -54,7 +81,7 @@ residents
                     Feedback
                 </Button>
             </Box>
-        </Box >
+        </Box>
     );
 };
 
