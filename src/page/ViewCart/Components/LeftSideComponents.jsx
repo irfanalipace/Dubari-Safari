@@ -460,7 +460,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                 marginLeft: '0.5rem', 
                 textTransform: 'none',
                 fontSize: '0.875rem',
-                color:'black'
+                color:"grey",
               }}
             >
               Read More
@@ -475,7 +475,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
             marginTop: '0.5rem', // Adjust spacing as needed
             textTransform: 'none',
             fontSize: '0.875rem',
-             color:'black'
+             color:"grey",
           }}
         >
           Show Less
