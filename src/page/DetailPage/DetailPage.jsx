@@ -269,7 +269,7 @@ const DetailPage = () => {
       ) : (
         <>
           <DetailSlider data1={data1} />
-        
+
           <Box sx={{ padding: "30px" }}>
             <Grid container spacing={6}>
               <Grid item lg={8} sm={12} xs={12} md={6}>
@@ -293,7 +293,7 @@ const DetailPage = () => {
                   >
                     <Typography
                       sx={{
-                        fontSize: { xs: "20px", md: "25px" },
+                        fontSize: { xs: "16px", md: "16px" },
                         fontWeight: 700,
 
                       }}
@@ -318,7 +318,7 @@ const DetailPage = () => {
                         }}
                       />
                       <Typography sx={{ fontSize: { xs: "14px", md: "16px" } }}>
-                  {data1.reviews.length}{" "} 
+                  {data1.reviews.length}
                       </Typography>
                     </Box>
                   </Box>
@@ -432,7 +432,7 @@ const DetailPage = () => {
                           }}
                         >
                           {item.icon}
-                          <Typography>{item.text}</Typography>
+                          <Typography sx={{fontSize:'12px'}}>{item.text}</Typography>
                         </Box>
                       ))}
                     </Box>
@@ -462,7 +462,7 @@ const DetailPage = () => {
     >
       {isExpanded ? data1.description : (
         <>
-          {data1.description.slice(0, 320)} {/* Adjust character limit as needed */}
+          {data1.description.slice(0, 550)} {/* Adjust character limit as needed */}
           {data1.description.length > 320 && (
             <Button
               onClick={toggleDescription}

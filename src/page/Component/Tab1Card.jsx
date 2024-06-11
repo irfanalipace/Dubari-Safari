@@ -46,8 +46,8 @@ const Tab1Card = (props) => {
           <Box
             onClick={() => navigate(`/details/${val.id}`)}
             sx={{
-              minHeight: '23rem',
-              maxHeight: '25rem',
+              minHeight: '20rem',
+              maxHeight: '20rem',
               backgroundColor: "white",
               borderRadius: "12px",
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
@@ -78,21 +78,36 @@ const Tab1Card = (props) => {
                 alignItems: "start",
               }}
             >
-              <Typography sx={{ fontSize: "18px", fontWeight: 600 }}>
-                {val.name}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "1rem",
+              <Typography sx={{
+
+fontSize: "16px",
+fontWeight:'600',
                   color: theme.palette.primary.textPrimary,
                   wordBreak: "break-word",
                   overflowWrap: "break-word",
                   display: "-webkit-box",
                   WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 3,
+                  WebkitLineClamp: 1,
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   maxHeight: "4.5rem",
+                  lineHeight: "1.5rem",
+
+               }}>
+                {val.name}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  color: theme.palette.primary.textPrimary,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxHeight: "4rem",
                   lineHeight: "1.5rem",
                 }}
               >

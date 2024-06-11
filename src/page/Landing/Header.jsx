@@ -15,7 +15,7 @@ const Header = () => {
                 backgroundImage: 'url(/header.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                height: '533px',
+                height: '433px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'left',
@@ -27,18 +27,18 @@ const Header = () => {
                 position: 'relative'
             }}
         >
-            <Typography sx={{ fontSize: isSmall ? '25px' : '48px', fontWeight: 700, fontFamily: 'GT Eesti Display Trial, sans-serif',
+            <Typography sx={{ fontSize: isSmall ? '25px' : '48px', fontWeight: 500,
 
              }}>
                 Do More with bookdubaisafari.com
             </Typography>
-            <Typography sx={{ fontSize: '17px', width: isSmall ? '100%' : '60%', fontFamily: 'GT Eesti Display Trial, sans-serif' }}>
+            <Typography sx={{ fontSize: '17px', width: isSmall ? '100%' : '60%',}}>
             Choose from our curated selection of activities, including desert tours, adventures, city tours, yacht
 cruises, and water adventures. Immerse yourself in the best experiences, tailored for both tourists and
 residents
             </Typography>
             <Box>
-                <Button onClick={handleLearn} variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '15px 30px', textTransform: 'none', fontSize: '16px', fontWeight: 700 }}>Learn More</Button>
+                <Button onClick={handleLearn} variant='contained' sx={{ backgroundColor: theme.palette.primary.main, color: "white", padding: '10px 30px', textTransform: 'none', fontSize: '16px', fontWeight: 500 }}>Learn More</Button>
             </Box>
             <Box sx={{ position: 'fixed', bottom: 20, left: 30, display: 'flex', alignItems: 'center', zIndex: 9999 }}>
                 <Button onClick={() => navigate('/feedback')} variant='contained' sx={{

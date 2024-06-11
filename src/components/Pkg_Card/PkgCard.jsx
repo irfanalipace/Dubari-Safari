@@ -143,7 +143,7 @@ if(isAuth){
             ) : isActivityInWishlist(data.id) ? (
               <FavoriteIcon sx={{ fontSize: "35px", color: "red" }} />
             ) : (
-              <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
+              <FavoriteBorderIcon sx={{ fontSize: "35px"}} />
             )}
           </IconButton>
         </div>

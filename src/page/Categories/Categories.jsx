@@ -92,6 +92,7 @@ const Categories = () => {
     navigate("/");
   };
 
+  const [imageLoaded, setImageLoaded] = useState(true)
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setSelectedSubCategory(null);

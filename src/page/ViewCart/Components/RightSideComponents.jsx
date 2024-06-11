@@ -20,6 +20,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux"; // Import useSelector
 import Cookies from "js-cookie"; // Importing js-cookie
 import Loader from "../../../components/Loader/Loader";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 
 
 const RightSideComponents = ({ allCart, totalPrice }) => {
@@ -212,7 +215,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
       </Box>
 
       <Box sx={{ mt: 3 }}>
-        <Typography variant="h1" sx={{ fontSize: "20px", fontWeight: "700" }}>
+        {/* <Typography variant="h1" sx={{ fontSize: "20px", fontWeight: "700" }}>
           Frequently Asked Questions
         </Typography>
         <br />
@@ -233,7 +236,39 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
               <AccordionDetails>{val.answer}</AccordionDetails>
             </Accordion>
           ))}
-        </Box>
+
+        </Box> */}
+   <Typography variant="h1" sx={{ fontSize: "20px", fontWeight: "700" }}>
+          Why Book With us
+        </Typography>
+
+<br/>
+<Box sx={{ml:1}}>
+
+<Box sx={{display:'flex', alignItems:'center'}} gap={2}>
+<LockOutlinedIcon sx={{color:theme.palette.primary.main}}/>
+<Typography sx={{fontSize:'1rem', fontWeight:'600'}}>Secure Payment</Typography>
+
+</Box>
+
+<Box sx={{display:'flex', alignItems:'center', marginTop:'1rem'}} gap={2}>
+<CheckCircleOutlineOutlinedIcon sx={{color:theme.palette.primary.main}}/>
+<Typography sx={{fontSize:'1rem', fontWeight:'600'}}>No hidden costs</Typography>
+
+</Box>
+
+<Box sx={{display:'flex', alignItems:'center', marginTop:'1rem'}} gap={2}>
+<TextsmsOutlinedIcon sx={{color:theme.palette.primary.main}}/>
+<Typography sx={{fontSize:'1rem', fontWeight:'600'}}>24/7 customer support worldwide</Typography>
+
+</Box>
+
+</Box>
+
+
+
+
+
       </Box>
     </>
   );

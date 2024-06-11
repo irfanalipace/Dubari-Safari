@@ -102,7 +102,7 @@ const SearchCard = () => {
         });
     } else {
 
-      const updatedWishList = wishList.filter(item => item.activity_id === id);
+      const updatedWishList = wishList.filter(item => item.id !== id);
       localStorage.removeItem("wishListData", (updatedWishList))
       console.log(updatedWishList, 'wishhhhh')
       setWishList(updatedWishList);
