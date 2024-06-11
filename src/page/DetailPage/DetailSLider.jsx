@@ -60,7 +60,7 @@ const DetailSlider = ({ data1 }) => {
                             <img src={`${base}${img?.[1]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '33vh', objectFit: 'cover' }} />
                         </Grid>
                         <Grid item>
-                            <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '32vh', objectFit: 'cover' }} />
+                            <img src={`${base}${img?.[2]?.image_url}`} alt='xyz' style={{ width: '100%', borderRadius: "5px", height: '33vh', objectFit: 'cover' }} />
                         </Grid>
                         <Box sx={{ position: 'absolute', top: 50, right: 50, width:'134px' }}>
                             <Button variant="standard" onClick={handleOpen} style={{ width: '100%', borderRadius: "20px", textTransform: 'none', backgroundColor: '#F3F3F3', color: theme.palette.primary.main, fontWeight: 600 }}>

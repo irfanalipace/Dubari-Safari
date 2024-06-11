@@ -39,8 +39,8 @@ const Tab2Card = (props) => {
                 onClick={() => navigate(`/details/${val.id}`)}
                 sx={{
 
-minHeight:'22rem',
-     maxHeight:'25rem',
+                  minHeight:'22rem',
+                  maxHeight:'25rem',
                   // width: 320,
                   backgroundColor: "white",
                   borderRadius: "12px",
@@ -89,9 +89,20 @@ minHeight:'22rem',
                     sx={{
                       fontSize: "1rem",
                       color: theme.palette.primary.textPrimary,
+                    
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 3,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxHeight: "4.5rem",
+                      lineHeight: "1.5rem",
                     }}
                   >
                     {truncateDescription(val.description)}
+                    
                   </Typography>
                 </Box>
               </Box>

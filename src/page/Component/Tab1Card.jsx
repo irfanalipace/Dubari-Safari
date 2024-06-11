@@ -100,7 +100,7 @@ const Tab1Card = (props) => {
                     }}
                   >
                     {truncateDescription(val.description)}
-
+                   
                   </Typography>
                 </Box>
               </Box>

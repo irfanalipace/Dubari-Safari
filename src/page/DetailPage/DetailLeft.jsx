@@ -309,12 +309,12 @@ const DetailLeft = ({ ac_data, loading }) => {
                 : `AED ${ac_data.packages[0].adult_price}`}
             </Typography>
           </Box>
-          <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
+             <Typography sx={{ color: "grey", fontSize: "0.8rem" }}>
             Price varies by vehicles, group sizes and other selections
           </Typography>
-        </Box>
 
-        <Box sx={{ display: "flex", justifyContent: "right", flex: 1 }}>
+          <Box>
+             <Box sx={{ display: "flex", justifyContent: "right", flex: 1 , marginTop:'5px'}}>
           <Button
             variant="contained"
             sx={{
@@ -330,6 +330,11 @@ const DetailLeft = ({ ac_data, loading }) => {
             Select Options
           </Button>
         </Box>
+          </Box>
+       
+        </Box>
+
+     
       </Box>
 
       <Box
@@ -393,7 +398,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                       cursor: "pointer",
                       backgroundColor:
                         selectedItemIndex === index ? "#FFE4E1" : "#EDEDED",
-                      display: "flex",
+                     display: { xs: "block", sm: "flex" },
                       alignItems: "start",
                       // justifyContent: 'space-between'
                     }}
@@ -485,6 +490,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 color: "white",
                                 fontSize: "12px",
                                 textTransform: "none",
+                                
                               }}
                               disabled={loadingStates[item.id]}
                             >

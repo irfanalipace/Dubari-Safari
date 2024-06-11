@@ -151,14 +151,14 @@ const PkgCard = ({ data, categories, ind }) => {
             alignItems: "center",
           }}
         >
-          <Typography sx={{ fontSize: "13px", color: "grey" }}>
+          <Typography sx={{ fontSize: "13px", color: "grey", }}>
             Per Person Price
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
+       
             {/* <Typography sx={{ fontSize: "15px", color: "grey" }}> */}
 
             <Typography
-              sx={{ fontSize: '0.9rem', color: "grey", textDecoration: "line-through" }}
+              sx={{ fontSize: '0.9rem', color: "grey", textDecoration: "line-through" , marginLeft:"6px"}}
             >
               {data.packages[0].category === "private"
                 ? `AED ${data.packages[0].price}`
@@ -166,7 +166,7 @@ const PkgCard = ({ data, categories, ind }) => {
             </Typography>
 
             <Typography
-              sx={{ fontSize: '1rem' }}
+              sx={{ fontSize: '1rem' , marginLeft:"6px"}}
               fontWeight="bold"
               color={theme.palette.primary.main}
             >
@@ -183,9 +183,9 @@ const PkgCard = ({ data, categories, ind }) => {
 
 
             {/* </Typography> */}
-          </Box>
+        
         </Box>
-<Box sx={{display:'flex'}}>
+      <Box sx={{display:'flex'}}>
         <Rating
                         name="simple-controlled"
                         value={value}
@@ -194,7 +194,7 @@ const PkgCard = ({ data, categories, ind }) => {
                         }}
                         size="small"
                       />
-                       <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography> 
+                       <Typography sx={{fontSize:'0.8rem'}}>{data.reviews.length}</Typography> 
                     </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>

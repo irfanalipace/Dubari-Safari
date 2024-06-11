@@ -42,7 +42,7 @@ const CustomCard = () => {
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 padding: "5px",
-                minHeight:'25rem'
+                minHeight:'auto'
               }}
             >
               <Box sx={{ position: "relative" }}>
@@ -134,14 +134,17 @@ const CustomCard = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    
                     textTransform: "none",
                   }}
                 >
                   <Rating name="simple-controlled" value={value} readOnly />
                   <Typography>{val.reviews.length}</Typography>
-                  <Button variant="contained">Book Now</Button>
+                 
                 </Box>
+               <Box style={{display:'flex', justifyContent:'end'}}>
+                 <Button variant="contained">Book Now</Button>
+               </Box>
               </Box>
             </Box>
           </Grid>
