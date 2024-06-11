@@ -390,7 +390,7 @@ const Categories = () => {
         </Box>
         <Box
           sx={{
-            display: "flex",
+            display: {xs:"block", sm:"flex"},
             alignItems: "center",
             mt: 5,
           }}
@@ -405,7 +405,7 @@ const Categories = () => {
 
           <Box
             sx={{
-              display: "flex",
+              display: {xs:"block", sm:"flex"},
               alignItems: "center",
               flex: 1,
               gap: "10px",
