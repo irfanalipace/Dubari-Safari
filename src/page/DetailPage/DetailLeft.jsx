@@ -423,8 +423,8 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     >
 
                                         <Radio
-                                         checked={selectedItemIndex === index}
-                                         onChange={() => handleSelectItem(index)}
+                                            checked={selectedItemIndex === index}
+                                            onChange={() => handleSelectItem(index)}
                                         />
                                         <Box>
 

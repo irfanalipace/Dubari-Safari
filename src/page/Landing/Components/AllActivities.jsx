@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery, Skeleton } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getCategories } from '../../../store/actions/categoriesActions';
@@ -37,15 +37,11 @@ const AllActivities = () => {
       });
   }, [dispatch]);
 
-  // if (location.pathname === '/desert-safari') {
-  //   return null;
-  // }
-
-
   const isMediumOrSmallScreen = useMediaQuery(theme => theme.breakpoints.down('md'));
   if (location.pathname === '/desert-safari' || isMediumOrSmallScreen) {
     return null;
   }
+
   return (
 
     // <Box sx={{
@@ -88,7 +84,7 @@ const AllActivities = () => {
         <Typography variant="h1" sx={{ fontSize: "0.8rem", fontWeight: "600" }}>
           All Activities
         </Typography>
-        {!loading && staticCategories.map((val, ind) => {
+        {staticCategories.map((val, ind) => {
           const categoryId = categoryMap[val.name];
           return (
             <Box key={ind} sx={{ display: "flex", alignItems: "center" }}>
@@ -108,8 +104,6 @@ const AllActivities = () => {
         })}
       </Box>
     </Box>
-
-
   );
 };
 

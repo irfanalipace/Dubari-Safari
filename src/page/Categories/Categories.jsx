@@ -94,7 +94,6 @@ const Categories = () => {
     navigate("/");
   };
 
-
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setSelectedSubCategory(null);
@@ -234,12 +233,13 @@ const Categories = () => {
 
   return (
     <Page title="Categories">
-      <Box sx={{ padding: isSmall ? "3rem 2rem" : "3rem 5rem" }}>
+      <Box sx={{ padding: isSmall ? "3rem 2rem" : "3rem 5rem", }}>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+
           }}
         >
           <Typography variant="h4" fontWeight="bold" sx={{ mt: 0 }}>
@@ -249,9 +249,9 @@ const Categories = () => {
             {/* View All */}
           </Typography>
         </Box>
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: 2, }}>
           {loading ? (
-            <Box sx={{ display: "flex", justifyContent: "center", gap: '30px' }}>
+            <Box sx={{ display: "flex", justifyContent: "center", gap: '30px', }}>
               {[...Array(7)].map((_, index) => (
                 <Skeleton
                   key={index}
