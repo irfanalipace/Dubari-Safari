@@ -251,7 +251,7 @@ const Icon_Title = ({ icon, txt }) => {
 const Txt_field = ({ label, ...props }) => {
   return (
     <Box>
-      <Typography sx={{ color: "grey", fontWeight: "bold", mt: 1 }}>
+      <Typography sx={{ color: "grey", fontWeight: "500", mt: 1 }}>
         {label}
       </Typography>
       <TextField variant="standard" fullWidth {...props} />
