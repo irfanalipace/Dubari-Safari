@@ -116,7 +116,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
         >
           <Typography
             variant="h1"
-            sx={{ fontSize: "20px", fontWeight: "600", marginBottom: "1rem" }}
+            sx={{ fontSize: "16px", fontWeight: "600", marginBottom: "1rem" }}
           >
 
             Total ({allCart?.length} Activit{allCart?.length !== 1 ? "ies" : ""})
@@ -131,7 +131,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
                   variant="h1"
                   sx={{
                     color: theme.palette.primary.main,
-                    fontSize: "2rem",
+                    fontSize: "1.5rem",
                     fontWeight: "600",
                     marginBottom: "0.5rem",
                   }}
@@ -140,7 +140,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
                 </Typography>
                 <Typography
                   variant="h1"
-                  sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
+                  sx={{ color: "green", fontSize: "0.8rem", fontWeight: "600" }}
                 >
                   No Additional Fees
                 </Typography>
@@ -172,7 +172,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           </Button>
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
             {!isAuthenticated && (
-              <Typography>
+              <Typography sx={{fontSize:'0.9rem'}}>
                 <Link
                   to="/signup"
                   style={{
@@ -204,7 +204,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
             >
               <DoneIcon sx={{ color: "green" }} />
               <Typography
-                sx={{ color: "green", fontWeight: "600", marginTop: "1rem" }}
+                sx={{ color: "green", fontWeight: "600", marginTop: "1rem", fontSize:'0.9rem' }}
               >
                 Best Price Guarantee
               </Typography>
@@ -238,7 +238,7 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
           ))}
 
         </Box> */}
-   <Typography variant="h1" sx={{ fontSize: "20px", fontWeight: "700" }}>
+   <Typography variant="h1" sx={{ fontSize: "16px", fontWeight: "600" }}>
           Why Book With us
         </Typography>
 
@@ -247,19 +247,19 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
 
 <Box sx={{display:'flex', alignItems:'center'}} gap={2}>
 <LockOutlinedIcon sx={{color:theme.palette.primary.main}}/>
-<Typography sx={{fontSize:'1rem', fontWeight:'600'}}>Secure Payment</Typography>
+<Typography sx={{fontSize:'0.8rem', fontWeight:'600'}}>Secure Payment</Typography>
 
 </Box>
 
 <Box sx={{display:'flex', alignItems:'center', marginTop:'1rem'}} gap={2}>
 <CheckCircleOutlineOutlinedIcon sx={{color:theme.palette.primary.main}}/>
-<Typography sx={{fontSize:'1rem', fontWeight:'600'}}>No hidden costs</Typography>
+<Typography sx={{fontSize:'0.8rem', fontWeight:'600'}}>No hidden costs</Typography>
 
 </Box>
 
 <Box sx={{display:'flex', alignItems:'center', marginTop:'1rem'}} gap={2}>
 <TextsmsOutlinedIcon sx={{color:theme.palette.primary.main}}/>
-<Typography sx={{fontSize:'1rem', fontWeight:'600'}}>24/7 customer support worldwide</Typography>
+<Typography sx={{fontSize:'0.8rem', fontWeight:'600'}}>24/7 customer support worldwide</Typography>
 
 </Box>
 

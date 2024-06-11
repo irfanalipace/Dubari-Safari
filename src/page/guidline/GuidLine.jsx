@@ -113,10 +113,10 @@ const GuidLine = () => {
             <Box sx={{ padding: '10px 5%' }}>
                 {data1.map((val, ind) => (
                     <Box key={ind}>
-                        <Typography sx={{ lineHeight:'2rem', fontSize: "28px", fontWeight: 700, color:theme.palette.primary.main, marginTop:'1.5rem'}}>{val.title}</Typography>
+                        <Typography sx={{ lineHeight:'1.5rem', fontSize: "20px", fontWeight: 700, color:theme.palette.primary.main, marginTop:'1.5rem'}}>{val.title}</Typography>
                         <ul style={{ padding: '10px' }}>
                             {val.descriptions.map((description, descIndex) => (
-                                <li key={descIndex} style={{ lineHeight:'2rem', color: '#506273', fontSize: '16px' }}>
+                                <li key={descIndex} style={{ lineHeight:'1.5rem', color: '#506273', fontSize: '14px' }}>
                                     {description}
                                 </li>
                             ))}
@@ -145,10 +145,10 @@ const GuidLine = () => {
 
                 {data2.map((val, ind) => (
                     <Box key={ind}>
-                        <Typography sx={{ fontSize: "28px", fontWeight: 700, marginTop:'2rem', color:theme.palette.primary.main }}>{val.title}</Typography>
+                        <Typography sx={{ fontSize: "20px", fontWeight: 700, marginTop:'2rem', color:theme.palette.primary.main }}>{val.title}</Typography>
                         <ul style={{ padding: '10px' }}>
                             {val.descriptions.map((description, descIndex) => (
-                                <li key={descIndex} style={{ color: '#506273',lineHeight:'2rem', fontSize: '16px' }}>
+                                <li key={descIndex} style={{ color: '#506273',lineHeight:'1.5rem', fontSize: '14px' }}>
                                     {description}
                                 </li>
                             ))}
@@ -157,7 +157,8 @@ const GuidLine = () => {
 
 <IoMdInformationCircleOutline style={{color:theme.palette.primary.main, fontSize:'1rem'}}/>
 
-                                    <a href={`http://${link}`} style={{lineHeight:'2rem', textDecoration:'none', marginLeft:'0.5rem', color:'grey'}} target="_blank" rel="noopener noreferrer">{link}</a>
+                                    <a href={`http://${link}`} style={{lineHeight:'1.5rem',
+                                    fontSize:'14px', textDecoration:'none', marginLeft:'0.5rem', color:'grey'}} target="_blank" rel="noopener noreferrer">{link}</a>
                                 </div>
                             ))}
                         </ul>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, Rating, Typography, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularActivities } from "../../store/actions/categoriesActions";
 import { useNavigate } from "react-router";
@@ -7,8 +7,6 @@ import Skeleton from "@mui/material/Skeleton"; // Import Skeleton component
 
 const CustomCard = () => {
   const theme = useTheme();
-  const [value, setValue] = useState(5);
-  const base = "https://dubaisafari.saeedantechpvt.com/";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true); // State to manage loading status
@@ -43,7 +41,7 @@ const CustomCard = () => {
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 padding: "5px",
-                height: "",
+                height: "18rem",
               }}
             >
               {/* Skeleton loading effect for the image */}
@@ -60,7 +58,6 @@ const CustomCard = () => {
                 <Skeleton variant="text" width="50%" />
                 <Skeleton variant="text" width="40%" />
                 <Skeleton variant="text" width="80%" />
-
               </Box>
             </Box>
           </Grid>
@@ -79,7 +76,6 @@ const CustomCard = () => {
         // Render actual data when available
         filteredActivities.map((val, ind) => (
           <Grid item lg={3} md={6} sm={12} xs={12} key={ind}>
-            {console.log(val.reviews.length, "KLKKK")}
             <Box
               onClick={() => navigate(`/details/${val.id}`)}
               sx={{
@@ -88,7 +84,7 @@ const CustomCard = () => {
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 padding: "5px",
-                hight: "15rem",
+                height: "18rem",
               }}
             >
               <Box sx={{ position: "relative" }}>
@@ -110,8 +106,9 @@ const CustomCard = () => {
               >
                 <Typography
                   sx={{
-                    fontSize: "14px", textAlign: "start", fontWeight: 600,
-
+                    fontSize: "14px",
+                    textAlign: "start",
+                    fontWeight: 600,
                     color: theme.palette.primary.textPrimary,
                     wordBreak: "break-word",
                     overflowWrap: "break-word",
@@ -122,7 +119,6 @@ const CustomCard = () => {
                     textOverflow: "ellipsis",
                     maxHeight: "4.5rem",
                     lineHeight: "1.5rem",
-
                   }}
                 >
                   {val.name}
@@ -137,17 +133,13 @@ const CustomCard = () => {
                     {val.packages && val.packages.length > 0 && (
                       <>
                         <Box gap={1} sx={{ display: "flex" }}>
-
-
-
                           {val.discount_offer > 0 && (
-                            <Typography sx={{ color: "grey", textDecoration: "line-through", fontSize:'0.8rem' }}>
+                            <Typography sx={{ color: "grey", textDecoration: "line-through", fontSize: '0.8rem' }}>
                               {val.packages[0].category === "private"
                                 ? `AED ${val.packages[0].price}`
                                 : `AED ${val.packages[0].adult_price}`}
                             </Typography>
                           )}
-
 
                           <Typography fontWeight="bold" color={theme.palette.primary.main} fontSize='0.8rem'>
                             {val.packages[0].category === "private"
@@ -162,15 +154,9 @@ const CustomCard = () => {
                                 100
                               )}`} {" "}
                           </Typography>
-
                         </Box>
                       </>
                     )}
-
-                    {/* <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", textTransform: "none" }}>
-                      <Rating name="simple-controlled" value={value} readOnly />
-                      <Button variant="contained">Book Now</Button>
-                    </Box> */}
                   </Box>
                 </Box>
               </Box>

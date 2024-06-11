@@ -127,7 +127,7 @@ if(isAuth){
 
 
 
-    <Card sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
+    <Card sx={{ maxWidth: 345, height: '95%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
       onClick={handleBookNowClick}
 
     >
@@ -159,10 +159,10 @@ if(isAuth){
       </div>
 
       <CardContent>
-        <Typography color="textSecondary" component="div">
+        <Typography color="textSecondary" component="div" sx={{fontSize:'12px'}}>
           {subCategory}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: '1.3rem', fontWeight: '700' }}>
+        <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: '1rem', fontWeight: '700' }}>
           {truncateName(data?.name)}
         </Typography>
         {/* <Typography sx={descriptionStyle}>{data?.description}</Typography> */}
@@ -173,7 +173,7 @@ if(isAuth){
             alignItems: "center",
           }}
         >
-          <Typography sx={{ fontSize: "13px", color: "grey" }}>
+          <Typography sx={{ fontSize: "12px", color: "grey" }}>
             Per Person Price
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
@@ -181,7 +181,7 @@ if(isAuth){
 
             {data.discount_offer > 0 && (
               <Typography
-              sx={{ fontSize: '0.9rem', color: "grey", textDecoration: "line-through" }}
+              sx={{ fontSize: '0.8rem', color: "grey", textDecoration: "line-through" }}
             >
               {data.packages[0].category === "private"
                 ? `AED ${data.packages[0].price}`
@@ -196,7 +196,7 @@ if(isAuth){
 
 
             <Typography
-              sx={{ fontSize: '1rem' }}
+              sx={{ fontSize: '0.9rem' }}
               fontWeight="bold"
               color={theme.palette.primary.main}
             >
@@ -215,7 +215,10 @@ if(isAuth){
             {/* </Typography> */}
           </Box>
         </Box>
-<Box sx={{display:'flex'}}>
+
+<Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center', mt:1}}>
+<Box>
+<Typography sx={{fontSize:'0.7rem'}}>{data?.reviews?.length}</Typography>
         <Rating
                         name="simple-controlled"
                         value={value}
@@ -224,16 +227,21 @@ if(isAuth){
                         }}
                         size="small"
                       />
-                       <Typography sx={{fontSize:'0.8rem'}}>94 Reviews</Typography>
-                    </Box>
+</Box>
 
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
-          <Button
+                   <Box>
+                   <Button
             variant="contained"
             onClick={handleBookNowClick}
+            sx={{fontSize:'0.7rem', textTransform:'none'}}
           >
             Book Now
           </Button>
+                   </Box>
+                    </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
+
         </Box>
       </CardContent>
     </Card>

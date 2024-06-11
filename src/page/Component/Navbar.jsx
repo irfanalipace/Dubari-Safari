@@ -395,6 +395,7 @@ const Navbar = () => {
                 variant="outlined"
                 value={searchKeyword}
                 onChange={handleSearchChange}
+
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     handleSearchClick();
@@ -445,9 +446,15 @@ const Navbar = () => {
                 }}
               />
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+
+
+
+
+            {/* ---------------------- */}
+           <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}} gap={4}>
+           <Box sx={{ display: "flex", alignItems: "center" }}>
               <HelpOutlineIcon />
-              <Typography> Eng/AED</Typography>
+              <Typography sx={{fontSize:'0.9rem', cursor:'pointer'}}> Eng/AED</Typography>
             </Box>
 
             <Box
@@ -460,7 +467,7 @@ const Navbar = () => {
             >
               <Typography
                 sx={{
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -492,7 +499,7 @@ const Navbar = () => {
             >
               <Typography
                 sx={{
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -535,7 +542,7 @@ const Navbar = () => {
             >
               <Typography
                 sx={{
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -597,21 +604,25 @@ const Navbar = () => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                           <Avatar
                             alt=""
+
                             src={userData ? `${base}${userData?.profile_image}` : ""}
-                            sx={{ marginRight: "8px" }}
+                            sx={{ height:'2rem', width:'2rem', marginRight: "8px" }}
                           />
-                          {userData?.first_name}
+                         <Typography sx={{fontSize:'1rem'}}> {userData?.first_name}</Typography>
                         </Box>
                       )}
                     >
                       <MenuItem
                         value="Manage Profile"
+                        sx={{fontSize:'0.8rem'}}
                         onClick={() => handleMenuItemClick("Manage Profile")}
                       >
                         Manage Profile
                       </MenuItem>
 
                       <MenuItem
+                        sx={{fontSize:'0.8rem'}}
+
                         value="Booking"
                         onClick={() => handleMenuItemClick("Booking")}
                       >
@@ -619,6 +630,8 @@ const Navbar = () => {
                       </MenuItem>
 
                       <MenuItem
+                        sx={{fontSize:'0.8rem'}}
+
                         value="History"
                         onClick={() => handleMenuItemClick("History")}
                       >
@@ -626,6 +639,8 @@ const Navbar = () => {
                       </MenuItem>
 
                       <MenuItem
+                        sx={{fontSize:'0.8rem'}}
+
                         value="Logout"
                         onClick={() => handleMenuItemClick("Logout")}
                       >
@@ -642,12 +657,14 @@ const Navbar = () => {
                     backgroundColor: theme.palette.primary.main,
                     padding: "0.5rem 2rem",
                     textTransform: "none",
+                    fontSize:'0.9rem'
                   }}
                 >
                   Login
                 </Button>
               )}
             </Box>
+           </Box>
           </>
         )}
       </Box>
@@ -677,24 +694,10 @@ const Navbar = () => {
             <CloseIcon />
           </Button>
 
-          {/* Drawer Content */}
-          {/* <Box width="100%" marginBottom="1rem">
-            <FormControl fullWidth size="small" variant="standard">
-              <InputLabel id="demo-simple-select-label">What We Do</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="What We Do"
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Box> */}
+
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <HelpOutlineIcon />
-            <Typography sx={{ fontSize: "1.2rem" }}> Eng/AED</Typography>
+            <Typography sx={{ fontSize: "1rem" }}> Eng/AED</Typography>
           </Box>
 
           <Box
@@ -728,16 +731,7 @@ const Navbar = () => {
               </MuiLink>
             </Typography>
           </Box>
-          {/* <Box
-              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-              component={Link}
-              to="/help"
-            >
-
-
-
-              <Typography>Help</Typography>
-            </Box> */}
+        
 
           <Box
             sx={{

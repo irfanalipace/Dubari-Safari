@@ -105,7 +105,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 
             navigate("/payment-details", { state: data });
 
-            enqueueSnackbar("Package Booked", { variant: "success" });
+            // enqueueSnackbar("Package Booked", { variant: "success" });
         }
     };
 
@@ -300,10 +300,10 @@ const DetailLeft = ({ ac_data, loading }) => {
                         {ac_data?.discount_offer > 0 && (
 
                             <>
-                                <Typography sx={{ fontSize: "1rem" }}>From</Typography>
+                                <Typography sx={{ fontSize: "0.9rem" }}>From</Typography>
                                 <Typography
                                     sx={{
-                                        fontSize: "1rem",
+                                        fontSize: "0.9rem",
                                         color: "grey",
                                         textDecoration: "line-through",
                                     }}
@@ -329,7 +329,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                             fontWeight="bold"
                             color={theme.palette.primary.main}
                             textAlign={"right"}
-                            sx={{ fontSize: "1.1rem" }}
+                            sx={{ fontSize: "1rem" }}
                         >
                             {ac_data?.packages[0].category === "private"
                                 ? `AED ${Math.round(
@@ -353,7 +353,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                         variant="contained"
                         sx={{
                             color: "white",
-                            fontSize: "0.9rem",
+                            fontSize: "0.8rem",
                             textTransform: "none",
                             borderRadius: "30px",
                             padding: "0.4rem 2rem",
@@ -366,7 +366,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                 </Box>
 
             </Box>
-            <Typography sx={{ color: "grey", fontSize: "0.9rem", mb: 3 }}>
+            <Typography sx={{ color: "grey", fontSize: "0.8rem", mb: 3 }}>
                 Price varies by vehicles, group sizes and other selections
             </Typography>
 
@@ -378,7 +378,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 
                     <Box sx={{ padding: "20px", width: "90%" }}>
 
-                        <Typography sx={{ fontWeight: 600, fontSize: "18px", }}>Choose a package</Typography>
+                        <Typography sx={{ fontWeight: 600, fontSize: "16px", }}>Choose a package</Typography>
 
                         <Divider sx={{ mb: 3, mt: 1 }} />
                         {loading ? (
@@ -436,7 +436,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                                     <Typography sx={stylesEll}>
                                                         {item.title}
                                                     </Typography>
-                                                    <Typography sx={{ fontSize: "14px", color: "#777" }}>
+                                                    <Typography sx={{ fontSize: "12px", color: "#777" }}>
                                                         {item.category}
                                                     </Typography>
                                                     {/* <Typography sx={{ fontSize: "14px", color: "#777" }}>
@@ -445,26 +445,27 @@ const DetailLeft = ({ ac_data, loading }) => {
 
                                                     <Typography
                                                         sx={{
-                                                            fontSize: "14px",
+                                                            fontSize: "12px",
                                                             color: "#777",
                                                             wordBreak: "break-word",
                                                             overflowWrap: "break-word",
-                                                            lineHeight: "1.5rem",
+                                                            lineHeight: "1rem",
                                                         }}
                                                     >
                                                         {expandedStates[index] ? (
                                                             item.highlight
                                                         ) : (
                                                             <>
-                                                                {item.highlight.slice(0, 80)}{" "}
-                                                                {item.highlight.length > 80 && (
+                                                                {item.highlight.slice(0, 70)}{" "}
+                                                                {item.highlight.length > 70 && (
                                                                     <Button
                                                                         onClick={() => toggleDescription(index)}
                                                                         sx={{
-                                                                            marginLeft: "0.5rem",
+                                                                            marginLeft: "1px",
                                                                             textTransform: "none",
-                                                                            fontSize: "0.875rem",
-                                                                            color: "black",
+                                                                            fontSize: "0.6rem",
+
+                                                                            color: "grey",
                                                                         }}
                                                                     >
                                                                         Read More
@@ -476,10 +477,10 @@ const DetailLeft = ({ ac_data, loading }) => {
                                                             <Button
                                                                 onClick={() => toggleDescription(index)}
                                                                 sx={{
-                                                                    marginTop: "0.5rem",
+                                                                    marginTop: "1px",
                                                                     textTransform: "none",
-                                                                    fontSize: "0.875rem",
-                                                                    color: "black",
+                                                                    fontSize: "0.6rem",
+                                                                    color: "grey",
                                                                 }}
                                                             >
                                                                 Show Less
@@ -501,11 +502,11 @@ const DetailLeft = ({ ac_data, loading }) => {
                                                         <Loader />
                                                     ) : (
                                                         <Button
-                                                            onClick={() => handleCart(ac_data.id, 1, total, date, adult, child, infant, item.category, item.id)}
+                                                            onClick={() => handleCart(ac_data.packages[index].id, 1, total, date, adult, child, infant, item.category, item.id)}
                                                             variant="contained"
                                                             sx={{
                                                                 color: "white",
-                                                                fontSize: "12px",
+                                                                fontSize: "10px",
                                                                 textTransform: 'none'
                                                             }}
                                                             disabled={loadingStates[item.id]}
@@ -544,7 +545,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                     {/* --------------------Client UI packages end-------------- */}
 
 
-                    <Typography sx={{ fontWeight: 600, fontSize: "18px", paddingLeft: "20px" }}>
+                    <Typography sx={{ fontWeight: 600, fontSize: "16px", paddingLeft: "20px" }}>
                         Select Date & Activity Option
                     </Typography>
                     <Divider sx={{ width: "100%" }} />
@@ -576,9 +577,10 @@ const DetailLeft = ({ ac_data, loading }) => {
                             </div>
                         ) : (
                             <div>
-                                <InputLabel>Please Select Date</InputLabel>
+                                <InputLabel sx={{fontSize:'12px'}}>Please Select Date</InputLabel>
                                 <TextField
                                     type="date"
+                                    size="small"
                                     fullWidth
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
@@ -608,6 +610,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                     backgroundColor: "#EDEDED",
                                     borderRadius: "7px",
                                     textTransform: "none",
+
                                     "&:hover": {
                                         backgroundColor: "#EDEDED",
                                     },
@@ -626,7 +629,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 {/* ---------------------new design ----------------- */}
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent: 'space-around' }}>
 
-                                    <Typography sx={{ fontSize: '1.1rem', fontWeight: '700' }}>Adult</Typography>
+                                    <Typography sx={{ fontSize: '0.9rem', fontWeight: '700' }}>Adult</Typography>
 
 
 
@@ -638,19 +641,19 @@ const DetailLeft = ({ ac_data, loading }) => {
 
                                         <IconButton
                                             onClick={handleAdultDecrement}
-                                            sx={{ color: theme.palette.primary.main, fontSize: '2.5rem' }}
+                                            sx={{ color: theme.palette.primary.main, fontSize: '2rem' }}
                                         >
 
                                             <CiCircleMinus />
                                         </IconButton>
 
 
-                                        <Typography sx={{ fontSize: '1.3rem' }}>{adult}</Typography>
+                                        <Typography sx={{ fontSize: '1rem' }}>{adult}</Typography>
 
 
                                         <IconButton
                                             onClick={handleAdultIncrement}
-                                            sx={{ color: theme.palette.primary.main, fontSize: '2.5rem' }}
+                                            sx={{ color: theme.palette.primary.main, fontSize: '2rem' }}
                                         >
                                             <CiCirclePlus />
 
@@ -665,22 +668,22 @@ const DetailLeft = ({ ac_data, loading }) => {
 
 
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent: 'space-around' }}>
-                                    <Typography sx={{ fontSize: '1.1rem', fontWeight: '700' }}>Child</Typography>
+                                    <Typography sx={{ fontSize: '0.9rem', fontWeight: '700' }}>Child</Typography>
 
 
 
                                     <Box sx={{ display: 'flex', alignItems: 'center', }}>
                                         <IconButton
                                             onClick={handleChildDecrement}
-                                            sx={{ color: theme.palette.primary.main, fontSize: '2.5rem' }}
+                                            sx={{ color: theme.palette.primary.main, fontSize: '2rem' }}
                                         >
 
                                             <CiCircleMinus />
                                         </IconButton>
-                                        <Typography sx={{ fontSize: '1.3rem' }}>{child}</Typography>
+                                        <Typography sx={{ fontSize: '1rem' }}>{child}</Typography>
                                         <IconButton
                                             onClick={handleChildIncrement}
-                                            sx={{ color: theme.palette.primary.main, fontSize: '2.5rem' }}
+                                            sx={{ color: theme.palette.primary.main, fontSize: '2rem' }}
                                         >
                                             <CiCirclePlus />
 
@@ -690,21 +693,21 @@ const DetailLeft = ({ ac_data, loading }) => {
                                 <br />
 
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent: 'space-around' }}>
-                                    <Typography sx={{ fontSize: '1.1rem', fontWeight: '700' }}>Infant</Typography>
+                                    <Typography sx={{ fontSize: '0.9rem', fontWeight: '700' }}>Infant</Typography>
 
 
                                     <Box sx={{ display: 'flex', alignItems: 'center', }}>
                                         <IconButton
                                             onClick={handleInfantDecrement}
-                                            sx={{ color: theme.palette.primary.main, fontSize: '2.5rem' }}
+                                            sx={{ color: theme.palette.primary.main, fontSize: '2rem' }}
                                         >
 
                                             <CiCircleMinus />
                                         </IconButton>
-                                        <Typography sx={{ fontSize: '1.3rem' }}>{infant}</Typography>
+                                        <Typography sx={{ fontSize: '1rem' }}>{infant}</Typography>
                                         <IconButton
                                             onClick={handleInfantIncrement}
-                                            sx={{ color: theme.palette.primary.main, fontSize: '2.5rem' }}
+                                            sx={{ color: theme.palette.primary.main, fontSize: '2rem' }}
                                         >
                                             <CiCirclePlus />
 
@@ -898,7 +901,7 @@ const DetailLeft = ({ ac_data, loading }) => {
 
                     <Box sx={{ display: 'flex', alignItems: 'center', padding: "0px 30px" }}>
                         <FiGift style={{ color: theme.palette.primary.main }} />
-                        <Button onClick={handleSendGift} sx={{ textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
+                        <Button onClick={handleSendGift} sx={{ fontSize:'0.8rem', textTransform: 'none', fontWeight: 600 }}>Give this as a Gift</Button>
                     </Box>
                 </Box>
             </Box >

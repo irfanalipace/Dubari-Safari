@@ -230,7 +230,7 @@ const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
           alignItems: "center",
         }}
       >
-        <Typography variant="h4" fontWeight="bold">
+        <Typography variant="h4" fontWeight="600" fontSize={'1.2rem'} >
           Tours Search Result
         </Typography>
         <FormControl sx={{ width: "200px" }}>
@@ -287,7 +287,7 @@ const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
                     style={{
                       width: "100%",
                       borderRadius: "10px",
-                      height: "260px",
+                      height: "220px",
                       objectFit: "cover",
                     }}
                   />
@@ -300,7 +300,7 @@ const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
                       alignItems: "center",
                     }}
                   >
-                    <Typography fontWeight="bold" variant="h6">
+                    <Typography fontWeight="600" variant="h6" fontSize={'1.1rem'}>
                       {val.name}
                     </Typography>
 
@@ -330,14 +330,15 @@ const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
                       name="read-only"
                       value={5}
                       readOnly
+                      size="small"
                       sx={{ color: theme.palette.primary.main }}
                     />
-                    <Typography sx={{ ml: 1 }}>
-                      94 reviews / 7k Booked
+                    <Typography sx={{ ml: 1, }}>
+                      {val.reviews.length}
                     </Typography>
                   </Box>
-                  <Box sx={{ my: 2 }}>
-                    <Typography sx={{ color: "grey" }}>
+                  <Box sx={{ my: 2, }}>
+                    <Typography sx={{ fontSize:'12px', color: "grey" }}>
                       {truncateDescription(val.description)}
                     </Typography>
                   </Box>
@@ -348,14 +349,14 @@ const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
                       alignItems: "center",
                     }}
                   >
-                    <Typography variant="h6" color="grey">
+                    <Typography variant="h6" color="grey" fontSize='16px'>
                       Duration
                     </Typography>
-                    <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex", alignItems:'center' }}>
                       <AccessTimeIcon
                         sx={{ color: theme.palette.primary.main }}
                       />
-                      <Typography sx={{ fontWeight: "bold" }}>
+                      <Typography sx={{ fontWeight: "600", fontSize:'14px' }}>
                         {val.duration} hours
                       </Typography>
                     </Box>
@@ -367,12 +368,12 @@ const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
                       mt: 2,
                     }}
                   >
-                    <Typography variant="h6" color="green">
+                    <Typography variant="h6" color="green" sx={{fontSize:'16px'}}>
                       Cancellation Before : {val.cancellation_duration} hours
                     </Typography>
 
                     {val.packages && val.packages.length > 0 && (
-                        <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
+                        <Typography variant="h6" fontWeight="bold" fontSize='20px' color={theme.palette.primary.main}>
                           {val.packages[0].category === "private" ?
                             `AED ${val.packages[0].price}` :
                             `AED ${val.packages[0].adult_price}`}

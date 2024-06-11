@@ -31,6 +31,8 @@ import DetailSlider from "./DetailSLider";
 import ReiewsDetail from "./ReiewsDetail";
 import RelatedData from "./RelatedData";
 import Loader from "../../components/Loader/Loader";
+import SkeletonDetailPage from "./component/SkeletonDetailPage";
+import moment from "moment";
 
 const DetailPage = () => {
   const theme = useTheme();
@@ -109,7 +111,17 @@ const DetailPage = () => {
         icon: <FaClockRotateLeft style={styleType} />,
         text: `Free Cancellation ${data1.cancellation_duration} Hours Prior`,
       });
+
+
     }
+
+    if (data1.start_time) {
+      iconsToShow.push({
+        icon: <FaClockRotateLeft style={styleType} />,
+        text: `Start time ${data1.start_time}`,
+      });
+    }
+
 
     return iconsToShow;
   };
@@ -255,7 +267,7 @@ const DetailPage = () => {
     <Page title="Detail Page">
       {loading ? (
         <>
-          <Box
+          {/* <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -264,7 +276,11 @@ const DetailPage = () => {
             }}
           >
             <Loader />
-          </Box>
+          </Box> */}
+
+<SkeletonDetailPage/>
+
+
         </>
       ) : (
         <>
@@ -285,7 +301,7 @@ const DetailPage = () => {
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection: "column",
+
                       alignItems: "center",
                       gap: "10px",
                       textAlign: "center",
@@ -293,7 +309,7 @@ const DetailPage = () => {
                   >
                     <Typography
                       sx={{
-                        fontSize: { xs: "16px", md: "16px" },
+                        fontSize: { xs: "16px", md: "24px" },
                         fontWeight: 700,
 
                       }}
@@ -313,12 +329,13 @@ const DetailPage = () => {
                       <Rating
                         name="simple-controlled"
                         value={value}
+                        size="small"
                         onChange={(event, newValue) => {
                           setValue(newValue);
                         }}
                       />
                       <Typography sx={{ fontSize: { xs: "14px", md: "16px" } }}>
-                  {data1.reviews.length}
+                  {data1?.reviews?.length}
                       </Typography>
                     </Box>
                   </Box>
@@ -328,10 +345,10 @@ const DetailPage = () => {
 
                   <Box
                     sx={{
-                      width: "95%",
-                      marginTop: "20px",
+                      width: "100%",
+
                       position: "sticky",
-                      top: 0,
+                      top: 40,
                       backgroundColor: "white",
                       zIndex: 999,
                       padding: "20px",
@@ -357,6 +374,7 @@ const DetailPage = () => {
                             color: isHighlighted("description")
                               ? "red"
                               : "#0D0D0D",
+                              fontSize:'0.9rem'
                           }}
                         >
                           Description
@@ -369,6 +387,8 @@ const DetailPage = () => {
                             color: isHighlighted("itinerary")
                               ? "red"
                               : "#0D0D0D",
+                              fontSize:'0.9rem'
+
                           }}
                         >
                           Itinerary
@@ -381,6 +401,8 @@ const DetailPage = () => {
                             color: isHighlighted("whats-included")
                               ? "red"
                               : "#0D0D0D",
+                              fontSize:'0.9rem'
+
                           }}
                         >
                           What’s Included
@@ -393,6 +415,8 @@ const DetailPage = () => {
                             color: isHighlighted("trip-instructions")
                               ? "red"
                               : "#0D0D0D",
+                              fontSize:'0.9rem'
+
                           }}
                         >
                           Trip Instructions
@@ -415,7 +439,7 @@ const DetailPage = () => {
                     <Box
                       sx={{
                         width: "100%",
-                        marginTop: "20px",
+
                         display: "flex",
                         gap: "40px",
                         alignItems: "center",
@@ -442,7 +466,7 @@ const DetailPage = () => {
                     <div id="description" style={colStyle}>
                       <Typography
                         sx={{
-                          fontSize: "30px",
+                          fontSize: "20px",
                           fontWeight: 600,
                           color: theme.palette.primary.main,
                         }}
@@ -453,11 +477,12 @@ const DetailPage = () => {
                   <Typography
       component="div"
       sx={{
-        fontSize: "1rem",
+        fontSize: "0.8rem",
         color: 'primary.textPrimary', // Adjust according to your theme
         wordBreak: "break-word",
         overflowWrap: "break-word",
         lineHeight: "1.5rem",
+      textAlign:'justify'
       }}
     >
       {isExpanded ? data1.description : (
@@ -469,7 +494,7 @@ const DetailPage = () => {
               sx={{
                 marginLeft: '0.5rem', // Adjust spacing as needed
                 textTransform: 'none',
-                fontSize: '0.875rem',
+                fontSize: '0.8rem',
                 color:'black'
               }}
             >
@@ -484,7 +509,7 @@ const DetailPage = () => {
           sx={{
             marginTop: '0.5rem', // Adjust spacing as needed
             textTransform: 'none',
-            fontSize: '0.875rem',
+            fontSize: '0.8rem',
             color:'black'
           }}
         >
@@ -495,11 +520,11 @@ const DetailPage = () => {
                     </div>
                   )}
 
-                  {data1?.itinerary && (
+                  {data1?.highlights && (
                     <div id="itinerary" style={colStyle}>
                       <Typography
                         sx={{
-                          fontSize: "30px",
+                          fontSize: "20px",
                           fontWeight: 600,
                           color: theme.palette.primary.main,
                         }}
@@ -507,11 +532,34 @@ const DetailPage = () => {
                         Highlights
                       </Typography>
                       <Divider sx={{ width: "100%" }} />
-                      <Box
+                      <Typography
                         sx={{
                           paddingLeft: "30px",
                           color: "black",
-                          fontSize: "16px",
+                          fontSize: "12px",
+                        }}
+                        dangerouslySetInnerHTML={{ __html: data1.highlights }}
+                      />
+                    </div>
+                  )}
+
+                  {data1?.itinerary && (
+                    <div id="itinerary" style={colStyle}>
+                      <Typography
+                        sx={{
+                          fontSize: "20px",
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        Itinerary
+                      </Typography>
+                      <Divider sx={{ width: "100%" }} />
+                      <Typography
+                        sx={{
+                          paddingLeft: "30px",
+                          color: "black",
+                          fontSize: "12px",
                         }}
                         dangerouslySetInnerHTML={{ __html: data1.itinerary }}
                       />
@@ -522,22 +570,49 @@ const DetailPage = () => {
                     <div id="whats-included" style={colStyle}>
                       <Typography
                         sx={{
-                          fontSize: "30px",
+                          fontSize: "20px",
                           fontWeight: 600,
                           color: theme.palette.primary.main,
                         }}
                       >
-                        Itinerary
+                        What Included
                       </Typography>
                       <Divider sx={{ width: "100%" }} />
-                      <Box
+                      <Typography
                         sx={{
                           paddingLeft: "30px",
                           color: "black",
-                          fontSize: "16px",
+                          fontSize: "12px",
                         }}
                         dangerouslySetInnerHTML={{
                           __html: data1.whats_included,
+                        }}
+                      />
+                    </div>
+                  )}
+
+
+
+                  {data1?.whats_not_included && (
+                    <div id="whats-included" style={colStyle}>
+                      <Typography
+                        sx={{
+                          fontSize: "20px",
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        What's not Included
+                      </Typography>
+                      <Divider sx={{ width: "100%" }} />
+                      <Typography
+                        sx={{
+                          paddingLeft: "30px",
+                          color: "black",
+                          fontSize: "12px",
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: data1.whats_not_included,
                         }}
                       />
                     </div>
@@ -547,7 +622,7 @@ const DetailPage = () => {
                     <div id="trip-instructions" style={colStyle}>
                       <Typography
                         sx={{
-                          fontSize: "30px",
+                          fontSize: "20px",
                           fontWeight: 600,
                           color: theme.palette.primary.main,
                         }}
@@ -576,14 +651,20 @@ const DetailPage = () => {
                                 }
                                 IconButtonProps={{ edge: "start" }}
                               >
-                                <Typography sx={{ textAlign: "start" }}>
+                                <Typography sx={{ textAlign: "start", fontSize:'14px', fontWeight:600 }}>
                                   {qa.instruction_title}
                                 </Typography>
                               </AccordionSummary>
                               <AccordionDetails>
-                                <Typography variant="body1">
-                                  {qa.instruction_description}
-                                </Typography>
+                                <Typography
+                                sx={{fontSize:'12px'}}
+
+                                dangerouslySetInnerHTML={{ __html: qa.instruction_description }}
+
+
+
+
+                             />
                               </AccordionDetails>
                             </Accordion>
                           ))

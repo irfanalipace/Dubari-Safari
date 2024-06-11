@@ -34,12 +34,12 @@ const Footer = () => {
             <Grid item lg={5} md={5} sm={12} xs={12}>
               <Typography
                 variant="h1"
-                sx={{ fontSize: "1.5rem", fontWeight: "700" }}
+                sx={{ fontSize: "1.2rem", fontWeight: "600" }}
               >
                 We have got amazing deals just for you
               </Typography>
 
-              <Typography sx={{ fontSize: "0.9rem" }}>
+              <Typography sx={{ fontSize: "0.8rem" }}>
                 Subscribe to the newsletter and stay up to date...
               </Typography>
             </Grid>
@@ -157,7 +157,7 @@ const Footer = () => {
               </Box>
               <Typography
                 variant="h3"
-                sx={{ fontSize: "1rem", marginTop: "1rem" }}
+                sx={{ fontSize: "0.8rem", marginTop: "1rem" }}
               >
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Officia obcaecati
@@ -181,7 +181,7 @@ const Footer = () => {
             <Grid item lg={1.8} md={1.8} sm={12} xs={12}>
               <Typography
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: "1rem",
                   fontWeight: "700",
                   marginBottom: "0.9rem",
                 }}
@@ -191,7 +191,7 @@ const Footer = () => {
               <Typography
                 sx={{
                   color: 'grey',
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -215,7 +215,7 @@ const Footer = () => {
               <Typography
                 sx={{
                   color: 'grey',
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -237,7 +237,7 @@ const Footer = () => {
               <Typography
                 sx={{
                   color: 'grey',
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -260,18 +260,18 @@ const Footer = () => {
             <Grid item lg={1.8} md={1.8} sm={12} xs={12}>
               <Typography
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: "1rem",
                   fontWeight: "700",
                   marginBottom: "0.9rem",
                 }}
               >
                 Contact Us
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
+              <Typography sx={{ fontSize: "0.9rem", marginBottom: "0.9rem", color: 'grey' }}>
                 Things To Do
               </Typography>
 
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
+              <Typography sx={{ fontSize: "0.9rem", marginBottom: "0.9rem", color: 'grey' }}>
                 UAE Visa
               </Typography>
 
@@ -279,7 +279,7 @@ const Footer = () => {
               <Typography
                 sx={{
                   color: 'grey',
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -310,23 +310,23 @@ const Footer = () => {
               >
                 <Typography
                   sx={{
-                    fontSize: "1.2rem",
+                    fontSize: "1rem",
                     fontWeight: "700",
                     marginBottom: "1rem",
                   }}
                 >
                   What We Do
                 </Typography>
-                <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
+                <Typography sx={{ fontSize: "0.9rem", marginBottom: "0.9rem", color: 'grey' }}>
                   Experience Dubai
                 </Typography>
-                <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
+                <Typography sx={{ fontSize: "0.9rem", marginBottom: "0.9rem", color: 'grey' }}>
                   Corporate
                 </Typography>
                 <Typography
                   sx={{
                     color: 'grey',
-                    fontSize: "1rem",
+                    fontSize: "0.9rem",
                     marginBottom: "0.9rem",
                     textTransform: "none",
                   }}
@@ -352,7 +352,7 @@ const Footer = () => {
             <Grid item lg={1.8} md={1.8} sm={12} xs={12}>
               <Typography
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: "1rem",
                   fontWeight: "700",
                   marginBottom: "0.9rem",
                 }}
@@ -362,7 +362,7 @@ const Footer = () => {
               <Typography
                 sx={{
                   color: 'grey',
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -383,7 +383,7 @@ const Footer = () => {
               <Typography
                 sx={{
                   color: 'grey',
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "0.9rem",
                   textTransform: "none",
                 }}
@@ -402,10 +402,10 @@ const Footer = () => {
                 </MuiLink>
               </Typography>
 
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
+              <Typography sx={{ fontSize: "0.9rem", marginBottom: "0.9rem", color: 'grey' }}>
                 Cookie Policy
               </Typography>
-              <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
+              <Typography sx={{ fontSize: "0.9rem", marginBottom: "0.9rem", color: 'grey' }}>
                 Site Map
               </Typography>
             </Grid>
@@ -413,7 +413,7 @@ const Footer = () => {
             <Grid item lg={1.8} md={1.8} sm={12} xs={12}>
               <Typography
                 sx={{
-                  fontSize: "1.2rem",
+                  fontSize: "1rem",
                   fontWeight: "700",
                   marginBottom: "0.9rem",
                 }}
@@ -422,11 +422,11 @@ const Footer = () => {
               </Typography>
 
               <Box>
-                <img src="/appstore.png" alt="App Store" />
+                <img src="/appstore.png" alt="App Store" height={'auto'} width={'100px'} />
               </Box>
 
               <Box sx={{ marginTop: "1rem" }}>
-                <img src="/googleplay.png" alt="App Store" />
+                <img src="/googleplay.png" alt="App Store" height={'auto'} width={'100px'} />
               </Box>
             </Grid>
           </Grid>

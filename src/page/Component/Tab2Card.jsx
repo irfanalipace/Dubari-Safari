@@ -1,15 +1,11 @@
-import { Box, Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
+import { Box, Grid, Typography, useTheme, Skeleton } from "@mui/material";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getPopularActivities } from "../../store/actions/categoriesActions";
-import Loader from "../../components/Loader/Loader";
-
 
 const Tab2Card = (props) => {
   const theme = useTheme();
-
-  const base = "https://dubaisafari.saeedantechpvt.com/";
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,114 +24,151 @@ const Tab2Card = (props) => {
 
   const filteredActivities = popularActivities
     ? popularActivities
-      .filter((activity) => activity.home_activity === 1)
-      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      .slice(0, 3)
+        .filter((activity) => activity.home_activity === 1)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .slice(0, 3)
     : [];
 
-    const loading = !popularActivities;
+  const loading = !popularActivities;
 
+  useEffect(() => {
+    if (!popularActivities) {
+      dispatch(getPopularActivities());
+    }
+  }, [dispatch, popularActivities]);
 
   return (
-    <>
-     <Grid container sx={{ alignItems: "center" }} spacing={5}>
-  {loading ? (
-    <Loader />
-  ) : (
-    filteredActivities?.length > 0 ? (
-      filteredActivities?.map((val, ind) => (
-        <Grid item lg={4} md={4} sm={12} xs={12} key={ind}>
-          <Box
-            onClick={() => navigate(`/details/${val.id}`)}
-            sx={{
-              minHeight: '20rem',
-              maxHeight: '20rem',
-              backgroundColor: "white",
-              borderRadius: "12px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              overflow: "hidden",
-              padding: "5px",
-              textAlign: "start",
-            }}
-          >
-            <Box sx={{ position: "relative" }}>
-              <img
-                src={`https://dubaisafari.saeedantechpvt.com/storage/uploads/media/${val.image}`}
-                alt="Header image"
-                style={{
-                  width: "100%",
-                  height: "30vh",
-                  borderRadius: "12px",
-                  objectFit: "cover",
-                }}
-              />
-            </Box>
-
+    <Grid container sx={{ alignItems: "center" }} spacing={5}>
+      {loading ? (
+        // Render skeleton loading effect while loading
+        [...Array(3)].map((_, index) => (
+          <Grid item lg={4} md={4} sm={12} xs={12} key={index}>
             <Box
-              p={2}
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1px",
-                alignItems: "start",
+                minHeight: '20rem',
+                maxHeight: '20rem',
+                backgroundColor: "white",
+                borderRadius: "12px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
+                padding: "5px",
+                textAlign: "start",
               }}
             >
-              <Typography sx={{
-
-
-fontSize: "16px",
-fontWeight:'600',
-                  color: theme.palette.primary.textPrimary,
-                  wordBreak: "break-word",
-                  overflowWrap: "break-word",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 1,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  maxHeight: "4.5rem",
-                  lineHeight: "1.5rem",
-
-               }}>
-                {val.name}
-              </Typography>
-              <Typography
+              {/* Skeleton loading effect for the image */}
+              <Skeleton
+                variant="rectangular"
+                width="100%"
+                height="30vh"
+                sx={{ borderRadius: "12px" }}
+              />
+              {/* Skeleton loading effect for other content */}
+              <Box
+                p={2}
                 sx={{
-                  fontSize: "12px",
-                  color: theme.palette.primary.textPrimary,
-                  wordBreak: "break-word",
-                  overflowWrap: "break-word",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 2,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  maxHeight: "4.5rem",
-                  lineHeight: "1.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1px",
+                  alignItems: "start",
                 }}
               >
-                {truncateDescription(val.description)}
-              </Typography>
+                <Skeleton variant="text" width="80%" />
+                <Skeleton variant="text" width="60%" />
+              </Box>
             </Box>
-          </Box>
-        </Grid>
-      ))
-    ) : (
-      <Typography
-        sx={{
-          color: theme.palette.primary.main,
-          textAlign: "center",
-          paddingTop: "50px",
-          fontSize: "20px",
-          fontWeight: 600,
-        }}
-      >
-        No Activity found
-      </Typography>
-    )
-  )}
-</Grid>
-    </>
+          </Grid>
+        ))
+      ) : filteredActivities.length > 0 ? (
+        filteredActivities.map((val, ind) => (
+          <Grid item lg={4} md={4} sm={12} xs={12} key={ind}>
+            <Box
+              onClick={() => navigate(`/details/${val.id}`)}
+              sx={{
+                minHeight: '20rem',
+                maxHeight: '20rem',
+                backgroundColor: "white",
+                borderRadius: "12px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
+                padding: "5px",
+                textAlign: "start",
+              }}
+            >
+              <Box sx={{ position: "relative" }}>
+                <img
+                  src={`https://dubaisafari.saeedantechpvt.com/storage/uploads/media/${val.image}`}
+                  alt="Header image"
+                  style={{
+                    width: "100%",
+                    height: "30vh",
+                    borderRadius: "12px",
+                    objectFit: "cover",
+                  }}
+                />
+              </Box>
+
+              <Box
+                p={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1px",
+                  alignItems: "start",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: '600',
+                    color: theme.palette.primary.textPrimary,
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 1,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxHeight: "4.5rem",
+                    lineHeight: "1.5rem",
+                  }}
+                >
+                  {val.name}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    color: theme.palette.primary.textPrimary,
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 2,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxHeight: "4.5rem",
+                    lineHeight: "1.5rem",
+                  }}
+                >
+                  {truncateDescription(val.description)}
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+        ))
+      ) : (
+        <Typography
+          sx={{
+            color: theme.palette.primary.main,
+            textAlign: "center",
+            paddingTop: "50px",
+            fontSize: "20px",
+            fontWeight: 600,
+          }}
+        >
+          No Activity found
+        </Typography>
+      )}
+    </Grid>
   );
 };
 

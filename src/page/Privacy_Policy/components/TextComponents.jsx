@@ -2,14 +2,14 @@ import { Box, Typography } from "@mui/material";
 
 export const Heading = ({ children, ...props }) => {
   return (
-    <Typography variant="h3" fontWeight="bold" color="primary" {...props}>
+    <Typography variant="h3" fontWeight="bold" color="primary" {...props} fontSize={'18px'}>
       {children}
     </Typography>
   );
 };
 export const Paragraph = ({ children, ...props }) => {
   return (
-    <Typography sx={{ mt: 2, color: "grey" }} {...props}>
+    <Typography sx={{ mt: 2, color: "grey", fontSize:'13px' }} {...props}>
       {children}
     </Typography>
   );
@@ -18,8 +18,8 @@ export const Paragraph = ({ children, ...props }) => {
 export const CH_Box_Text = ({ text, ...props }) => {
   return (
     <Box sx={{ display: "flex", mt: 2, alignItems: "center" }} {...props}>
-      <img src="/icons/Vector.png" />
-      <Typography fontWeight="bold" sx={{ ml: 1.5 }}>
+      <img src="/icons/Vector.png" height={'15px'} width={'15px'}/>
+      <Typography fontWeight="bold" sx={{ ml: 1.5 }} fontSize={'12px'}>
         {text}
       </Typography>
     </Box>

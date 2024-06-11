@@ -33,10 +33,10 @@ const RelatedData = () => {
           padding: "0px 20px",
         }}
       >
-        <Typography sx={{ fontSize: "25px", fontWeight: 700 }}>
+        <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
           Other Experience You Might Like
         </Typography>
-        <Typography sx={{ color: theme.palette.primary.textPrimary }}>
+        <Typography sx={{ color: theme.palette.primary.textPrimary, fontSize:'14px' }}>
           Lorem ipsum dolor sit amet consectetur lorem ipsum dolor sit amet
           consectetur lorem ipsum dolor sit amet consectetur lorem ipsum dolor
           sit amet consectetur
@@ -46,7 +46,7 @@ const RelatedData = () => {
           {filteredActivities.length > 0 ? (
             filteredActivities.map((val, ind) => (
               <Grid item lg={3} md={6} sm={12} xs={12} key={ind}>
-              
+
                 <Box
                   onClick={() => navigate(`/details/${val.id}`)}
                   sx={{
@@ -80,7 +80,7 @@ const RelatedData = () => {
                   >
                     <Typography
                       sx={{
-                        fontSize: "1.2rem",
+                        fontSize: "1rem",
                         textAlign: "start",
                         fontWeight: 600,
                         color: theme.palette.primary.textPrimary,
@@ -93,7 +93,7 @@ const RelatedData = () => {
                         textOverflow: "ellipsis",
                         maxHeight: "4.5rem",
                         lineHeight: "1.5rem",
-    
+
                       }}
                     >
                       {val.name}
@@ -106,11 +106,11 @@ const RelatedData = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Typography sx={{ fontSize: "0.9rem", color: "grey" }}>
+                      <Typography sx={{ fontSize: "0.8rem", color: "grey" }}>
                         Per person Price
                       </Typography>
 
-                      <Box gap={1} sx={{ display: "flex" }}>
+                      <Box gap={1} sx={{ display: "flex", alignItems:'center' }}>
 
 
 
@@ -131,6 +131,7 @@ const RelatedData = () => {
       sx={{
         color: "grey",
         textDecoration: "line-through",
+        fontSize:'0.7rem'
       }}
     >
       {val.packages[0].category === "private"
@@ -143,6 +144,7 @@ const RelatedData = () => {
 
                             <Typography
                               fontWeight="bold"
+                              sx={{fontSize:'0.8rem'}}
                               color={theme.palette.primary.main}
                             >
                               {val.packages[0].category === "private"
@@ -172,9 +174,12 @@ const RelatedData = () => {
                         textTransform: "none",
                       }}
                     >
-                      <Rating name="simple-controlled" value={value} readOnly />
-                      <Typography>{val?.reviews?.length}</Typography>
-                      <Button variant="contained">Book Now</Button>
+                     <Box>
+                     <Typography sx={{fontSize:'0.8rem'}}>{val?.reviews?.length}</Typography>
+
+                     <Rating size="small" name="simple-controlled" value={value} readOnly />
+                     </Box>
+                      <Button variant="contained" sx={{fontSize:'0.7rem'}}>Book Now</Button>
                     </Box>
                   </Box>
                 </Box>
@@ -222,11 +227,15 @@ const RelatedData = () => {
               padding: "10px 30px",
               borderRadius: "20px",
               textTransform: "none",
-              fontSize: "1rem",
-              fontWeight: 700,
+              fontSize: "0.9rem",
+              fontWeight: 600,
+            }}
+
+            onClick={()=>{
+              navigate('/desert-safari')
             }}
           >
-            See All <ArrowForwardIcon />{" "}
+            See All {" "} <ArrowForwardIcon />{" "}
           </Button>
         </Box>
       </Box>

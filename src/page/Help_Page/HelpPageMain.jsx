@@ -212,17 +212,17 @@ the booking process.`,
                       padding: "2rem 1rem",
                       borderRadius: "15px",
                       textAlign: "center",
-                      minHeight: "12rem",
+                      height: "10rem",
                     }}
                   >
                     <Box>
-                      <img src={val.icon} alt="icon" />
+                      <img src={val.icon} alt="icon" width={'15%'}/>
                     </Box>
 
                     <Typography
                       variant="h1"
                       sx={{
-                        fontSize: "1.5rem",
+                        fontSize: "1.2rem",
                         fontWeight: "600",
                         marginTop: "0.5rem",
                       }}
@@ -232,7 +232,7 @@ the booking process.`,
                     <Typography
                       variant="body1"
                       sx={{
-                        fontSize: "0.9rem",
+                        fontSize: "0.8rem",
                         color: "grey",
                         marginTop: "0.5rem",
                       }}
@@ -254,7 +254,7 @@ the booking process.`,
               marginTop: "3rem",
             }}
           >
-            <Typography variant="h1" sx={{ fontSize: '25px', fontWeight: '600' }}>Can't find what you're looking for?</Typography>
+            <Typography variant="h1" sx={{ fontSize: '22px', fontWeight: '600' }}>Can't find what you're looking for?</Typography>
 
             <Box
               sx={{
@@ -278,7 +278,7 @@ the booking process.`,
                   <img src="/chatico.png" alt="Chat icon" />
                 </Box>
 
-                <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
+                <Typography variant="h1" sx={{ fontSize: "1.1rem", fontWeight: "600" }}>
                   Chat With Us
                 </Typography>
               </Box>
@@ -295,7 +295,7 @@ the booking process.`,
                   <img src="/contacticon.png" alt="Contact icon" />
                 </Box>
 
-                <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
+                <Typography variant="h1" sx={{ fontSize: "1.1rem", fontWeight: "600" }}>
                   Contact Us
                 </Typography>
               </Box>

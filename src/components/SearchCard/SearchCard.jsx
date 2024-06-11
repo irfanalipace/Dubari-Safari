@@ -102,7 +102,7 @@ const SearchCard = () => {
         });
     } else {
 
-      const updatedWishList = wishList.filter(item => item.id !== id);
+      const updatedWishList = wishList.filter(item => item.activity_id === id);
       localStorage.removeItem("wishListData", (updatedWishList))
       console.log(updatedWishList, 'wishhhhh')
       setWishList(updatedWishList);
@@ -163,7 +163,7 @@ const SearchCard = () => {
       ) : (
         wishList.map((val, ind) => (
           token ? (
-            <Box sx={{ mt: 3 }} key={ind}>
+            <Box sx={{ mt: 3 }} key={ind} padding={'0rem 5%'}>
               <Card sx={{ p: 2, background: "#FDF4F1" }}>
                 <Box sx={{ display: "flex", minHeight: "30vh", gap: 4 }}>
                   <Box flex={1}>
@@ -172,7 +172,7 @@ const SearchCard = () => {
                       style={{
                         width: "100%",
                         borderRadius: "10px",
-                        height: "260px",
+                        height: "200px",
                         objectFit: "cover",
                       }}
                       alt={val.activity.name}
@@ -180,36 +180,36 @@ const SearchCard = () => {
                   </Box>
                   <Box flex={3}>
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <Typography fontWeight="bold" variant="h6">
+                      <Typography fontWeight="bold" variant="h6" sx={{fontSize:'1rem'}}>
                         {val.activity.name}
                       </Typography>
                       <IconButton onClick={() => handleDelete(val.activity_id)}>
                         <FavoriteIcon sx={{ fontSize: "35px", color: "red" }} />
                       </IconButton>
                     </Box>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Rating name="read-only" value={5} readOnly sx={{ color: theme.palette.primary.main }} />
-                      <Typography sx={{ ml: 1 }}>94 reviews / 7k Booked</Typography>
+                    <Box sx={{ display: "flex", alignItems: "start" }}>
+                      <Rating size="small" name="read-only" value={5} readOnly sx={{ color: theme.palette.primary.main }} />
+                      <Typography sx={{ ml: 1, fontSize:'0.9rem' }}>{val.activity.reviews.length}</Typography>
                     </Box>
-                    <Box sx={{ my: 2 }}>
-                      <Typography sx={{ color: "grey" }}>
+                    <Box sx={{ my: 1 }}>
+                      <Typography sx={{ color: "grey", fontSize:'0.8rem' }}>
                         {truncateDescription(val.activity.description)}
                       </Typography>
                     </Box>
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <Typography variant="h6" color="grey">Duration</Typography>
+                      <Typography variant="h6" color="grey" sx={{fontSize:'1rem'}}>Duration</Typography>
                       <Box sx={{ display: "flex" }}>
                         <AccessTimeIcon sx={{ color: theme.palette.primary.main }} />
-                        <Typography sx={{ fontWeight: "bold" }}>{val.activity.duration} hours</Typography>
+                        <Typography sx={{ fontWeight: "600", fontSize:'1rem' }}>{val.activity.duration} hours</Typography>
                       </Box>
                     </Box>
                     <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-                      <Typography variant="h6" color="green">
+                      <Typography variant="h6" color="green" sx={{fontSize:'1rem'}}>
                       Cancellation Before : {val.activity.cancellation_duration} hours
 
                       </Typography>
                       {val.activity.packages && val.activity.packages.length > 0 && (
-                        <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
+                        <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main} sx={{fontSize:'1rem'}}>
                           {val.activity.packages[0].category === "private" ?
                             `AED ${val.activity.packages[0].price}` :
                             `AED ${val.activity.packages[0].adult_price}`}

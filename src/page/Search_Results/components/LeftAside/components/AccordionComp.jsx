@@ -112,7 +112,7 @@ const AccordionComp = ({ title, onCategorySelect, defaultExpanded }) => {
         aria-controls="panel1-content"
         id="panel1-header"
       >
-        <Typography fontWeight="bold">{title}</Typography>
+        <Typography fontWeight="bold" fontSize='16px'>{title}</Typography>
       </AccordionSummary>
       <Divider />
       {categories.map((category, index) => renderDetails(index, category))}

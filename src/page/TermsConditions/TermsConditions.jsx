@@ -66,7 +66,7 @@ const TermsConditions = () => {
           Terms & Conditions
         </Typography> */}
 
-        <Typography sx={{ color: "grey", marginTop: "1rem" }}>
+        <Typography sx={{ color: "grey", marginTop: "1rem" , fontSize:'13px' }}>
           Thank you for choosing our tour packages. By booking a trip through
           our website, you´re deemed to have agreed to its terms of use. Please
           read the following terms and procedures in order to make sure that
@@ -80,9 +80,9 @@ const TermsConditions = () => {
         <Typography
           variant="h1"
           sx={{
-            fontSize: "1.5rem",
+            fontSize: "1.1rem",
             marginTop: "2rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: theme.palette.primary.main,
           }}
         >
@@ -92,9 +92,9 @@ const TermsConditions = () => {
         <Typography
           variant="h2"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             marginTop: "1rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: "black",
           }}
         >
@@ -102,20 +102,20 @@ const TermsConditions = () => {
         </Typography>
 
         <Box sx={{ color: "grey", marginTop: "1rem" }}>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             Price quotations are subject to change without notice.
           </Typography>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             If for any reason the price quoted is not correct, the team of
             www.bookdubaisafari.com will contact you for authorization.
           </Typography>
 
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             Seasonal Surcharges/blackout rates, may apply during Islamic
             holidays, Christmas, New Year and Easter periods.
           </Typography>
 
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             Tips/gratuities, baggage or personal insurance, beverages or food
             not described in the product's description and all other purchases
             of a personal nature are not included.
@@ -125,9 +125,9 @@ const TermsConditions = () => {
         <Typography
           variant="h2"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             marginTop: "1rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: "black",
           }}
         >
@@ -135,7 +135,7 @@ const TermsConditions = () => {
         </Typography>
 
         <Box sx={{ color: "grey", marginTop: "1rem" }}>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             All tours/services must be pre-paid except otherwise stated. We
             accept Visa, MasterCard, American Express. Payment will be listed as
             "bookdubaisafari.com” on the credit card statement. You will be
@@ -147,12 +147,12 @@ const TermsConditions = () => {
             sx={{
               color: theme.palette.primary.main,
               marginTop: "1rem",
-              fontWeight: "700",
+              fontWeight: "600",
             }}
           >
             Online Payment: Master Card, Visa, American Express.
           </Typography>
-          <Typography sx={{ marginTop: "1rem" }}>
+          <Typography sx={{ marginTop: "1rem", fontSize:'13px' }}>
             Card Payment: Direct Card Payment, Apple Pay, Samsung Pay, Google
             Pay: Visa, MasterCard, American Express.
           </Typography>
@@ -161,9 +161,9 @@ const TermsConditions = () => {
         <Typography
           variant="h2"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             marginTop: "1rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: "black",
           }}
         >
@@ -171,23 +171,23 @@ const TermsConditions = () => {
         </Typography>
 
         <Box sx={{ color: "grey", marginTop: "1rem" }}>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             After payment, Book Dubai Safari will send a confirmation / voucher
             by e-mail: this voucher has to be printed, as a proof of purchase,
             and will be presented to the service provider/guide.
           </Typography>
 
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             All information regarding the travelers should be correctly given at
             the time of booking
           </Typography>
 
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             All requests for modifications/amendments must be sent by email to
             Book Dubai Safari.
           </Typography>
 
-          <Typography sx={{ marginTop: "1rem" }}>
+          <Typography sx={{ marginTop: "1rem", fontSize:'13px' }}>
             <Link to="/">www.bookdubaisafari.com</Link> cannot be held
             responsible for any problem that may happen if you don't receive or
             read carefully your confirmation / voucher. In case you have not
@@ -195,7 +195,7 @@ const TermsConditions = () => {
             hours before the date of service.
           </Typography>
 
-          <Typography sx={{ marginTop: "1rem" }}>
+          <Typography sx={{ marginTop: "1rem", fontSize:'13px' }}>
             2. Cancellations, refund and procedure to cancel a booking
           </Typography>
         </Box>
@@ -203,9 +203,9 @@ const TermsConditions = () => {
         <Typography
           variant="h1"
           sx={{
-            fontSize: "1.5rem",
+            fontSize: "1.1rem",
             marginTop: "2rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: theme.palette.primary.main,
           }}
         >
@@ -214,9 +214,9 @@ const TermsConditions = () => {
         <Typography
           variant="h2"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             marginTop: "1rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: "black",
           }}
         >
@@ -224,7 +224,7 @@ const TermsConditions = () => {
         </Typography>
 
         <Box sx={{ color: "grey", marginTop: "1rem" }}>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             Every Tour Activity/Attraction has its own cancellation policies,
             before booking any activity with bookdubaisafari.com, clients have
             to read cancellation policy of that particular tour. However, terms
@@ -235,9 +235,9 @@ const TermsConditions = () => {
         <Typography
           variant="h2"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             marginTop: "1rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: "black",
           }}
         >
@@ -245,7 +245,7 @@ const TermsConditions = () => {
         </Typography>
 
         <Box sx={{ color: "grey", marginTop: "1rem" }}>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             If you fail to turn up for the tour, no refunds in part or full can
             be provided. The same condition applies in the case of unused
             tickets, attraction and sightseeing tours, car-rental or
@@ -258,9 +258,9 @@ const TermsConditions = () => {
         <Typography
           variant="h2"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             marginTop: "1rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: "black",
           }}
         >
@@ -268,7 +268,7 @@ const TermsConditions = () => {
         </Typography>
 
         <Box sx={{ color: "grey", marginTop: "1rem" }}>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             Attraction services covered in your package are subject to change
             based on local / weather conditions, airway schedules and such other
             several aspects. Should this transpire, we can provide suitable
@@ -285,9 +285,9 @@ const TermsConditions = () => {
         <Typography
           variant="h2"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             marginTop: "1rem",
-            fontWeight: "800",
+            fontWeight: "600",
             color: "black",
           }}
         >
@@ -295,7 +295,7 @@ const TermsConditions = () => {
         </Typography>
 
         <Box sx={{ color: "grey", marginTop: "1rem" }}>
-          <Typography>
+          <Typography sx={{fontSize:'13px'}}>
             All content in this website, including logos, pictures, images,
             information on tour package, attractions, pricing details, and other
             relevant details, are proprietary to Book Dubai Safari. Accordingly,

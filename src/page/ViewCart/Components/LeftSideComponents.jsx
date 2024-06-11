@@ -261,7 +261,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                             style={{
                               width: "100%",
                               borderRadius: "10px",
-                              height: "260px",
+                              height: "250px",
                               objectFit: "cover",
                             }}
                           />
@@ -274,26 +274,26 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                               alignItems: "center",
                             }}
                           >
-                            <Typography fontWeight="bold" variant="h6">
+                            <Typography fontWeight="600" variant="h6" sx={{fontSize:'1rem'}}>
                               {packageItem.title}
                             </Typography>
                           </Box>
                           <Box flex={4}>
                             <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                               <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
+                              <Typography sx={{ ml: 1, color: "grey", fontSize:'0.8rem' }}>
                                 Package Type : {packageItem.highlight}
                               </Typography>
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                              <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
+                              <CalendarMonthOutlinedIcon sx={{ color: "black", }} />
+                              <Typography sx={{ ml: 1, color: "grey", fontSize:'0.8rem' }}>
                                 Tour Date : {val.date}
                               </Typography>
                             </Box>
-                            <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                            <Box sx={{ display: "flex", alignItems: "end", mt: 1 }}>
                               <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
+                              <Typography sx={{ ml: 1, color: "grey", fontSize:'0.8rem' }}>
                                 1 {packageItem.category} package up to{" "}
                                 {calculateTotalGuests(
                                   val.adult,
@@ -307,7 +307,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                               <Typography
                                 sx={{
                                   color: theme.palette.primary.main,
-                                  fontSize: "1.2rem",
+                                  fontSize: "1rem",
                                   fontWeight: "600",
                                 }}
                               >
@@ -335,7 +335,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
 
 <Button
-  sx={{ textTransform: "none", color: "black" }}
+  sx={{ textTransform: "none", color: "black", fontSize:'0.8rem' }}
   onClick={() => handleDelete(packageItem.id)}
 
 >
@@ -345,12 +345,6 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 </Button>
 
 
-                            <Button
-                              sx={{ textTransform: "none", color: "black" }}
-                              onClick={() => handleDelete(packageItem.id)}
-                            >
-                              <DeleteOutlineOutlinedIcon /> Delete
-                            </Button>
 
 
 
@@ -369,6 +363,9 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
       fontSize: "0.8rem",
       textTransform: "none",
       color: "black",
+    }}
+    onClick={()=>{
+      navigate('/login')
     }}
   >
     Please Login to use Promocode
@@ -413,7 +410,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                         style={{
                           width: "100%",
                           borderRadius: "10px",
-                          height: "260px",
+                          height: "250px",
                           objectFit: "cover",
                         }}
                       />
@@ -426,13 +423,13 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                           alignItems: "center",
                         }}
                       >
-                        <Typography fontWeight="bold" variant="h6">
+                        <Typography fontWeight="600" variant="h6" sx={{fontSize:'1rem'}}>
                           {val.package.title}
                         </Typography>
                       </Box>
                       <Box flex={4}>
                         <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
+                          <ShoppingCartOutlinedIcon sx={{ color: "black", }} />
 
 
 
@@ -440,7 +437,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
  <Typography
 
       sx={{
-            fontSize: { xs: '14px', md: '16px' },
+            fontSize: { xs: '10px', md: '12px' },
         fontWeight: 500,
 
         wordBreak: 'break-all',
@@ -487,15 +484,15 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
 
                         </Box>
-                        <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "end", mt: 1 }}>
                           <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
-                          <Typography sx={{ ml: 1, color: "grey" }}>
+                          <Typography sx={{ ml: 1, color: "grey", fontSize:'0.9rem' }}>
                             Tour Date : {val.tour_date}
                           </Typography>
                         </Box>
-                        <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "end", mt: 1 }}>
                           <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
-                          <Typography sx={{ ml: 1, color: "grey" }}>
+                          <Typography sx={{ ml: 1, color: "grey", fontSize:'0.9rem' }}>
                             1 {val.package.category} package up to{" "}
                             {calculateTotalGuests(
                               val.adult,
@@ -509,7 +506,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                           <Typography
                             sx={{
                               color: theme.palette.primary.main,
-                              fontSize: "1.2rem",
+                              fontSize: "1rem",
                               fontWeight: "600",
                             }}
                           >
@@ -529,11 +526,11 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                         sx={{
                           display: "flex",
                           justifyContent: "space-between",
-                          marginTop: "1rem",
+                          marginTop: "0.4rem",
                         }}
                       >
 <Button
-                            sx={{ textTransform: "none", color: "black" }}
+                            sx={{ textTransform: "none", color: "black", fontSize:'0.8rem' }}
                             onClick={() => handleDelete(val.id)}
                             disabled={deleteLoading[val.id]}
                           >
@@ -559,6 +556,9 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
       fontSize: "0.8rem",
       textTransform: "none",
       color: "black",
+    }}
+    onClick={()=>{
+      navigate('/login')
     }}
   >
     Please Login to use Promocode

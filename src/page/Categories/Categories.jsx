@@ -4,6 +4,8 @@ import {
   Avatar,
   Box,
   Button,
+  Card,
+  CardContent,
   FormControl,
   Grid,
   InputLabel,
@@ -92,7 +94,7 @@ const Categories = () => {
     navigate("/");
   };
 
-  const [imageLoaded, setImageLoaded] = useState(true)
+
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setSelectedSubCategory(null);
@@ -293,8 +295,8 @@ const Categories = () => {
                             <Avatar
                               src={val.image}
                               sx={{
-                                height: "100px",
-                                width: "100px",
+                                height: "80px",
+                                width: "80px",
                                 border: `4px solid ${selectedCategory === val
                                   ? theme.palette.primary.main
                                   : "transparent"
@@ -339,8 +341,8 @@ const Categories = () => {
                               <Avatar
                                 src={val.image}
                                 sx={{
-                                  height: "100px",
-                                  width: "100px",
+                                  height: "80px",
+                                  width: "80px",
                                   border: `4px solid ${selectedCategory === val
                                     ? theme.palette.primary.main
                                     : "transparent"
@@ -351,8 +353,8 @@ const Categories = () => {
                               <Typography
                                 sx={{
                                   mt: 1,
-                                  fontWeight: "bold",
-                                  fontSize: "0.9rem",
+                                  fontWeight: "600",
+                                  fontSize: "0.7rem",
                                   textAlign: 'center'
                                 }}
                               >
@@ -377,11 +379,11 @@ const Categories = () => {
 
           }}
         >
-          <img src='/thingstodo.svg' width={'33rem'} />
+          <img src='/thingstodo.svg' width={'30rem'} />
           <Typography
             variant="h4"
             fontWeight="bold"
-            sx={{ flex: 2, whiteSpace: "nowrap", fontSize: "1.3rem" }}
+            sx={{ flex: 2, whiteSpace: "nowrap", fontSize: "1rem" }}
           >
             {activityLength}  Things to do in Abu Dhabi
           </Typography>
@@ -415,8 +417,26 @@ const Categories = () => {
           </Box>
         </Box>
         <Grid container spacing={3} sx={{ mt: 3 }}>
-          {sortedActivities.length === 0 ? (
-            <Typography
+          {sortedActivities?.length === 0 ? (
+         <>
+
+
+         <Grid container spacing={2} sx={{ mt: 3 }}>
+    {Array.from(new Array(4)).map((_, index) => (
+      <Grid item xs={12} sm={6} md={3} key={index}>
+        <Card>
+          <Skeleton variant="rectangular" width="100%" height={240} />
+          <CardContent>
+            <Skeleton variant="text" />
+            <Skeleton variant="text" />
+            <Skeleton variant="text" width="60%" />
+          </CardContent>
+        </Card>
+      </Grid>
+    ))}
+  </Grid>
+{/*
+  <Typography
               variant="h5"
               sx={{
                 fontWeight: "bold",
@@ -426,8 +446,55 @@ const Categories = () => {
               }}
             >
               No activities found in this category
-            </Typography>
-          ) : (
+            </Typography> */}
+
+
+         </>
+
+
+
+          ) :
+          sortedActivities?.length === 0 ? (
+         <>
+
+
+         <Grid container spacing={2} sx={{ mt: 3 }}>
+    {Array.from(new Array(4)).map((_, index) => (
+      <Grid item xs={12} sm={6} md={3} key={index}>
+        <Card>
+          <Skeleton variant="rectangular" width="100%" height={240} />
+          <CardContent>
+            <Skeleton variant="text" />
+            <Skeleton variant="text" />
+            <Skeleton variant="text" width="60%" />
+          </CardContent>
+        </Card>
+      </Grid>
+    ))}
+  </Grid>
+{/*
+  <Typography
+              variant="h5"
+              sx={{
+                fontWeight: "bold",
+                textAlign: "center",
+                width: "100%",
+                mt: 3,
+              }}
+            >
+              No activities found in this category
+            </Typography> */}
+
+
+         </>
+
+
+
+          )
+
+
+
+           : (
             sortedActivities.map((val, index) => (
               <Grid item xs={12} lg={3} key={index}>
                 <PkgCard data={val} categories={categories} ind={index} />
