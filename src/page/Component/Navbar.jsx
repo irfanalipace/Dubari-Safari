@@ -252,7 +252,7 @@ const Navbar = () => {
           </Button>
         ) : (
           <>
-            <Box
+            {/* <Box
               width={isSmallScreen ? "100%" : "7rem"}
               marginBottom={isSmallScreen ? "1rem" : "1rem"}
               sx={{
@@ -383,7 +383,7 @@ const Navbar = () => {
 
                 </Box>
               </Box>
-            </Box>
+            </Box> */}
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
 
@@ -678,7 +678,7 @@ const Navbar = () => {
           </Button>
 
           {/* Drawer Content */}
-          <Box width="100%" marginBottom="1rem">
+          {/* <Box width="100%" marginBottom="1rem">
             <FormControl fullWidth size="small" variant="standard">
               <InputLabel id="demo-simple-select-label">What We Do</InputLabel>
               <Select
@@ -691,7 +691,7 @@ const Navbar = () => {
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
             </FormControl>
-          </Box>
+          </Box> */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <HelpOutlineIcon />
             <Typography sx={{ fontSize: "1.2rem" }}> Eng/AED</Typography>

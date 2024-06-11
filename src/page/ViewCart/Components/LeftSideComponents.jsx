@@ -189,7 +189,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
               ...prevState,
               [id]: false // Set loading state for the item being deleted
             })); // Hide the loader
-            enqueueSnackbar("Activity Removed", { variant: "success" });
+            enqueueSnackbar("Removed from Cart", { variant: "success" });
           })
           .catch((err) => {
             console.error(err);
@@ -205,19 +205,19 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
             [id]: false // Set loading state for the item being deleted
           }));
           console.error(err);
-          enqueueSnackbar("Failed to Remove Activity", { variant: "error" });
+          enqueueSnackbar("Failed to Remove Activity from cart", { variant: "error" });
         });
     } else {
 
       const updatedCart = allCartLocal.filter(item => item.packageid !== id);
-      console.log(updatedCart, 'cart ud del')
+
       setAllCartLocal(updatedCart);
       localStorage.setItem("addCartData", JSON.stringify(updatedCart));
       setDeleteLoading(prevState => ({
         ...prevState,
         [id]: false // Set loading state for the item being deleted
       }));
-      enqueueSnackbar("Activity Removed", { variant: "success" });
+      enqueueSnackbar("Activity Removed from cart", { variant: "success" });
     }
   };
 
@@ -294,13 +294,13 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                             <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                               <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
                               <Typography sx={{ ml: 1, color: "grey" }}>
-                                1 {packageItem.category} car up to{" "}
+                                1 {packageItem.category} package up to{" "}
                                 {calculateTotalGuests(
                                   val.adult,
                                   val.child,
                                   val.infant
                                 )}
-                                pax
+                                {" "}pax
                               </Typography>
                             </Box>
                             <Box sx={{ my: 2 }}>
@@ -341,7 +341,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 >
 
     <DeleteOutlineOutlinedIcon />
-  Delete
+  Remove from Cart
 </Button>
 
 
@@ -433,16 +433,16 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                       <Box flex={4}>
                         <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                           <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                         
+
 
 
 
  <Typography
-     
+
       sx={{
             fontSize: { xs: '14px', md: '16px' },
         fontWeight: 500,
-       
+
         wordBreak: 'break-all',
     color:"grey",
         wordBreak: "break-word",
@@ -452,12 +452,12 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
     >
       {isExpanded ? val.package.highlight : (
         <>
-          {val.package.highlight.slice(0, 620)} 
+          {val.package.highlight.slice(0, 620)}
           {val.package.highlight.length > 620 && (
             <Button
               onClick={toggleDescription}
               sx={{
-                marginLeft: '0.5rem', 
+                marginLeft: '0.5rem',
                 textTransform: 'none',
                 fontSize: '0.875rem',
                 color:'black'
@@ -496,13 +496,13 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                         <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                           <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
                           <Typography sx={{ ml: 1, color: "grey" }}>
-                            1 {val.package.category} car up to{" "}
+                            1 {val.package.category} package up to{" "}
                             {calculateTotalGuests(
                               val.adult,
                               val.child,
                               val.infant
                             )}
-                            pax
+                            {" "}pax
                           </Typography>
                         </Box>
                         <Box sx={{ my: 2 }}>
@@ -542,7 +542,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                             ) : (
                               <DeleteOutlineOutlinedIcon />
                             )}
-                            Delete
+                            Remove from Cart
                           </Button>
 
                         {/* <Button sx={{ textTransform: "none", color: "black" }}>

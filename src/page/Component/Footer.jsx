@@ -234,30 +234,6 @@ const Footer = () => {
                 </MuiLink>
               </Typography>
 
-
-
-
-              <Typography
-                sx={{
-                  color: 'grey',
-                  fontSize: "1rem",
-                  marginBottom: "0.9rem",
-                  textTransform: "none",
-                }}
-              >
-                <MuiLink
-                  component={Link}
-                  to="/contact-us"
-                  sx={{
-
-                    textDecoration: "none",
-                    color: "inherit",
-                    "&:hover": { textDecoration: "none" },
-                  }}
-                >
-                  Contact Us
-                </MuiLink>
-              </Typography>
               <Typography
                 sx={{
                   color: 'grey',
@@ -289,7 +265,7 @@ const Footer = () => {
                   marginBottom: "0.9rem",
                 }}
               >
-                Services
+                Contact Us
               </Typography>
               <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                 Things To Do
@@ -297,6 +273,29 @@ const Footer = () => {
 
               <Typography sx={{ fontSize: "1rem", marginBottom: "0.9rem", color: 'grey' }}>
                 UAE Visa
+              </Typography>
+
+
+              <Typography
+                sx={{
+                  color: 'grey',
+                  fontSize: "1rem",
+                  marginBottom: "0.9rem",
+                  textTransform: "none",
+                }}
+              >
+                <MuiLink
+                  component={Link}
+                  to="/contact-us"
+                  sx={{
+
+                    textDecoration: "none",
+                    color: "inherit",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  Contact Us
+                </MuiLink>
               </Typography>
             </Grid>
 

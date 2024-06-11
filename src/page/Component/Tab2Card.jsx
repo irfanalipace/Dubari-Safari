@@ -3,6 +3,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getPopularActivities } from "../../store/actions/categoriesActions";
+import Loader from "../../components/Loader/Loader";
+
 
 const Tab2Card = (props) => {
   const theme = useTheme();
@@ -20,7 +22,9 @@ const Tab2Card = (props) => {
     }
   };
 
-  const popularActivities = useSelector((state) => state.popularActivities.popularActivities.payload);
+  const popularActivities = useSelector(
+    (state) => state?.popularActivities?.popularActivities?.payload
+  );
 
   const filteredActivities = popularActivities
     ? popularActivities
@@ -29,80 +33,108 @@ const Tab2Card = (props) => {
       .slice(0, 3)
     : [];
 
+    const loading = !popularActivities;
+
+
   return (
     <>
-      <Grid container sx={{ alignItems: "center" }} spacing={5}>
-        {filteredActivities.length > 0 ? (
-          filteredActivities.map((val, ind) => (
-            <Grid item lg={4} md={4} sm={12} xs={12} key={ind}>
-              <Box
-                onClick={() => navigate(`/details/${val.id}`)}
-                sx={{
-
-                  minHeight:'23rem',
-                  maxHeight:'25rem',
-                  // width: 320,
-                  backgroundColor: "white",
+     <Grid container sx={{ alignItems: "center" }} spacing={5}>
+  {loading ? (
+    <Loader />
+  ) : (
+    filteredActivities?.length > 0 ? (
+      filteredActivities?.map((val, ind) => (
+        <Grid item lg={4} md={4} sm={12} xs={12} key={ind}>
+          <Box
+            onClick={() => navigate(`/details/${val.id}`)}
+            sx={{
+              minHeight: '20rem',
+              maxHeight: '20rem',
+              backgroundColor: "white",
+              borderRadius: "12px",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              overflow: "hidden",
+              padding: "5px",
+              textAlign: "start",
+            }}
+          >
+            <Box sx={{ position: "relative" }}>
+              <img
+                src={`https://dubaisafari.saeedantechpvt.com/storage/uploads/media/${val.image}`}
+                alt="Header image"
+                style={{
+                  width: "100%",
+                  height: "30vh",
                   borderRadius: "12px",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                  overflow: "hidden",
-                  padding: "5px",
-                  textAlign: "start",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
 
+            <Box
+              p={2}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1px",
+                alignItems: "start",
+              }}
+            >
+              <Typography sx={{
+
+
+fontSize: "16px",
+fontWeight:'600',
+                  color: theme.palette.primary.textPrimary,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 1,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxHeight: "4.5rem",
+                  lineHeight: "1.5rem",
+
+               }}>
+                {val.name}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  color: theme.palette.primary.textPrimary,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxHeight: "4.5rem",
+                  lineHeight: "1.5rem",
                 }}
               >
-                <Box sx={{ position: "relative" }}>
-                  <img
-                    src={`https://dubaisafari.saeedantechpvt.com/storage/uploads/media/${val.image}`}
-                    alt="Header image"
-                    style={{
-                      width: "100%",
-                      height: "30vh",
-                      borderRadius: "12px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-
-                <Box
-                  p={2}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1px",
-                    alignItems: "start",
-                  }}
-                >
-                  <Typography sx={{ fontSize: "18px", fontWeight: 600,  color: theme.palette.primary.textPrimary,
-                    wordBreak: "break-word",
-                    overflowWrap: "break-word",
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 1,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    maxHeight: "4.5rem",
-                    lineHeight: "1.5rem", }}>
-                    {val.name}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "1rem",
-                      color: theme.palette.primary.textPrimary,
-                    }}
-                  >
-                    {truncateDescription(val.description)}
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-          ))
-        ) : (
-          <Typography sx={{ color: theme.palette.primary.main, textAlign: "center", paddingTop: '50px', fontSize: '20px', fontWeight: 600 }}>
-            No Activities found
-          </Typography>
-        )}
-      </Grid>
+                {truncateDescription(val.description)}
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+      ))
+    ) : (
+      <Typography
+        sx={{
+          color: theme.palette.primary.main,
+          textAlign: "center",
+          paddingTop: "50px",
+          fontSize: "20px",
+          fontWeight: 600,
+        }}
+      >
+        No Activity found
+      </Typography>
+    )
+  )}
+</Grid>
     </>
   );
 };

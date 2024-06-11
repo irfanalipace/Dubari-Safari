@@ -110,7 +110,7 @@ const CustomCard = () => {
               >
                 <Typography
                   sx={{
-                    fontSize: "18px", textAlign: "start", fontWeight: 600, fontSize: "1rem",
+                    fontSize: "14px", textAlign: "start", fontWeight: 600,
 
                     color: theme.palette.primary.textPrimary,
                     wordBreak: "break-word",
@@ -129,7 +129,7 @@ const CustomCard = () => {
                 </Typography>
 
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <Typography sx={{ fontSize: "0.9rem", color: "grey" }}>
+                  <Typography sx={{ fontSize: "0.75rem", color: "grey" }}>
                     Per person Price
                   </Typography>
 
@@ -141,7 +141,7 @@ const CustomCard = () => {
 
 
                           {val.discount_offer > 0 && (
-                            <Typography sx={{ color: "grey", textDecoration: "line-through" }}>
+                            <Typography sx={{ color: "grey", textDecoration: "line-through", fontSize:'0.8rem' }}>
                               {val.packages[0].category === "private"
                                 ? `AED ${val.packages[0].price}`
                                 : `AED ${val.packages[0].adult_price}`}
@@ -149,7 +149,7 @@ const CustomCard = () => {
                           )}
 
 
-                          <Typography fontWeight="bold" color={theme.palette.primary.main}>
+                          <Typography fontWeight="bold" color={theme.palette.primary.main} fontSize='0.8rem'>
                             {val.packages[0].category === "private"
                               ? `AED ${Math.round(
                                 val.packages[0].price -
