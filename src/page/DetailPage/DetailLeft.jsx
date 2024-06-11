@@ -84,7 +84,7 @@ const DetailLeft = ({ ac_data, loading }) => {
                 },
                 date: date,
                 total_amount: total_amount,
-            }; s
+            };
 
             const information = {
                 id: id,

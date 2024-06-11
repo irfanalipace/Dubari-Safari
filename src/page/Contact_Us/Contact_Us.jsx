@@ -119,16 +119,16 @@ const Contact_Us = () => {
                 />
               </Box>
               <Box sx={{ mt: 8 }}>
-      <a href="https://www.facebook.com/bookdubaisafariofficial" target="_blank" rel="noopener noreferrer">
-        <FacebookIcon sx={{ mr: 3, color:'white' }} />
-      </a>
-      <a href="https://www.instagram.com/bookdubaisafari/" target="_blank" rel="noopener noreferrer">
-        <InstagramIcon sx={{ mr: 3, color:'white' }} />
-      </a>
-      <a href="https://twitter.com/bookdubaisafari" target="_blank" rel="noopener noreferrer">
-        <TwitterIcon sx={{ mr: 3, color:'white' }} />
-      </a>
-    </Box>
+                <a href="https://www.facebook.com/bookdubaisafariofficial" target="_blank" rel="noopener noreferrer">
+                  <FacebookIcon sx={{ mr: 3, color: 'white' }} />
+                </a>
+                <a href="https://www.instagram.com/bookdubaisafari/" target="_blank" rel="noopener noreferrer">
+                  <InstagramIcon sx={{ mr: 3, color: 'white' }} />
+                </a>
+                <a href="https://twitter.com/bookdubaisafari" target="_blank" rel="noopener noreferrer">
+                  <TwitterIcon sx={{ mr: 3, color: 'white' }} />
+                </a>
+              </Box>
             </Box>
           </Box>
           <Box flex={2} sx={{ p: 5 }}>

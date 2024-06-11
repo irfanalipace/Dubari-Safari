@@ -48,63 +48,64 @@ const AllActivities = () => {
   }
   return (
 
-    <Box sx={{
-      padding: "1rem 5%", position: "sticky",
-      top: 0, backgroundColor: 'white', zIndex: '1000',
-      boxShadow: "1px 1px 1px grey",
-    }}>
+    // <Box sx={{
+    //   padding: "1rem 5%", position: "sticky",
+    //   top: 0, backgroundColor: 'white', zIndex: '1000',
+    //   boxShadow: "1px 1px 1px grey",
+    // }}>
 
-      <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
+    //   <Box sx={{ display: "flex", alignItems: "center" }} gap={2}>
+    //     <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
+    //       All Activities
+    //     </Typography>
+    //     {staticCategories.map((val, ind) => {
+    //       {/* const categoryId = categoryMap[val.name]; */ }
+    //       return (
+    //         <Box key={ind} sx={{ display: "flex", alignItems: "center" }}>
+    //           <Button
+    //             sx={{ textTransform: "none", color: "grey" }}
+    //             onClick={() => navigate('/desert-safari')}
+    //             startIcon={
+    //               <img
+    //                 src={val.image}
+    //                 alt={val.name}
+    //                 style={{ width: '20px', height: '20px' }}
+    //               />
+    //             }
+    //           >
+    //             {val.name}
+    //           </Button>
+    //         </Box>
+
+    //       );
+    //     })}
+    //   </Box>
+    // </Box>
+
+
+    <Box sx={{ padding: "1rem 5%" }}>
+      <Box sx={{ display: "flex", alignItems: "center" }} gap={3}>
         <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
           All Activities
         </Typography>
-        {staticCategories.map((val, ind) => {
-          {/* const categoryId = categoryMap[val.name]; */ }
+        {!loading && staticCategories.map((val, ind) => {
+          const categoryId = categoryMap[val.name];
           return (
-            <Box key={ind} sx={{ display: "flex", alignItems: "center" }}>
+            <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
+              <img src={val.image} alt={val.name} style={{ width: '30px', height: '30px' }} />
               <Button
                 sx={{ textTransform: "none", color: "grey" }}
-                onClick={() => navigate('/desert-safari')}
-                startIcon={
-                  <img
-                    src={val.image}
-                    alt={val.name}
-                    style={{ width: '20px', height: '20px' }}
-                  />
-                }
+                onClick={() => navigate('/desert-safari', { state: { categoryId } })}
+              // disabled={!categoryId && categoryId !== 0}
               >
                 {val.name}
               </Button>
             </Box>
-
           );
         })}
       </Box>
     </Box>
 
-
-    // <Box sx={{ padding: "1rem 5%" }}>
-    //   <Box sx={{ display: "flex", alignItems: "center" }} gap={3}>
-    //     <Typography variant="h1" sx={{ fontSize: "1rem", fontWeight: "600" }}>
-    //       All Activities
-    //     </Typography>
-    //     {!loading && staticCategories.map((val, ind) => {
-    //       const categoryId = categoryMap[val.name];
-    //       return (
-    //         <Box key={ind} sx={{ display: "flex", alignItems: "center" }} gap={1}>
-    //           <img src={val.image} alt={val.name} style={{ width: '30px', height: '30px' }} />
-    //           <Button
-    //             sx={{ textTransform: "none", color: "grey" }}
-    //             onClick={() => navigate('/desert-safari', { state: { categoryId } })}
-    //             disabled={!categoryId}
-    //           >
-    //             {val.name}
-    //           </Button>
-    //         </Box>
-    //       );
-    //     })}
-    //   </Box>
-    // </Box>
 
   );
 };

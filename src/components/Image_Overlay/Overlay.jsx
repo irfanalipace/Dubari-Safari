@@ -5,7 +5,7 @@ const Overlay = ({ title }) => {
   return (
     <Box
       sx={{
-        height: "25vh",
+        height: "15vh",
         backgroundImage: "url(/pic.png)",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -16,10 +16,11 @@ const Overlay = ({ title }) => {
         textShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
       }}
     >
-      <Typography variant="h3" fontWeight="bold">
+      <Typography
+        sx={{ fontSize: '32px', fontWeight: 600 }} fontWeight="bold">
         {title}
       </Typography>
-    </Box>
+    </Box >
   );
 };
 

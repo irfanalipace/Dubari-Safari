@@ -43,14 +43,14 @@ const CustomCard = () => {
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 padding: "5px",
-                minHeight: "25rem",
+                height: "",
               }}
             >
               {/* Skeleton loading effect for the image */}
               <Skeleton
                 variant="rectangular"
                 width="100%"
-                height="30vh"
+                height="20vh"
                 sx={{ borderRadius: "12px" }}
               />
               {/* Skeleton loading effect for other content */}
@@ -88,7 +88,7 @@ const CustomCard = () => {
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 padding: "5px",
-                minHeight: "25rem",
+                hight: "15rem",
               }}
             >
               <Box sx={{ position: "relative" }}>
@@ -167,10 +167,10 @@ const CustomCard = () => {
                       </>
                     )}
 
-                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", textTransform: "none" }}>
+                    {/* <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", textTransform: "none" }}>
                       <Rating name="simple-controlled" value={value} readOnly />
                       <Button variant="contained">Book Now</Button>
-                    </Box>
+                    </Box> */}
                   </Box>
                 </Box>
               </Box>

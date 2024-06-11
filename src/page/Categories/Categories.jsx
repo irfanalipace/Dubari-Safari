@@ -31,11 +31,13 @@ const Categories = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [filteredActivities, setFilteredActivities] = useState([]);
   const [activityCount, setActivityCount] = useState([]);
+  const [imageLoaded, setImageLoaded] = useState(true);
 
   const theme = useTheme();
   const dispatch = useDispatch();
   const location = useLocation();
-
+  const { state } = useLocation()
+  console.log(state,)
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
@@ -45,10 +47,14 @@ const Categories = () => {
       .then((result) => {
         const initialCategories = result.data.payload;
         setCategories(initialCategories);
-        const categoryIdFromState = location.state?.categoryId;
-        if (categoryIdFromState) {
+        const categoryIdFromState = state?.categoryId;
+        const categoryNameFromState = state?.categoryName;
+
+        if (categoryIdFromState || categoryNameFromState) {
           const initialCategory = initialCategories.find(
-            (category) => category.id === categoryIdFromState
+            (category) =>
+              category.id === categoryIdFromState ||
+              category.name === categoryNameFromState
           );
           setSelectedCategory(initialCategory);
         } else {
@@ -60,7 +66,7 @@ const Categories = () => {
         setLoading(false);
         console.log(err, "ERRR");
       });
-  }, [dispatch, location.state]);
+  }, [dispatch, state]);
 
   useEffect(() => {
     if (selectedCategory) {
@@ -370,7 +376,7 @@ const Categories = () => {
 
           }}
         >
-          <img src='/thingstodo.svg' width={'33rem'}/>
+          <img src='/thingstodo.svg' width={'33rem'} />
           <Typography
             variant="h4"
             fontWeight="bold"
