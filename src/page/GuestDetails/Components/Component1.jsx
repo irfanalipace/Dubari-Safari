@@ -22,8 +22,8 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
   const [payNow, setPayNow] = useState(false);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
-  const { state } = useLocation()
-
+  const { state } = useLocation();
+  // console.log(cartData, 'xxxx')
   const [formValues, setFormValues] = useState({
     title: "Mr",
     first_name: "",
@@ -35,6 +35,7 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
     note: "",
   });
 
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetch(
@@ -57,6 +58,25 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formValues.first_name) newErrors.first_name = "First Name is required";
+    if (!formValues.last_name) newErrors.last_name = "Last Name is required";
+    if (!formValues.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formValues.email)) {
+      newErrors.email = "Email is invalid";
+    }
+    if (!formValues.phone) newErrors.phone = "Phone Number is required";
+    if (!formValues.nationality) newErrors.nationality = "Nationality is required";
+    if (!formValues.pickup_location) newErrors.pickup_location = "Pick up Location is required";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [dete, setDete] = useState(null)
@@ -69,33 +89,42 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
   }, []);
   console.log(dete, 'dere')
   const handleProceedToPayment = () => {
+    if (!validate()) return;
+
     let bookingDetails;
     if (state === '/cart') {
-      const { date, adult, child, infant, total_amount, id } = cartData;
+      const { date, adult, child, infant, total_amount, id, package_details } = cartData;
       bookingDetails = {
         ...formValues,
         activity_name: "Snorkeling",
         date: dete?.date,
-        adult: dete?.adult,
-        child: dete?.child,
-        infant: dete?.infant,
+        // adult: dete?.adult,
+        // child: dete?.child,
+        // infant: dete?.infant,
         total_amount: dete?.total_amount,
         status: "pending",
         payment: 'fail',
-        package_id: '1',
+        // package_id: '1',
+        // package_details: cartData,
       };
-    } else {
+
+    }
+    else {
+      debugger
+
       bookingDetails = {
+
         ...formValues,
         activity_name: "Snorkeling",
         date: data?.date,
-        adult: data?.adult,
-        child: data?.child,
-        infant: data?.infant,
+        // adult: data?.adult,
+        // child: data?.child,
+        // infant: data?.infant,
         total_amount: data?.total_amount,
         status: "pending",
         payment: 'fail',
-        package_id: data?.id,
+        // package_id: data?.id,
+        package_details: [data?.package],
       };
     }
 
@@ -104,9 +133,6 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
 
     onNext();
   };
-
-
-
 
   const textFieldStyle = {
     marginTop: "1rem",
@@ -177,6 +203,8 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
                     name="first_name"
                     value={formValues.first_name}
                     onChange={handleChange}
+                    error={!!errors.first_name}
+                    helperText={errors.first_name}
                   />
                 </Box>
               </Grid>
@@ -189,6 +217,8 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
                     name="last_name"
                     value={formValues.last_name}
                     onChange={handleChange}
+                    error={!!errors.last_name}
+                    helperText={errors.last_name}
                   />
                 </Box>
               </Grid>
@@ -201,6 +231,8 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
                     name="email"
                     value={formValues.email}
                     onChange={handleChange}
+                    error={!!errors.email}
+                    helperText={errors.email}
                   />
                 </Box>
               </Grid>
@@ -217,6 +249,7 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
                       onChange={handleChangeCountry}
                       label="Country"
                       sx={textFieldStyle}
+                      error={!!errors.nationality}
                     >
                       {countries.map((country) => (
                         <MenuItem key={country.value} value={country.value}>
@@ -229,6 +262,11 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
                         </MenuItem>
                       ))}
                     </Select>
+                    {errors.nationality && (
+                      <Typography variant="caption" color="error">
+                        {errors.nationality}
+                      </Typography>
+                    )}
                   </FormControl>
                 </Box>
               </Grid>
@@ -241,6 +279,8 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
                     name="phone"
                     value={formValues.phone}
                     onChange={handleChange}
+                    error={!!errors.phone}
+                    helperText={errors.phone}
                   />
                 </Box>
               </Grid>
@@ -290,6 +330,8 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
                     name="pickup_location"
                     value={formValues.pickup_location}
                     onChange={handleChange}
+                    error={!!errors.pickup_location}
+                    helperText={errors.pickup_location}
                   />
                 </Box>
               </Grid>
@@ -335,8 +377,6 @@ const Component1 = ({ data, onNext, data1, activeStep, cartData }) => {
           <PriceCard data1={data1} activeStep={activeStep} cartData={cartData} />
         </Grid>
       </Grid>
-
-
     </>
   );
 };

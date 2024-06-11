@@ -2,11 +2,13 @@ import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import BookingHeader from "./components/BookingHeader";
 import Details from "./components/Details";
-import { Navigate, useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 
 const BookingDetails = ({ data }) => {
+  const { state } = useLocation()
   // console.log(data, 'fdfdfd')
   const navigate = useNavigate()
+  const detail = state === '/cart';
   return (
     <Box sx={{ height: "70%", background: "#f6f7f9", py: 5, px: 3 }}>
       <Grid container spacing={3}>
@@ -36,7 +38,7 @@ const BookingDetails = ({ data }) => {
               Total
             </Typography>
             <Typography variant="h3" color="primary" fontWeight="bold">
-             AED {data?.total_amount}
+              AED {data?.total_amount}
             </Typography>
           </Box>
           {/* <Divider sx={{ mt: 2 }} /> */}
@@ -58,17 +60,20 @@ const BookingDetails = ({ data }) => {
           <Details title="Nationality" value={data?.nationality} />
           <Details title="Date" value={data?.date} />
 
-
           <Details title="Phone" value={data?.phone} />
-          <Details title="Adult" value={data?.adult} />
-          <Details title="Child" value={data?.child} />
+          {!state === '/cart' && (
+            <>
+              <Details title="Adult" value={data?.adult} />
+              <Details title="Child" value={data?.child} />
+            </>
+          )}
           <Details title="Fee Included" value="24 Feb, 2024" />
         </Grid>
         <Box
-          sx={{ margin: "3rem 0px", display: "flex", marginTop: '10px', justifiyContent:'Right' }}
+          sx={{ margin: "3rem 0px", display: "flex", marginTop: '10px', justifiyContent: 'Right' }}
         >
           <Button
-             onClick={() => navigate('/')}
+            onClick={() => navigate('/')}
             variant="contained"
             sx={{
               padding: "0.8rem 3rem",
@@ -85,7 +90,7 @@ const BookingDetails = ({ data }) => {
           </Button>
 
           <Button
-            onClick={() => navigate('/invoice-detail')}
+            onClick={() => navigate('/invoice-detail', { state })}
             variant="contained"
             sx={{
               marginLeft: "1rem",
