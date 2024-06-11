@@ -15,7 +15,7 @@ const Header = () => {
                 backgroundImage: 'url(/header.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                height: '533px',
+                height: '433px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'left',
