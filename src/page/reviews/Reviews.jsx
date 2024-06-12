@@ -11,7 +11,7 @@ const Reviews = () => {
                     <img src="/reviewLeft.svg" alt="" />
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', }}>
-                    <Typography sx={{ fontSize: '36px', fontWeight: 700 }}>where would you like to write review?</Typography>
+                    <Typography sx={{ fontSize: '25px', fontWeight: 600 }}>where would you like to write review?</Typography>
                     <Box sx={{ display: 'flex', gap: '30px', alignItems: 'center', justifyContent: 'center', paddingTop: '10px' }}>
                         <Link to='https://g.page/r/Cee91tzznq9EEBI/review' target='_blank'>
 <Box>

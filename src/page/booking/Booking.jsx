@@ -11,19 +11,23 @@ import {
   Avatar,
   Modal,
   TextField,
+  Skeleton,
+  TablePagination,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { BookingUpdate, OrderCancel, getAllBooking } from "../../store/actions/bookingAction";
 
-
 const Booking = () => {
   const base = 'https://dubaisafari.saeedantechpvt.com/';
   const [bookings, setBooking] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,10 +38,13 @@ const Booking = () => {
   useEffect(() => {
     dispatch(getAllBooking())
       .then((res) => {
-        setBooking(res.data.payload);
-        console.log(res.data.payload);
+        const sortedBookings = res.data.payload.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setBooking(sortedBookings);
+        setLoading(false);
+        console.log(sortedBookings);
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
   }, [dispatch]);
@@ -74,16 +81,27 @@ const Booking = () => {
         console.log(err);
       });
   };
-  const bookingsData = [
-    { id: 1, date: "2024-05-24", tickets: 2, price: "AED100", status: "Confirm" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Unpaid" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Confirm" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Unpaid" },
-    { id: 2, date: "2024-05-25", tickets: 3, price: "AED150", status: "Confirm" },
-  ];
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const styleFont = {
     fontWeight: 600,
+  };
+
+  const truncateDescription = (description) => {
+    const words = description.split(" ");
+    if (words.length > 3) {
+      return words.slice(0, 3).join(" ") + "...";
+    } else {
+      return description;
+    }
   };
 
   return (
@@ -120,52 +138,78 @@ const Booking = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {bookings && bookings.map((val, ind) => (
-                <TableRow key={ind}>
-                  <TableCell>
-                    <Box sx={{ display: "flex", gap: "5px", alignItems: 'center' }}>
-                      <img src={`${base}${val?.package?.activity?.image_url}`} alt="img" style={{ height: '40px', width: '40px', borderRadius: '50%' }} />
-                      <Typography sx={{ fontSize: '1rem', fontWeight: '600' }}>{val?.package?.title}</Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Box sx={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                      <Avatar />
-                      <Box>
-                        <Typography sx={{ fontSize: '0.8rem', fontWeight: '800' }}>{val?.first_name}</Typography>
-                        <Typography sx={{ fontSize: '0.8rem', color: 'grey' }}>{val?.email}</Typography>
-                      </Box>
-                    </Box>
-                  </TableCell>
-                  <TableCell>{val?.date}</TableCell>
-                  <TableCell>{val?.adult} adult {val?.child} child {val?.infant} infant</TableCell>
-                  <TableCell>{val?.total_amount}</TableCell>
-                  <TableCell sx={{ fontWeight: '600', color: val.status === "Confirm" ? "green" : "red" }}>
-                    {val.status}
-                  </TableCell>
-                  <TableCell>
-                    <Box sx={{ display: "flex", gap: "10px" }}>
-                      <Button
-                        variant="contained"
-                        sx={{ fontSize: '0.7rem', textTransform: 'none' }}
-                        onClick={() => handleEdit(val.id, val.date)} // Open modal for editing
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="contained"
-                        sx={{ fontSize: '0.7rem', textTransform: 'none' }}
-                        onClick={() => handleCancel(val.id)} // Pass the booking ID to the handler
-                      >
-                        Cancel
-                      </Button>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {loading ? (
+                Array.from(new Array(10)).map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell><Skeleton variant="text" /></TableCell>
+                    <TableCell><Skeleton variant="text" /></TableCell>
+                    <TableCell><Skeleton variant="text" /></TableCell>
+                    <TableCell><Skeleton variant="text" /></TableCell>
+                    <TableCell><Skeleton variant="text" /></TableCell>
+                    <TableCell><Skeleton variant="text" /></TableCell>
+                    <TableCell><Skeleton variant="rectangular" width={100} height={40} /></TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                bookings
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((val, ind) => (
+                    <TableRow key={ind}>
+                      <TableCell>
+                        <Box sx={{ display: "flex", gap: "5px", alignItems: 'center' }}>
+                          {/* <img src={`${base}${val?.package?.activity?.image_url}`} alt="img" style={{ height: '40px', width: '40px', borderRadius: '50%' }} /> */}
+                          <Typography sx={{ fontSize: '1rem', fontWeight: '600' }} >{truncateDescription(val?.order_items[0]?.package_title)}</Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell>
+                        <Box sx={{ display: "flex", gap: "5px", alignItems: "center" }}>
+                          <Avatar />
+                          <Box>
+                            <Typography sx={{ fontSize: '0.8rem', fontWeight: '800' }}>{val?.first_name}</Typography>
+                            <Typography sx={{ fontSize: '0.8rem', color: 'grey' }}>{val?.email}</Typography>
+                          </Box>
+                        </Box>
+                      </TableCell>
+                      <TableCell>{val?.date}</TableCell>
+                      <TableCell>{val?.adult} adult {val?.child} child {val?.infant} infant</TableCell>
+                      <TableCell>{val?.total_amount}</TableCell>
+                      <TableCell sx={{ fontWeight: '600', color: val.status === "Confirm" ? "green" : "red" }}>
+                        {val.status}
+                      </TableCell>
+                      <TableCell>
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                          <Button
+                            variant="contained"
+                            sx={{ fontSize: '0.7rem', textTransform: 'none' }}
+                            onClick={() => handleEdit(val.id, val.date)} // Open modal for editing
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            variant="contained"
+                            sx={{ fontSize: '0.7rem', textTransform: 'none' }}
+                            onClick={() => handleCancel(val.id)} // Pass the booking ID to the handler
+                          >
+                            Cancel
+                          </Button>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
+
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 50]}
+          component="div"
+          count={loading ? 10 : bookings.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
 
         <Modal
           open={openModal}

@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const Overlay = ({ title }) => {
+const Overlay = ({ title, imageUrl }) => {
   return (
     <Box
       sx={{
-        height: "25vh",
-        backgroundImage: "url(/pic.png)",
+        height: "15vh",
+        backgroundImage: `url(${imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
@@ -16,10 +16,11 @@ const Overlay = ({ title }) => {
         textShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
       }}
     >
-      <Typography variant="h3" fontWeight="bold">
+      <Typography
+        sx={{ fontSize: '32px', fontWeight: 600 }} fontWeight="bold">
         {title}
       </Typography>
-    </Box>
+    </Box >
   );
 };
 

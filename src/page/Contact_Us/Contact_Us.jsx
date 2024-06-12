@@ -21,6 +21,7 @@ import { send_message } from "../../store/actions/ContactUsActions";
 import { useSnackbar } from "notistack";
 import Loader from "../../components/Loader/Loader";
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { getContactUs } from "../../store/actions/setting";
 
 const Contact_Us = () => {
   const initialValues = {
@@ -67,10 +68,31 @@ const Contact_Us = () => {
         console.log(err);
       });
   };
+  // const dispatch = useDispatch
+  const [imageH, setImageH] = useState()
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await dispatch(getContactUs());
+        setImageH(result.data.payload || []);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [dispatch]);
+  console.log(imageH)
+  const abc = imageH?.length > 0 ? imageH[0]?.address : '';
+  const email = imageH?.length > 0 ? imageH[0]?.email : '';
+  const phone = imageH?.length > 0 ? imageH[0]?.phone : '';
+  const facebook = imageH?.length > 0 ? imageH[0]?.facebook : '';
+  const instagram = imageH?.length > 0 ? imageH[0]?.instagram : '';
+  const twitter = imageH?.length > 0 ? imageH[0]?.twitter : '';
+
+
 
   return (
-    <Page title="Contact Us">
-      <Overlay title="Contact Us" />
+    <Page title="Contact Us"  >
+      <Overlay title="Contact Us" imageUrl="/blogimage.png" />
       <Box sx={{ p: is_sm ? 2 : 5 }}>
         <Typography fontWeight="bold" variant="h5" textAlign="center">
           Get In Touch
@@ -82,11 +104,12 @@ const Contact_Us = () => {
             px: is_sm ? 2 : 5,
             display: "flex",
             position: "relative",
+            flexWrap: 'wrap'
           }}
         >
           <Box
             flex={1}
-            sx={{ position: "relative", display: is_md ? "none" : "block" }}
+            sx={{ position: "relative", display: is_md ? "block" : "block" }}
           >
             <img
               src="/contact_detail.png"
@@ -111,24 +134,24 @@ const Contact_Us = () => {
                 Feel Free to contact with us
               </Typography>
               <Box sx={{ mt: 4 }}>
-                <Icon_Title icon={<AddIcCallIcon />} txt="+971 50 377 3786" />
-                <Icon_Title icon={<EmailIcon />} txt="info@bookdubaisafari.com" />
+                <Icon_Title icon={<AddIcCallIcon />} txt={phone} />
+                <Icon_Title icon={<EmailIcon />} txt={email} />
                 <Icon_Title
                   icon={<PlaceIcon />}
-                  txt="Dubai Downtown, 232268 Dubai U.A.E"
+                  txt={abc}
                 />
               </Box>
               <Box sx={{ mt: 8 }}>
-      <a href="https://www.facebook.com/bookdubaisafariofficial" target="_blank" rel="noopener noreferrer">
-        <FacebookIcon sx={{ mr: 3, color:'white' }} />
-      </a>
-      <a href="https://www.instagram.com/bookdubaisafari/" target="_blank" rel="noopener noreferrer">
-        <InstagramIcon sx={{ mr: 3, color:'white' }} />
-      </a>
-      <a href="https://twitter.com/bookdubaisafari" target="_blank" rel="noopener noreferrer">
-        <TwitterIcon sx={{ mr: 3, color:'white' }} />
-      </a>
-    </Box>
+                <a href={facebook}>
+                  <FacebookIcon sx={{ mr: 3, color: 'white' }} />
+                </a>
+                <a href={instagram}>
+                  <InstagramIcon sx={{ mr: 3, color: 'white' }} />
+                </a>
+                <a href={twitter}>
+                  <TwitterIcon sx={{ mr: 3, color: 'white' }} />
+                </a>
+              </Box>
             </Box>
           </Box>
           <Box flex={2} sx={{ p: 5 }}>
@@ -251,7 +274,7 @@ const Icon_Title = ({ icon, txt }) => {
 const Txt_field = ({ label, ...props }) => {
   return (
     <Box>
-      <Typography sx={{ color: "grey", fontWeight: "bold", mt: 1 }}>
+      <Typography sx={{ color: "grey", fontWeight: "500", mt: 1 }}>
         {label}
       </Typography>
       <TextField variant="standard" fullWidth {...props} />

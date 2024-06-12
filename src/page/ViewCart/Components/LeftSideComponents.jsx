@@ -189,7 +189,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
               ...prevState,
               [id]: false // Set loading state for the item being deleted
             })); // Hide the loader
-            enqueueSnackbar("Activity Removed", { variant: "success" });
+            enqueueSnackbar("Removed from Cart", { variant: "success" });
           })
           .catch((err) => {
             console.error(err);
@@ -205,19 +205,19 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
             [id]: false // Set loading state for the item being deleted
           }));
           console.error(err);
-          enqueueSnackbar("Failed to Remove Activity", { variant: "error" });
+          enqueueSnackbar("Failed to Remove Activity from cart", { variant: "error" });
         });
     } else {
 
       const updatedCart = allCartLocal.filter(item => item.packageid !== id);
-      console.log(updatedCart, 'cart ud del')
+
       setAllCartLocal(updatedCart);
       localStorage.setItem("addCartData", JSON.stringify(updatedCart));
       setDeleteLoading(prevState => ({
         ...prevState,
         [id]: false // Set loading state for the item being deleted
       }));
-      enqueueSnackbar("Activity Removed", { variant: "success" });
+      enqueueSnackbar("Activity Removed from cart", { variant: "success" });
     }
   };
 
@@ -261,7 +261,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                             style={{
                               width: "100%",
                               borderRadius: "10px",
-                              height: "260px",
+                              height: "250px",
                               objectFit: "cover",
                             }}
                           />
@@ -274,40 +274,40 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                               alignItems: "center",
                             }}
                           >
-                            <Typography fontWeight="bold" variant="h6">
+                            <Typography fontWeight="600" variant="h6" sx={{fontSize:'1rem'}}>
                               {packageItem.title}
                             </Typography>
                           </Box>
                           <Box flex={4}>
                             <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
                               <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
+                              <Typography sx={{ ml: 1, color: "grey", fontSize:'0.8rem' }}>
                                 Package Type : {packageItem.highlight}
                               </Typography>
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                              <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
+                              <CalendarMonthOutlinedIcon sx={{ color: "black", }} />
+                              <Typography sx={{ ml: 1, color: "grey", fontSize:'0.8rem' }}>
                                 Tour Date : {val.date}
                               </Typography>
                             </Box>
-                            <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                            <Box sx={{ display: "flex", alignItems: "end", mt: 1 }}>
                               <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
-                              <Typography sx={{ ml: 1, color: "grey" }}>
-                                1 {packageItem.category} car up to{" "}
+                              <Typography sx={{ ml: 1, color: "grey", fontSize:'0.8rem' }}>
+                                1 {packageItem.category} package up to{" "}
                                 {calculateTotalGuests(
                                   val.adult,
                                   val.child,
                                   val.infant
                                 )}
-                                pax
+                                {" "}pax
                               </Typography>
                             </Box>
                             <Box sx={{ my: 2 }}>
                               <Typography
                                 sx={{
                                   color: theme.palette.primary.main,
-                                  fontSize: "1.2rem",
+                                  fontSize: "1rem",
                                   fontWeight: "600",
                                 }}
                               >
@@ -335,22 +335,16 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
 
 <Button
-  sx={{ textTransform: "none", color: "black" }}
+  sx={{ textTransform: "none", color: "black", fontSize:'0.8rem' }}
   onClick={() => handleDelete(packageItem.id)}
 
 >
 
     <DeleteOutlineOutlinedIcon />
-  Delete
+  Remove from Cart
 </Button>
 
 
-                            <Button
-                              sx={{ textTransform: "none", color: "black" }}
-                              onClick={() => handleDelete(packageItem.id)}
-                            >
-                              <DeleteOutlineOutlinedIcon /> Delete
-                            </Button>
 
 
 
@@ -369,6 +363,9 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
       fontSize: "0.8rem",
       textTransform: "none",
       color: "black",
+    }}
+    onClick={()=>{
+      navigate('/login')
     }}
   >
     Please Login to use Promocode
@@ -413,7 +410,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                         style={{
                           width: "100%",
                           borderRadius: "10px",
-                          height: "260px",
+                          height: "250px",
                           objectFit: "cover",
                         }}
                       />
@@ -426,23 +423,23 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                           alignItems: "center",
                         }}
                       >
-                        <Typography fontWeight="bold" variant="h6">
+                        <Typography fontWeight="600" variant="h6" sx={{fontSize:'1rem'}}>
                           {val.package.title}
                         </Typography>
                       </Box>
                       <Box flex={4}>
                         <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
-                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                         
+                          <ShoppingCartOutlinedIcon sx={{ color: "black", }} />
+
 
 
 
  <Typography
-     
+
       sx={{
-            fontSize: { xs: '14px', md: '16px' },
+            fontSize: { xs: '10px', md: '12px' },
         fontWeight: 500,
-       
+
         wordBreak: 'break-all',
     color:"grey",
         wordBreak: "break-word",
@@ -452,12 +449,12 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
     >
       {isExpanded ? val.package.highlight : (
         <>
-          {val.package.highlight.slice(0, 620)} 
+          {val.package.highlight.slice(0, 620)}
           {val.package.highlight.length > 620 && (
             <Button
               onClick={toggleDescription}
               sx={{
-                marginLeft: '0.5rem', 
+                marginLeft: '0.5rem',
                 textTransform: 'none',
                 fontSize: '0.875rem',
                 color:"grey",
@@ -487,29 +484,29 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
 
 
                         </Box>
-                        <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "end", mt: 1 }}>
                           <CalendarMonthOutlinedIcon sx={{ color: "black" }} />
-                          <Typography sx={{ ml: 1, color: "grey" }}>
+                          <Typography sx={{ ml: 1, color: "grey", fontSize:'0.9rem' }}>
                             Tour Date : {val.tour_date}
                           </Typography>
                         </Box>
-                        <Box sx={{ display: "flex", alignItems: "start", mt: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "end", mt: 1 }}>
                           <PersonOutlineOutlinedIcon sx={{ color: "black" }} />
-                          <Typography sx={{ ml: 1, color: "grey" }}>
-                            1 {val.package.category} car up to{" "}
+                          <Typography sx={{ ml: 1, color: "grey", fontSize:'0.9rem' }}>
+                            1 {val.package.category} package up to{" "}
                             {calculateTotalGuests(
                               val.adult,
                               val.child,
                               val.infant
                             )}
-                            pax
+                            {" "}pax
                           </Typography>
                         </Box>
                         <Box sx={{ my: 2 }}>
                           <Typography
                             sx={{
                               color: theme.palette.primary.main,
-                              fontSize: "1.2rem",
+                              fontSize: "1rem",
                               fontWeight: "600",
                             }}
                           >
@@ -529,11 +526,11 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                         sx={{
                           display: "flex",
                           justifyContent: "space-between",
-                          marginTop: "1rem",
+                          marginTop: "0.4rem",
                         }}
                       >
 <Button
-                            sx={{ textTransform: "none", color: "black" }}
+                            sx={{ textTransform: "none", color: "black", fontSize:'0.8rem' }}
                             onClick={() => handleDelete(val.id)}
                             disabled={deleteLoading[val.id]}
                           >
@@ -542,7 +539,7 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
                             ) : (
                               <DeleteOutlineOutlinedIcon />
                             )}
-                            Delete
+                            Remove from Cart
                           </Button>
 
                         {/* <Button sx={{ textTransform: "none", color: "black" }}>
@@ -559,6 +556,9 @@ const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
       fontSize: "0.8rem",
       textTransform: "none",
       color: "black",
+    }}
+    onClick={()=>{
+      navigate('/login')
     }}
   >
     Please Login to use Promocode

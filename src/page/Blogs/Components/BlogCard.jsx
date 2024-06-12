@@ -44,14 +44,15 @@ const BlogCard = () => {
         WebkitLineClamp: 3,
         WebkitBoxOrient: 'vertical',
         textOverflow: 'ellipsis',
-        color: 'grey'
+        color: 'grey',
+        fontSize:'13px'
     };
 
     return (
         <Box sx={{ padding: '4rem 5%' }}>
             <Box sx={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <Typography variant='h1' sx={{ fontSize: '2rem', fontWeight: '700' }}>Read Our Recent Blogs</Typography>
-                <Typography variant='body1' sx={{ fontSize: '1rem', color: 'grey' }}>Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.</Typography>
+                <Typography variant='h1' sx={{ fontSize: '1.5rem', fontWeight: '700' }}>Read Our Recent Blogs</Typography>
+                <Typography variant='body1' sx={{ fontSize: '0.9rem', color: 'grey' }}>Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.</Typography>
             </Box>
 
             {loading ? (
@@ -71,7 +72,7 @@ const BlogCard = () => {
                                         <Button sx={{ backgroundColor: 'green', borderRadius: '20px', color: 'white', fontSize: '0.7rem' }} variant='contained'>
                                             {moment(val.created_at).format('DD MMM YYYY')}
                                         </Button>
-                                        <Typography gutterBottom variant="h5" component="div" sx={{ marginTop: '1rem', fontWeight: '600', fontSize: '1.2rem' }}>
+                                        <Typography gutterBottom variant="h5" component="div" sx={{ marginTop: '1rem', fontWeight: '600', fontSize: '1rem' }}>
                                             {val.title}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary" sx={descriptionStyle}>

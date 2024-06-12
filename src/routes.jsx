@@ -35,6 +35,7 @@ import GenerateInvoice from "./page/PaymentDeatils/GenerateInvoice";
 import StripeGift from "./page/gift/StripeGift";
 import PreviewCard from "./page/gift/PreviewCard";
 import UnAuthDetail from "./page/Help_Page/UnAuthDetail";
+import GenerateCheckoutInvoice from "./page/PaymentDeatils/GenerateCheckoutInvoice";
 
 export default function Router() {
   let element = useRoutes([
@@ -178,6 +179,10 @@ export default function Router() {
     {
       path: "/invoice-detail",
       element: <GenerateInvoice />,
+    },
+    {
+      path: "/invoice-Checkout",
+      element: <GenerateCheckoutInvoice />,
     },
     {
       path: "/gift-pay",

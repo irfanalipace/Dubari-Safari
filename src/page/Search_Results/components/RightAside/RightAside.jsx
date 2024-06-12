@@ -12,7 +12,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getActivities } from "../../../../store/actions/categoriesActions";
 import Loader from "../../../../components/Loader/Loader";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -153,32 +153,38 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
   // };
 
   const handleFavoriteClick = (activityId, activityData) => {
+
     const token = localStorage.getItem("token");
-    console.log(activityData, 'activity data');
 
     if (token) {
-
       dispatch(addToWishList(activityId))
+        .then(() => {
+          dispatch(getWishList())
+            .then((result) => {
+              setWishList(result.data.payload);
 
-      .then((result) => {
+            })
+            .catch((err) => {
+              console.log(err, "Error fetching wishlist");
+
+            });
           enqueueSnackbar("Added to Wishlist", { variant: "success" });
         })
         .catch((err) => {
           console.log(err, "Error");
+
         });
     } else {
-
       const existingWishListData = localStorage.getItem("wishListData");
-
       let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
-
-
       wishListArray.push(activityData);
 
-
       localStorage.setItem("wishListData", JSON.stringify(wishListArray));
-
       enqueueSnackbar("Added to Wishlist", { variant: "info" });
+
+      setWishList(localStorage.getItem("wishListData"))
+
+
     }
   };
 
@@ -193,9 +199,27 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
       });
   }, [dispatch]);
 
+  // const isActivityInWishlist = (activityId) => {
+  //   return wishList.some((item) => item.activity_id === activityId);
+  // };
+
+
+  const WishListredux = useSelector((state)=>state?.wishlist?.wishlist?.payload)
+const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
+
   const isActivityInWishlist = (activityId) => {
-    return wishList.some((item) => item.activity_id === activityId);
-  };
+
+
+    if(isAuth){
+
+      return WishListredux?.some((item) => item.activity_id == activityId);
+
+    }else{
+      // return wishList.some((item) => item.activity_id == activityId);
+    }
+      };
+
+      console.log(wishList, 'wishlisttttttttttttttt')
 
   return (
     <Box>
@@ -206,7 +230,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
           alignItems: "center",
         }}
       >
-        <Typography variant="h4" fontWeight="bold">
+        <Typography variant="h4" fontWeight="600" fontSize={'1.2rem'} >
           Tours Search Result
         </Typography>
         <FormControl sx={{ width: "200px" }}>
@@ -263,7 +287,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                     style={{
                       width: "100%",
                       borderRadius: "10px",
-                      height: "260px",
+                      height: "220px",
                       objectFit: "cover",
                     }}
                   />
@@ -276,7 +300,7 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                       alignItems: "center",
                     }}
                   >
-                    <Typography fontWeight="bold" variant="h6">
+                    <Typography fontWeight="600" variant="h6" fontSize={'1.1rem'}>
                       {val.name}
                     </Typography>
 
@@ -306,14 +330,15 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                       name="read-only"
                       value={5}
                       readOnly
+                      size="small"
                       sx={{ color: theme.palette.primary.main }}
                     />
-                    <Typography sx={{ ml: 1 }}>
-                      94 reviews / 7k Booked
+                    <Typography sx={{ ml: 1, }}>
+                      {val.reviews.length}
                     </Typography>
                   </Box>
-                  <Box sx={{ my: 2 }}>
-                    <Typography sx={{ color: "grey" }}>
+                  <Box sx={{ my: 2, }}>
+                    <Typography sx={{ fontSize:'12px', color: "grey" }}>
                       {truncateDescription(val.description)}
                     </Typography>
                   </Box>
@@ -324,14 +349,14 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                       alignItems: "center",
                     }}
                   >
-                    <Typography variant="h6" color="grey">
+                    <Typography variant="h6" color="grey" fontSize='16px'>
                       Duration
                     </Typography>
-                    <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex", alignItems:'center' }}>
                       <AccessTimeIcon
                         sx={{ color: theme.palette.primary.main }}
                       />
-                      <Typography sx={{ fontWeight: "bold" }}>
+                      <Typography sx={{ fontWeight: "600", fontSize:'14px' }}>
                         {val.duration} hours
                       </Typography>
                     </Box>
@@ -343,12 +368,12 @@ const RightAside = ({ selectedCategory, selectedSubcategory, minPrice, maxPrice 
                       mt: 2,
                     }}
                   >
-                    <Typography variant="h6" color="green">
+                    <Typography variant="h6" color="green" sx={{fontSize:'16px'}}>
                       Cancellation Before : {val.cancellation_duration} hours
                     </Typography>
 
                     {val.packages && val.packages.length > 0 && (
-                        <Typography variant="h6" fontWeight="bold" color={theme.palette.primary.main}>
+                        <Typography variant="h6" fontWeight="bold" fontSize='20px' color={theme.palette.primary.main}>
                           {val.packages[0].category === "private" ?
                             `AED ${val.packages[0].price}` :
                             `AED ${val.packages[0].adult_price}`}

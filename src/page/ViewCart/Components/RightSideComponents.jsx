@@ -20,6 +20,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux"; // Import useSelector
 import Cookies from "js-cookie"; // Importing js-cookie
 import Loader from "../../../components/Loader/Loader";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 
 
 const RightSideComponents = ({ allCart, totalPrice }) => {
@@ -27,14 +30,14 @@ const RightSideComponents = ({ allCart, totalPrice }) => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-const [loading, setLoading]= useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-if(totalPrice === null || totalPrice === 0){
-  setLoading(true)
-}else{
-  setLoading(false)
-}
+    if (totalPrice === null || totalPrice === 0) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
 
   }, [totalPrice]);
 
@@ -113,22 +116,22 @@ if(totalPrice === null || totalPrice === 0){
         >
           <Typography
             variant="h1"
-            sx={{ fontSize: "20px", fontWeight: "600", marginBottom: "1rem" }}
+            sx={{ fontSize: "16px", fontWeight: "600", marginBottom: "1rem" }}
           >
 
             Total ({allCart?.length} Activit{allCart?.length !== 1 ? "ies" : ""})
 
           </Typography>
           <Box>
-          {loading ? (
-              <Loader/> // Show loader while loading
+            {loading ? (
+              <Loader /> // Show loader while loading
             ) : (
               <>
                 <Typography
                   variant="h1"
                   sx={{
                     color: theme.palette.primary.main,
-                    fontSize: "2rem",
+                    fontSize: "1.5rem",
                     fontWeight: "600",
                     marginBottom: "0.5rem",
                   }}
@@ -137,7 +140,7 @@ if(totalPrice === null || totalPrice === 0){
                 </Typography>
                 <Typography
                   variant="h1"
-                  sx={{ color: "green", fontSize: "1rem", fontWeight: "600" }}
+                  sx={{ color: "green", fontSize: "0.8rem", fontWeight: "600" }}
                 >
                   No Additional Fees
                 </Typography>
@@ -147,9 +150,9 @@ if(totalPrice === null || totalPrice === 0){
         </Box>
 
 
-    {!isAuthenticated && (
-      <Box sx={{ marginTop: "1rem" }}>
-      <Divider />
+
+        <Box sx={{ marginTop: "1rem" }}>
+          <Divider />
 
           <Button
             variant="contained"
@@ -168,28 +171,30 @@ if(totalPrice === null || totalPrice === 0){
             Explore more activities
           </Button>
           <Box sx={{ textAlign: "center", padding: "0rem 3rem", mt: 2 }}>
-            <Typography>
-              <Link
-                to="/signup"
-                style={{
-                  color: theme.palette.primary.main,
-                  textDecoration: "none",
-                }}
-              >
-                Create an account
-              </Link>
-              <span> or </span>
-              <Link
-                to="/login"
-                style={{
-                  color: theme.palette.primary.main,
-                  textDecoration: "none",
-                }}
-              >
-                Login
-              </Link>
-              for faster checkout
-            </Typography>
+            {!isAuthenticated && (
+              <Typography sx={{fontSize:'0.9rem'}}>
+                <Link
+                  to="/signup"
+                  style={{
+                    color: theme.palette.primary.main,
+                    textDecoration: "none",
+                  }}
+                >
+                  Create an account
+                </Link>
+                <span> or </span>
+                <Link
+                  to="/login"
+                  style={{
+                    color: theme.palette.primary.main,
+                    textDecoration: "none",
+                  }}
+                >
+                  Login
+                </Link>
+                for faster checkout
+              </Typography>
+            )}
             <Box
               sx={{
                 display: "flex",
@@ -199,18 +204,18 @@ if(totalPrice === null || totalPrice === 0){
             >
               <DoneIcon sx={{ color: "green" }} />
               <Typography
-                sx={{ color: "green", fontWeight: "600", marginTop: "1rem" }}
+                sx={{ color: "green", fontWeight: "600", marginTop: "1rem", fontSize:'0.9rem' }}
               >
                 Best Price Guarantee
               </Typography>
             </Box>
           </Box>
         </Box>
-    )}
+
       </Box>
 
       <Box sx={{ mt: 3 }}>
-        <Typography variant="h1" sx={{ fontSize: "20px", fontWeight: "700" }}>
+        {/* <Typography variant="h1" sx={{ fontSize: "20px", fontWeight: "700" }}>
           Frequently Asked Questions
         </Typography>
         <br />
@@ -231,7 +236,39 @@ if(totalPrice === null || totalPrice === 0){
               <AccordionDetails>{val.answer}</AccordionDetails>
             </Accordion>
           ))}
-        </Box>
+
+        </Box> */}
+   <Typography variant="h1" sx={{ fontSize: "16px", fontWeight: "600" }}>
+          Why Book With us
+        </Typography>
+
+<br/>
+<Box sx={{ml:1}}>
+
+<Box sx={{display:'flex', alignItems:'center'}} gap={2}>
+<LockOutlinedIcon sx={{color:theme.palette.primary.main}}/>
+<Typography sx={{fontSize:'0.8rem', fontWeight:'600'}}>Secure Payment</Typography>
+
+</Box>
+
+<Box sx={{display:'flex', alignItems:'center', marginTop:'1rem'}} gap={2}>
+<CheckCircleOutlineOutlinedIcon sx={{color:theme.palette.primary.main}}/>
+<Typography sx={{fontSize:'0.8rem', fontWeight:'600'}}>No hidden costs</Typography>
+
+</Box>
+
+<Box sx={{display:'flex', alignItems:'center', marginTop:'1rem'}} gap={2}>
+<TextsmsOutlinedIcon sx={{color:theme.palette.primary.main}}/>
+<Typography sx={{fontSize:'0.8rem', fontWeight:'600'}}>24/7 customer support worldwide</Typography>
+
+</Box>
+
+</Box>
+
+
+
+
+
       </Box>
     </>
   );

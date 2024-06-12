@@ -8,7 +8,7 @@ import { Box, IconButton, Rating, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 import { getActivities } from "../../store/actions/categoriesActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToWishList, getWishList } from "../../store/actions/wishListActions";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
@@ -26,6 +26,10 @@ const PkgCard = ({ data, categories, ind }) => {
   const [wishList, setWishList] = React.useState([]);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+
+
+  const WishListredux = useSelector((state)=>state?.wishlist?.wishlist?.payload)
+const isAuth = useSelector((state)=>state?.auth?.isAuthenticated)
 
   const descriptionStyle = {
     display: '-webkit-box',
@@ -84,11 +88,16 @@ const PkgCard = ({ data, categories, ind }) => {
       const existingWishListData = localStorage.getItem("wishListData");
       let wishListArray = existingWishListData ? JSON.parse(existingWishListData) : [];
       wishListArray.push(activityData);
+      setLoading(false);
       localStorage.setItem("wishListData", JSON.stringify(wishListArray));
       enqueueSnackbar("Added to Wishlist", { variant: "info" });
-      setLoading(false);
+
+      setWishList(localStorage.getItem("wishListData"))
+
+
     }
   };
+
 
 
   useEffect(() => {
@@ -102,10 +111,23 @@ const PkgCard = ({ data, categories, ind }) => {
   }, [dispatch]);
 
   const isActivityInWishlist = (activityId) => {
-    return wishList.some((item) => item.activity_id === activityId);
+
+
+if(isAuth){
+
+  return WishListredux?.some((item) => item.activity_id == activityId);
+
+}else{
+  // return wishList.some((item) => item.activity_id == activityId);
+}
   };
+
   return (
-    <Card sx={{ maxWidth: 345, height: '100%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
+
+
+
+
+    <Card sx={{ maxWidth: 345, height: '95%', display: 'flex', flexDirection: "column", justifyContent: 'space-between', cursor: 'pointer' }}
       onClick={handleBookNowClick}
 
     >
@@ -121,7 +143,7 @@ const PkgCard = ({ data, categories, ind }) => {
             ) : isActivityInWishlist(data.id) ? (
               <FavoriteIcon sx={{ fontSize: "35px", color: "red" }} />
             ) : (
-              <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
+              <FavoriteBorderIcon sx={{ fontSize: "35px"}} />
             )}
           </IconButton>
         </div>
@@ -137,10 +159,10 @@ const PkgCard = ({ data, categories, ind }) => {
       </div>
 
       <CardContent>
-        <Typography color="textSecondary" component="div">
+        <Typography color="textSecondary" component="div" sx={{fontSize:'12px'}}>
           {subCategory}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: '1.3rem', fontWeight: '700' }}>
+        <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: '1rem', fontWeight: '700' }}>
           {truncateName(data?.name)}
         </Typography>
         {/* <Typography sx={descriptionStyle}>{data?.description}</Typography> */}
@@ -151,22 +173,30 @@ const PkgCard = ({ data, categories, ind }) => {
             alignItems: "center",
           }}
         >
-          <Typography sx={{ fontSize: "13px", color: "grey", }}>
+          <Typography sx={{ fontSize: "12px", color: "grey" }}>
             Per Person Price
           </Typography>
        
             {/* <Typography sx={{ fontSize: "15px", color: "grey" }}> */}
 
-            <Typography
-              sx={{ fontSize: '0.9rem', color: "grey", textDecoration: "line-through" , marginLeft:"6px"}}
+            {data.discount_offer > 0 && (
+              <Typography
+              sx={{ fontSize: '0.8rem', color: "grey", textDecoration: "line-through" }}
             >
               {data.packages[0].category === "private"
                 ? `AED ${data.packages[0].price}`
                 : `AED ${data.packages[0].adult_price}`}
             </Typography>
+)}
+
+
+
+
+
+
 
             <Typography
-              sx={{ fontSize: '1rem' , marginLeft:"6px"}}
+              sx={{ fontSize: '0.9rem' }}
               fontWeight="bold"
               color={theme.palette.primary.main}
             >
@@ -185,7 +215,10 @@ const PkgCard = ({ data, categories, ind }) => {
             {/* </Typography> */}
         
         </Box>
-      <Box sx={{display:'flex'}}>
+
+<Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center', mt:1}}>
+<Box>
+<Typography sx={{fontSize:'0.7rem'}}>{data?.reviews?.length}</Typography>
         <Rating
                         name="simple-controlled"
                         value={value}
@@ -194,16 +227,21 @@ const PkgCard = ({ data, categories, ind }) => {
                         }}
                         size="small"
                       />
-                       <Typography sx={{fontSize:'0.8rem'}}>{data.reviews.length}</Typography> 
-                    </Box>
+</Box>
 
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
-          <Button
+                   <Box>
+                   <Button
             variant="contained"
             onClick={handleBookNowClick}
+            sx={{fontSize:'0.7rem', textTransform:'none'}}
           >
             Book Now
           </Button>
+                   </Box>
+                    </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
+
         </Box>
       </CardContent>
     </Card>

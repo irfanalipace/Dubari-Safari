@@ -212,17 +212,17 @@ the booking process.`,
                       padding: "2rem 1rem",
                       borderRadius: "15px",
                       textAlign: "center",
-                      minHeight: "12rem",
+                      height: "10rem",
                     }}
                   >
                     <Box>
-                      <img src={val.icon} alt="icon" />
+                      <img src={val.icon} alt="icon" width={'15%'}/>
                     </Box>
 
                     <Typography
                       variant="h1"
                       sx={{
-                        fontSize: "1.5rem",
+                        fontSize: "1.2rem",
                         fontWeight: "600",
                         marginTop: "0.5rem",
                       }}
@@ -232,7 +232,7 @@ the booking process.`,
                     <Typography
                       variant="body1"
                       sx={{
-                        fontSize: "0.9rem",
+                        fontSize: "0.8rem",
                         color: "grey",
                         marginTop: "0.5rem",
                       }}
@@ -254,52 +254,52 @@ the booking process.`,
               marginTop: "3rem",
             }}
           >
-            <Typography variant="h1" sx={{ fontSize: '25px', fontWeight: '600' }}>Can't find what you're looking for?</Typography>
+            <Typography variant="h1" sx={{ fontSize: '22px', fontWeight: '600' }}>Can't find what you're looking for?</Typography>
 
             <Box
-            sx={{
+              sx={{
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" }, // Stack on small screens, row on medium screens
                 alignItems: "center",
                 marginTop: "1rem",
                 gap: { xs: "1rem", md: "2rem" }, // Adjust gap between boxes based on screen size
-            }}
-        >
-            <Box
-                sx={{
-                    border: "1px solid #ebebeb",
-                    borderRadius: "15px",
-                    padding: "2rem 4rem",
-                    textAlign: "center", // Center content
-                    marginBottom: { xs: "2rem", md: "0" }, // Add margin bottom only on small screens
-                }}
+              }}
             >
+              <Box
+                sx={{
+                  border: "1px solid #ebebeb",
+                  borderRadius: "15px",
+                  padding: "2rem 4rem",
+                  textAlign: "center", // Center content
+                  marginBottom: { xs: "2rem", md: "0" }, // Add margin bottom only on small screens
+                }}
+              >
                 <Box>
-                    <img src="/chatico.png" alt="Chat icon" />
+                  <img src="/chatico.png" alt="Chat icon" />
                 </Box>
 
-                <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
-                    Chat With Us
+                <Typography variant="h1" sx={{ fontSize: "1.1rem", fontWeight: "600" }}>
+                  Chat With Us
                 </Typography>
-            </Box>
+              </Box>
 
-            <Box
+              <Box
                 sx={{
-                    border: "1px solid #ebebeb",
-                    borderRadius: "15px",
-                    padding: "2rem 4rem",
-                    textAlign: "center", // Center content
+                  border: "1px solid #ebebeb",
+                  borderRadius: "15px",
+                  padding: "2rem 4rem",
+                  textAlign: "center", // Center content
                 }}
-            >
+              >
                 <Box>
-                    <img src="/contacticon.png" alt="Contact icon" />
+                  <img src="/contacticon.png" alt="Contact icon" />
                 </Box>
 
-                <Typography variant="h1" sx={{ fontSize: "1.3rem", fontWeight: "700" }}>
-                    Contact Us
+                <Typography variant="h1" sx={{ fontSize: "1.1rem", fontWeight: "600" }}>
+                  Contact Us
                 </Typography>
+              </Box>
             </Box>
-        </Box>
 
           </Box>
         </Box>

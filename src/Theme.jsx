@@ -17,8 +17,8 @@ export const theme = createTheme({
       xl: 1920,
     },
   },
-  // typography: {
-  //   fontFamily: 'Roboto, sans-serif',
-  // },
+  typography: {
+    fontFamily:'poppins, sans-serif',
+  },
 
 });

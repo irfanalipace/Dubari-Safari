@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 import { Button, Box, Typography, useTheme, TextField, Grid } from "@mui/material";
 import { StripePay } from "../../../store/actions/categoriesActions"; // Import Apply_Voucher
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Booking } from '../../../store/actions/categoriesActions';
 import Cookies from 'js-cookie';
 import { Apply_Voucher } from "../../../store/actions/bookingAction";
@@ -11,7 +11,7 @@ import PriceCard from "../../Component/PriceCard";
 
 const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, cartData }) => {
     const token = useSelector((state) => state?.auth?.token);
-
+    const { state } = useLocation()
     const theme = useTheme();
     const stripe = useStripe();
     const elements = useElements();
@@ -21,12 +21,19 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, 
     const [voucherCode, setVoucherCode] = useState("");
     const [discount, setDiscount] = useState(0);
     const [discountError, setDiscountError] = useState(null);
-    // To store error from voucher application
 
     const [isFieldEnabled, setIsFieldEnabled] = useState(false);
 
     const handleProceedToPayment = async (paymentStatus) => {
+        debugger
         const bookingDetails = JSON.parse(Cookies.get('bookingDetails'));
+        const bookingArray = Object.values(bookingDetails);
+        const bookingKeys = Object.keys(bookingDetails);
+        console.log(bookingDetails, 'bbc');
+        if (state === '/cart') {
+            bookingDetails.package_details = cartData;
+        }
+
         bookingDetails.payment = paymentStatus;
 
         try {
@@ -76,36 +83,6 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, 
     };
 
 
-    // const handleVoucherApply = async () => {
-    //     try {
-    //         const res = await dispatch(Apply_Voucher(voucherCode));
-    //         if (res.data.success) {
-    //             const price = parseFloat(res.data.payload.price);
-    //             const discountAmount = Math.abs(price);
-    //             setDiscount(discountAmount);
-    //             setDiscountError(null);
-    //             setIsFieldEnabled(true);
-    //             const bookingDetails = JSON.parse(Cookies.get('bookingDetails'));
-    //             const information = JSON.parse(Cookies.get('information'));
-
-    //             const updatedTotalAmount = bookingDetails.total_amount - discountAmount;
-    //             bookingDetails.total_amount = updatedTotalAmount;
-    //             information.total_amount = updatedTotalAmount;
-
-    //             Cookies.set('bookingDetails', JSON.stringify(bookingDetails));
-    //             Cookies.set('information', JSON.stringify(information));
-
-    //             setTotalAmount(updatedTotalAmount);
-    //         } else {
-    //             setDiscountError(res.data.message);
-    //             setDiscount(0);
-    //         }
-    //     } catch (error) {
-    //         console.error("Error applying voucher:", error);
-    //         setDiscountError("Error applying voucher. Please try again later.");
-    //         setDiscount(0);
-    //     }
-    // };
 
     const cardStyle = {
         style: {
@@ -132,6 +109,7 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, 
         padding: "8px",
     };
 
+    console.log(cartData, 'hiiiiiiiiiiiiiiiiiiii')
     return (
         <>
             <Grid container spacing={3}>
@@ -186,19 +164,6 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, 
                                     </Typography>
                                 </Box>
 
-                                {/* <Box gap={1} display={"flex"} sx={{ marginTop: "1rem", alignItems: "center" }}>
-                        <input
-                            type="checkbox"
-                            required
-                            style={{ fontSize: "1rem", transform: "scale(1.8)", color: "red" }}
-                        />
-                        <Typography sx={{ fontSize: "1rem", marginLeft: "1rem" }}>
-                            Shipping is free within 20 km range from Nampally, if your event is
-                            beyond that our representative will call you regarding shipping
-                            charges.
-                        </Typography>
-                    </Box> */}
-
                                 <Box gap={1} display={"flex"} sx={{ marginTop: "1rem", alignItems: "center" }}>
                                     <input
                                         type="checkbox"
@@ -212,36 +177,6 @@ const CheckoutForm = ({ onNext, data, totalAmount, setTotalAmount, paymentData, 
                                         </Link>{" "}
                                     </Typography>
                                 </Box>
-                                {/* <Box sx={{ display: 'flex', alignItems: 'center', margin: '20px 0px' }}>
-                                    <TextField
-                                        label="Voucher Code"
-                                        value={voucherCode}
-                                        onChange={(e) => setVoucherCode(e.target.value)}
-                                        variant="outlined"
-                                        sx={{ flex: 1, borderRadius: '10px', backgroundColor: 'whitesmoke', '&:hover': { backgroundColor: 'white' } }}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <Button
-                                                    variant="contained"
-                                                    onClick={handleVoucherApply}
-                                                    sx={{
-                                                        borderTopLeftRadius: 0,
-                                                        borderBottomLeftRadius: 0,
-                                                        padding: '10px 50px',
-                                                        height: '100%',
-                                                        // textTransform: 'none'
-                                                    }}
-                                                >
-                                                    Apply
-                                                </Button>
-                                            ),
-                                            sx: { borderTopRightRadius: '10px', borderBottomRightRadius: '10px' }
-                                        }}
-                                    />
-                                </Box> */}
-                                {/* <Box sx={{ paddingTop: '20px' }}>
-                        <Typography sx={{ color: theme.palette.primary.main, textAlign: 'end', padding: '10px', cursor: 'pointer', fontWeight: 600, backgroundColor: '#f0f0f0', display: 'inline-block', borderRadius: '10px' }}>Apply Coupon</Typography>
-                    </Box> */}
 
                                 <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Typography variant="h6">

@@ -120,13 +120,13 @@ const WhatWeDo = () => {
         }}
       >
         <Box>
-          <Typography variant="h1" sx={{ fontSize: '2.2rem', fontWeight: '700' }}>
+          <Typography variant="h1" sx={{ fontSize: '1.5rem', fontWeight: '600' }}>
             What We Do
           </Typography>
-          <Typography variant="body1">
+          {/* <Typography variant="body1">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit unde hic dignissimos.
             Sit, libero natus!
-          </Typography>
+          </Typography> */}
         </Box>
 
         <Box gap={2} sx={{ marginTop: '1rem' }}>
